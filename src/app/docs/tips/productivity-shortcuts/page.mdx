@@ -1,0 +1,59 @@
+export const metadata = {
+  title: "Productivity Shortcuts",
+};
+
+# Productivity Shortcuts
+
+Quick tricks to speed up your workflow with AI tools.
+
+## Claude Code
+
+### Slash commands
+
+| Command    | Description                                                |
+| ---------- | ---------------------------------------------------------- |
+| `/help`    | Show available commands                                    |
+| `/clear`   | Clear conversation history                                 |
+| `/compact` | Summarize conversation to save context                     |
+| `/cost`    | Show token usage for the session                           |
+| `/export`  | Exports the current conversation to clipboard or text file |
+
+### Keyboard shortcuts
+
+- `Esc` — Cancel the current AI response
+- `Ctrl+C` — Exit Claude Code
+- `!command` — Run a shell command inline
+
+### Quick patterns
+
+**Fast file exploration:**
+
+```
+What does src/api/ do? List each file with a one-line summary.
+```
+
+**Quick fix:**
+
+```
+The CI is failing with: [paste error]. Fix it.
+```
+
+**Batch operations:**
+
+```
+Add TypeScript return types to all exported functions in src/lib/
+```
+
+## GitHub Copilot
+
+### Inline triggers
+
+- Type a comment describing what you want, then press Enter — Copilot generates the code
+- Start typing a function name and let Copilot complete the signature and body
+- Write a test name and Copilot generates the test body
+
+### Chat shortcuts
+
+- Select code, then `Ctrl+I` to get inline suggestions
+- `Ctrl+Shift+I` to open Copilot chat panel
+- Type `#file:path/to/file` in chat to reference a specific file

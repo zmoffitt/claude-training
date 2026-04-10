@@ -1,0 +1,61 @@
+export const metadata = {
+  title: 'CLAUDE.md Files',
+}
+
+# CLAUDE.md Files
+
+`CLAUDE.md` is a special file that provides persistent context to Claude Code. Place it in your project root to give Claude information about your codebase.
+
+## What to include
+
+```markdown
+# Project Name
+
+Brief description of what this project does.
+
+## Tech stack
+
+- Language: TypeScript
+- Framework: Next.js 15 (App Router)
+- Database: PostgreSQL with Prisma ORM
+- Testing: Vitest + Playwright
+
+## Build and test commands
+
+- `npm run dev` — Start development server
+- `npm run build` — Production build
+- `npm run test` — Run unit tests
+- `npm run test:e2e` — Run end-to-end tests
+- `npm run lint` — Lint and format check
+
+## Code conventions
+
+- Use named exports, not default exports
+- Prefer `interface` over `type` for object shapes
+- Error handling: use Result types, not try/catch
+- Tests go in `__tests__/` directories next to source files
+
+## Project structure
+
+- `src/app/` — Next.js routes
+- `src/lib/` — Shared utilities
+- `src/components/` — React components
+- `prisma/` — Database schema and migrations
+```
+
+## File locations
+
+Claude Code looks for `CLAUDE.md` in several places:
+
+| Location | Scope |
+|---|---|
+| Project root `CLAUDE.md` | Loaded for everyone working on the project |
+| `~/.claude/CLAUDE.md` | Your personal preferences across all projects |
+| Subdirectory `CLAUDE.md` | Loaded when working in that directory |
+
+## Tips
+
+- Keep it concise — Claude reads the whole file on every session
+- Focus on things that aren't obvious from the code itself
+- Include the exact commands to build, test, and lint
+- Document non-obvious conventions and decisions

@@ -1,0 +1,49 @@
+export const metadata = {
+  title: 'GitHub Copilot',
+}
+
+# GitHub Copilot
+
+GitHub Copilot provides AI-powered code suggestions directly in your editor.
+
+## Setup
+
+### VS Code
+
+1. Install the **GitHub Copilot** extension from the VS Code marketplace
+2. Sign in with your GitHub account
+3. Copilot will begin suggesting completions as you type
+
+### JetBrains
+
+1. Go to **Settings > Plugins > Marketplace**
+2. Search for and install **GitHub Copilot**
+3. Restart your IDE and sign in
+
+## Usage patterns
+
+### Inline completions
+
+Start typing and Copilot will suggest completions in gray text. Press `Tab` to accept, or `Esc` to dismiss.
+
+### Copilot Chat
+
+Open the chat panel to ask questions about your code:
+
+- Explain a function or block of code
+- Generate unit tests
+- Suggest refactoring approaches
+- Debug error messages
+
+### Slash commands in chat
+
+- `/explain` — Explain the selected code
+- `/tests` — Generate tests for the selected code
+- `/fix` — Suggest a fix for problems in the selected code
+- `/doc` — Generate documentation
+
+## Effective prompting
+
+- Write clear comments before code to guide suggestions
+- Provide function signatures and let Copilot fill in the implementation
+- Use descriptive variable and function names — Copilot uses them as context

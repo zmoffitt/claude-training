@@ -1,0 +1,42 @@
+export const metadata = {
+  title: 'Security Considerations',
+}
+
+# Security Considerations
+
+Guidelines for using AI coding tools safely and responsibly.
+
+## Data handling
+
+- **Never paste secrets** into AI prompts — no API keys, passwords, tokens, or certificates
+- **Be cautious with PII** — avoid sharing customer data, health records, or personal information
+- **Review generated code for secrets** — AI may generate placeholder credentials that look real
+
+## Code security
+
+### Review AI-generated code for common vulnerabilities
+
+- **SQL injection** — Ensure parameterized queries, not string concatenation
+- **XSS** — Verify proper output encoding in templates
+- **Authentication bypass** — Check that auth middleware is properly applied
+- **Path traversal** — Validate file paths against directory escapes
+- **Dependency risks** — Verify that suggested packages are well-maintained and legitimate
+
+### AI-specific risks
+
+- AI may suggest outdated library versions with known CVEs
+- Generated code may use deprecated APIs
+- AI may copy patterns from training data that include vulnerabilities
+- Suggested configurations may be overly permissive
+
+## Approved tools
+
+Use only approved AI coding tools with proper enterprise agreements in place. Check with your team lead if you're unsure whether a tool is approved for use.
+
+## Incident response
+
+If you accidentally share sensitive data with an AI tool:
+
+1. Rotate any exposed credentials immediately
+2. Report the incident following the standard security incident process
+3. Document what was shared and with which tool

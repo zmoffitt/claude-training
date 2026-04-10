@@ -1,0 +1,54 @@
+import {
+  PillarCards,
+  GlobeIcon,
+  LaptopIcon,
+  TerminalIcon,
+  PuzzleIcon,
+} from "@/components/PillarCards";
+
+export const metadata = {
+  title: "Your Claude, Everywhere",
+};
+
+# Your Claude, Everywhere
+
+<br />
+
+<PillarCards
+  cards={[
+    {
+      icon: <GlobeIcon />,
+      title: "claude.ai (Web/Mobile)",
+      description:
+        "Web, Desktop, Mobile, CLI — conversations sync across all devices.",
+      color: "#4FC3F7",
+      href: "https://claude.ai",
+    },
+    {
+      icon: <LaptopIcon />,
+      title: "Cowork (Desktop)",
+      description:
+        "Autonomous execution, files, scheduled tasks, dispatch from mobile.",
+      color: "#2DB843",
+      href: "https://claude.com/product/cowork",
+    },
+    {
+      icon: <TerminalIcon />,
+      title: "Claude Code (CLI)",
+      description:
+        "Software dev, plan mode, sub-agents. Activities visible in web UI.",
+      color: "#7B5EED",
+      href: "/docs/training/claude-code#installation",
+    },
+    {
+      icon: <PuzzleIcon />,
+      title: "IDE Extensions (VS Code)",
+      description:
+        "In-editor assistance, inline suggestions, contextual completions.",
+      color: "#d03ad0",
+      href: "https://claude.ai/downloads",
+    },
+  ]}
+  quote='"You can delegate the work, but not the accountability."'
+  quoteColor="#3B2D6B"
+/>

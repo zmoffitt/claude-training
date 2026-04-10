@@ -1,0 +1,26 @@
+export const metadata = {
+  title: 'Context Window & Tokens',
+}
+
+# Context Window & Tokens
+
+Understanding the economics of every conversation.
+
+## Context Window Sizes
+
+- **200K** tokens (default) — ~150K words
+- **1M** tokens with Opus (opt-in) — entire codebases in one window
+
+## Input vs. Output Tokens
+
+- **Input tokens** — what you send: prompts, files, conversation history, system instructions
+- **Output tokens** — what Claude generates: responses, code, analysis (costs ~5x more per token)
+
+## Context Compounding — Why Long Conversations Get Expensive
+
+- Every message re-sends the ENTIRE conversation history — Claude is stateless
+- Message 1 costs X tokens. Message 10 costs 10X+ because all prior context is included
+- Files, tool outputs, and previous responses all accumulate in the window
+- When context fills up, older content gets compressed or dropped — quality degrades
+
+> *Treat sessions like git commits: finish a task, start fresh. Don't carry yesterday's context into today's work.*

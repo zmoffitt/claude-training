@@ -1,0 +1,80 @@
+export const metadata = {
+  title: "Effective Prompts",
+};
+
+# Effective Prompts
+
+A collection of prompts that work well for common development tasks.
+
+## Database queries
+
+### Generate a migration
+
+> Create a Prisma migration that adds a `status` enum field to the `orders` table with values: pending, processing, completed, cancelled.
+> Default to 'pending'. Add an index on status.
+
+### Optimize a slow query
+
+> This query takes 3s on a table with 2M rows. Optimize it without changing
+> the return shape:
+>
+> [paste the query]
+
+`The table has indexes on: id, created_at, user_id`
+
+## Testing
+
+### Generate tests for existing code
+
+```
+
+Write unit tests for src/lib/validators.ts covering:
+
+- Valid inputs (happy path)
+- Empty/null inputs
+- Boundary values
+- Error messages match expected strings
+
+Use Vitest. Follow the patterns in src/lib/**tests**/utils.test.ts.
+
+```
+
+### Debug a flaky test
+
+```
+
+This test passes locally but fails intermittently in CI:
+
+[paste the test]
+
+Error: [paste the error]
+
+Identify the source of non-determinism and suggest a fix.
+
+```
+
+## Refactoring
+
+### Extract a shared component
+
+```
+
+The following pattern is duplicated in 3 files: [list files].
+Extract a shared component/utility that all three can use.
+Keep the public API unchanged for each caller.
+
+```
+
+### Migrate to a new API
+
+```
+
+We're replacing our use of [old-library] with [new-library].
+Migrate src/lib/email.ts to use the new API.
+Here are the new library's docs: [link or paste]
+
+```
+
+```
+
+```

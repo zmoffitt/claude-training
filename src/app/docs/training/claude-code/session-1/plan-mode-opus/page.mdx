@@ -1,0 +1,45 @@
+import { FeatureColumns } from "@/components/FeatureColumns";
+import { Callout } from "@/components/Callout";
+
+export const metadata = {
+  title: "Plan Mode & Opus",
+};
+
+# Plan Mode & Opus
+
+Think before building — the most important habit in this program.
+
+<FeatureColumns
+  columns={[
+    {
+      title: "Plan Mode",
+      subtitle: "Shift+Tab in Claude Code",
+      color: "#2DB843",
+      items: [
+        "Claude reads, analyzes, proposes an approach",
+        "No code written until you approve the plan",
+        "Review, ask questions, adjust, then execute",
+        "Use for complex tasks, risky changes, unfamiliar code",
+        "Skip for quick fixes and simple tasks",
+      ],
+    },
+    {
+      title: "Opus Plan Mode",
+      subtitle: "Best of both models",
+      color: "#7B5EED",
+      items: [
+        "Opus plans \u2014 deep reasoning for the approach",
+        "Sonnet executes \u2014 fast, cost-effective implementation",
+        "You get Opus-quality architecture decisions",
+        "At Sonnet-level speed and token cost",
+        "Automatically managed \u2014 just enable it",
+      ],
+    },
+  ]}
+/>
+
+<br />
+<Callout variant="info">
+  *Plan mode is the built-in example of human-in-the-loop: Claude proposes, you
+  approve, then Claude executes.*
+</Callout>

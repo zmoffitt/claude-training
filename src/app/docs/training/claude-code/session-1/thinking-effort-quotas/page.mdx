@@ -1,0 +1,45 @@
+import { EffortScale } from "@/components/EffortScale";
+import { Callout } from "@/components/Callout";
+
+export const metadata = {
+  title: "Thinking Effort & Quotas",
+};
+
+# Thinking Effort & Quotas
+
+The thinking effort slider controls how deeply Claude reasons before responding.
+
+<EffortScale
+  columns={[
+    {
+      arrow: "up",
+      title: "Go High",
+      color: "#4A90D9",
+      items: [
+        "Architecture decisions",
+        "Complex debugging",
+        "Security analysis & code review",
+        "Conditional Access policy design",
+        "Access review analysis",
+      ],
+    },
+    {
+      arrow: "down",
+      title: "Go Low",
+      color: "#2DB843",
+      items: [
+        "Boilerplate generation",
+        "Simple formatting or reformatting",
+        "Standard PowerShell cmdlets",
+        "Quick lookups and definitions",
+        "Reformatting text or data",
+      ],
+    },
+  ]}
+/>
+
+<br />
+<Callout variant="warning" title="Why does this matter?">
+  Higher thinking effort = more quota consumed. Be efficient with context to
+  stretch your usage.
+</Callout>

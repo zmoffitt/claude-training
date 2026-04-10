@@ -1,0 +1,52 @@
+export const metadata = {
+  title: 'Common Pitfalls',
+}
+
+# Common Pitfalls
+
+Mistakes to avoid when working with AI coding tools.
+
+## Trusting without verifying
+
+**The problem:** Accepting AI-generated code without reading it.
+
+**Why it happens:** AI output looks confident and often compiles. It's tempting to merge without a thorough review.
+
+**The fix:** Treat AI code like any other PR — read every line, run the tests, check edge cases.
+
+## Losing context in long sessions
+
+**The problem:** After many back-and-forth messages, the AI loses track of earlier decisions and starts contradicting itself.
+
+**The fix:**
+- Use `/compact` in Claude Code to summarize and free up context
+- Start a new session for unrelated tasks
+- Restate important constraints when switching topics
+
+## Over-engineering
+
+**The problem:** AI tends to add abstractions, error handling, and configurability beyond what's needed.
+
+**The fix:** Be explicit about scope:
+```
+Keep it simple. No need for error handling beyond what's already in the codebase.
+Only implement the exact feature described — no extras.
+```
+
+## Hallucinated APIs
+
+**The problem:** AI suggests library functions or APIs that don't exist.
+
+**The fix:** Always check that suggested packages exist and that the API matches the current version. Verify imports compile before committing.
+
+## Copy-pasting sensitive data
+
+**The problem:** Sharing production logs, customer data, or credentials in AI prompts.
+
+**The fix:** Sanitize data before sharing. Replace real values with placeholders. Never paste API keys or tokens.
+
+## Ignoring test failures
+
+**The problem:** AI fixes the code but breaks existing tests, then "fixes" the tests to match the broken behavior.
+
+**The fix:** Run the full test suite before and after changes. If a test needs updating, verify the behavioral change is intentional.

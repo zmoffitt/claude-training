@@ -1,0 +1,85 @@
+export const metadata = {
+  title: "Prompt Engineering",
+};
+
+# Prompt Engineering
+
+Writing effective prompts is the most important skill for getting good results from AI coding tools.
+
+## Core principles
+
+### Be specific
+
+Bad:
+
+```text
+Fix the bug
+```
+
+Good:
+
+```text
+Fix the TypeError in src/api/users.ts:42 where `user.email` is undefined
+when the OAuth provider doesn't return an email field
+```
+
+### Provide context
+
+Include relevant details the AI needs:
+
+- **What** you're trying to accomplish
+- **Where** in the codebase the change should happen
+- **Why** the current behavior is wrong
+- **How** you expect it to work after the fix
+
+### Break down complex tasks
+
+Instead of one large request, split into steps:
+
+1. First, analyze the existing authentication flow
+2. Then, propose changes to support SSO
+3. Finally, implement the changes
+
+## Prompt templates
+
+### Bug fix
+
+```text
+In [file], the [function/component] has a bug where [describe the problem].
+Expected behavior: [what should happen].
+Actual behavior: [what happens instead].
+Fix this while maintaining [any constraints].
+```
+
+### New feature
+
+```text
+Add [feature] to [component/module].
+It should [describe behavior].
+Follow the existing patterns in [reference file/module].
+```
+
+### Code review
+
+```text
+Review [file or diff] for:
+- Security issues
+- Performance concerns
+- Error handling gaps
+- Adherence to our coding standards
+```
+
+### Refactoring
+
+```text
+Refactor [function/class] to [goal].
+Keep the public API the same.
+Make sure all existing tests still pass.
+```
+
+## Anti-patterns to avoid
+
+- **Vague requests** — "Make this better" gives vague results
+- **Too many goals at once** — Focus on one thing at a time
+- **No acceptance criteria** — Always define what "done" looks like
+- **Ignoring context** — The AI can't read your mind; share what you know

@@ -1,0 +1,42 @@
+import { StackedFeatures } from "@/components/StackedFeatures";
+
+export const metadata = {
+  title: "Personalization & Memory",
+};
+
+# Personalization & Memory
+
+<StackedFeatures
+  features={[
+    {
+      title: "User Preferences",
+      description:
+        "Your coding style, tools, cloud platform, conventions. Applied to every conversation.",
+      badge: "Settings > General",
+      color: "#4FC3F7",
+      textColor: "#000000",
+    },
+    {
+      title: "Writing Style",
+      description:
+        "Choose or create styles for tone, formatting, verbosity. Switch per conversation.",
+      badge: "Chat style selector",
+      color: "#2DB843",
+      textColor: "#000000",
+    },
+    {
+      title: "Memory",
+      description:
+        "Claude learns facts across conversations automatically. View and edit anytime.",
+      badge: "Settings > Capabilities",
+      color: "#D03AD0",
+    },
+    {
+      title: "Projects",
+      description:
+        "Scoped workspace with custom instructions and reference documents. Context stays focused.",
+      badge: "Sidebar > Projects",
+      color: "#2D1B5E",
+    },
+  ]}
+/>

@@ -1,0 +1,50 @@
+export const metadata = {
+  title: "Editor Setup",
+};
+
+# Editor Setup
+
+Configure your IDE for the best experience with AI coding tools.
+
+## VS Code
+
+### Extensions
+
+| Extension | Purpose |
+| --- | --- |
+| GitHub Copilot | Inline code completions |
+| GitHub Copilot Chat | AI chat sidebar |
+| Claude Code (Anthropic) | Claude Code integration |
+
+### Recommended settings
+
+```json
+{
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true
+  }
+}
+```
+
+## JetBrains IDEs
+
+### Plugins
+
+1. Open **Settings > Plugins > Marketplace**
+2. Install **GitHub Copilot**
+3. Restart the IDE
+4. Sign in via **Tools > GitHub Copilot > Login**
+
+## Terminal (Claude Code)
+
+Claude Code runs in your terminal. No editor plugin needed for the CLI:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+claude
+```
+
+For VS Code integration, install the Claude Code extension which provides an embedded terminal panel.

@@ -1,0 +1,40 @@
+export const metadata = {
+  title: 'AI-Assisted Code Review',
+}
+
+# AI-Assisted Code Review
+
+Use AI tools to enhance your code review process without replacing human judgment.
+
+## When to use AI for review
+
+- **First-pass review** — Let AI catch common issues before a human reviewer looks at the PR
+- **Large diffs** — AI can help summarize changes and flag areas of concern
+- **Unfamiliar code** — Get AI explanations for code in areas you don't work in regularly
+
+## Review checklist
+
+When reviewing AI-generated code, always check:
+
+- Logic correctness — does it actually solve the problem?
+- Edge cases — are error states and boundary conditions handled?
+- Security — no injection vulnerabilities, secrets exposure, or auth bypass
+- Tests — are new or changed behaviors covered by tests?
+- Performance — no unnecessary loops, allocations, or N+1 queries
+- Style — does it match existing patterns in the codebase?
+
+## What AI review catches well
+
+- Syntax errors and typos
+- Missing null checks
+- Unused imports and variables
+- Common security patterns (SQL injection, XSS)
+- Documentation gaps
+
+## What still needs human review
+
+- Business logic correctness
+- Architectural decisions
+- UX implications
+- Cross-team impact
+- Compliance and regulatory requirements

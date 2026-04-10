@@ -1,0 +1,56 @@
+import { ModelTierCards } from "@/components/ModelTierCards";
+import { Callout } from "@/components/Callout";
+
+export const metadata = {
+  title: "Choosing the Right Model",
+};
+
+# Choosing the Right Model
+
+Match the model to the task — the biggest lever for managing token consumption.
+
+<ModelTierCards
+  tiers={[
+    {
+      title: "Opus",
+      subtitle: "Deepest reasoning \u2022 Highest cost",
+      color: "#4FC3F7",
+      items: [
+        "Architecture & design decisions",
+        "Complex debugging across systems",
+        "Security analysis & CA policy review",
+        "Multi-step reasoning & planning",
+      ],
+    },
+    {
+      title: "Sonnet",
+      subtitle: "Everyday workhorse \u2022 Best balance",
+      color: "#7B5EED",
+      items: [
+        "Script writing & code generation",
+        "Log analysis & troubleshooting",
+        "Drafting runbooks & documentation",
+        "Most day-to-day DevOps & IAM tasks",
+      ],
+    },
+    {
+      title: "Haiku",
+      subtitle: "Fast & lightweight \u2022 Lowest cost",
+      color: "#2DB843",
+      items: [
+        "Quick lookups & definitions",
+        "Boilerplate & template generation",
+        "Simple reformatting & conversion",
+        "Summarizing short documents",
+      ],
+    },
+  ]}
+/>
+
+<br />
+<Callout variant="info" title="Rule of thumb:">
+  Start with Sonnet. Escalate to Opus when the task requires deep reasoning or
+  you're not getting good results. Drop to Haiku for quick, simple tasks. In
+  Claude Code, use **Opus plan mode** — Opus plans the approach, Sonnet executes
+  it — best of both at lower cost.
+</Callout>

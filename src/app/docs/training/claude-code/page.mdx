@@ -1,0 +1,90 @@
+export const metadata = {
+  title: "Claude Code",
+};
+
+# Claude Code
+
+Claude Code is Anthropic's CLI tool for AI-assisted development. It runs in your terminal and can read, write, and reason about your entire codebase.
+
+Use this guide to set up Claude Code and start using it to supercharge your development workflow.
+
+---
+
+## Installation
+
+### macOS, Linux, or Windows Subsystem for Linux (WSL)
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+### Windows (PowerShell)
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+### Windows CMD
+
+```cmd
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+
+### First run
+
+Navigate to your project directory and launch Claude Code:
+
+```bash
+> cd your-project
+> claude
+> claude /init ### This command initializes Claude's understanding of your
+               ### project and may take a few minutes on the first run
+```
+
+Claude will analyze your project structure and be ready to assist.
+
+---
+
+## Key features
+
+- **Full codebase awareness** — reads and understands your entire project
+- **Multi-file editing** — makes coordinated changes across files
+- **Terminal access** — runs commands, tests, and builds
+- **Git integration** — commits, creates PRs, and manages branches
+- **IDE extensions** — available for VS Code and JetBrains
+
+---
+
+## Common workflows
+
+### Bug fixing
+
+Describe the bug and let Claude investigate:
+
+```text
+Fix the 500 error that occurs when users submit the login form with an empty email
+```
+
+### Code generation
+
+Ask Claude to implement features:
+
+```text
+Add a rate limiter middleware that limits API requests to 100 per minute per user
+```
+
+### Code review
+
+Ask Claude to review changes:
+
+```text
+Review the changes in this branch and flag any issues
+```
+
+---
+
+## Tips
+
+- Be specific about what you want — include file paths, function names, and expected behavior
+- Use `CLAUDE.md` files in your repo to give Claude persistent context about your project
+- Start broad, then refine — let Claude propose an approach before diving into details

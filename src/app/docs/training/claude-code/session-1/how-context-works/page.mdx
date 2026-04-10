@@ -1,0 +1,31 @@
+import { Callout } from "@/components/Callout";
+
+export const metadata = {
+  title: "How Context Works",
+};
+
+# How Context Works
+
+<br />
+<Callout variant="info" title="Quick Context Refresher" align="left">
+  **Everything Claude knows about your task must fit in one context window.**
+  There is no hidden memory between messages within a conversation — the window
+  is all there is.
+</Callout>
+
+## What counts as context
+
+| Source                  | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| **Your messages**       | Every prompt you've sent in this conversation |
+| **Claude's responses**  | All previous outputs in the thread            |
+| **Uploaded files**      | Documents, configs, logs you've attached      |
+| **Tool outputs**        | Results from web search, plugins, connectors  |
+| **System instructions** | Preferences, memory, project context          |
+
+## Key Takeaway
+
+<Callout variant="warning" title="Keep it Fresh" align="left">
+  Long conversations degrade quality. When things get muddled, start a fresh
+  conversation.
+</Callout>
