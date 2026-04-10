@@ -12,6 +12,7 @@ const withMDX = nextMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/claude-training',
   images: { unoptimized: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   transpilePackages: ['next-themes'],
