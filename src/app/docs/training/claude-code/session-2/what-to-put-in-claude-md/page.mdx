@@ -1,0 +1,69 @@
+import { Callout } from "@/components/Callout";
+import {
+  ProConCards,
+  CheckCircleFilledIcon,
+  WarningTriangleIcon,
+} from "@/components/ProConCards";
+
+import { ReadTime } from "@/components/ReadTime";
+export const metadata = {
+  title: "What to Put in CLAUDE.md",
+};
+
+# What to Put in CLAUDE.md
+
+<ReadTime minutes={2} />
+
+Start with five conventions — expand as patterns emerge.
+
+<ProConCards
+  cards={[
+    {
+      icon: <CheckCircleFilledIcon />,
+      title: 'Include',
+      items: [
+        'Coding conventions and style rules',
+        'Architecture patterns and directory structure',
+        'Build and test commands',
+        'Preferred tools, SDKs, and frameworks',
+        'Common pitfalls specific to this project',
+      ],
+      color: '#0FAC27',
+      bulletColor: '#005C00',
+      bgLight: '#E5F5E5',
+      bgDark: 'rgba(34,197,94,0.15)',
+    },
+    {
+      icon: <WarningTriangleIcon />,
+      title: "Forbid",
+      items: [
+        'Never modify production configs directly',
+        'Never commit secrets or credentials',
+        'Never skip tests before committing',
+        'Never hardcode tenant IDs or client secrets',
+        'Never make breaking changes without plan mode'
+      ],
+      color: '#CD000A',
+      bulletColor: '#FF485D',
+      bgLight: 'rgba(255, 76, 76, 0.15)',
+      bgDark: 'rgba(255, 76, 76, 0.25)'
+    },
+  ]}
+/>
+
+<br />
+
+<Callout
+  variant="info"
+  title="CLAUDE.md is living documentation"
+  align="left"
+>
+  When Claude makes a mistake that a convention would have prevented, **add that
+  convention**. Encode the lesson so it doesn't repeat. Treat your CLAUDE.md the
+  same way you treat a runbook — every postmortem updates it.
+</Callout>
+
+## Where to go next
+
+- **[CLAUDE.md Examples](/docs/training/claude-code/session-2/claude-md-examples)** — DevOps and IAM worked examples
+- **[The .claude/ Directory](/docs/training/claude-code/session-2/dot-claude-directory)** — repo-root vs. `.claude/` layout, what goes where

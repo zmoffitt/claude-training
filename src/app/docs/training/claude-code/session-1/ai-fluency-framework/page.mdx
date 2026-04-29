@@ -1,4 +1,5 @@
 import { PillarCards, LightbulbIcon, TargetIcon, BuildingIcon, CheckCircleIcon } from '@/components/PillarCards'
+import { ReadTime } from "@/components/ReadTime";
 
 export const metadata = {
   title: 'AI Fluency Framework',
@@ -6,15 +7,22 @@ export const metadata = {
 
 # AI Fluency Framework
 
+<ReadTime minutes={2} />
+
 Four pillars we develop across all five sessions.
 
 <PillarCards
   cards={[
-    { icon: <LightbulbIcon />, title: 'Mindset', description: 'Willingness to experiment, iterate, and treat AI as a thought partner', color: '#4FC3F7' },
-    { icon: <TargetIcon />, title: 'Strategy', description: 'Knowing when and where to apply AI for maximum leverage', color: '#2DB843' },
-    { icon: <BuildingIcon />, title: 'Building', description: 'Moving beyond one-off prompts to repeatable, embedded systems', color: '#7B5EED' },
-    { icon: <CheckCircleIcon />, title: 'Accountability', description: 'Owning outputs, validating results, catching errors before they ship', color: '#3B2D6B' },
+    { icon: <LightbulbIcon />, title: 'Mindset', description: 'Willingness to experiment, iterate, and treat AI as a thought partner', color: '#00B5E2' },
+    { icon: <TargetIcon />, title: 'Strategy', description: 'Knowing when and where to apply AI for maximum leverage', color: '#0FAC27' },
+    { icon: <BuildingIcon />, title: 'Building', description: 'Moving beyond one-off prompts to repeatable, embedded systems', color: '#6B5CF5' },
+    { icon: <CheckCircleIcon />, title: 'Accountability', description: 'Owning outputs, validating results, catching errors before they ship', color: '#351F65' },
   ]}
   quote='"You can delegate the work, but not the accountability."'
-  quoteColor="#3B2D6B"
+  quoteColor="#351F65"
 />
+
+## Where to go next
+
+- **[Slope Over Snapshot](/docs/training/claude-code/session-1/slope-over-snapshot)** — what we actually measure across the program
+- **[Three Eras](/docs/training/claude-code/session-1/three-eras)** — how we got from autocomplete to agents

@@ -1,0 +1,40 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Built-in Connectors",
+};
+
+# Built-in Connectors
+
+<ReadTime minutes={2} />
+
+## Available connectors
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Connector | Surfaces | What it unlocks |
+| --- | --- | --- |
+| <span style={{color: "light-dark(#0e7490, #00B5E2)", fontWeight: 700}}>Google Workspace</span> | Drive, Gmail, Calendar | Search docs, draft mail, find availability without leaving Claude |
+| <span style={{color: "light-dark(#5024d2, #A892FB)", fontWeight: 700}}>Microsoft 365</span> | Outlook, SharePoint, Teams | Search mail, find files, query Teams chat history with auth |
+| <span style={{color: "light-dark(#15803d, #22c55e)", fontWeight: 700}}>GitHub</span> | Repos, Issues, PRs | Browse code, manage issues, review pull requests inline |
+| <span style={{color: "light-dark(#9d0090, #e879f9)", fontWeight: 700}}>Slack</span> | Channels, DMs | Search history, summarize threads, post updates with consent |
+
+</div>
+
+## How to enable
+
+Settings → Connectors → pick provider → OAuth flow in your browser → scope the permissions you grant. Revoke any time from the same panel or the provider's admin console.
+
+<br />
+
+<Callout variant="warning" title="Mind the scope" align="left">
+  Connectors run with **your** identity. Anything Claude reads through them
+  follows your existing permissions — no more, no less. Privileged accounts
+  should connect from a least-privileged Claude session.
+</Callout>
+
+## Where to go next
+
+- **[Cloud Routines](/docs/training/claude-code/session-3/cloud-routines)** — put a connector on a schedule
+- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege, data flows, IAM red lines

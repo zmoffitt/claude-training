@@ -1,15 +1,15 @@
 # Cloud AI Training
 
-A documentation site for the Platform Engineering team's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools including Claude, Codex, and other AI-assisted development platforms.
+A documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools including Claude, Codex, and other AI-assisted development platforms.
 
 ## Purpose
 
 This repo serves as the single source of truth for:
 
-- **Training materials** — Guides, walkthroughs, and session notes from team trainings
+- **Training materials** — Guides, walkthroughs, and notes from training sessions
 - **Best practices** — Proven patterns and workflows for using AI coding tools effectively
 - **Configuration references** — Shared configs, prompts, and tool settings
-- **Tips and tricks** — Team-contributed knowledge for getting the most out of AI assistants
+- **Tips and tricks** — Hands-on knowledge for getting the most out of AI assistants
 
 ## Tech Stack
 
@@ -30,8 +30,8 @@ This repo serves as the single source of truth for:
 
 ```bash
 # Clone the repo
-git clone git@github.com:Teladoc/cloud-ai-training.git
-cd cloud-ai-training
+git clone git@github.com:zmoffitt/claude-training.git
+cd claude-training
 
 # Install dependencies
 pnpm install
@@ -59,7 +59,8 @@ src/
 ├── app/
 │   ├── docs/          # MDX documentation pages (file-based routing)
 │   ├── layout.tsx     # Root layout
-│   └── page.tsx       # Home page
+│   ├── page.mdx       # Home page
+│   └── not-found.tsx  # 404 page
 ├── components/        # React components (Navigation, CodeBlock, etc.)
 ├── lib/               # Utilities and hooks
 └── styles/            # Tailwind CSS and theme config
@@ -72,23 +73,14 @@ src/
 
 MDX pages support GitHub Flavored Markdown (tables, strikethrough, task lists) and auto-generate heading anchor IDs.
 
-## Contributing
+### Page conventions
 
-All Platform Engineering team members are encouraged to contribute.
+Content pages follow `# H1 → <ReadTime minutes={N} /> → one-line tagline → body → ## Where to go next`. Reuse:
 
-### Workflow
+- `<Callout>` — one per page, reserved for the single most important call-out
+- `<ReadTime minutes={N} />` — chip under the H1 on every content page
+- `<PillarCards />` / `<ProConCards />` — card-grid visualizations that stack responsively
+- `<HeroPattern />` / `<TrainingRoadmap />` / `<SessionOutline />` — session landing-page primitives
 
-1. **Create a branch** from `main`:
-   ```bash
-   git checkout -b your-name/short-description
-   ```
-2. **Make your changes** — add training notes, docs pages, configuration examples, or any resources that help the team level up with AI tools.
-3. **Test locally** — run `pnpm dev` and verify your changes look correct.
-4. **Build check** — run `pnpm build` to make sure the static export succeeds.
-5. **Commit and push**:
-   ```bash
-   git add <files>
-   git commit -m "Brief description of changes"
-   git push -u origin your-name/short-description
-   ```
-6. **Open a Pull Request** against `main` on [GitHub](https://github.com/Teladoc/cloud-ai-training/pulls) and request a review from a teammate.
+See `CLAUDE.md` for the full component inventory and design conventions.
+

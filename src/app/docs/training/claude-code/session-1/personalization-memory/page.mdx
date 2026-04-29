@@ -1,10 +1,13 @@
 import { StackedFeatures } from "@/components/StackedFeatures";
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Personalization & Memory",
 };
 
 # Personalization & Memory
+
+<ReadTime minutes={2} />
 
 <StackedFeatures
   features={[
@@ -13,16 +16,14 @@ export const metadata = {
       description:
         "Your coding style, tools, cloud platform, conventions. Applied to every conversation.",
       badge: "Settings > General",
-      color: "#4FC3F7",
-      textColor: "#000000",
+      color: "#00B5E2",
     },
     {
       title: "Writing Style",
       description:
         "Choose or create styles for tone, formatting, verbosity. Switch per conversation.",
       badge: "Chat style selector",
-      color: "#2DB843",
-      textColor: "#000000",
+      color: "#0FAC27",
     },
     {
       title: "Memory",
@@ -36,7 +37,12 @@ export const metadata = {
       description:
         "Scoped workspace with custom instructions and reference documents. Context stays focused.",
       badge: "Sidebar > Projects",
-      color: "#2D1B5E",
+      color: "#351F65",
     },
   ]}
 />
+
+## Where to go next
+
+- **[Projects: Scoped Context](/docs/training/claude-code/session-1/projects-scoped-context)** — pin reference docs per work area
+- **[Hands-On Exercise](/docs/training/claude-code/session-1/hands-on-exercise)** — try it on a real task

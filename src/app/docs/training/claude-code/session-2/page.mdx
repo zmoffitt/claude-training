@@ -1,0 +1,68 @@
+import { HeroPattern } from "@/components/HeroPattern";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+import { Callout } from "@/components/Callout";
+import { SessionOutline } from "@/components/SessionOutline";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "CLI Workflows & Project Context",
+};
+
+<HeroPattern />
+
+# CLI Workflows & Project Context
+
+<ReadTime minutes={1} />
+
+Session 2 of the Claude AI Training Program — moving from manual task execution toward autonomous workflows with guardrails.
+
+## What this session covers
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-2/your-claude-three-ways",
+      title: "Your Claude, Three Ways",
+      description: "Desktop, raw CLI, and Claude Code on the Web",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/permissions-deep-dive",
+      title: "Permissions Deep Dive",
+      description: "Three-tier risk model, rule syntax, precedence",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/context-session-management",
+      title: "Context & Session Management",
+      description: "1M context, context rot, branching points",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/claude-md",
+      title: "CLAUDE.md",
+      description: "Inheritance, content, examples, the .claude/ directory",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/hooks-lifecycle-control",
+      title: "Hooks: Lifecycle & Control",
+      description: "Deterministic automation at every stage of a session",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/skills-plugins",
+      title: "Skills, Plugins & Connectors",
+      description: "Per-project capabilities, subagents, and agent teams",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/live-demo-full-loop",
+      title: "Live Demo: The Full Loop",
+      description: "From zero context to convention-aware execution",
+    },
+    {
+      href: "/docs/training/claude-code/session-2/practice-assignment",
+      title: "Practice Assignment",
+      description: "Practice for the week ahead",
+    },
+  ]}
+/>
+
+---
+
+<TrainingRoadmap activeStep={2} />

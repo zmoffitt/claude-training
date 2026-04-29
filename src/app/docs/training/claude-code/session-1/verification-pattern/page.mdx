@@ -1,31 +1,40 @@
+import { ReadTime } from "@/components/ReadTime";
+
 export const metadata = {
   title: "The Verification Pattern",
 };
 
 # The Verification Pattern
 
+<ReadTime minutes={2} />
+
 Ask Claude to self-check — the single biggest quality improvement you can make.
 
-### Create then review
+## Create then review
 
 ```text
 "...then review it for accuracy and completeness before saving"
 ```
 
-### Create then test
+## Create then test
 
 ```text
 ...then spot-check 5 random rows against the source data"
 ```
 
-### Create then compare
+## Create then compare
 
 ```text
 > _"...then compare it against the original to make sure nothing was missed"_
 ```
 
-### Multi-step checkpoint
+## Multi-step checkpoint
 
 ```text
 > _"After each section, pause and verify before moving on"_
 ```
+
+## Where to go next
+
+- **[Practice Assignment](/docs/training/claude-code/session-1/practice-assignment)** — apply this on real work before Session 2
+- **[Hands-On Exercise](/docs/training/claude-code/session-1/hands-on-exercise)** — back to the exercise to try this pattern live

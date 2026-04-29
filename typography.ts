@@ -45,7 +45,7 @@ export default {
 
           // Base
           color: 'var(--tw-prose-body)',
-          fontSize: theme('fontSize.sm')[0],
+          fontSize: theme('fontSize.base')[0],
           lineHeight: theme('lineHeight.7'),
 
           // Text
@@ -113,9 +113,6 @@ export default {
             borderTopWidth: 1,
             marginTop: theme('spacing.16'),
             marginBottom: theme('spacing.16'),
-            maxWidth: 'none',
-            marginLeft: `calc(-1 * ${theme('spacing.4')})`,
-            marginRight: `calc(-1 * ${theme('spacing.4')})`,
           },
 
           // Quotes

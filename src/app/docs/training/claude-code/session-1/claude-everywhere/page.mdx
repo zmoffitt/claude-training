@@ -6,11 +6,14 @@ import {
   PuzzleIcon,
 } from "@/components/PillarCards";
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Your Claude, Everywhere",
 };
 
 # Your Claude, Everywhere
+
+<ReadTime minutes={2} />
 
 <br />
 
@@ -21,7 +24,7 @@ export const metadata = {
       title: "claude.ai (Web/Mobile)",
       description:
         "Web, Desktop, Mobile, CLI — conversations sync across all devices.",
-      color: "#4FC3F7",
+      color: "#00B5E2",
       href: "https://claude.ai",
     },
     {
@@ -29,7 +32,7 @@ export const metadata = {
       title: "Cowork (Desktop)",
       description:
         "Autonomous execution, files, scheduled tasks, dispatch from mobile.",
-      color: "#2DB843",
+      color: "#0FAC27",
       href: "https://claude.com/product/cowork",
     },
     {
@@ -37,7 +40,7 @@ export const metadata = {
       title: "Claude Code (CLI)",
       description:
         "Software dev, plan mode, sub-agents. Activities visible in web UI.",
-      color: "#7B5EED",
+      color: "#6B5CF5",
       href: "/docs/training/claude-code#installation",
     },
     {
@@ -50,5 +53,10 @@ export const metadata = {
     },
   ]}
   quote='"You can delegate the work, but not the accountability."'
-  quoteColor="#3B2D6B"
+  quoteColor="#351F65"
 />
+
+## Where to go next
+
+- **[How Context Works](/docs/training/claude-code/session-1/how-context-works)** — why long sessions decay
+- **[Context Window & Tokens](/docs/training/claude-code/session-1/context-window-tokens)** — the math behind context cost

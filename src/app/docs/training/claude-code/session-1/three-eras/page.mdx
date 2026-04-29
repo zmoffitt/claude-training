@@ -1,11 +1,14 @@
 import { ComparisonCards } from "@/components/ComparisonCards";
 import { Callout } from "@/components/Callout";
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Three Eras of Development",
 };
 
 # Three Eras of Development
+
+<ReadTime minutes={2} />
 
 <br />
 
@@ -25,8 +28,8 @@ export const metadata = {
       title: "Human IN the Loop",
       subtitle: "AI in your IDE",
       badge: "1\u20133 days",
-      badgeColor: "#4FC3F7",
-      color: "#4FC3F7",
+      badgeColor: "#00B5E2",
+      color: "#00B5E2",
       steps:
         "Open IDE \u2192 Ask Copilot \u2192 Review \u2192 Ask AI for tests \u2192 Debug manually \u2192 PR \u2192 Merge",
       takeaway: "AI does the typing. You do everything else.",
@@ -35,8 +38,8 @@ export const metadata = {
       title: "Human ON the Loop",
       subtitle: "Describe goal, review output",
       badge: "30\u201360 min",
-      badgeColor: "#2DB843",
-      color: "#2DB843",
+      badgeColor: "#0FAC27",
+      color: "#0FAC27",
       steps:
         "Write task \u2192 Agent plans \u2192 Agent implements \u2192 Agent tests \u2192 Agent creates PR \u2192 You review \u2192 Merge",
       takeaway: "AI does everything. You define the goal and approve.",
@@ -44,9 +47,13 @@ export const metadata = {
   ]}
 />
 
----
-
-<Callout variant="error" title="Day-one rule" align="center">
+<br />
+<Callout variant="error" title="Day-one rule" align="left">
   **Never paste passwords, API keys, client secrets, or unmasked PII into any
   Claude interface. We'll cover data handling in depth in Session 5.**
 </Callout>
+
+## Where to go next
+
+- **[What Claude Is (and Isn't)](/docs/training/claude-code/session-1/what-claude-is)** — capabilities, and the honest limits
+- **[Claude Everywhere](/docs/training/claude-code/session-1/claude-everywhere)** — the surfaces you'll use day-to-day

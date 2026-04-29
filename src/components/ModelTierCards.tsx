@@ -1,7 +1,4 @@
-'use client'
-
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars, wcagText } from '@/lib/theme-colors'
 
 interface ModelTier {
   title: string
@@ -15,11 +12,8 @@ export function ModelTierCards({
 }: {
   tiers: Array<ModelTier>
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
-
   return (
-    <div style={{ maxWidth: 'none' }}>
+    <div>
       <div
         style={{
           display: 'grid',
@@ -34,7 +28,7 @@ export function ModelTierCards({
             style={{
               borderTop: `5px solid ${tier.color}`,
               borderRadius: '0.5rem',
-              backgroundColor: t.cardBg,
+              backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
@@ -46,7 +40,7 @@ export function ModelTierCards({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: tier.color,
+                color: wcagText(tier.color),
                 textAlign: 'center',
               }}
             >
@@ -56,7 +50,7 @@ export function ModelTierCards({
               style={{
                 fontSize: '0.8125rem',
                 margin: '0 0 0.75rem',
-                color: t.textSubtle,
+                color: themeVars.textSubtle,
                 textAlign: 'center',
               }}
             >
@@ -81,7 +75,7 @@ export function ModelTierCards({
                     gap: '0.75rem',
                     fontSize: '0.9375rem',
                     lineHeight: 1.5,
-                    color: t.text,
+                    color: themeVars.text,
                   }}
                 >
                   <span

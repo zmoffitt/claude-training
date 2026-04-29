@@ -1,0 +1,93 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "MCP Architecture",
+};
+
+# MCP Architecture
+
+<ReadTime minutes={3} />
+
+A protocol — not a product. Open standard, any client, any server.
+
+Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC, running over stdio (local) or HTTP/SSE (remote). The server brokers calls to an external system (Microsoft Graph, GitHub, Kubernetes, a database) and returns results. You stay in the loop, approving or denying each tool call.
+
+<svg
+  viewBox="0 0 440 280"
+  role="img"
+  aria-labelledby="mcp-arch-title mcp-arch-desc"
+  className="w-full max-w-2xl lg:max-w-3xl mr-auto"
+  style={{ height: "auto", display: "block", marginBlock: "1.5rem" }}
+>
+  <title id="mcp-arch-title">Model Context Protocol architecture</title>
+  <desc id="mcp-arch-desc">
+    Claude (the MCP client, on the left) sends a tool call to an MCP server (on
+    the right) over JSON-RPC, transported via stdio for local servers or
+    HTTP/SSE for remote servers. The MCP server brokers the request to an
+    external system such as Microsoft Graph, GitHub, Kubernetes, or a database,
+    and returns the result back to Claude. The user approves or denies each
+    tool call before it executes.
+  </desc>
+  <defs>
+    <marker id="arr-call" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="light-dark(#15803d, #22c55e)" />
+    </marker>
+    <marker id="arr-result" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="light-dark(#0e7490, #00B5E2)" />
+    </marker>
+  </defs>
+
+  <text x="215" y="22" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="light-dark(#2E2E3A, #ffffff)">Model Context Protocol</text>
+  <text x="215" y="40" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="light-dark(#5A5A6E, #aaa)">JSON-RPC over stdio or HTTP/SSE</text>
+  <line x1="80" y1="54" x2="350" y2="54" stroke="light-dark(#dcdce6, #444)" strokeWidth="1" />
+
+  <rect x="20" y="100" width="140" height="84" rx="12" fill="light-dark(#6240e8, #6240e8)" />
+  <text x="90" y="138" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="15" fontWeight={700} fill="#fff">Claude</text>
+  <text x="90" y="158" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="rgba(255,255,255,0.85)">MCP client</text>
+
+  <line x1="165" y1="132" x2="245" y2="132" stroke="light-dark(#15803d, #22c55e)" strokeWidth="2.5" markerEnd="url(#arr-call)" />
+  <line x1="245" y1="152" x2="165" y2="152" stroke="light-dark(#0e7490, #00B5E2)" strokeWidth="2.5" markerEnd="url(#arr-result)" />
+  <text x="205" y="124" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="light-dark(#15803d, #22c55e)">tool call</text>
+  <text x="205" y="170" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="light-dark(#0e7490, #00B5E2)">result</text>
+
+  <rect x="250" y="100" width="160" height="84" rx="12" fill="light-dark(#F0EBFA, #2a1f4a)" stroke="light-dark(#6240e8, #A892FB)" strokeWidth="2" />
+  <text x="330" y="130" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="light-dark(#6240e8, #A892FB)">MCP Server</text>
+  <text x="330" y="148" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">exposes tools</text>
+  <text x="330" y="162" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">+ resources</text>
+
+  <line x1="330" y1="190" x2="330" y2="222" stroke="light-dark(#727286, #888)" strokeWidth="1.5" strokeDasharray="3 3" />
+  <rect x="240" y="222" width="180" height="48" rx="8" fill="light-dark(#fff, #1e1e2e)" stroke="light-dark(#727286, #888)" strokeWidth="1.5" />
+  <text x="330" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="light-dark(#2E2E3A, #fff)">External System</text>
+  <text x="330" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">Graph · GitHub · K8s · DB</text>
+
+  <line x1="90" y1="190" x2="90" y2="222" stroke="light-dark(#727286, #888)" strokeWidth="1.5" strokeDasharray="3 3" />
+  <rect x="20" y="222" width="140" height="48" rx="8" fill="light-dark(#fff, #1e1e2e)" stroke="light-dark(#727286, #888)" strokeWidth="1.5" />
+  <text x="90" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="light-dark(#2E2E3A, #fff)">You</text>
+  <text x="90" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">approve / deny</text>
+</svg>
+
+## Three primitives
+
+- **Tools** — functions Claude can call (`create_ticket`, `list_users`)
+- **Resources** — data Claude can read (logs, dashboards, docs)
+- **Prompts** — pre-built prompt templates the server offers
+
+## Local vs. remote
+
+- **Remote-first (HTTP/SSE)** reaches web, mobile, and managed agents
+- **Local (stdio)** is the developer-loop case: quick to iterate, single user
+
+The same protocol works in Claude Desktop, Claude Code CLI, and the web — write a server once, use it everywhere.
+
+<br />
+
+<Callout variant="success" title="Open standard, exploding adoption" align="left">
+  MCP SDK downloads grew from **100M to 300M per month** over the past year.
+  Servers you build work with any compliant client: current Claude, future
+  Claude, third-party agents in your stack.
+</Callout>
+
+## Where to go next
+
+- **[Built-in Connectors](/docs/training/claude-code/session-3/built-in-connectors)** — curated MCP servers Anthropic ships and maintains

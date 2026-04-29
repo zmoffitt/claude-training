@@ -1,0 +1,36 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Tool Priority Ladder",
+};
+
+# The Tool Priority Ladder
+
+<ReadTime minutes={3} />
+
+Four ways Claude can reach a system — start with what's approved and available today, then move up the ladder as needs grow.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Rank | Approach | When to use |
+| --- | --- | --- |
+| 1 | **Service CLI — delegated auth via Bash** (`gh`, `az`, `mg-graph`, `kubectl`, `terraform`) | Default today. Already authenticated as you: SSO, MFA, conditional access all inherited. No server to stand up, no separate approval. |
+| 2 | **MCP Connector — typed protocol** | Where approved. Built-in connectors (M365, GitHub) Anthropic ships and maintains. Typed tools beat text parsing; **tool search** cuts tool-definition tokens ~85%. |
+| 3 | **Browser — web UI automation** | Fallback. Chrome extension (your live session) or DevTools MCP (clean browser for debugging). Use when no API/CLI exists. Slower, more tokens, more brittle — but unblocks legacy SaaS and admin portals. |
+| 4 | **Computer Use — full desktop control** | Last resort. Claude drives mouse and keyboard at the OS level. Most powerful, most fragile. Reserve for legacy desktop apps with no other surface. |
+
+</div>
+
+<br />
+
+<Callout variant="info" title="Why CLI-first for us" align="left">
+  Corp-managed machines already have `gh`, `az`, and `mg-graph` with SSO —
+  zero new auth surface, zero approval cycle. Move up the ladder as approved
+  MCP connectors and routines mature.
+</Callout>
+
+## Where to go next
+
+- **[Two Ways to Drive Chrome](/docs/training/claude-code/session-3/two-ways-to-drive-chrome)** — Claude Chrome Extension vs. Chrome DevTools MCP
+- **[MCP Architecture](/docs/training/claude-code/session-3/mcp-architecture)** — the protocol that powers connectors and routines

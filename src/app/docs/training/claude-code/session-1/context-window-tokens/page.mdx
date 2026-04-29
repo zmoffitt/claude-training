@@ -1,8 +1,12 @@
+import { ReadTime } from "@/components/ReadTime";
+
 export const metadata = {
   title: 'Context Window & Tokens',
 }
 
 # Context Window & Tokens
+
+<ReadTime minutes={2} />
 
 Understanding the economics of every conversation.
 
@@ -18,9 +22,14 @@ Understanding the economics of every conversation.
 
 ## Context Compounding — Why Long Conversations Get Expensive
 
-- Every message re-sends the ENTIRE conversation history — Claude is stateless
+- Every message re-sends the ENTIRE conversation history: Claude is stateless
 - Message 1 costs X tokens. Message 10 costs 10X+ because all prior context is included
 - Files, tool outputs, and previous responses all accumulate in the window
 - When context fills up, older content gets compressed or dropped — quality degrades
 
 > *Treat sessions like git commits: finish a task, start fresh. Don't carry yesterday's context into today's work.*
+
+## Where to go next
+
+- **[Thinking Effort, Models, & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas)** — match model and depth to the task
+- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Sonnet by default, escalate when you need to

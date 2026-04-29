@@ -1,18 +1,13 @@
-'use client'
-
 import clsx from 'clsx'
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars } from '@/lib/theme-colors'
 
 type CalloutVariant = 'error' | 'warning' | 'info' | 'success'
 type CalloutAlign = 'left' | 'center' | 'right'
 
-const variants: Record<CalloutVariant, { color: string; darkColor: string; bg: string; darkBg: string; icon: React.ReactNode }> = {
+const variants: Record<CalloutVariant, { fg: string; bg: string; icon: React.ReactNode }> = {
   error: {
-    color: '#DC2626',
-    darkColor: '#F87171',
-    bg: '#FEF2F2',
-    darkBg: 'rgba(220,38,38,0.1)',
+    fg: 'var(--callout-error-fg)',
+    bg: 'var(--callout-error-bg)',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
         <circle cx="12" cy="12" r="10" />
@@ -22,10 +17,8 @@ const variants: Record<CalloutVariant, { color: string; darkColor: string; bg: s
     ),
   },
   warning: {
-    color: '#D97706',
-    darkColor: '#FBBF24',
-    bg: '#FFFBEB',
-    darkBg: 'rgba(217,119,6,0.1)',
+    fg: 'var(--callout-warning-fg)',
+    bg: 'var(--callout-warning-bg)',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
         <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
@@ -35,10 +28,8 @@ const variants: Record<CalloutVariant, { color: string; darkColor: string; bg: s
     ),
   },
   info: {
-    color: '#2563EB',
-    darkColor: '#60A5FA',
-    bg: '#EFF6FF',
-    darkBg: 'rgba(37,99,235,0.1)',
+    fg: 'var(--callout-info-fg)',
+    bg: 'var(--callout-info-bg)',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
         <circle cx="12" cy="12" r="10" />
@@ -48,10 +39,8 @@ const variants: Record<CalloutVariant, { color: string; darkColor: string; bg: s
     ),
   },
   success: {
-    color: '#16A34A',
-    darkColor: '#4ADE80',
-    bg: '#F0FDF4',
-    darkBg: 'rgba(22,163,74,0.1)',
+    fg: 'var(--callout-success-fg)',
+    bg: 'var(--callout-success-bg)',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
         <circle cx="12" cy="12" r="10" />
@@ -63,13 +52,13 @@ const variants: Record<CalloutVariant, { color: string; darkColor: string; bg: s
 
 const alignClasses: Record<CalloutAlign, string> = {
   left:   'mr-auto',
-  center: 'mx-auto lg:mx-[calc(50%-min(50%,var(--container-lg)))]',
+  center: 'mx-auto',
   right:  'ml-auto',
 }
 
 export function Callout({
   variant = 'info',
-  align = 'center',
+  align = 'left',
   title,
   children,
 }: {
@@ -78,23 +67,26 @@ export function Callout({
   title?: string
   children: React.ReactNode
 }) {
-  const mode = useThemeMode()
-  const isDark = mode === 'dark'
   const v = variants[variant]
-  const accentColor = isDark ? v.darkColor : v.color
+  const ariaLabel = title ?? variant.charAt(0).toUpperCase() + variant.slice(1)
 
   return (
     <div
+      role="note"
+      aria-label={ariaLabel}
       className={clsx(
         'flex w-full max-w-2xl gap-3 rounded-lg px-5 py-4 lg:max-w-3xl',
         alignClasses[align],
       )}
       style={{
-        borderLeft: `4px solid ${accentColor}`,
-        backgroundColor: isDark ? v.darkBg : v.bg,
+        borderLeft: `4px solid ${v.fg}`,
+        backgroundColor: v.bg,
       }}
     >
-      <div style={{ color: accentColor, flexShrink: 0, marginTop: '0.125rem' }}>
+      <div
+        aria-hidden="true"
+        style={{ color: v.fg, flexShrink: 0, marginTop: '0.125rem' }}
+      >
         {v.icon}
       </div>
       <div style={{ minWidth: 0 }}>
@@ -104,7 +96,7 @@ export function Callout({
               margin: 0,
               fontWeight: 700,
               fontSize: '1rem',
-              color: accentColor,
+              color: v.fg,
             }}
           >
             {title}
@@ -115,7 +107,7 @@ export function Callout({
             margin: 0,
             fontSize: '0.9375rem',
             lineHeight: 1.6,
-            color: isDark ? themeColors.dark.text : themeColors.light.text,
+            color: themeVars.text,
           }}
         >
           {children}

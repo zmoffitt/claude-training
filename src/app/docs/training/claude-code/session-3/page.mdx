@@ -1,0 +1,139 @@
+import { HeroPattern } from "@/components/HeroPattern";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+import { Callout } from "@/components/Callout";
+import { SessionOutline } from "@/components/SessionOutline";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Extending Claude: Skills, Plugins & MCP",
+};
+
+<HeroPattern />
+
+# Extending Claude: Skills, Plugins & MCP
+
+<ReadTime minutes={1} />
+
+Session 3 of the Claude AI Training Program — moving from local-only Claude to a Claude that talks to your systems, with every action still passing through your approval.
+
+## What this session covers
+
+### Reach external systems
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-3/why-extend-claude",
+      title: "Why Extend Claude?",
+      description: "Four extension layers: CLI, connectors, routines, skills",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/tool-priority-ladder",
+      title: "Tool Priority Ladder",
+      description:
+        "CLI-first delegated auth; where MCP, browser, and computer use fit",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/two-ways-to-drive-chrome",
+      title: "Two Ways to Drive Chrome",
+      description: "Claude Chrome Extension vs. Chrome DevTools MCP",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/mcp-architecture",
+      title: "MCP Architecture",
+      description: "The open protocol, three primitives, remote vs. local",
+    },
+  ]}
+/>
+
+### Approved SaaS and schedules
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-3/built-in-connectors",
+      title: "Built-in Connectors",
+      description:
+        "Workspace, M365, GitHub, Slack — how to enable, mind the scope",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/cloud-routines",
+      title: "Cloud Routines",
+      description:
+        "Claude on autopilot — scheduled work that runs on Anthropic infra",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/automation-primitives",
+      title: "Automation Primitives",
+      description:
+        "Monitor, /loop, Desktop tasks, cloud routines — which /schedule is which",
+    },
+  ]}
+/>
+
+### Distribute and standardize
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-3/plugins-marketplaces",
+      title: "Plugins & Marketplaces",
+      description:
+        "Bundles of skills, agents, and MCP servers — one install, full team rollout",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/skills-deep-dive",
+      title: "Skills Deep Dive",
+      description:
+        "SKILL.md anatomy, on-demand expertise vs. always-on context",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/skill-md-examples",
+      title: "SKILL.md Examples",
+      description: "DevOps and IAM worked examples",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/decision-guide",
+      title: "Decision Guide",
+      description: "Skill, routine, MCP, or plugin?",
+    },
+  ]}
+/>
+
+### Govern and measure
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-3/security-scoping",
+      title: "Security & Scoping",
+      description: "Least privilege, data flows, IAM red lines",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/insights",
+      title: "Insights",
+      description: "Adoption, workflows, cost — measure before you standardize",
+    },
+  ]}
+/>
+
+### Live demo and practice
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-3/live-demo-bug-triage",
+      title: "Live Demo: Bug Triage Routine",
+      description: "Inbox + DMs to GitHub issues, end-to-end",
+    },
+    {
+      href: "/docs/training/claude-code/session-3/practice-assignment",
+      title: "Practice Assignment",
+      description: "Practice for the week ahead",
+    },
+  ]}
+/>
+
+---
+
+<TrainingRoadmap activeStep={3} />

@@ -1,7 +1,10 @@
 'use client'
 
+import clsx from 'clsx'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+
+import { focusRing } from '@/lib/focusRing'
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -35,7 +38,10 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      className="flex size-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5"
+      className={clsx(
+        'flex size-11 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5',
+        focusRing,
+      )}
       aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
       onClick={() => setTheme(otherTheme)}
     >

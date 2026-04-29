@@ -1,14 +1,10 @@
-'use client'
-
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars, wcagBadgeBg, safeAccent, safeSurface } from '@/lib/theme-colors'
 
 interface StackedFeature {
   title: string
   description: string
   badge: string
   color: string
-  textColor?: string
 }
 
 export function StackedFeatures({
@@ -16,13 +12,9 @@ export function StackedFeatures({
 }: {
   features: Array<StackedFeature>
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
-
   return (
     <div
       style={{
-        maxWidth: 'none',
         display: 'flex',
         flexDirection: 'column',
         gap: '0.75rem',
@@ -32,9 +24,9 @@ export function StackedFeatures({
         <div
           key={feature.title}
           style={{
-            borderLeft: `5px solid ${feature.color}`,
+            borderLeft: `5px solid ${safeAccent(feature.color)}`,
             borderRadius: '0.5rem',
-            backgroundColor: t.cardBg,
+            backgroundColor: themeVars.cardBg,
             padding: '1.25rem 1.5rem',
             display: 'flex',
             alignItems: 'center',
@@ -47,7 +39,7 @@ export function StackedFeatures({
                 fontSize: '1.125rem',
                 fontWeight: 700,
                 margin: 0,
-                color: t.text,
+                color: themeVars.text,
               }}
             >
               {feature.title}
@@ -57,7 +49,7 @@ export function StackedFeatures({
                 fontSize: '0.9375rem',
                 lineHeight: 1.5,
                 margin: '0.25rem 0 0',
-                color: t.textSubtle,
+                color: themeVars.textSubtle,
               }}
             >
               {feature.description}
@@ -66,8 +58,8 @@ export function StackedFeatures({
           <span
             style={{
               flexShrink: 0,
-              backgroundColor: feature.color,
-              color: feature.textColor ?? '#ffffff',
+              backgroundColor: safeSurface(feature.color) !== feature.color ? safeSurface(feature.color) : wcagBadgeBg(feature.color),
+              color: '#ffffff',
               fontSize: '0.8125rem',
               fontWeight: 700,
               padding: '0.5rem 1.5rem',

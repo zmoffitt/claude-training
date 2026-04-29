@@ -1,0 +1,51 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+import {
+  PillarCards,
+  GlobeIcon,
+  TerminalIcon,
+} from "@/components/PillarCards";
+
+export const metadata = {
+  title: "Two Ways to Drive Chrome",
+};
+
+# Two Ways to Drive Chrome
+
+<ReadTime minutes={2} />
+
+Same browser, very different jobs — pick by what you're trying to do.
+
+<br />
+
+<PillarCards
+  cards={[
+    {
+      icon: <GlobeIcon />,
+      title: "Claude Chrome Extension",
+      description:
+        "Drives your live browser session: same tab, same cookies, same SSO. Sees the rendered page and clicks where you'd click. Best for doing tasks in SaaS you're already logged into: filing a ticket in a portal, completing a form, navigating an admin UI. Scoped to one session, one user; not headless.",
+      color: "#00B5E2",
+    },
+    {
+      icon: <TerminalIcon />,
+      title: "Chrome DevTools MCP",
+      description:
+        "Programmatic Chrome via the DevTools Protocol. An MCP server in your config; no extension required. Spins up a controlled (often headless) Chrome instance. Best for inspecting and debugging web apps you build: read console errors, capture network traces, run Lighthouse, snapshot the DOM, evaluate scripts. Treat it as a clean browser — not your auth context.",
+      color: "#6B5CF5",
+    },
+  ]}
+/>
+
+<br />
+
+<Callout variant="info" title="Quick mnemonic" align="left">
+  Extension is for **operating** a tool you use as a human. DevTools MCP is
+  for **building and debugging** a tool you ship. They can coexist — same
+  Chrome install, different purposes.
+</Callout>
+
+## Where to go next
+
+- **[MCP Architecture](/docs/training/claude-code/session-3/mcp-architecture)** — the protocol that powers DevTools MCP and built-in connectors
+- **[Built-in Connectors](/docs/training/claude-code/session-3/built-in-connectors)** — when an approved connector beats driving a browser

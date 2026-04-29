@@ -1,0 +1,40 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Skills Deep Dive",
+};
+
+# Skills: Reusable Playbooks
+
+<ReadTime minutes={2} />
+
+Markdown files that teach Claude how to do specific tasks — your team's way.
+
+## What a skill is
+
+- A `SKILL.md` file with frontmatter and instructions
+- Loaded **on demand** — doesn't bloat every prompt
+- Can include reference docs, code snippets, examples
+- Invoked when Claude detects the task matches the skill's description
+- Shareable via plugins — one source of truth
+
+## Skill layout
+
+| Path | Role | Notes |
+| --- | --- | --- |
+| `SKILL.md` | **Entrypoint** | Frontmatter + when-to-use + steps |
+| `references/` | **Deep docs** | Loaded only when relevant |
+| `scripts/` | **Helper scripts** | Optional executables Claude can call |
+
+<br />
+
+<Callout variant="info" title="Skill vs. CLAUDE.md" align="left">
+  `CLAUDE.md` is **always-on** project context. A skill is **on-demand
+  expertise**: Claude pulls it in when the task matches its description. Use
+  skills for repeatable workflows; use `CLAUDE.md` for project conventions.
+</Callout>
+
+## Where to go next
+
+- **[SKILL.md Examples](/docs/training/claude-code/session-3/skill-md-examples)** — DevOps and IAM examples to copy and adapt

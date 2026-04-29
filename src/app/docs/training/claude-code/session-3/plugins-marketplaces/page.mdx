@@ -1,0 +1,44 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Plugins & Marketplaces",
+};
+
+# Plugins & Marketplaces
+
+<ReadTime minutes={2} />
+
+## What's in a plugin
+
+- One or more **skills** (`SKILL.md` files)
+- Optional **subagents** with focused prompts
+- Optional **MCP server** config
+- Optional **hooks** and slash commands
+- Versioned, distributed via marketplaces
+
+## Install flow
+
+```bash
+# Add a marketplace
+/plugin marketplace add org/plugins
+
+# Browse and install
+/plugin install iam-tools@org-plugins
+
+# List what's installed
+/plugin list
+```
+
+<br />
+
+<Callout variant="info" title="Private marketplace = team standardization" align="left">
+  Build a single internal plugin repo. Every engineer installs it. New
+  conventions, skills, or MCP servers ship through one update — no
+  copy-paste, no drift.
+</Callout>
+
+## Where to go next
+
+- **[Skills Deep Dive](/docs/training/claude-code/session-3/skills-deep-dive)** — what goes inside a skill
+- **[Decision Guide](/docs/training/claude-code/session-3/decision-guide)** — skill vs. routine vs. MCP vs. plugin

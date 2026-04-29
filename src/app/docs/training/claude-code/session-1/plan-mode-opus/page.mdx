@@ -1,11 +1,14 @@
 import { FeatureColumns } from "@/components/FeatureColumns";
 import { Callout } from "@/components/Callout";
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Plan Mode & Opus",
 };
 
 # Plan Mode & Opus
+
+<ReadTime minutes={2} />
 
 Think before building — the most important habit in this program.
 
@@ -14,7 +17,7 @@ Think before building — the most important habit in this program.
     {
       title: "Plan Mode",
       subtitle: "Shift+Tab in Claude Code",
-      color: "#2DB843",
+      color: "#0FAC27",
       items: [
         "Claude reads, analyzes, proposes an approach",
         "No code written until you approve the plan",
@@ -26,7 +29,7 @@ Think before building — the most important habit in this program.
     {
       title: "Opus Plan Mode",
       subtitle: "Best of both models",
-      color: "#7B5EED",
+      color: "#6B5CF5",
       items: [
         "Opus plans \u2014 deep reasoning for the approach",
         "Sonnet executes \u2014 fast, cost-effective implementation",
@@ -39,7 +42,12 @@ Think before building — the most important habit in this program.
 />
 
 <br />
-<Callout variant="info">
+<Callout variant="info" title="Why does this matter?" align="left">
   *Plan mode is the built-in example of human-in-the-loop: Claude proposes, you
   approve, then Claude executes.*
 </Callout>
+
+## Where to go next
+
+- **[Personalization & Memory](/docs/training/claude-code/session-1/personalization-memory)** — make Claude remember what you work on
+- **[Projects: Scoped Context](/docs/training/claude-code/session-1/projects-scoped-context)** — pin reference docs by work area

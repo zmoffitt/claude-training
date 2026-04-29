@@ -1,0 +1,32 @@
+import { Callout } from "@/components/Callout";
+import { PermissionModel } from "@/components/PermissionModel";
+
+import { ReadTime } from "@/components/ReadTime";
+export const metadata = {
+  title: "Permissions Deep Dive",
+};
+
+# Permissions Deep Dive
+
+<ReadTime minutes={3} />
+
+Three tiers of risk — with fine-grained rule syntax.
+
+<PermissionModel />
+
+## Notes
+
+**Start strict, relax selectively.** Begin with **Ask Every Time** for unfamiliar repos. As you learn which commands and edits are safe, add `allow` rules for those specific patterns. Never start permissive and try to lock down later.
+
+<br />
+
+<Callout variant="error" title="Deny rules are absolute">
+  A `deny` rule **always wins**, regardless of where it's defined. This makes
+  guardrails reliable: a project-level deny cannot be overridden by a more
+  permissive user setting.
+</Callout>
+
+## Where to go next
+
+- **[Permission Modes & Settings](/docs/training/claude-code/session-2/permission-modes-settings)** — pick the right comfort level and learn how settings cascade
+- **[Working Directories & Scope](/docs/training/claude-code/session-2/working-directories-scope)** — Claude operates from where you launch it; scope tight

@@ -1,0 +1,62 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+import {
+  ProConCards,
+  CheckCircleFilledIcon,
+  WarningTriangleIcon,
+} from "@/components/ProConCards";
+
+export const metadata = {
+  title: "Why Extend Claude?",
+};
+
+# Why Extend Claude?
+
+<ReadTime minutes={2} />
+
+A great assistant that can't reach your tools is just a clever notepad.
+
+<ProConCards
+  cards={[
+    {
+      icon: <WarningTriangleIcon />,
+      title: "Without extensions",
+      items: [
+        "You copy-paste between Claude and the Azure portal",
+        "You describe sign-in logs to Claude in prose",
+        "Claude writes the script, you run it, you paste output back",
+        "Every workflow re-explains your environment from scratch",
+      ],
+      color: '#CD000A',
+      bulletColor: '#FF485D',
+      bgLight: 'rgba(255, 76, 76, 0.15)',
+      bgDark: 'rgba(255, 76, 76, 0.25)',
+    },
+    {
+      icon: <CheckCircleFilledIcon />,
+      title: "With extensions",
+      items: [
+        "Claude queries Microsoft Graph for stale guest accounts directly",
+        "Claude pulls sign-in logs, summarizes, and files a ticket",
+        "Claude triggers a CI re-run, reads the result, opens an issue on failure",
+        "Workflows are repeatable, scoped, and auditable",
+      ],
+      color: '#0FAC27',
+      bulletColor: '#005C00',
+      bgLight: '#E5F5E5',
+      bgDark: 'rgba(34,197,94,0.15)',
+    },
+  ]}
+/>
+
+<br />
+
+<Callout variant="info" title="Four layers of extension" align="left">
+  **CLI + delegated auth** for what you already have, **connectors** for
+  approved SaaS, **routines** to put Claude on a schedule, **skills** to teach
+  it your playbooks. MCP is the protocol that ties several of these together.
+</Callout>
+
+## Where to go next
+
+- **[Tool Priority Ladder](/docs/training/claude-code/session-3/tool-priority-ladder)** — start with what's approved and available today

@@ -1,0 +1,60 @@
+import {
+  PillarCards,
+  LaptopIcon,
+  TerminalIcon,
+  GlobeIcon,
+} from "@/components/PillarCards";
+import { Callout } from "@/components/Callout";
+
+import { ReadTime } from "@/components/ReadTime";
+export const metadata = {
+  title: "Your Claude, Three Ways",
+};
+
+# Your Claude, Three Ways
+
+<ReadTime minutes={2} />
+
+Same engine, different shell — choose what fits your workflow.
+
+<br />
+
+<PillarCards
+  cards={[
+    {
+      icon: <LaptopIcon />,
+      title: "Claude Desktop (Code UI)",
+      description:
+        "File browser, diff viewer, built-in terminal. Ultraplan: draft plans in the cloud, review with inline comments in the browser, then execute. Best for daily development.",
+      color: "#00B5E2",
+    },
+    {
+      icon: <TerminalIcon />,
+      title: "Raw CLI (Terminal)",
+      description:
+        "Pure terminal. Best for SSH, scripting, CI/CD, and pipeline automation. Use Ghostty (ghostty.org) for GPU-accelerated rendering of large outputs.",
+      color: "#0FAC27",
+    },
+    {
+      icon: <GlobeIcon />,
+      title: "Claude Code on the Web",
+      description:
+        "Browser-based. No local install. Autofix PRs in the cloud: watches CI failures, review comments, pushes fixes while you're away. Best for remote & async work.",
+      color: "#6B5CF5",
+      href: "https://claude.ai/code",
+    },
+  ]}
+/>
+
+<br />
+
+<Callout variant="info" title="Start with the Desktop app" align="left">
+  It's the richest experience: visual diffs, plan mode with Ultraplan, and full
+  terminal in one window. The CLI and web extend it for specialized workflows.
+  **All three surfaces share the same config, CLAUDE.md, and permissions.**
+</Callout>
+
+## Where to go next
+
+- **[Permissions Deep Dive](/docs/training/claude-code/session-2/permissions-deep-dive)** — three-tier risk model, rule syntax, precedence
+- **[Context & Session Management](/docs/training/claude-code/session-2/context-session-management)** — 1M context, context rot, branching points

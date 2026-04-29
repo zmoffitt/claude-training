@@ -1,10 +1,14 @@
 import { ProConCards, CheckCircleFilledIcon, WarningTriangleIcon } from '@/components/ProConCards'
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "What Claude Is (and Isn't)",
 }
 
 # What Claude Is (and Isn't)
+
+<ReadTime minutes={2} />
+
 Claude is a reasoning model and versatile thought partner that thinks through problems across code, analysis, writing, and automation, working best when you provide clear context and constraints
 
 It is **NOT** a search engine, a knowledge database, or a replacement for your judgment — vague input produces vague output, and outputs should always be validated.
@@ -22,9 +26,9 @@ Treat Claude as a collaborative tool you iterate with, not a magic box that gets
         'A thought partner you iterate with',
         'Capable across code, analysis, writing, and automation',
       ],
-      color: '#22C55E',
-      bulletColor: '#4D7C0F',
-      bgLight: '#F0FDF4',
+      color: '#0FAC27',
+      bulletColor: '#005C00',
+      bgLight: '#E5F5E5',
       bgDark: 'rgba(34,197,94,0.15)',
     },
     {
@@ -36,11 +40,16 @@ Treat Claude as a collaborative tool you iterate with, not a magic box that gets
         'A replacement for your judgment',
         'Always right \u2014 you must validate outputs',
       ],
-      color: '#be0027',
-      bulletColor: '#ee4f4f',
+      color: '#CD000A',
+      bulletColor: '#FF485D',
       bgLight: 'rgba(255, 76, 76, 0.15)',
       bgDark: 'rgba(255, 76, 76, 0.25)'
     },
   ]}
 />
+
+## Where to go next
+
+- **[Claude Everywhere](/docs/training/claude-code/session-1/claude-everywhere)** — picking the right surface for the work
+- **[How Context Works](/docs/training/claude-code/session-1/how-context-works)** — why long sessions decay and what to do about it
 

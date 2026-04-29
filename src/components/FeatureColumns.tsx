@@ -1,7 +1,4 @@
-'use client'
-
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars, wcagText } from '@/lib/theme-colors'
 
 interface FeatureColumn {
   title: string
@@ -15,11 +12,8 @@ export function FeatureColumns({
 }: {
   columns: Array<FeatureColumn>
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
-
   return (
-    <div style={{ maxWidth: 'none' }}>
+    <div>
       <div
         style={{
           display: 'grid',
@@ -34,7 +28,7 @@ export function FeatureColumns({
             style={{
               borderTop: `5px solid ${col.color}`,
               borderRadius: '0.5rem',
-              backgroundColor: t.cardBg,
+              backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
@@ -46,7 +40,7 @@ export function FeatureColumns({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: t.heading,
+                color: themeVars.heading,
                 textAlign: 'center',
               }}
             >
@@ -57,7 +51,7 @@ export function FeatureColumns({
                 fontSize: '0.8125rem',
                 fontWeight: 600,
                 margin: '0 0 0.75rem',
-                color: col.color,
+                color: wcagText(col.color),
                 textAlign: 'center',
               }}
             >
@@ -82,7 +76,7 @@ export function FeatureColumns({
                     gap: '0.75rem',
                     fontSize: '0.9375rem',
                     lineHeight: 1.5,
-                    color: t.text,
+                    color: themeVars.text,
                   }}
                 >
                   <span

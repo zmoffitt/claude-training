@@ -1,0 +1,54 @@
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "CLAUDE.md Examples",
+};
+
+# CLAUDE.md Examples
+
+<ReadTime minutes={3} />
+
+Tailored for your work — two starting points to copy and adapt.
+
+## DevOps example — `infra-core`
+
+```markdown
+# Project: infra-core
+
+## Conventions
+- Terraform for all IaC, no ARM/Bicep
+- Use conventional commits
+- Run `terraform validate` before plan
+- All modules must have examples/
+
+## Guardrails
+- Never apply to production directly
+- Always run plan before apply
+- Never modify state files manually
+- Tag all resources with owner + env
+```
+
+## IAM example — `identity-governance`
+
+```markdown
+# Project: identity-governance
+
+## Conventions
+- Microsoft Graph PowerShell SDK only
+- Validate CA changes in report-only first
+- Follow least-privilege principles
+- Reference Graph API v1.0 unless noted
+
+## Guardrails
+- Never hardcode tenant IDs
+- Never assign permanent Global Admin
+- Always use PIM for privileged roles
+- Never skip report-only validation
+```
+
+These are starting points — your real CLAUDE.md grows from incidents, code review feedback, and patterns the team converges on.
+
+## Where to go next
+
+- **[The .claude/ Directory](/docs/training/claude-code/session-2/dot-claude-directory)** — what lives next to CLAUDE.md and why
+- **[Hooks: Lifecycle & Control](/docs/training/claude-code/session-2/hooks-lifecycle-control)** — automate the conventions instead of just stating them

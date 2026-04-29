@@ -1,0 +1,28 @@
+import { Callout } from "@/components/Callout";
+import { HooksLifecycle } from "@/components/HooksLifecycle";
+
+import { ReadTime } from "@/components/ReadTime";
+export const metadata = {
+  title: "Hooks: Lifecycle & Control",
+};
+
+# Hooks: Lifecycle & Control
+
+<ReadTime minutes={4} />
+
+Deterministic automation at every stage of a Claude session. Hooks are shell commands the harness runs at lifecycle events — they don't go through the model, so behavior is reliable.
+
+<HooksLifecycle />
+
+<br />
+
+<Callout variant="success" title="Why use hooks?" align="left">
+  Use hooks when you need **deterministic** safety: blocking destructive
+  commands, running linters/tests after edits, validating commits before push.
+  The model can't talk its way out of an **`exit code 2`**.
+</Callout>
+
+## Where to go next
+
+- **[Skills, Plugins & Connectors](/docs/training/claude-code/session-2/skills-plugins)** — per-project capabilities, subagents, and agent teams
+- **[Live Demo: The Full Loop](/docs/training/claude-code/session-2/live-demo-full-loop)** — see hooks running alongside skills end-to-end

@@ -1,6 +1,7 @@
 import { HeroPattern } from "@/components/HeroPattern";
 import { TrainingRoadmap } from "@/components/TrainingRoadmap";
-import { LoopLink } from "@/components/LoopLink";
+import { SessionOutline } from "@/components/SessionOutline";
+import { ReadTime } from "@/components/ReadTime";
 
 export const metadata = {
   title: "Foundations",
@@ -10,59 +11,47 @@ export const metadata = {
 
 # Foundations & Getting Oriented
 
-Claude AI Training Program for Cloud and Container teams, IAM Engineers, and Platform Engineering
+<ReadTime minutes={1} />
 
-### Wanna catch up?
+Session 1 of the Claude AI Training Program — foundations and orientation for Cloud and Container teams and IAM Engineers.
 
-<div style={{ maxWidth: 640 }}>
-  <div
-    style={{
-      position: "relative",
-      paddingBottom: "56.25%",
-      height: 0,
-      overflow: "hidden",
-    }}
-  >
-    <iframe
-      src="https://teladocpa-my.sharepoint.com/personal/wes_kroesbergen_teladochealth_com/_layouts/15/embed.aspx?UniqueId=30ede4c0-07f3-4ec5-8dd1-b30ef2a4afda&embed=%7B%22ust%22%3Afalse%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
-      width={640}
-      height={360}
-      frameBorder={0}
-      scrolling="no"
-      allowFullScreen
-      title="Claude Training & Best Practices - Session 1-20260407_103218-Meeting Recording.mp4"
-      style={{
-        border: "none",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height: "100%",
-        maxWidth: "100%",
-      }}
-    />
-  </div>
-</div>
+## What this session covers
 
-<LoopLink
-  href="https://teladocpa-my.sharepoint.com/:fl:/r/personal/zachary_moffitt_teladochealth_com/Documents/Meetings/Claude%20Training%20%26%20Best%20Practices%20-%20Session%201.loop?d=w65e90c8de260421a87be692cfa8ecb2b&csf=1&web=1&e=tv43Ms&nav=cz0lMkZwZXJzb25hbCUyRnphY2hhcnlfbW9mZml0dF90ZWxhZG9jaGVhbHRoX2NvbSZkPWIlMjFoS1BNWlJPdHFreXREUFhnNVgtWmwxdmxfd0ppdmZ4Q3NhSzMySnFQdC1FZkxJMkpJYXM0UnFnWWMxMGhjMWw0JmY9MDFMSlk2N1hNTkJUVVdLWUhDREpCSVBQVEpGVDVJNVNaTCZjPSUyRiZhPUxvb3BBcHAmcD0lNDBmbHVpZHglMkZsb29wLXBhZ2UtY29udGFpbmVy"
-  title="Claude Training & Best Practices"
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-1/welcome-program-trajectory",
+      title: "Welcome & Program Trajectory",
+      description: "Five-session overview, fluency framework, accountability",
+    },
+    {
+      href: "/docs/training/claude-code/session-1/how-context-works",
+      title: "How Context Works",
+      description: "Context windows, what counts, when to start fresh",
+    },
+    {
+      href: "/docs/training/claude-code/session-1/thinking-effort-quotas",
+      title: "Thinking Effort, Models & Quotas",
+      description: "Effort slider, model selection, quota management",
+    },
+    {
+      href: "/docs/training/claude-code/session-1/personalization-memory",
+      title: "Personalization & Memory",
+      description: "Preferences, writing style, cross-conversation memory",
+    },
+    {
+      href: "/docs/training/claude-code/session-1/hands-on-exercise",
+      title: "Hands-On Exercise",
+      description: "Configure settings, Claude Code CLI, real tasks, iteration",
+    },
+    {
+      href: "/docs/training/claude-code/session-1/practice-assignment",
+      title: "Wrap-Up & Assignment",
+      description: "Practice assignment for the week ahead",
+    },
+  ]}
 />
-
-## What this session focuses on
-
-- **[Welcome & Program Trajectory](/docs/training/claude-code/session-1/welcome-program-trajectory)** - Five-session overview, fluency framework, accountability
-- **[How Context Works](/docs/training/claude-code/session-1/how-context-works)** - Context windows, what counts, when to start fresh
-- **[Thinking Effort, Models & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas)** - Effort slider, model selection, quota management
-- **[Personalization & Memory](/docs/training/claude-code/session-1/personalization-memory)** - Preferences, writing style, cross-conversation memory
-- **[Hands-On Exercise](/docs/training/claude-code/session-1/hands-on-exercise)** - Configure settings, Claude Code CLI, real tasks, iteration
-- **[Wrap-Up & Assignment](/docs/training/claude-code/session-1/practice-assignment)** - Practice assignment for the week ahead
-
-## Contributing
-
-All Platform Engineering team members are encouraged to contribute. Add your training notes, useful prompts, configuration examples, or any resources that help the team level up with AI tools.
 
 ---
 
-<TrainingRoadmap activeStep={0} />
+<TrainingRoadmap activeStep={1} />

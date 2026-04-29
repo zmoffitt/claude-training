@@ -1,0 +1,57 @@
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "SKILL.md Examples",
+};
+
+# SKILL.md Examples
+
+<ReadTime minutes={3} />
+
+Tailored for your work — two starting points to copy and adapt.
+
+## DevOps example — `deploy-preflight`
+
+```markdown
+---
+name: deploy-preflight
+description: Run pre-deployment checks before any prod release.
+  Use when user asks to deploy, ship, or release to production.
+---
+
+## Steps
+
+1. Verify on main branch, clean tree
+2. Confirm tests pass: `npm test`
+3. Diff this release vs. last tag
+4. Check feature flags & env vars
+5. Confirm on-call is reachable
+6. **Stop and ask** for explicit "deploy" before `kubectl apply`
+```
+
+## IAM example — `ca-policy-review`
+
+```markdown
+---
+name: ca-policy-review
+description: Review Conditional Access policies for gaps.
+  Use when user asks to audit CA, review policies, or check
+  for unprotected sign-ins.
+---
+
+## Steps
+
+1. List all enabled CA policies
+2. Map to user/group assignments
+3. Check for excluded apps/users
+4. Flag policies in report-only
+5. Identify uncovered scenarios
+6. Output: gap report + remediation suggestions (no auto-changes)
+```
+
+These are starting points — your real skills grow from incidents, code review feedback, and patterns the team converges on.
+
+## Where to go next
+
+- **[Decision Guide](/docs/training/claude-code/session-3/decision-guide)** — skill, routine, MCP, or plugin?
+- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see a skill running inside a routine

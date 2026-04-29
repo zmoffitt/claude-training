@@ -1,0 +1,32 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Security & Scoping",
+};
+
+# Security & Scoping
+
+<ReadTime minutes={3} />
+
+Every connector and MCP server expands your data perimeter, so treat it accordingly. The five rules below cover **OAuth scope** selection, data-flow boundaries, per-action approval, credential rotation, and managed-Vault token injection. **Conditional Access** policies, **PIM** activations, and other privileged IAM operations remain human-in-the-loop regardless of what Claude proposes.
+
+1. **Scope to least privilege.** OAuth-scoped read-only first. Add write tools only when value is proven and risk is understood.
+2. **Know where the data flows.** Built-in connectors run server-side at Anthropic. Local MCP servers stay on your machine. Pick the model that matches the data sensitivity.
+3. **Approve actions, not just sessions.** Use permission rules from Session 2 to require approval for write tools. `deny` on destructive operations always wins.
+4. **Audit and rotate.** Treat MCP server credentials like any service principal: rotate keys, log invocations, review on a cadence.
+5. **Use managed Vaults for OAuth tokens.** Claude Managed Agents inject scoped OAuth tokens at session start and refresh them automatically — tokens never sit in env vars or config files.
+
+<br />
+
+<Callout variant="error" title="IAM red lines" align="left">
+  Never expose Global Admin tokens to a Claude session. Privileged role changes,
+  CA policy mutations, and PIM activations should require human-in-the-loop
+  approval through their existing change processes — even if Claude proposes
+  them.
+</Callout>
+
+## Where to go next
+
+- **[Insights](/docs/training/claude-code/session-3/insights)** — measure adoption, workflows, and cost before standardizing
+- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — least privilege and scoped OAuth in practice

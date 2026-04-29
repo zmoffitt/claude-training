@@ -1,7 +1,8 @@
 'use client'
 
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import clsx from 'clsx'
+
+import { themeVars, safeAccent, safeSurface } from '@/lib/theme-colors'
 
 interface PillarCard {
   icon: React.ReactNode
@@ -11,27 +12,30 @@ interface PillarCard {
   href?: string
 }
 
+// Stack on mobile, restore N columns at sm:. 4-card layouts get a 2x2 step
+// at sm: before going to 4-across at lg:, since 4 narrow cards inside a
+// max-w-prose container at sm: would be too cramped to read.
+const gridForCount: Record<number, string> = {
+  2: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
+  3: 'grid grid-cols-1 gap-4 sm:grid-cols-3',
+  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+}
+
 export function PillarCards({
   cards,
   quote,
-  quoteColor = '#3B2D6B',
+  quoteColor = '#351F65',
 }: {
   cards: Array<PillarCard>
   quote?: string
   quoteColor?: string
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
+  const gridClass =
+    gridForCount[cards.length] ?? 'grid grid-cols-1 gap-4 sm:grid-cols-3'
 
   return (
-    <div style={{ maxWidth: 'none' }}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${cards.length}, 1fr)`,
-          gap: '1rem',
-        }}
-      >
+    <div>
+      <div className={clsx(gridClass, 'not-prose')}>
         {cards.map((card) => {
           const Wrapper = card.href ? 'a' : 'div'
           const wrapperProps = card.href
@@ -43,10 +47,10 @@ export function PillarCards({
               key={card.title}
               {...wrapperProps}
               style={{
-                borderTop: `4px solid ${card.color}`,
+                borderTop: `4px solid ${safeAccent(card.color)}`,
                 borderRadius: '0.5rem',
-                backgroundColor: t.cardBgWhite,
-                boxShadow: t.shadow,
+                backgroundColor: themeVars.cardBgWhite,
+                boxShadow: themeVars.shadow,
                 padding: '1.5rem 1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -63,10 +67,10 @@ export function PillarCards({
               } : undefined}
               onMouseLeave={card.href ? (e: React.MouseEvent<HTMLElement>) => {
                 e.currentTarget.style.transform = ''
-                e.currentTarget.style.boxShadow = t.shadow
+                e.currentTarget.style.boxShadow = 'var(--theme-shadow)'
               } : undefined}
             >
-              <div style={{ color: card.color, width: 36, height: 36 }}>
+              <div style={{ color: safeAccent(card.color), width: 36, height: 36 }}>
                 {card.icon}
               </div>
               <h3
@@ -74,7 +78,7 @@ export function PillarCards({
                   fontSize: '1rem',
                   fontWeight: 700,
                   margin: 0,
-                  color: t.heading,
+                  color: themeVars.heading,
                 }}
               >
                 {card.title}
@@ -84,7 +88,7 @@ export function PillarCards({
                   fontSize: '0.8125rem',
                   lineHeight: 1.5,
                   margin: 0,
-                  color: t.textMuted,
+                  color: themeVars.textMuted,
                 }}
               >
                 {card.description}
@@ -97,7 +101,7 @@ export function PillarCards({
         <div
           style={{
             marginTop: '1rem',
-            backgroundColor: quoteColor,
+            backgroundColor: safeSurface(quoteColor),
             borderRadius: '0.5rem',
             padding: '1rem 1.5rem',
             textAlign: 'center',

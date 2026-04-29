@@ -4,16 +4,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-violet-50: #f3f0fe;
-  --color-violet-100: #e4ddfb;
-  --color-violet-200: #cdc0f7;
-  --color-violet-300: #a992f2;
-  --color-violet-400: #7b5eed;
-  --color-violet-500: #6240e8;
-  --color-violet-600: #5232c0;
-  --color-violet-700: #432599;
-  --color-violet-800: #351f65;
-  --color-violet-900: #291847;
+  --font-sans: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+
+  --color-violet-50: #F9F5FF;
+  --color-violet-100: #F5F0FD;
+  --color-violet-200: #EFE9FC;
+  --color-violet-300: #A1B1FA;
+  --color-violet-400: #858DF8;
+  --color-violet-500: #6240E8;
+  --color-violet-600: #5156F5;
+  --color-violet-700: #422981;
+  --color-violet-800: #351F65;
+  --color-violet-900: #3910B8;
   --color-violet-950: #1a0f33;
 
   --text-2xs: 0.75rem;
@@ -56,5 +60,243 @@
 @layer base {
   [inert] ::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Scroll-driven reading progress bar. Tracks document scroll via the
+   * CSS `animation-timeline: scroll()` primitive — no JS. On browsers that
+   * don't support scroll-driven animations (<Chrome 115 / Safari 17 /
+   * Firefox 124), the bar stays at scaleX(0) and is invisible. */
+  @keyframes scroll-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  @keyframes badge-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Copy-button checkmark pop — fires when CodeBlock copy succeeds.
+   * Subtle scale overshoot for tactile confirmation without crossing
+   * into decorative territory. Respected by `prefers-reduced-motion`
+   * via the safety rule below. */
+  @keyframes copy-pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-copy-pop {
+      animation: none;
+    }
+  }
+
+  .animate-copy-pop {
+    animation: copy-pop 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .scroll-progress {
+    animation: scroll-progress auto linear;
+    animation-timeline: scroll(root block);
+  }
+
+  /* Theme custom properties — resolved via the `.dark` class on <html>
+   * which is set by a blocking script in <head> before first paint.
+   * Components reference these as var(--...) in inline styles so first
+   * paint is already correct in dark mode (no FOLM per component). */
+  :root {
+    /* Pulse neutral semantic tokens */
+    --theme-card-bg: #F7F9F9;
+    --theme-card-bg-white: #FFFFFF;
+    --theme-heading: #171717;
+    --theme-text: #444443;
+    --theme-text-muted: #6F6F6F;
+    --theme-text-subtle: #6F6F6F;
+    --theme-label-muted: #6F6F6F;
+    --theme-shadow: 0 1px 3px rgba(0,0,0,0.08);
+
+    /* Pulse brand palette */
+    --brand-blue-accent-bar: #00B5E2;
+    --brand-blue-text: #0078BC;
+    --brand-blue-badge-bg: #00498A;
+    --brand-green-accent-bar: #0FAC27;
+    --brand-green-text: #078708;
+    --brand-green-badge-bg: #005C00;
+    --brand-pink-accent-bar: #ca01be;
+    --brand-pink-text: #a21caf;
+    --brand-pink-badge-bg: #a21caf;
+    --brand-red-accent-bar: #E23523;
+    --brand-red-text: #CD000A;
+    --brand-red-badge-bg: #B91C1C;
+    --brand-purple-accent-bar: #6240E8;
+    --brand-purple-text: #5156F5;
+    --brand-purple-badge-bg: #422981;
+
+    /* Deep-purple accent — theme-aware replacement for #351F65 */
+    --accent-deep-purple: #351F65;
+    --surface-deep-purple: #351F65;
+
+    /* Inline-code background */
+    --tint-code: rgba(0,0,0,0.06);
+
+    /* Pulse callout semantic palette */
+    --callout-error-fg: #CD000A;
+    --callout-error-bg: #FFF2FC;
+    --callout-warning-fg: #A25E00;
+    --callout-warning-bg: #FFFDF2;
+    --callout-info-fg: #0078BC;
+    --callout-info-bg: #DCF3FA;
+    --callout-success-fg: #078708;
+    --callout-success-bg: #E5F5E5;
+
+    /* AgentTeams local tints (Pulse aqua) */
+    --at-callout: #DCF3FA;
+    --at-card-bg: #ffffff;
+    --at-teammate-fill: #DCF3FA;
+    --at-teammate-stroke: #0078BC;
+    --at-task-list-fill: #DCF3FA;
+    --at-task-list-stroke: #0078BC;
+    --at-header-neutral-bg: #444443;
+    --at-header-sub-bg: #422981;
+    --at-header-team-bg: #0078BC;
+    --at-row-border: rgba(0,0,0,0.06);
+    --at-teammate-label: #444443;
+
+    /* Subagents local tints (Pulse plum) */
+    --sa-callout: #EFE9FC;
+    --sa-card-bg: #ffffff;
+    --sa-card-border: #6240E8;
+    --sa-satellite-fill: #EFE9FC;
+    --sa-satellite-stroke: #6240E8;
+    --sa-subagent-label: #444443;
+
+    /* HooksLifecycle local tints */
+    --hl-step-bg: #ffffff;
+    --hl-step-bg-active: #EFE9FC;
+    --hl-step-border: #6240E8;
+    --hl-arrow: #6F6F6F;
+    --hl-terminal-bg: #121212;
+
+    /* ContextSession local tints */
+    --cs-bar-track: #F7F9F9;
+    --cs-legend-tile: #F9F5FF;
+    --cs-context-rot: #fff3eb;
+    --cs-branch-blue: #DCF3FA;
+    --cs-branch-green: #E5F5E5;
+    --cs-branch-purple: #EFE9FC;
+    --cs-branch-pink: #fae8f8;
+    --cs-branch-neutral: #F9F5FF;
+    --cs-top-habit: #DCF3FA;
+
+    /* SkillsPlugins local tints */
+    --sp-callout-green: #E5F5E5;
+    --sp-callout-purple: #EFE9FC;
+    --sp-callout-blue: #DCF3FA;
+    --sp-callout-pink: #fae8f8;
+
+    /* ProjectConfig local tints */
+    --pc-callout: #F7F9F9;
+
+    /* PermissionModes local tints */
+    --pm-modes-callout: #F9F5FF;
+
+    /* PermissionModel local tints */
+    --pm-model-row: #F9F5FF;
+    --pm-model-purple-card: #EFE9FC;
+    --pm-model-pink-card: #fae8f8;
+  }
+
+  .dark {
+    /* Pulse neutral semantic tokens (dark)
+     * Text values adjusted upward from Pulse defaults for WCAG AAA (7:1)
+     * on card surfaces (#232323). */
+    --theme-card-bg: #232323;
+    --theme-card-bg-white: #232323;
+    --theme-heading: #F7F9F9;
+    --theme-text: #B5B6B6;
+    --theme-text-muted: #B0B0B0;
+    --theme-text-subtle: #B0B0B0;
+    --theme-label-muted: #B0B0B0;
+    --theme-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+    /* Pulse brand palette (dark) */
+    --brand-blue-text: #B0E9F8;
+    --brand-green-text: #9CE390;
+    --brand-pink-text: #f0abfc;
+    --brand-red-text: #E62338;
+    --brand-purple-text: #A1B1FA;
+
+    --accent-deep-purple: #858DF8;
+    --surface-deep-purple: #422981;
+
+    --tint-code: rgba(255,255,255,0.10);
+
+    /* Pulse callout semantic palette (dark) */
+    --callout-error-fg: #FF485D;
+    --callout-error-bg: rgba(230,35,56,0.12);
+    --callout-warning-fg: #ECB801;
+    --callout-warning-bg: rgba(236,184,1,0.10);
+    --callout-info-fg: #00B5E2;
+    --callout-info-bg: rgba(0,181,226,0.10);
+    --callout-success-fg: #0FAC27;
+    --callout-success-bg: rgba(15,172,39,0.10);
+
+    /* AgentTeams (Pulse aqua dark) */
+    --at-callout: rgba(0,181,226,0.10);
+    --at-card-bg: rgba(255,255,255,0.04);
+    --at-teammate-fill: rgba(0,181,226,0.18);
+    --at-teammate-stroke: #B0E9F8;
+    --at-task-list-fill: rgba(0,181,226,0.18);
+    --at-task-list-stroke: #B0E9F8;
+    --at-header-neutral-bg: #444443;
+    --at-row-border: rgba(255,255,255,0.06);
+    --at-teammate-label: #B0E9F8;
+
+    /* Subagents (Pulse purple dark) */
+    --sa-callout: rgba(98,64,232,0.18);
+    --sa-card-bg: rgba(255,255,255,0.04);
+    --sa-card-border: #858DF8;
+    --sa-satellite-fill: rgba(98,64,232,0.22);
+    --sa-satellite-stroke: #858DF8;
+    --sa-subagent-label: #A1B1FA;
+
+    /* HooksLifecycle (dark) */
+    --hl-step-bg: rgba(255,255,255,0.04);
+    --hl-step-bg-active: rgba(98,64,232,0.18);
+    --hl-step-border: #858DF8;
+    --hl-arrow: #A3A4A4;
+    --hl-terminal-bg: #0f0f17;
+
+    /* ContextSession (dark) */
+    --cs-bar-track: rgba(255,255,255,0.06);
+    --cs-legend-tile: rgba(255,255,255,0.04);
+    --cs-context-rot: rgba(202,1,190,0.10);
+    --cs-branch-blue: rgba(0,181,226,0.10);
+    --cs-branch-green: rgba(15,172,39,0.10);
+    --cs-branch-purple: rgba(98,64,232,0.14);
+    --cs-branch-pink: rgba(202,1,190,0.10);
+    --cs-branch-neutral: rgba(255,255,255,0.04);
+    --cs-top-habit: rgba(0,181,226,0.10);
+
+    /* SkillsPlugins (dark) */
+    --sp-callout-green: rgba(15,172,39,0.10);
+    --sp-callout-purple: rgba(98,64,232,0.18);
+    --sp-callout-blue: rgba(0,181,226,0.10);
+    --sp-callout-pink: rgba(202,1,190,0.10);
+
+    --pc-callout: rgba(255,255,255,0.05);
+
+    --pm-modes-callout: rgba(255,255,255,0.05);
+
+    --pm-model-row: rgba(255,255,255,0.04);
+    --pm-model-purple-card: rgba(98,64,232,0.18);
+    --pm-model-pink-card: rgba(202,1,190,0.18);
+  }
+}
+
+@media (min-width: 1440px) {
+  div:has(> aside[aria-label="On this page"]) :where(.prose > *:not(.absolute)) {
+    max-width: var(--container-3xl);
   }
 }

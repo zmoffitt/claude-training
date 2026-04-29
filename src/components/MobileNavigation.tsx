@@ -6,40 +6,15 @@ import {
   DialogPanel,
   TransitionChild,
 } from '@headlessui/react'
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { Suspense, createContext, useContext } from 'react'
 import { create } from 'zustand'
 
 import { Header } from '@/components/Header'
+import { MenuIcon, XIcon } from '@/components/NavIcons'
 import { Navigation } from '@/components/Navigation'
-
-function MenuIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M.5 1h9M.5 8h9M.5 4.5h9" />
-    </svg>
-  )
-}
-
-function XIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-  return (
-    <svg
-      viewBox="0 0 10 9"
-      fill="none"
-      strokeLinecap="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="m1.5 1 7 7M8.5 1l-7 7" />
-    </svg>
-  )
-}
+import { focusRing } from '@/lib/focusRing'
 
 const IsInsideMobileNavigationContext = createContext(false)
 
@@ -70,7 +45,7 @@ function MobileNavigationDialog({
         <TransitionChild>
           <motion.div
             layoutScroll
-            className="fixed top-14 bottom-0 left-0 w-full overflow-y-auto bg-white px-4 pt-6 pb-4 shadow-lg ring-1 shadow-zinc-900/10 ring-zinc-900/7.5 duration-500 ease-in-out data-closed:-translate-x-full min-[416px]:max-w-sm sm:px-6 sm:pb-10 dark:bg-zinc-900 dark:ring-zinc-800"
+            className="fixed top-14 bottom-0 left-0 w-full overflow-y-auto bg-white px-4 pt-6 pb-4 shadow-lg ring-1 shadow-zinc-900/10 ring-zinc-900/7.5 duration-500 ease-in-out data-closed:-translate-x-full sm:max-w-md sm:px-6 sm:pb-10 dark:bg-zinc-900 dark:ring-zinc-800"
           >
             <Navigation />
           </motion.div>
@@ -105,11 +80,15 @@ export function MobileNavigation() {
     <IsInsideMobileNavigationContext.Provider value={true}>
       <button
         type="button"
-        className="relative flex size-6 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5"
-        aria-label="Toggle navigation"
+        className={clsx(
+          'relative flex size-11 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5',
+          focusRing,
+        )}
+        aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+        aria-expanded={isOpen}
         onClick={toggle}
       >
-        <ToggleIcon className="w-2.5 stroke-zinc-900 dark:stroke-white" />
+        <ToggleIcon className="w-3 stroke-zinc-900 dark:stroke-white" />
       </button>
       {!isInsideMobileNavigation && (
         <Suspense fallback={null}>

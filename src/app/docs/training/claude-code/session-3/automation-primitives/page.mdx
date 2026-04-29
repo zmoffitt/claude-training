@@ -1,0 +1,39 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Automation Primitives",
+};
+
+# Which "/schedule" Did You Just Type?
+
+<ReadTime minutes={3} />
+
+Four automation primitives — the **Monitor tool**, **`/loop`**, a **Desktop scheduled task**, and a **Routine** — know which surface you're actually on. The string `/schedule` resolves differently in each CLI: in Claude Code it creates a cloud Routine, while the Cowork skill `/schedule` creates a local Desktop task instead.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Primitive                            | Create via                                                                                       | Runs on                                                  | Survives closed laptop?     |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------- | --------------------------- |
+| **Monitor tool**                     | Called inline by Claude in a live session — not user-created                                     | Background process on your machine, current session only | No                          |
+| **`/loop`**                          | `/loop 5m /skill` in any CLI session                                                             | Your machine, current session only                       | No                          |
+| **Desktop scheduled task** _(local)_ | Desktop → New task → **New local task**; or the Cowork `/schedule` skill                         | Your machine — Desktop must be open and awake            | No (runs when laptop wakes) |
+| **Routine** _(cloud)_                | Desktop → New task → **New remote task**; Claude Code CLI `/schedule`; `claude.ai/code/routines` | Anthropic-managed cloud infrastructure                   | **Yes**                     |
+
+</div>
+
+<br />
+
+<Callout
+  variant="info"
+  title="/schedule is three different things"
+  align="left"
+>
+  Claude Code CLI → cloud routine. Cowork skill → local Desktop task. Desktop
+  "New task" → either, based on the local-or-remote pick.
+</Callout>
+
+## Where to go next
+
+- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see a cloud routine end-to-end
+- **[Plugins & Marketplaces](/docs/training/claude-code/session-3/plugins-marketplaces)** — bundle skills, agents, and MCP servers for the team

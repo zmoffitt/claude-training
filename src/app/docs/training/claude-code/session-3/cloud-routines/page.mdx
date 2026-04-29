@@ -1,0 +1,49 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Cloud Routines",
+};
+
+# Cloud Routines
+
+<ReadTime minutes={3} />
+
+Claude on autopilot — scheduled work that runs on Anthropic infrastructure, not your laptop. Currently a **research preview**.
+
+## What a routine is
+
+- A saved prompt + repos + connectors, run on a schedule
+- Three triggers: **schedule** (cron), **API** (webhook), **GitHub event**
+- Runs as _you_ — your connectors, your identity, your audit trail
+- Create at `claude.ai/code/routines` or with `/schedule` in the Claude Code CLI
+- Tokens and secrets live in the managed environment, not on your machine
+
+## Example: morning email triage
+
+```text
+# Trigger: weekdays 7:00 AM
+# Connector: Microsoft 365 (approved)
+
+Read unread Outlook mail since 6 PM yesterday. Classify each into:
+  - urgent  (needs reply today)
+  - review  (read & file)
+  - noise   (ignore)
+
+Emit a grouped summary as this run's output with subject lines and
+proposed actions. I'll review it in the routines panel.
+Do not send any replies.
+```
+
+<br />
+
+<Callout variant="warning" title="One real constraint" align="left">
+  The M365 connector is **read-only** for email and chat today. Routines that
+  need a write action go through GitHub, a CLI shell-out, or an outgoing
+  webhook. You'll see this pattern in the live demo.
+</Callout>
+
+## Where to go next
+
+- **[Automation Primitives](/docs/training/claude-code/session-3/automation-primitives)** — routines vs. local Desktop tasks vs. `/loop` vs. Monitor
+- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — a routine end-to-end

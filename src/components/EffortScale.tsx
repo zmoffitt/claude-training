@@ -1,7 +1,4 @@
-'use client'
-
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars, wcagText } from '@/lib/theme-colors'
 
 interface EffortColumn {
   arrow: 'up' | 'down'
@@ -15,11 +12,8 @@ export function EffortScale({
 }: {
   columns: Array<EffortColumn>
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
-
   return (
-    <div style={{ maxWidth: 'none' }}>
+    <div>
       <div
         style={{
           display: 'grid',
@@ -34,7 +28,7 @@ export function EffortScale({
             style={{
               borderTop: `5px solid ${col.color}`,
               borderRadius: '0.5rem',
-              backgroundColor: t.cardBg,
+              backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
@@ -46,7 +40,7 @@ export function EffortScale({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: col.color,
+                color: wcagText(col.color),
                 textAlign: 'center',
               }}
             >
@@ -69,7 +63,7 @@ export function EffortScale({
                   style={{
                     fontSize: '0.9375rem',
                     lineHeight: 1.5,
-                    color: t.text,
+                    color: themeVars.text,
                   }}
                 >
                   {item}

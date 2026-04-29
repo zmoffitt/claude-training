@@ -1,7 +1,4 @@
-'use client'
-
-import { useThemeMode } from '@/lib/useThemeMode'
-import { themeColors } from '@/lib/theme-colors'
+import { themeVars, wcagText, wcagBadgeBg } from '@/lib/theme-colors'
 
 interface ComparisonCard {
   title: string
@@ -18,11 +15,8 @@ export function ComparisonCards({
 }: {
   cards: Array<ComparisonCard>
 }) {
-  const mode = useThemeMode()
-  const t = themeColors[mode]
-
   return (
-    <div style={{ maxWidth: 'none' }}>
+    <div>
       <div
         style={{
           display: 'grid',
@@ -31,81 +25,85 @@ export function ComparisonCards({
           alignItems: 'stretch',
         }}
       >
-        {cards.map((card) => (
-          <div
-            key={card.title}
-            style={{
-              borderTop: `5px solid ${card.color}`,
-              borderRadius: '0.5rem',
-              backgroundColor: t.cardBg,
-              boxShadow: t.shadow,
-              padding: '1.75rem 1.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.75rem',
-            }}
-          >
-            <h3
+        {cards.map((card) => {
+          const safeTextColor = wcagText(card.color)
+          const safeBadgeBg = wcagBadgeBg(card.badgeColor)
+          return (
+            <div
+              key={card.title}
               style={{
-                fontSize: '1.25rem',
-                fontWeight: 700,
-                margin: 0,
-                color: t.heading,
-                textAlign: 'center',
+                borderTop: `5px solid ${card.color}`,
+                borderRadius: '0.5rem',
+                backgroundColor: themeVars.cardBg,
+                boxShadow: themeVars.shadow,
+                padding: '1.75rem 1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
               }}
             >
-              {card.title}
-            </h3>
-            <p
-              style={{
-                fontSize: '0.875rem',
-                fontStyle: 'italic',
-                margin: 0,
-                color: t.textMuted,
-                textAlign: 'center',
-              }}
-            >
-              {card.subtitle}
-            </p>
-            <div style={{ textAlign: 'center' }}>
-              <span
+              <h3
                 style={{
-                  display: 'inline-block',
-                  backgroundColor: card.badgeColor,
-                  color: '#ffffff',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  padding: '0.375rem 1.25rem',
-                  borderRadius: '0.375rem',
+                  fontSize: '1.25rem',
+                  fontWeight: 700,
+                  margin: 0,
+                  color: themeVars.heading,
+                  textAlign: 'center',
                 }}
               >
-                {card.badge}
-              </span>
+                {card.title}
+              </h3>
+              <p
+                style={{
+                  fontSize: '0.875rem',
+                  fontStyle: 'italic',
+                  margin: 0,
+                  color: themeVars.textMuted,
+                  textAlign: 'center',
+                }}
+              >
+                {card.subtitle}
+              </p>
+              <div style={{ textAlign: 'center' }}>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    backgroundColor: safeBadgeBg,
+                    color: '#ffffff',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    padding: '0.375rem 1.25rem',
+                    borderRadius: '0.375rem',
+                  }}
+                >
+                  {card.badge}
+                </span>
+              </div>
+              <p
+                style={{
+                  fontSize: '0.8125rem',
+                  lineHeight: 1.6,
+                  margin: 0,
+                  color: themeVars.textMuted,
+                  flex: 1,
+                }}
+              >
+                {card.steps}
+              </p>
+              <p
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  fontStyle: 'italic',
+                  margin: 0,
+                  color: safeTextColor,
+                }}
+              >
+                {card.takeaway}
+              </p>
             </div>
-            <p
-              style={{
-                fontSize: '0.8125rem',
-                lineHeight: 1.6,
-                margin: 0,
-                color: t.textMuted,
-                flex: 1,
-              }}
-            >
-              {card.steps}
-            </p>
-            <p
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 700,
-                fontStyle: 'italic',
-                margin: 0,
-                color: card.color,
-              }}
-            >
-              {card.takeaway}
-            </p>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

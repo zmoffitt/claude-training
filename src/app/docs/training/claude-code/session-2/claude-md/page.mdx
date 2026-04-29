@@ -1,0 +1,42 @@
+import { Callout } from "@/components/Callout";
+
+import { ReadTime } from "@/components/ReadTime";
+export const metadata = {
+  title: "CLAUDE.md & Inheritance",
+};
+
+# CLAUDE.md + Inheritance
+
+<ReadTime minutes={2} />
+
+Persistent instructions that travel with your repo — three levels deep.
+
+## What CLAUDE.md does
+
+- Tells Claude about your project before you say a word
+- Defines coding conventions, architecture, constraints
+- Specifies forbidden actions and required practices
+- Loaded automatically when Claude enters the directory
+- Shared with the team via git — everyone benefits
+
+## The three-level hierarchy
+
+| Path | Scope | Shared? |
+| --- | --- | --- |
+| `~/.claude/CLAUDE.md` | **Personal global** — your style and conventions | No |
+| `./CLAUDE.md` | **Project root** — architecture, deploy rules | Yes (via git) |
+| `./modules/auth/CLAUDE.md` | **Nested directory** — module overrides | Yes (via git); closer files win |
+
+<br />
+
+<Callout variant="info" title="Think CSS specificity" align="left">
+  Claude **merges** all three levels. Global is the base, project overrides
+  global, directory overrides project. Keep the root `CLAUDE.md` under ~5K
+  tokens to protect your context budget.
+</Callout>
+
+## Where to go next
+
+- **[What to Put in CLAUDE.md](/docs/training/claude-code/session-2/what-to-put-in-claude-md)** — five conventions to start with
+- **[CLAUDE.md Examples](/docs/training/claude-code/session-2/claude-md-examples)** — DevOps and IAM worked examples
+- **[The .claude/ Directory](/docs/training/claude-code/session-2/dot-claude-directory)** — repo-root vs. `.claude/` layout, what goes where

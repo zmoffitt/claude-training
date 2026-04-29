@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
+import { focusRing } from '@/lib/focusRing'
+
 function ArrowIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" {...props}>
@@ -42,15 +44,20 @@ export function Button({
   ...props
 }: ButtonProps) {
   className = clsx(
-    'inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition',
+    'group inline-flex gap-0.5 justify-center overflow-hidden text-sm font-medium transition',
     variantStyles[variant],
+    focusRing,
     className,
   )
 
+  // Due to the rotate-180 on left arrows, translate-x is applied in pre-rotation
+  // local coords. Applying translate-x-0.5 universally makes both arrows advance
+  // in the direction they're visually pointing on hover.
   let arrowIcon = (
     <ArrowIcon
       className={clsx(
-        'mt-0.5 h-5 w-5',
+        'mt-0.5 h-5 w-5 transition-transform duration-150 ease-out',
+        arrow && 'group-hover:translate-x-0.5',
         variant === 'text' && 'relative top-px',
         arrow === 'left' && '-ml-1 rotate-180',
         arrow === 'right' && '-mr-1',

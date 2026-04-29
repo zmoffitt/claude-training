@@ -1,21 +1,25 @@
 import nextMDX from '@next/mdx'
-import remarkGfm from 'remark-gfm'
-import rehypeSlug from 'rehype-slug'
 
+// Plugins are passed as string tuples so the loader options are serializable
+// for Turbopack (default builder in Next 16). Direct function imports are not
+// serializable across the Turbopack worker boundary.
 const withMDX = nextMDX({
   options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [['remark-gfm']],
+    rehypePlugins: [['rehype-slug']],
   },
 })
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/claude-training',
+  trailingSlash: false,
   images: { unoptimized: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   transpilePackages: ['next-themes'],
+  experimental: {
+    optimizePackageImports: ['@headlessui/react', 'framer-motion', 'react-syntax-highlighter'],
+  },
 }
 
 export default withMDX(nextConfig)

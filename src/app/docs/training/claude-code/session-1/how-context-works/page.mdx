@@ -1,17 +1,15 @@
 import { Callout } from "@/components/Callout";
 
+import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "How Context Works",
 };
 
 # How Context Works
 
-<br />
-<Callout variant="info" title="Quick Context Refresher" align="left">
-  **Everything Claude knows about your task must fit in one context window.**
-  There is no hidden memory between messages within a conversation — the window
-  is all there is.
-</Callout>
+<ReadTime minutes={2} />
+
+Everything Claude knows about your task must fit in one context window. There is no hidden memory between messages — the window is all there is.
 
 ## What counts as context
 
@@ -23,9 +21,14 @@ export const metadata = {
 | **Tool outputs**        | Results from web search, plugins, connectors  |
 | **System instructions** | Preferences, memory, project context          |
 
-## Key Takeaway
+<br />
 
-<Callout variant="warning" title="Keep it Fresh" align="left">
+<Callout variant="warning" title="Keep it fresh" align="left">
   Long conversations degrade quality. When things get muddled, start a fresh
   conversation.
 </Callout>
+
+## Where to go next
+
+- **[Context Window & Tokens](/docs/training/claude-code/session-1/context-window-tokens)** — the math behind why fresh sessions matter
+- **[Thinking Effort, Models, & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas)** — match model and depth to the task

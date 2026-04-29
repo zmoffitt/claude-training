@@ -1,0 +1,49 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Insights",
+};
+
+# Insights: See How Your Team Uses Claude
+
+<ReadTime minutes={3} />
+
+Usage patterns inform what to standardize, what to retire, what to invest in.
+
+## Adoption
+
+Who's using what, how often.
+
+The Insights dashboard shows active users by week, the CLI vs. Desktop vs. web split, and per-team activity. The point isn't a vanity number; it's spotting the **quiet teams** so you can offer help before they decide Claude isn't for them.
+
+> _Example:_ Identity Engineering shows up in the dashboard at 12% weekly active vs. 78% for the Cloud team. A 30-minute walkthrough on `mg-graph` patterns lifts them to 60% the following week. The signal got there before the survey would have.
+
+## Workflows
+
+Which skills, MCPs, and plugins win.
+
+Most-used skills, MCP server invocations, and recurring prompts surface here. When the same workflow appears five times across five different engineers, that's a skill waiting to ship as a plugin. When an MCP server dominates usage, that's the one to harden first.
+
+> _Example:_ Three engineers independently scripted "summarize this week's failed CI runs and file an issue per repeat." Promoted to a `ci-failure-triage` skill, distributed via the internal plugin marketplace. Time-to-PR on flaky-test fixes drops from days to hours.
+
+## Cost
+
+Tokens, model mix, quota burn.
+
+Token spend by team and user, the Opus / Sonnet / Haiku ratio, and the workflows burning the most quota. Helpful for budgeting; more helpful for spotting **the wrong model on the wrong job**.
+
+> _Example:_ A weekly report routine on Opus is costing 4× what it needs to. Same prompt on Sonnet produces functionally equivalent output for the same task. Switching saves the team's quota for the work that actually needs the bigger model.
+
+<br />
+
+<Callout variant="info" title="Use Insights to drive standardization" align="left">
+  When five engineers independently invent the same workflow — that's a skill
+  waiting to ship as a plugin. When one MCP server dominates usage — harden
+  it. Don't guess; measure.
+</Callout>
+
+## Where to go next
+
+- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see the full skill + connector + routine pattern in action
+- **[Practice Assignment](/docs/training/claude-code/session-3/practice-assignment)** — your turn to ship one

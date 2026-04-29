@@ -11,7 +11,12 @@ import {
   useIsInsideMobileNavigation,
   useMobileNavigationStore,
 } from '@/components/MobileNavigation'
+import { MenuIcon, SidebarCollapseIcon } from '@/components/NavIcons'
+import { SearchButton } from '@/components/SearchDialog'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { useSidebarStore } from '@/lib/useSidebarStore'
+import { useIsLg } from '@/lib/useIsLg'
+import { focusRing } from '@/lib/focusRing'
 
 export const Header = forwardRef<
   React.ComponentRef<'div'>,
@@ -19,10 +24,15 @@ export const Header = forwardRef<
 >(function Header({ className, ...props }, ref) {
   let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
+  let { width: sidebarWidth, isCollapsed, toggleCollapse } = useSidebarStore()
+  let isLg = useIsLg()
 
   let { scrollY } = useScroll()
   let bgOpacityLight = useTransform(scrollY, [0, 72], ['50%', '90%'])
   let bgOpacityDark = useTransform(scrollY, [0, 72], ['20%', '80%'])
+
+  // On desktop, the header's left edge aligns with the sidebar's right edge.
+  const headerLeft = isLg ? (isCollapsed ? 0 : sidebarWidth) : 0
 
   return (
     <motion.div
@@ -30,9 +40,8 @@ export const Header = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-80',
-        !isInsideMobileNavigation &&
-          'backdrop-blur-xs lg:left-72 xl:left-80 dark:backdrop-blur-sm',
+        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:z-30 lg:px-8',
+        !isInsideMobileNavigation && 'backdrop-blur-xs dark:backdrop-blur-sm',
         isInsideMobileNavigation
           ? 'bg-white dark:bg-zinc-900'
           : 'bg-white/(--bg-opacity-light) dark:bg-zinc-900/(--bg-opacity-dark)',
@@ -41,6 +50,8 @@ export const Header = forwardRef<
         {
           '--bg-opacity-light': bgOpacityLight,
           '--bg-opacity-dark': bgOpacityDark,
+          left: headerLeft,
+          transition: 'left 0.2s ease',
         } as React.CSSProperties
       }
     >
@@ -51,15 +62,41 @@ export const Header = forwardRef<
             'bg-zinc-900/7.5 dark:bg-white/7.5',
         )}
       />
-      <div className="hidden lg:block lg:max-w-md lg:flex-auto" />
-      <div className="flex items-center gap-5 lg:hidden">
-        <MobileNavigation />
-        <Link href="/" aria-label="Home">
+      {/* Toggle button — visible on all screen sizes */}
+      <div className="flex items-center gap-5">
+        {isLg ? (
+          /* Desktop: toggle sidebar collapse */
+          <button
+            type="button"
+            className={clsx(
+              'relative flex size-11 items-center justify-center rounded-md transition hover:bg-zinc-900/5 dark:hover:bg-white/5',
+              focusRing,
+            )}
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-expanded={!isCollapsed}
+            onClick={toggleCollapse}
+          >
+            {isCollapsed ? (
+              <MenuIcon className="w-3 stroke-zinc-900 dark:stroke-white" />
+            ) : (
+              <SidebarCollapseIcon className="w-3 stroke-zinc-900 dark:stroke-white" />
+            )}
+          </button>
+        ) : (
+          /* Mobile: existing MobileNavigation toggle */
+          <MobileNavigation />
+        )}
+        <Link
+          href="/"
+          aria-label="Home"
+          className={clsx(isLg && 'hidden', 'rounded', focusRing)}
+        >
           <Logo />
         </Link>
       </div>
       <div className="flex items-center gap-5">
         <div className="flex gap-4">
+          <SearchButton />
           <ThemeToggle />
         </div>
       </div>
