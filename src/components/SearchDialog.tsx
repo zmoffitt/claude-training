@@ -86,7 +86,8 @@ async function loadPagefind() {
   if (pagefindInstance) return pagefindInstance
   if (pagefindFailed) return null
   try {
-    pagefindInstance = await (new Function('return import("/pagefind/pagefind.js")')())
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+    pagefindInstance = await (new Function(`return import("${basePath}/pagefind/pagefind.js")`)())
     return pagefindInstance
   } catch {
     pagefindFailed = true

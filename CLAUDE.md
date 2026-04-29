@@ -28,7 +28,7 @@ Next.js 15 (static export via `output: 'export'`), React 19, TypeScript, Tailwin
 
 **Static export only** — `next.config.mjs` sets `output: 'export'` and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
 
-**Deployed via Cloudflare Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and deploys to Cloudflare Pages using Wrangler on push to `main`. Requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets in the repo.
+**Deployed via GitHub Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and uploads `out/` as a Pages artifact on push to `main`. The site is served at `https://zmoffitt.github.io/claude-training/`, so `next.config.mjs` sets `basePath` and `assetPrefix` to `/claude-training`, and `NEXT_PUBLIC_BASE_PATH` is exposed for runtime asset paths (e.g. the Pagefind loader in `SearchDialog.tsx`). A `.nojekyll` file in `public/` prevents Jekyll from stripping `_next/` directories.
 
 **Path alias** — `@/*` maps to `./src/*` (configured in `tsconfig.json`). TypeScript strict mode is **off**.
 

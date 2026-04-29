@@ -10,10 +10,17 @@ const withMDX = nextMDX({
   },
 })
 
+const basePath = '/claude-training'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   trailingSlash: false,
+  basePath,
+  assetPrefix: basePath,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: { unoptimized: true },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx'],
   transpilePackages: ['next-themes'],
