@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## What This Is
 
-Documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools. Includes parallel Claude and Codex/ChatGPT training tracks.
+Documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools. Claude is the primary training program; Codex/ChatGPT is a secondary training track.
 
 ## Prerequisites
 
@@ -41,6 +41,8 @@ Internal root-relative Markdown links are rendered with Next.js `Link`, which ap
 All documentation pages are `.mdx` files at `src/app/docs/**/page.mdx`, using Next.js App Router file-based routing.
 
 ### Training Tracks
+
+Keep Claude first in the homepage, Start Here, and training navigation. Use the filled primary CTA and homepage roadmap for Claude; keep Codex/ChatGPT discoverable as a secondary option.
 
 - **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first three sessions developed.
 - **Codex & ChatGPT**: `src/app/docs/training/codex-chatgpt/`; three complete sessions covering foundations, repository workflows, and extensions. Includes 26 pages with demos and practice assignments.
