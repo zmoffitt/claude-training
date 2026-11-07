@@ -14,8 +14,11 @@ type Direction = 'forward' | 'back' | 'none'
 
 type Router = { push: (href: string) => void }
 
-/** How long to hold the old frame while the next page's data arrives. */
-const SETTLE_TIMEOUT_MS = 1500
+/** How long to hold the old frame while the next page's data arrives. Links
+ * in view are prefetched, so this rarely matters; past it the transition
+ * finishes on the old frame and the new page swaps in plainly when it lands,
+ * which beats a frozen screen. */
+const SETTLE_TIMEOUT_MS = 400
 
 let active = false
 const listeners = new Set<() => void>()

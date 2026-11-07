@@ -214,6 +214,26 @@ export function SearchDialog() {
     }
   }
 
+  const suggestionChips = (
+    <div className="flex items-center gap-2 px-4 pb-2">
+      <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+        Try
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {['CLAUDE.md', 'hooks', 'MCP', '/schedule'].map((q) => (
+          <button
+            key={q}
+            type="button"
+            onClick={() => setQuery(q)}
+            className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-700 transition hover:bg-violet-100 hover:text-violet-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-violet-500/20 dark:hover:text-violet-300"
+          >
+            {q}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
   return (
     <Dialog open={isOpen} onClose={close} className="relative z-50" transition>
       <DialogBackdrop
@@ -255,32 +275,24 @@ export function SearchDialog() {
             </kbd>
           </div>
           {query.trim() && results.length === 0 && !isSearching ? (
-            <div className="px-4 py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-              Nothing matches &ldquo;{query}&rdquo;.
-              <br />
-              <span className="text-xs">
-                Try a broader term, or browse the sidebar.
-              </span>
+            <div className="flex flex-col gap-4 py-6">
+              <p className="px-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
+                Nothing matches &ldquo;{query}&rdquo;. Try a broader term, or one of these.
+              </p>
+              <div className="flex justify-center">{suggestionChips}</div>
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="text-xs font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
+                >
+                  Clear and browse sections
+                </button>
+              </div>
             </div>
           ) : !query.trim() ? (
             <div className="max-h-[50vh] overflow-y-auto py-3">
-              <div className="flex items-center gap-2 px-4 pb-2">
-                <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-                  Try
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {['CLAUDE.md', 'hooks', 'MCP', '/schedule'].map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      onClick={() => setQuery(q)}
-                      className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-700 transition hover:bg-violet-100 hover:text-violet-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-violet-500/20 dark:hover:text-violet-300"
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              {suggestionChips}
               <p className="px-4 pt-2 pb-2 text-[11px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
                 Sections
               </p>

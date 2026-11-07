@@ -9,6 +9,19 @@ export const metadata = {
 
 Mistakes to avoid when working with AI coding tools.
 
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Pitfall | The tell | Fix |
+|---|---|---|
+| Trusting without verifying | It compiled, so it merged | [Read it like a PR](#trusting-without-verifying) |
+| Losing context in long sessions | The model contradicts an earlier decision | [Rewind, compact, or restart](#losing-context-in-long-sessions) |
+| Over-engineering | Abstractions nobody asked for | [State the scope](#over-engineering) |
+| Hallucinated APIs | An import that does not resolve | [Check the package and version](#hallucinated-apis) |
+| Copy-pasting sensitive data | A real token in a prompt | [Sanitize first](#copy-pasting-sensitive-data) |
+| Ignoring test failures | A failing test "fixed" to pass | [Run the suite before and after](#ignoring-test-failures) |
+
+</div>
+
 ## Trusting without verifying
 
 <Lead tone="red">The problem:</Lead> Accepting AI-generated code without reading it.
