@@ -8,6 +8,7 @@ the repo root:
 
     python3 -I scripts/color-audit.py
 """
+import re, math, sys
 css = open("src/styles/tailwind.css").read()
 root = css[:css.index(".dark {")]
 dark = css[css.index(".dark {"):]
