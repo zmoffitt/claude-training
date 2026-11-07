@@ -3,7 +3,7 @@
 import { usePagePath } from '@/lib/usePagePath'
 
 import { Button } from '@/components/Button'
-import { navigation, type NavLinkItem } from '@/components/Navigation'
+import { navigation, type NavLinkItem, type PageEntry } from '@/components/Navigation'
 import { usePrevNextPage } from '@/lib/usePrevNextPage'
 
 function findSiblingPosition(
@@ -40,22 +40,26 @@ function PageLink({
   label,
   page,
   previous = false,
+  crossesGroup = false,
 }: {
   label: string
-  page: { href: string; title: string }
+  page: PageEntry
   previous?: boolean
+  /** The target sits in another sidebar group: say so instead of implying a sequence. */
+  crossesGroup?: boolean
 }) {
+  const shownLabel = crossesGroup ? `${label} section` : label
   return (
     <>
       <div className="flex items-center gap-2">
         <Button
           href={page.href}
-          aria-label={`${label}: ${page.title}`}
+          aria-label={`${shownLabel}: ${crossesGroup ? `${page.group}, ` : ''}${page.title}`}
           aria-keyshortcuts={previous ? 'ArrowLeft' : 'ArrowRight'}
           variant={previous ? 'secondary' : 'filled'}
           arrow={previous ? 'left' : 'right'}
         >
-          {label}
+          {shownLabel}
         </Button>
         <kbd
           aria-hidden="true"
@@ -64,6 +68,14 @@ function PageLink({
           {previous ? '←' : '→'}
         </kbd>
       </div>
+      {crossesGroup && (
+        <span
+          aria-hidden="true"
+          className="-mb-2 text-[11px] font-semibold tracking-wider text-zinc-500 uppercase dark:text-zinc-400"
+        >
+          {page.group}
+        </span>
+      )}
       <span
         aria-hidden="true"
         className="text-base font-semibold text-zinc-900 dark:text-white"
@@ -75,7 +87,7 @@ function PageLink({
 }
 
 function PageNavigation() {
-  const { previousPage, nextPage } = usePrevNextPage()
+  const { previousPage, nextPage, currentPage } = usePrevNextPage()
 
   if (!previousPage && !nextPage) {
     return null
@@ -85,12 +97,21 @@ function PageNavigation() {
     <div className="flex">
       {previousPage && (
         <div className="flex flex-col items-start gap-3">
-          <PageLink label="Previous" page={previousPage} previous />
+          <PageLink
+            label="Previous"
+            page={previousPage}
+            previous
+            crossesGroup={previousPage.group !== currentPage?.group}
+          />
         </div>
       )}
       {nextPage && (
         <div className="ml-auto flex flex-col items-end gap-3">
-          <PageLink label="Next" page={nextPage} />
+          <PageLink
+            label="Next"
+            page={nextPage}
+            crossesGroup={nextPage.group !== currentPage?.group}
+          />
         </div>
       )}
     </div>

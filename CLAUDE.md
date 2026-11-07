@@ -62,6 +62,8 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 - **`PageHero`** / **`TrainingRoadmap`** / **`SessionOutline`** — Used on the home page and session landing pages (eyebrow + display headline; no gradient hero)
 - **`PillarCards`** / **`ProConCards`** — Card-grid visualizations; both stack on mobile and restore N columns at `sm:` (4-card layouts step through 2×2 at `sm:` before going 4-across at `lg:`)
 - Other visualization components (`ModelTierCards`, `ComparisonCards`, `PermissionModel`, `HooksLifecycle`, etc.) are typically one-per-page
+- **`Term`** — glossary chip: `<Term id="opusplan">…</Term>` on the first use of a program term before its defining page; links to `/docs/glossary#id` (data in `src/lib/glossary.ts`, page body from `Glossary`)
+- **`Lead`** — run-in label on the risk scale (`<Lead tone="red">The problem:</Lead>`) for problem/fix style pages
 
 ### Search & 404
 

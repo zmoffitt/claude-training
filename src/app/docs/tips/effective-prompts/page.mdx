@@ -10,7 +10,7 @@ A collection of prompts that work well for common development tasks.
 
 ### Generate a migration
 
-```text
+```prompt
 Create a Prisma migration that adds a `status` enum field to the `orders`
 table with values: pending, processing, completed, cancelled.
 Default to 'pending'. Add an index on status.
@@ -18,7 +18,7 @@ Default to 'pending'. Add an index on status.
 
 ### Optimize a slow query
 
-```text
+```prompt
 This query takes 3s on a table with 2M rows. Optimize it without changing
 the return shape. The table has indexes on: id, created_at, user_id
 
@@ -29,7 +29,7 @@ the return shape. The table has indexes on: id, created_at, user_id
 
 ### Generate tests for existing code
 
-```text
+```prompt
 Write unit tests for src/lib/validators.ts covering:
 
 - Valid inputs (happy path)
@@ -42,7 +42,7 @@ Use Vitest. Follow the patterns in src/lib/__tests__/utils.test.ts.
 
 ### Debug a flaky test
 
-```text
+```prompt
 This test passes locally but fails intermittently in CI:
 
 [paste the test]
@@ -56,7 +56,7 @@ Identify the source of non-determinism and suggest a fix.
 
 ### Extract a shared component
 
-```text
+```prompt
 The following pattern is duplicated in 3 files: [list files].
 Extract a shared component/utility that all three can use.
 Keep the public API unchanged for each caller.
@@ -64,7 +64,7 @@ Keep the public API unchanged for each caller.
 
 ### Migrate to a new API
 
-```text
+```prompt
 We're replacing our use of [old-library] with [new-library].
 Migrate src/lib/email.ts to use the new API.
 Here are the new library's docs: [link or paste]
@@ -74,7 +74,12 @@ Here are the new library's docs: [link or paste]
 
 ### Review before you read
 
-```text
+```prompt
 Implement the change, then review your own diff for correctness and edge
 cases before reporting back. List anything you're unsure about.
 ```
+
+## Where to go next
+
+- **[Prompt Engineering](/docs/training/prompt-engineering)** — the principles these prompts follow
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — the line to append to every prompt here

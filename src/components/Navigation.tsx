@@ -365,7 +365,7 @@ export const navigation: Array<NavGroup> = [
             title: 'Session 1: Foundations',
             href: '/docs/training/claude-code/session-1',
             children: [
-              { title: 'AI Fluency Framework', href: '/docs/training/claude-code/session-1/ai-fluency-framework' },
+              { title: 'AI Fluency Framework', href: '/docs/training/claude-code/session-1/ai-fluency-framework', section: 'Orientation' },
               { title: 'Slope Over Snapshot', href: '/docs/training/claude-code/session-1/slope-over-snapshot' },
               { title: 'Three Eras', href: '/docs/training/claude-code/session-1/three-eras' },
               { title: "What Claude Is (and Isn't)", href: '/docs/training/claude-code/session-1/what-claude-is' },
@@ -373,6 +373,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: "How Context Works",
                 href: '/docs/training/claude-code/session-1/how-context-works',
+                section: 'How Claude works',
                 children: [
                   { title: 'Context Window & Tokens', href: '/docs/training/claude-code/session-1/context-window-tokens' },
                 ],
@@ -396,6 +397,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: "Hands-On Exercise",
                 href: '/docs/training/claude-code/session-1/hands-on-exercise',
+                section: 'Hands-on',
                 children: [
                   { title: 'Verification Pattern', href: '/docs/training/claude-code/session-1/verification-pattern' },
                   { title: 'Practice Assignment', href: '/docs/training/claude-code/session-1/practice-assignment' },
@@ -410,6 +412,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Your Claude, Three Ways',
                 href: '/docs/training/claude-code/session-2/your-claude-three-ways',
+                section: 'Surfaces and permissions',
               },
               {
                 title: 'Permissions Deep Dive',
@@ -422,6 +425,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Context & Session Management',
                 href: '/docs/training/claude-code/session-2/context-session-management',
+                section: 'Project context',
               },
               {
                 title: 'CLAUDE.md',
@@ -435,6 +439,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Hooks: Lifecycle & Control',
                 href: '/docs/training/claude-code/session-2/hooks-lifecycle-control',
+                section: 'Automation and agents',
               },
               {
                 title: 'Skills, Plugins & Connectors',
@@ -447,6 +452,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Live Demo: The Full Loop',
                 href: '/docs/training/claude-code/session-2/live-demo-full-loop',
+                section: 'Live demo and practice',
               },
               {
                 title: 'Practice Assignment',
@@ -528,6 +534,7 @@ export const navigation: Array<NavGroup> = [
 
       { title: 'GitHub Copilot', href: '/docs/training/github-copilot' },
       { title: 'Prompt Engineering', href: '/docs/training/prompt-engineering' },
+      { title: 'Glossary', href: '/docs/glossary' },
     ],
   },
   {
@@ -559,7 +566,16 @@ export const navigation: Array<NavGroup> = [
   },
 ]
 
-export const allPages = navigation.flatMap((group) => flattenLinks(group.links))
+export interface PageEntry {
+  title: string
+  href: string
+  /** Top-level sidebar group, so paging can say when it leaves one. */
+  group: string
+}
+
+export const allPages: Array<PageEntry> = navigation.flatMap((group) =>
+  flattenLinks(group.links).map((link) => ({ ...link, group: group.title })),
+)
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (

@@ -6,6 +6,20 @@ export const metadata = {
 
 Shared configuration templates and settings curated by Zachary Moffitt.
 
+## What goes where
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Artifact | Lives in | Shared via |
+| --- | --- | --- |
+| Project conventions, commands, guardrails | `CLAUDE.md` at the repo root | git |
+| Permission rules, hooks, enabled plugins | `.claude/settings.json` | git |
+| Personal overrides, local approvals | `.claude/settings.local.json` | never (gitignored) |
+| Repeatable workflows | `.claude/skills/<name>/SKILL.md` | git, or a plugin marketplace |
+| Org-wide policy | Managed settings | IT / admin console |
+
+</div>
+
 ## Shared CLAUDE.md template
 
 Copy and customize this template for new repositories:
@@ -63,3 +77,8 @@ To add a new shared config:
 1. Create or update the relevant page in this section
 2. Include the full config with comments explaining each option
 3. Note which repositories or projects it applies to
+
+## Where to go next
+
+- **[Plugins & Marketplaces](/docs/training/claude-code/session-3/plugins-marketplaces)** — ship conventions, skills, and MCP servers through one install
+- **[CLAUDE.md Files](/docs/configuration/claude-md)** — the full worked example behind the template

@@ -8,29 +8,16 @@ How to incorporate AI tools into your daily development workflow.
 
 ## Development lifecycle
 
-### Planning
+<div className="max-w-2xl lg:max-w-3xl">
 
-- Use AI to brainstorm implementation approaches
-- Generate technical design outlines from requirements
-- Analyze existing code before proposing changes
+| Stage | Delegate to AI | You still own |
+| --- | --- | --- |
+| **Planning** | Brainstorm approaches, draft a design outline, map the code a change touches | The decision, and the constraints you give it |
+| **Implementation** | Scaffolding, boilerplate (tests, configs, migrations), the first pass at complex logic | Reading every line before it merges |
+| **Review** | A first-pass review, the PR description, explaining unfamiliar code to reviewers | Business logic, architecture, cross-team impact |
+| **Debugging** | Reading stack traces and logs, proposing a root cause, suggesting fixes with edge cases | Confirming the fix in the real environment |
 
-### Implementation
-
-- Start with AI-generated scaffolding, then refine
-- Use AI for boilerplate code (tests, configs, migrations)
-- Pair program with AI for complex logic
-
-### Review
-
-- Run AI review before requesting human review
-- Use AI to generate PR descriptions and summaries
-- Let AI help reviewers understand unfamiliar code
-
-### Debugging
-
-- Share error messages and stack traces with AI
-- Have AI analyze logs to identify root causes
-- Use AI to suggest fixes and verify edge cases
+</div>
 
 ## Team workflow
 
@@ -45,3 +32,8 @@ When you find a prompt that works well:
 ### Pair sessions
 
 Schedule regular pair sessions where team members demonstrate their AI workflows. This is the fastest way to spread knowledge.
+
+## Where to go next
+
+- **[CLAUDE.md & Inheritance](/docs/training/claude-code/session-2/claude-md)** — the file that carries your workflow into every session
+- **[Team Configurations](/docs/configuration/team-configs)** — the shared template, commit conventions, and PR template

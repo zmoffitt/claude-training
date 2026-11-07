@@ -51,12 +51,17 @@ Only implement the exact feature described — no extras.
 
 ## Ignoring test failures
 
+<Lead tone="red">The problem:</Lead> AI fixes the code but breaks existing tests, then "fixes" the tests to match the broken behavior.
+
+<Lead tone="green">The fix:</Lead> Run the full test suite before and after changes. If a test needs updating, verify the behavioral change is intentional.
+
 <Callout variant="warning" title="A test that suddenly passes is a finding" align="left">
   When an edit turns a red test green without touching the code under test,
   the test was changed, not the behavior. Read the test diff before the code
   diff.
 </Callout>
 
-<Lead tone="red">The problem:</Lead> AI fixes the code but breaks existing tests, then "fixes" the tests to match the broken behavior.
+## Where to go next
 
-<Lead tone="green">The fix:</Lead> Run the full test suite before and after changes. If a test needs updating, verify the behavioral change is intentional.
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — the habit that prevents the first pitfall
+- **[Context & Session Management](/docs/training/claude-code/session-2/context-session-management)** — rewind, compact, or start fresh, and when to pick which

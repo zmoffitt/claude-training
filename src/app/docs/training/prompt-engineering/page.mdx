@@ -1,85 +1,117 @@
+import { Callout } from "@/components/Callout";
+import { Term } from "@/components/Term";
+import { ReadTime } from "@/components/ReadTime";
+
 export const metadata = {
   title: "Prompt Engineering",
 };
 
 # Prompt Engineering
 
-Writing effective prompts is the most important skill for getting good results from AI coding tools.
+<ReadTime minutes={4} />
+
+A prompt is a work order. The good ones say what, where, why, and what done looks like.
 
 ## Core principles
 
 ### Be specific
 
-Bad:
+Vague in, vague out. The model fills every gap you leave with the most average possible answer.
 
-```text
+```prompt
 Fix the bug
 ```
 
-Good:
-
-```text
+```prompt
 Fix the TypeError in src/api/users.ts:42 where `user.email` is undefined
-when the OAuth provider doesn't return an email field
+when the OAuth provider doesn't return an email field. Fall back to the
+UPN. Add a test for the no-email case.
 ```
 
 ### Provide context
 
-Include relevant details the AI needs:
+Include what the model cannot see. In Claude Code, the repo is visible; your intent, constraints, and history are not.
 
 - **What** you're trying to accomplish
-- **Where** in the codebase the change should happen
+- **Where** in the codebase the change belongs
 - **Why** the current behavior is wrong
-- **How** you expect it to work after the fix
+- **How** you'll know it's fixed
+
+Anything you'd repeat on every task belongs in <Term id="claude-md">`CLAUDE.md`</Term>, not in the prompt.
 
 ### Break down complex tasks
 
-Instead of one large request, split into steps:
+One request, one outcome. For anything with a design decision in it, ask for the analysis first, then the plan, then the change. In Claude Code, <Term id="plan-mode">plan mode</Term> does exactly this: Claude reads and proposes, you approve, then it executes.
 
-1. First, analyze the existing authentication flow
-2. Then, propose changes to support SSO
-3. Finally, implement the changes
+### Say what done looks like
+
+The single highest-leverage line you can add is a verification step: "then run the tests", "then compare against the original", "then spot-check five rows". The [Verification Pattern](/docs/training/claude-code/session-1/verification-pattern) page has the four forms.
 
 ## Prompt templates
 
+Replace the brackets. Keep the shape.
+
 ### Bug fix
 
-```text
-In [file], the [function/component] has a bug where [describe the problem].
-Expected behavior: [what should happen].
-Actual behavior: [what happens instead].
-Fix this while maintaining [any constraints].
+```prompt
+In [file], [function] has a bug where [problem].
+Expected: [what should happen].
+Actual: [what happens].
+Fix it without changing [constraint], then run [test command].
 ```
 
 ### New feature
 
-```text
-Add [feature] to [component/module].
-It should [describe behavior].
-Follow the existing patterns in [reference file/module].
+```prompt
+Add [feature] to [module].
+It should [behavior].
+Follow the pattern in [reference file].
+Add tests next to the existing ones and run them.
 ```
 
 ### Code review
 
-```text
+```prompt
 Review [file or diff] for:
-- Security issues
-- Performance concerns
+- Security issues (auth bypass, injection, secrets)
 - Error handling gaps
-- Adherence to our coding standards
+- Adherence to the conventions in CLAUDE.md
+Report findings by severity. Do not change anything.
 ```
 
 ### Refactoring
 
-```text
+```prompt
 Refactor [function/class] to [goal].
 Keep the public API the same.
-Make sure all existing tests still pass.
+Run the existing tests before and after; they must still pass unchanged.
 ```
+
+### Runbook or policy work
+
+```prompt
+Draft a runbook for [incident type] for the on-call engineer.
+Use the escalation matrix in docs/escalation.md.
+Each step is one action with a command and an expected result.
+Flag any step that needs a privileged role.
+```
+
+<Callout variant="info" title="What the sessions teach" align="left">
+  Every template above ends with a check the model can run or you can read.
+  That is the program's one rule for prompts: never ask for an output
+  without asking for the evidence that it's right. Raise <Term id="effort">effort</Term>
+  for the hard ones instead of writing longer prompts.
+</Callout>
 
 ## Anti-patterns to avoid
 
-- **Vague requests** — "Make this better" gives vague results
-- **Too many goals at once** — Focus on one thing at a time
-- **No acceptance criteria** — Always define what "done" looks like
-- **Ignoring context** — The AI can't read your mind; share what you know
+- **Vague requests** — "Make this better" produces the average of better
+- **Too many goals at once** — one prompt, one outcome; chain the rest
+- **No acceptance criteria** — if you can't say what done looks like, the model can't either
+- **Restating the repo** — Claude Code can read it; tell it what it can't see
+- **Correcting instead of rewinding** — "no, not like that" piles failed attempts into context; `/rewind` and re-ask
+
+## Where to go next
+
+- **[Effective Prompts](/docs/tips/effective-prompts)** — ready-to-use prompts built on these templates
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — the line to append to every one of them

@@ -1,10 +1,34 @@
+import { Callout } from "@/components/Callout";
+import { Term } from "@/components/Term";
+import { ReadTime } from "@/components/ReadTime";
+
 export const metadata = {
-  title: 'GitHub Copilot',
-}
+  title: "GitHub Copilot",
+};
 
 # GitHub Copilot
 
-GitHub Copilot provides AI-powered code suggestions directly in your editor.
+<ReadTime minutes={3} />
+
+Autocomplete that reads your file. Useful every day, and not the same job as an agent.
+
+## Where it fits
+
+Copilot lives in the editor and predicts the next lines from the file you have open. That makes it the right tool for the typing half of the work: finishing a function whose shape is obvious, filling in a test from its name, writing the fourth Terraform resource that looks like the first three. It is the "Human IN the loop" era from Session 1, and it stays useful after you move on, because most of a day is still typing.
+
+What it does not do is read the rest of the repo, run the tests, or hold a plan. When the task is "make the login flow support SSO" rather than "complete this line", switch to Claude Code and <Term id="plan-mode">plan mode</Term>.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| You want to… | Reach for |
+| --- | --- |
+| Finish the line, the loop, the obvious test | Copilot inline completion |
+| Explain or refactor the block under the cursor | Copilot Chat, or Claude Code if it spans files |
+| Change behavior across several files, with tests | Claude Code |
+| Investigate a bug you can't localize | Claude Code with <Term id="subagent">subagents</Term> |
+| Automate something on a schedule | Claude Code <Term id="scheduled-task">scheduled task</Term> |
+
+</div>
 
 ## Setup
 
@@ -12,38 +36,29 @@ GitHub Copilot provides AI-powered code suggestions directly in your editor.
 
 1. Install the **GitHub Copilot** extension from the VS Code marketplace
 2. Sign in with your GitHub account
-3. Copilot will begin suggesting completions as you type
+3. Copilot suggests completions as you type; `Tab` accepts, `Esc` dismisses
 
 ### JetBrains
 
-1. Go to **Settings > Plugins > Marketplace**
-2. Search for and install **GitHub Copilot**
-3. Restart your IDE and sign in
+1. **Settings > Plugins > Marketplace**, install **GitHub Copilot**
+2. Restart the IDE and sign in via **Tools > GitHub Copilot > Login**
 
-## Usage patterns
+## Getting good completions
 
-### Inline completions
+Copilot only sees the open file and a little around it, so give it something to read.
 
-Start typing and Copilot will suggest completions in gray text. Press `Tab` to accept, or `Esc` to dismiss.
+- **Write the comment first.** A one-line intent above the function is the prompt: `// return the CA policies that exclude the break-glass account`.
+- **Name things properly.** `stalePolicies` gets a better completion than `arr`.
+- **Give it the signature.** Type the function name and parameters, let it fill the body, then read the body.
+- **Keep a reference open.** A sibling file with the pattern you want is the strongest context Copilot has.
 
-### Copilot Chat
+<Callout variant="info" title="The program's position" align="left">
+  Use Copilot for typing and Claude Code for thinking. The accountability rule
+  from Session 1 applies to both: a completion you accepted is code you wrote.
+  Read it before you commit it, the same way you read a Claude diff.
+</Callout>
 
-Open the chat panel to ask questions about your code:
+## Where to go next
 
-- Explain a function or block of code
-- Generate unit tests
-- Suggest refactoring approaches
-- Debug error messages
-
-### Slash commands in chat
-
-- `/explain` — Explain the selected code
-- `/tests` — Generate tests for the selected code
-- `/fix` — Suggest a fix for problems in the selected code
-- `/doc` — Generate documentation
-
-## Effective prompting
-
-- Write clear comments before code to guide suggestions
-- Provide function signatures and let Copilot fill in the implementation
-- Use descriptive variable and function names — Copilot uses them as context
+- **[Prompt Engineering](/docs/training/prompt-engineering)** — the principles that work in both tools
+- **[Three Eras of Development](/docs/training/claude-code/session-1/three-eras)** — where autocomplete sits in the arc from typing to agents

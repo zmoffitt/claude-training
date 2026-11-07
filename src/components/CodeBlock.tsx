@@ -54,9 +54,11 @@ export function CodeBlock({
   children: string
   className?: string
 }) {
-  const language = className?.replace(/language-/, '') || 'text'
+  const fence = className?.replace(/language-/, '') || 'text'
+  // ```prompt is a plain-text block that is meant to be pasted into Claude.
+  const language = fence === 'prompt' ? 'text' : fence
   const code = children.replace(/\n$/, '')
-  const label = language === 'text' ? 'plain text' : language
+  const label = fence === 'text' ? 'plain text' : fence
   const customStyle: React.CSSProperties = {
     margin: 0,
     borderRadius: 0,

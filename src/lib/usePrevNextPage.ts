@@ -8,10 +8,11 @@ export function usePrevNextPage() {
   const currentIndex = allPages.findIndex((page) => page.href === pathname)
 
   if (currentIndex === -1) {
-    return { previousPage: undefined, nextPage: undefined }
+    return { previousPage: undefined, nextPage: undefined, currentPage: undefined }
   }
 
   return {
+    currentPage: allPages[currentIndex],
     previousPage: allPages[currentIndex - 1],
     nextPage: allPages[currentIndex + 1],
   }
