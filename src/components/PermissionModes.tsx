@@ -76,14 +76,7 @@ export function PermissionModes() {
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1rem',
-            alignItems: 'stretch',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {MODES.map((m) => {
             const b = brandVars[m.brand]
             return (

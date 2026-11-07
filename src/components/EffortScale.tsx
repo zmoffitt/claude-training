@@ -2,7 +2,7 @@
 // out so Tailwind's scanner can see them.
 function gridForCount(count: number): string {
   if (count === 2) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 items-stretch'
-  if (count === 4) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch'
+  if (count === 4) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 items-stretch'
   return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
 }
 

@@ -98,14 +98,7 @@ export function SkillsPlugins() {
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1rem',
-            alignItems: 'stretch',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {TOPICS.map((topic) => {
             const b = brandVars[topic.brand]
             return (
@@ -190,13 +183,7 @@ export function SkillsPlugins() {
           })}
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1rem',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {callouts.map((c) => {
             const b = brandVars[c.brand]
             return (

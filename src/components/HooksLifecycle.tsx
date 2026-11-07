@@ -265,9 +265,8 @@ export function HooksLifecycle() {
 
         {/* TWO COLUMNS: walkthrough + config */}
         <div
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '1.25rem',
           }}
         >
