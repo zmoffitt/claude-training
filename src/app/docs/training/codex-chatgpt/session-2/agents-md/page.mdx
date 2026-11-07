@@ -1,0 +1,41 @@
+
+export const metadata = {"title": "AGENTS.md: Durable Repository Guidance | Codex & ChatGPT"};
+
+# AGENTS.md: Durable Repository Guidance
+
+Write down the rules an engineer would need on their first day.
+
+Codex discovers instruction files from its global guidance and along the repository path to the working directory. More specific guidance appears later. `AGENTS.override.md` takes priority over `AGENTS.md` in the same directory. Start from the directory whose guidance you intend to use, and ask Codex which files it loaded. [Instruction discovery](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+## A starter file for this training site
+
+```markdown
+# Repository guidance
+
+## Architecture
+- Next.js static export; no API routes or server-only features.
+- Documentation pages live at src/app/docs/**/page.mdx.
+- Register new pages in src/components/Navigation.tsx.
+
+## Validation
+- Run pnpm build after changing content or components.
+- There is no configured lint or test command.
+- Check internal links against the exported routes.
+
+## Review
+- Preserve unrelated working-tree changes.
+- Report what changed, validation results, and remaining limitations.
+```
+
+## Keep the file useful
+
+Prefer verified commands, architectural constraints, and recurring review corrections. Avoid a transcript of every previous task. Link to detailed documentation when it is needed for a particular workflow.
+
+Test a new instruction with a small task in a fresh session. Ask Codex to report the instruction source, then inspect behavior. Reading a rule and following it are separate checks.
+
+**Boundary:** this file guides behavior. Filesystem permissions, credentials, and CI enforce controls. A sentence in Markdown cannot revoke access granted by the environment.
+
+## Where to go next
+
+- **[Permissions, Sandboxing & Scope](/docs/training/codex-chatgpt/session-2/permissions-and-scope)** — separate instructions about behavior from enforced access boundaries
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

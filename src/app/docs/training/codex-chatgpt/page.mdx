@@ -1,0 +1,64 @@
+import { PageHero } from "@/components/PageHero";
+import { SessionOutline } from "@/components/SessionOutline";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+
+export const metadata = { title: "Codex & ChatGPT Training" };
+
+<PageHero eyebrow="Cloud Engineering · Three-session track" title="Codex & ChatGPT" subtitle="From grounded answers to verified code and reusable workflows. A hands-on track for cloud, container, and IAM engineers." />
+
+<SessionOutline items={[
+  {
+    "href": "/docs/training/codex-chatgpt/session-1",
+    "title": "Session 1: Foundations & ChatGPT",
+    "description": "Ground an answer, choose a surface, and verify the result."
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2",
+    "title": "Session 2: Codex Workflows & Project Context",
+    "description": "Turn a repository task into a focused, verified patch."
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-3",
+    "title": "Session 3: Skills, Connections & Automation",
+    "description": "Package and evaluate repeatable work across approved systems."
+  }
+]} />
+
+<TrainingRoadmap track="codex" activeStep={0} />
+
+## Start here
+
+No Claude experience is required. Bring access to your organization-approved ChatGPT or Codex environment, a disposable Git repository, and sanitized training material. Session 1 works without a local coding setup; Session 2 includes setup guidance. Each session ends with an assignment and explicit review criteria.
+
+The exercises use synthetic incidents and local changes. Product availability and managed permissions vary by account. Check the linked official documentation against the client you use; this track was reviewed on **November 7, 2026**.
+
+## Coming from the Claude track
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Familiar concept | Start here | Important distinction |
+| --- | --- | --- |
+| Claude conversation and projects | ChatGPT context and projects | Project context is separate from local repository access |
+| CLAUDE.md | AGENTS.md | Discovery and precedence follow Codex rules |
+| Permission modes | Sandbox and approval policy | Use the current client's enforced controls |
+| Skills and plugins | SKILL.md and approved integrations | Review supported locations and tool access |
+| Subagents and teams | Codex subagents and worktrees | Define ownership and verify integration |
+| Cloud routines and hooks | Scheduled tasks and deterministic checks | Execution context and lifecycle events differ |
+
+</div>
+
+## Reference while you work
+
+- [AGENTS.md starter](/docs/training/codex-chatgpt/session-2/agents-md) — repository guidance with verified commands
+- [Permissions and scope](/docs/training/codex-chatgpt/session-2/permissions-and-scope) — access boundaries and approval review
+- [Skill example](/docs/training/codex-chatgpt/session-3/skills) — a runbook review procedure with evaluation cases
+- [Extension decision guide](/docs/training/codex-chatgpt/session-3/extension-decision-guide) — choose the mechanism for the job
+
+## Official documentation
+
+Product-specific lessons link to the supporting official pages. Start with the [OpenAI quickstart](https://learn.chatgpt.com/docs/quickstart), [Codex CLI](https://learn.chatgpt.com/docs/codex/cli), and [customization guide](https://learn.chatgpt.com/docs/customization/overview). Exercise prompts and review criteria are training examples, not product guarantees.
+
+## Where to go next
+
+- **[Session 1: Foundations & ChatGPT](/docs/training/codex-chatgpt/session-1)** — begin the track
+- **[Claude training](/docs/training/claude-code/session-1)** — follow the parallel Claude curriculum

@@ -565,6 +565,119 @@ export const navigation: Array<NavGroup> = [
         ],
       },
 
+      {
+        title: 'Codex & ChatGPT',
+        href: '/docs/training/codex-chatgpt',
+        children: [
+          {
+            title: 'Session 1: Foundations & ChatGPT',
+            href: '/docs/training/codex-chatgpt/session-1',
+            children: [
+              {
+                title: 'ChatGPT, Work & Codex',
+                href: '/docs/training/codex-chatgpt/session-1/orientation',
+              },
+              {
+                title: 'Context & Effective Prompts',
+                href: '/docs/training/codex-chatgpt/session-1/context-and-prompts',
+              },
+              {
+                title: 'Choosing the Right Model',
+                href: '/docs/training/codex-chatgpt/session-1/models-and-planning',
+              },
+              {
+                title: 'Projects, Instructions & Memory',
+                href: '/docs/training/codex-chatgpt/session-1/projects-and-memory',
+              },
+              {
+                title: 'Verification That Produces Evidence',
+                href: '/docs/training/codex-chatgpt/session-1/verification',
+              },
+              {
+                title: 'Hands-On: Incident Brief to Coding Task',
+                href: '/docs/training/codex-chatgpt/session-1/hands-on-exercise',
+              },
+              {
+                title: 'Practice: A Grounded Engineering Answer',
+                href: '/docs/training/codex-chatgpt/session-1/practice-assignment',
+              },
+            ],
+          },
+          {
+            title: 'Session 2: Codex Workflows & Project Context',
+            href: '/docs/training/codex-chatgpt/session-2',
+            children: [
+              {
+                title: 'Set Up Codex & Choose a Surface',
+                href: '/docs/training/codex-chatgpt/session-2/setup-and-surfaces',
+              },
+              {
+                title: 'AGENTS.md: Durable Repository Guidance',
+                href: '/docs/training/codex-chatgpt/session-2/agents-md',
+              },
+              {
+                title: 'Permissions, Sandboxing & Scope',
+                href: '/docs/training/codex-chatgpt/session-2/permissions-and-scope',
+              },
+              {
+                title: 'Configuration & Session Handoffs',
+                href: '/docs/training/codex-chatgpt/session-2/configuration-and-context',
+              },
+              {
+                title: 'The Implementation & Review Loop',
+                href: '/docs/training/codex-chatgpt/session-2/implementation-and-review',
+              },
+              {
+                title: 'Subagents & Worktrees',
+                href: '/docs/training/codex-chatgpt/session-2/subagents-and-worktrees',
+              },
+              {
+                title: 'Live Demo: From Repository to Verified Patch',
+                href: '/docs/training/codex-chatgpt/session-2/live-demo',
+              },
+              {
+                title: 'Practice: A Reviewable Codex Change',
+                href: '/docs/training/codex-chatgpt/session-2/practice-assignment',
+              },
+            ],
+          },
+          {
+            title: 'Session 3: Skills, Connections & Automation',
+            href: '/docs/training/codex-chatgpt/session-3',
+            children: [
+              {
+                title: 'Choose an Extension',
+                href: '/docs/training/codex-chatgpt/session-3/extension-decision-guide',
+              },
+              {
+                title: 'Skills: Reusable Engineering Procedures',
+                href: '/docs/training/codex-chatgpt/session-3/skills',
+              },
+              {
+                title: 'MCP, Plugins & Connected Sources',
+                href: '/docs/training/codex-chatgpt/session-3/mcp-and-plugins',
+              },
+              {
+                title: 'Scheduled Tasks & Deterministic Checks',
+                href: '/docs/training/codex-chatgpt/session-3/automations-and-checks',
+              },
+              {
+                title: 'Security, Scope & Workflow Evaluation',
+                href: '/docs/training/codex-chatgpt/session-3/security-and-evaluation',
+              },
+              {
+                title: 'Live Demo: Evidence to Triage Draft',
+                href: '/docs/training/codex-chatgpt/session-3/live-demo',
+              },
+              {
+                title: 'Practice: Build & Evaluate a Workflow',
+                href: '/docs/training/codex-chatgpt/session-3/practice-assignment',
+              },
+            ],
+          },
+        ],
+      },
+
       { title: 'GitHub Copilot', href: '/docs/training/github-copilot' },
       { title: 'Prompt Engineering', href: '/docs/training/prompt-engineering' },
       { title: 'Glossary', href: '/docs/glossary' },

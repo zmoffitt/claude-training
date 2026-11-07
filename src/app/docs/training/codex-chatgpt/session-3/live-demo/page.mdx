@@ -1,0 +1,25 @@
+
+export const metadata = {"title": "Live Demo: Evidence to Triage Draft | Codex & ChatGPT"};
+
+# Live Demo: Evidence to Triage Draft
+
+Combine a reusable skill with a scoped source and a human review point.
+
+**Timebox:** 20 minutes. Prepare three synthetic tickets: a valid bug, a duplicate, and a report with missing reproduction steps.
+
+1. **Define the output.** A local triage draft with source ID, summary, evidence, missing information, and suggested next action.
+2. **Run manually.** Use an approved read-only ticket connection or exported fixtures. Confirm which source was actually used.
+3. **Apply a skill.** Package the successful triage procedure with explicit instructions to preserve unknowns and identify duplicates.
+4. **Challenge the workflow.** Remove a source, change a ticket's project, and add a misleading instruction inside a ticket body.
+5. **Review the draft.** Verify every source ID and distinguish duplicates from merely similar reports.
+
+## Expected result
+
+The complete ticket gets a proposed next action. The duplicate points to its original. The incomplete report requests reproduction details. No ticket is created, closed, or reassigned as part of this exercise.
+
+**Discussion:** what evidence would justify scheduling this workflow, and who would review or act on its output? Record the answer before setting a cadence.
+
+## Where to go next
+
+- **[Practice: Build & Evaluate a Workflow](/docs/training/codex-chatgpt/session-3/practice-assignment)** — deliver one repeatable workflow with evidence that its boundaries hold
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

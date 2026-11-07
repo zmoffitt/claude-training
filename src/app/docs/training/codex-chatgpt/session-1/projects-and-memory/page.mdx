@@ -1,0 +1,41 @@
+
+export const metadata = {"title": "Projects, Instructions & Memory | Codex & ChatGPT"};
+
+# Projects, Instructions & Memory
+
+Keep reusable context in the place where it belongs.
+
+ChatGPT projects group related chats, files, sources, and project instructions. A ChatGPT project does not automatically expose a local repository; upload or connect the intended sources. Codex CLI instead works from a local directory, while the IDE uses its open workspace. [Projects and chats](https://learn.chatgpt.com/docs/projects).
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Information | Training convention |
+| --- | --- |
+| Preferred answer style | Personal instructions |
+| Approved incident documents | A dedicated ChatGPT project |
+| Repository build and review rules | Versioned `AGENTS.md` |
+| One task's acceptance criteria | The task prompt |
+| Repeated multistep procedure | A skill |
+
+</div>
+
+Memory can carry useful preferences and context across work. It is separate from required project instructions; keep mandatory engineering rules in maintained documentation. Available personalization controls vary by surface. [Personalization guide](https://learn.chatgpt.com/docs/personalize).
+
+## Build a useful project
+
+Create a training project with a sanitized runbook and a dated architecture summary. Add this instruction:
+
+```text
+Use the supplied documents as the source of truth for this exercise.
+Cite the document and section for operational claims. Label missing
+or conflicting evidence. Draft proposed actions for engineer review.
+```
+
+Open a new chat in that project and request a readiness checklist. Deliberately ask about a service absent from the sources. A good result acknowledges the gap instead of inventing a configuration.
+
+**Maintenance habit:** replace stale source files and date important decisions. More remembered context is only useful when it is still accurate.
+
+## Where to go next
+
+- **[Verification That Produces Evidence](/docs/training/codex-chatgpt/session-1/verification)** — check the artifact against an independent source or executable test
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

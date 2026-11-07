@@ -16,6 +16,14 @@ interface Section {
 const sections: Section[] = [
   {
     eyebrow: 'Training',
+    title: 'Codex & ChatGPT',
+    description:
+      'Three complete sessions: grounded answers, verified code, and reusable engineering workflows.',
+    href: '/docs/training/codex-chatgpt',
+    primary: true,
+  },
+  {
+    eyebrow: 'Training',
     title: 'Claude Code',
     description:
       'Five-session program — sessions, walkthroughs, and notes from team trainings.',

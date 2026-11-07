@@ -1,0 +1,142 @@
+import { ModelTierCards } from "@/components/ModelTierCards";
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = { title: "Choosing the Right Model | Codex & ChatGPT" };
+
+# Choosing the Right Model
+
+<ReadTime minutes={4} />
+
+Match capability, cost, and reasoning effort to the work you can actually verify.
+
+**The current lineup spans GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna.** This guide focuses on Codex and ChatGPT Work; the Chat model picker can differ. Use `/model` in Codex CLI or your client's model selector to check available options. **Reviewed November 7, 2026.**
+
+## When to use each model
+
+The cards translate OpenAI's [model-selection guidance](https://learn.chatgpt.com/docs/model-selection) into training examples. Sol is our suggested starting point for general engineering work, not a claim about every account's default.
+
+<ModelTierCards
+  tiers={[
+    {
+      title: "GPT-6 Astra",
+      subtitle: "Deepest reasoning • Highest cost",
+      color: "#727286",
+      items: [
+        "Architecture decisions with competing constraints",
+        "Ambiguous failures spanning multiple systems",
+        "Complex IAM designs that need careful analysis",
+        "Escalation when a well-grounded Sol attempt stalls",
+      ],
+    },
+    {
+      title: "GPT-6.1 Sol",
+      subtitle: "Suggested starting point • Complex engineering",
+      color: "#6240E8",
+      items: [
+        "Multi-file implementation and refactoring",
+        "Debugging with repository and test context",
+        "Engineering plans and substantial deliverables",
+        "Everyday coding when quality and cost both matter",
+      ],
+    },
+    {
+      title: "GPT-6.1 Terra",
+      subtitle: "Visual work • Half Sol's token price",
+      color: "#727286",
+      items: [
+        "Interpreting screenshots and technical drawings",
+        "Defined browser and application workflows",
+        "Concise runbooks grounded in supplied material",
+        "Scoped code fixes with clear regression checks",
+      ],
+    },
+    {
+      title: "GPT-6 Luna",
+      subtitle: "Lowest token cost • Bounded, repeated tasks",
+      color: "#727286",
+      items: [
+        "Ticket classification and first-pass triage",
+        "Extracting fields from structured incident notes",
+        "Small edits and straightforward transformations",
+        "Frequent summaries with a stable output format",
+      ],
+    },
+  ]}
+/>
+
+## Current API pricing
+
+**USD per one million text tokens, Standard processing, prompts up to 272K input tokens.** Cached input means a cache read; cache writes have separate rates. These are API prices, not the price of a ChatGPT message. [Official API pricing](https://developers.openai.com/api/docs/pricing).
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Model | Input | Cached input | Output | API context |
+| --- | --- | --- | --- | --- |
+| [GPT-6 Astra](https://developers.openai.com/api/docs/models/gpt-6-astra) | $10.00 | $1.00 | $50.00 | 1.05M |
+| [GPT-6.1 Sol](https://developers.openai.com/api/docs/models/gpt-6.1-sol) | $2.00 | $0.10 | $10.00 | 1.05M |
+| [GPT-6.1 Terra](https://developers.openai.com/api/docs/models/gpt-6.1-terra) | $1.00 | $0.05 | $5.00 | 1.05M |
+| [GPT-6 Luna](https://developers.openai.com/api/docs/models/gpt-6-luna) | $0.10 | $0.01 | $0.50 | 1.05M |
+
+</div>
+
+For these models, API prompts above 272K input tokens apply **2× input/cache rates and 1.5× output rates to the full request**. Batch and Flex cost half Standard; Fast costs twice Standard. Additional tool, cache-write, or regional-processing charges can apply. Check the linked model specifications before estimating a workload.
+
+**API capacity and app context are different.** For example, Sol's API supports 1.05M context, while its documented default in Codex and ChatGPT Work is 500K. Subscription usage has no long-context surcharge. [Sol specifications](https://developers.openai.com/api/docs/models/gpt-6.1-sol).
+
+### What a small request costs
+
+For **10,000 uncached input tokens plus 2,000 billable output tokens**, at the Standard rates above, the text-token subtotal is:
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Astra | Sol | Terra | Luna |
+| --- | --- | --- | --- |
+| $0.20 | $0.04 | $0.02 | $0.002 |
+
+</div>
+
+Calculation: input tokens × input rate / 1,000,000, plus output tokens × output rate / 1,000,000. This example excludes other charges. A coding task may involve many requests, tool results, and reasoning tokens; it is not a per-task quote.
+
+## ChatGPT subscriptions and usage
+
+With ChatGPT sign-in, **Work and Codex share usage limits and credits**. API-key sessions use API billing. Do not divide a subscription price by the API table to infer an included number of tasks. [ChatGPT Work and Codex pricing](https://learn.chatgpt.com/docs/pricing).
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Individual plan | Listed monthly price (USD) | Training implication |
+| --- | --- | --- |
+| Free | $0 | Start with the models and surfaces available to your account |
+| Go | $8 | Check access before assigning a particular model |
+| Plus | $20 | Suitable for trying focused coding sessions; inspect usage limits |
+| Pro | $100, $200, or $500 | Choose based on measured usage and needed features |
+
+</div>
+
+These are listed individual-plan prices, not organization quotes. Model access, speed modes, rollout, and workspace controls vary. Check the current pricing page and your account's usage display before a workshop or recurring job.
+
+<Callout variant="info" title="A practical starting rule" align="left">
+  Start general coding exercises with Sol at medium effort when available. Try Terra for visual workflows and bounded fixes, and Luna for repeated tasks with clear checks. Move to Astra when uncertainty or complexity justifies it. Keep the same acceptance criteria when comparing results.
+</Callout>
+
+## Effort and planning are separate choices
+
+A model selects the capability and price tier. Reasoning effort adjusts how much reasoning it spends on the task; speed mode changes the latency/cost tradeoff. Available controls differ by model and client. The [official selection guide](https://learn.chatgpt.com/docs/model-selection) explains the combinations.
+
+For a routine edit, begin with clear inputs and a regression check. For an ambiguous investigation, first supply missing evidence, then consider more effort or a stronger model. Measure total time to an accepted result, including your corrections.
+
+Plan before editing when a wrong assumption is expensive:
+
+```text
+Inspect the retry implementation and its callers. Before editing,
+propose a plan covering timeout behavior, backward compatibility,
+and tests for exhausted retries. Identify assumptions that require
+my decision. Do not implement until we agree on the plan.
+```
+
+A planning request guides the workflow. Enforce read-only access with permission controls when needed. Once the plan is accepted, authorize implementation and require evidence from the final patch.
+
+## Where to go next
+
+- **[Projects, Instructions & Memory](/docs/training/codex-chatgpt/session-1/projects-and-memory)** — keep reusable context in the place where it belongs
+- **[Verification That Produces Evidence](/docs/training/codex-chatgpt/session-1/verification)** — judge model output with checkable results

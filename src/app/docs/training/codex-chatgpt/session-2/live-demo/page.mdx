@@ -1,0 +1,25 @@
+
+export const metadata = {"title": "Live Demo: From Repository to Verified Patch | Codex & ChatGPT"};
+
+# Live Demo: From Repository to Verified Patch
+
+Walk the full loop in a disposable checkout.
+
+**Timebox:** 15 minutes. Prepare a small validation bug and a known failing input before the session.
+
+1. **Orient — 3 minutes.** Show the working directory, Git status, and relevant instructions. Ask Codex to locate the validation code and real check commands.
+2. **Reproduce — 3 minutes.** Run the failing case. If the failure cannot be reproduced, stop and improve the report.
+3. **Implement — 4 minutes.** Authorize a focused patch and regression check. Watch for changes outside the agreed scope.
+4. **Verify — 3 minutes.** Run the check on the final diff and inspect adjacent behavior. Record any blocked commands accurately.
+5. **Review — 2 minutes.** Explain the diff and write the completion report.
+
+## Instructor checkpoints
+
+Ask a learner to name the active repository before the first edit. Ask another to explain what the regression check proves. At the end, ask what remains unverified.
+
+**Success:** the learner can connect the original failure, changed lines, and observed check result. A fast patch without this chain is unfinished training work.
+
+## Where to go next
+
+- **[Practice: A Reviewable Codex Change](/docs/training/codex-chatgpt/session-2/practice-assignment)** — complete one bounded repository task from orientation through review
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

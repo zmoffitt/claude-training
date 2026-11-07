@@ -1,0 +1,36 @@
+
+export const metadata = {"title": "MCP, Plugins & Connected Sources | Codex & ChatGPT"};
+
+# MCP, Plugins & Connected Sources
+
+A connected tool adds access; your workflow still needs scope and verification.
+
+MCP connects an assistant to tools and data exposed by a server. Plugins can package a connection and reusable skills. Start with an approved existing integration when it provides the capability you need. [Official MCP guide](https://learn.chatgpt.com/docs/extend/mcp).
+
+## Follow the request across the boundary
+
+```text
+Task: summarize ticket TRAIN-42
+  → assistant selects an approved lookup tool
+  → connection authenticates to the ticket system
+  → system returns records allowed by that identity
+  → assistant summarizes the record with a source link
+  → engineer checks status and scope
+```
+
+For every connection, identify the server operator, destination, authenticated account, and available actions. A local shell sandbox does not replace a remote service's access controls.
+
+## First connection exercise
+
+Use an approved read-only integration against a training project. Ask for one known ticket by ID. Compare the returned title, status, and updated time with the system of record. Then ask for a record the training identity cannot access; permission failure should remain visible.
+
+If no connection is available, use a sanitized exported ticket and label the exercise as offline. Do not invent a live lookup result.
+
+## Choose tools deliberately
+
+Prefer an approved structured tool when it supports the operation. Use an authenticated CLI when that is the team's supported route. Browser interaction is useful when the operation requires a UI; verify the saved state after acting. The choice should make inputs, permissions, and outcomes easier to inspect.
+
+## Where to go next
+
+- **[Scheduled Tasks & Deterministic Checks](/docs/training/codex-chatgpt/session-3/automations-and-checks)** — prove the workflow once before asking it to run unattended
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

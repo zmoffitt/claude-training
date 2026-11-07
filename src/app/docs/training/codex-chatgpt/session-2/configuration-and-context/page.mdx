@@ -1,0 +1,42 @@
+
+export const metadata = {"title": "Configuration & Session Handoffs | Codex & ChatGPT"};
+
+# Configuration & Session Handoffs
+
+Keep settings, project rules, and task state distinct.
+
+Use `AGENTS.md` for repository expectations, skills for reusable procedures, and client configuration for execution settings. Codex user configuration uses `~/.codex/config.toml`; project configuration and managed policy may also apply. Consult the [configuration overview](https://learn.chatgpt.com/docs/customization/overview) and the current client settings before changing behavior.
+
+## Map the responsibilities
+
+```text
+repo/
+  AGENTS.md                         shared engineering guidance
+  .agents/skills/review-runbook/
+    SKILL.md                        one reusable review workflow
+  docs/                             durable technical decisions
+```
+
+Keep credentials out of all three locations. When a task relies on an authenticated tool, document the setup requirement without copying its token.
+
+## Resume deliberately
+
+In Codex CLI, `/resume` or `codex resume` continues a saved chat, while `/new` starts a separate one. Resuming a transcript does not restore an old working tree: inspect current files and Git status. [Working in a project directory](https://learn.chatgpt.com/docs/projects).
+
+Use this handoff when changing tasks or returning after a break:
+
+```text
+Goal: fix validation of empty service names.
+Decisions: keep the public response shape unchanged.
+Changed: list actual files and their purpose.
+Verified: command, outcome, and relevant failing/passing case.
+Remaining: untested environments and unresolved questions.
+Next: inspect current diff before continuing.
+```
+
+**Exercise:** hand the summary to a fresh task. If it cannot identify the next safe action, improve the handoff instead of pasting the whole conversation.
+
+## Where to go next
+
+- **[The Implementation & Review Loop](/docs/training/codex-chatgpt/session-2/implementation-and-review)** — a finished task includes the diff, the checks, and the limits of the evidence
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

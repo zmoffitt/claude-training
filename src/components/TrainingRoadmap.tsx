@@ -19,6 +19,12 @@ const steps = [
   { number: 5, title: 'Capstone', subtitle: 'Scaling' },
 ] as const
 
+const codexSteps = [
+  { number: 1, title: 'Foundations', subtitle: 'ChatGPT & verification', href: '/docs/training/codex-chatgpt/session-1' },
+  { number: 2, title: 'Codex & Context', subtitle: 'Verified repository work', href: '/docs/training/codex-chatgpt/session-2' },
+  { number: 3, title: 'Extend & Automate', subtitle: 'Reusable workflows', href: '/docs/training/codex-chatgpt/session-3' },
+] as const
+
 const easeOutQuart = [0.25, 1, 0.5, 1] as const
 
 const listVariants = {
@@ -52,23 +58,24 @@ function Chip({ children, tone }: { children: React.ReactNode; tone: 'session' |
   )
 }
 
-export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
+export function TrainingRoadmap({ activeStep = 1, track = 'claude' }: { activeStep?: number; track?: 'claude' | 'codex' }) {
+  const trackSteps = track === 'codex' ? codexSteps : steps
   // The wrapper takes the prose column's margins and keeps list styling off
   // the steps when the roadmap sits directly in a page's MDX.
   return (
     <div className="not-prose">
     <motion.ol
       role="list"
-      aria-label="Training roadmap: five sessions"
+      aria-label={`${track === 'codex' ? 'Codex and ChatGPT' : 'Claude'} training roadmap: ${trackSteps.length} sessions`}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
       variants={listVariants}
       className="flex list-none flex-col gap-3 md:flex-row md:items-stretch md:gap-4 lg:gap-6"
     >
-      {steps.map((step, i) => {
+      {trackSteps.map((step, i) => {
         const isActive = step.number === activeStep
-        const isLast = i === steps.length - 1
+        const isLast = i === trackSteps.length - 1
         const href = 'href' in step ? step.href : undefined
         const stepStyle = { '--step-hue': `var(--session-${step.number})` } as React.CSSProperties
 

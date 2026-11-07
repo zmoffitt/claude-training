@@ -63,7 +63,7 @@ export function Breadcrumbs() {
                   focusRing,
                 )}
                 style={
-                  /^\/docs\/training\/claude-code\/session-\d$/.test(crumb.href)
+                  /^\/docs\/training\/(?:claude-code|codex-chatgpt)\/session-\d$/.test(crumb.href)
                     ? { color: 'var(--session-hue)', fontWeight: 500 }
                     : undefined
                 }

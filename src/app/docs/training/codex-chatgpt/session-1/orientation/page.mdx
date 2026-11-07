@@ -1,0 +1,35 @@
+import { PillarCards } from "@/components/PillarCards";
+
+export const metadata = {"title": "ChatGPT, Work & Codex | Codex & ChatGPT"};
+
+# ChatGPT, Work & Codex
+
+Choose the workspace by the outcome you need.
+
+<PillarCards cards={[
+  { icon: "01", title: "ChatGPT Chat", description: "Explore a question, explain a concept, or refine a decision through conversation.", color: "#727286" },
+  { icon: "02", title: "ChatGPT Work", description: "Research and produce a deliverable from files and connected sources: a brief, analysis, or runbook.", color: "#727286" },
+  { icon: "03", title: "Codex", description: "Inspect a repository, implement a change, run checks, and review the resulting diff.", color: "#727286" },
+]} />
+
+These are workflow choices. Available tools, account access, and the selected environment determine what a session can actually read or do. A confident answer is not evidence that a repository was inspected. [Official quickstart](https://learn.chatgpt.com/docs/quickstart).
+
+## One incident, three useful outcomes
+
+An application starts timing out after a deployment. In Chat, ask for hypotheses from sanitized symptoms. In Work, turn an approved incident timeline into an incident brief. In Codex, investigate retry behavior in the repository and add a regression test.
+
+Give each task an explicit finish line: a hypothesis table, a sourced brief, or a verified patch. Keep human review at the point where the result becomes an operational decision.
+
+## The training loop
+
+1. **Frame:** describe the outcome and what counts as success.
+2. **Ground:** supply the relevant files, facts, and constraints.
+3. **Delegate:** choose the tool access appropriate for the task.
+4. **Verify:** inspect evidence against the success criteria.
+
+**Discussion:** Which part of your last engineering task required judgment, and which part could have been delegated with a checkable result?
+
+## Where to go next
+
+- **[Context & Effective Prompts](/docs/training/codex-chatgpt/session-1/context-and-prompts)** — give the agent the evidence and acceptance criteria it needs
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

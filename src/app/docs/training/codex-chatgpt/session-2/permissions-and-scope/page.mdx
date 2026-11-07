@@ -1,0 +1,38 @@
+
+export const metadata = {"title": "Permissions, Sandboxing & Scope | Codex & ChatGPT"};
+
+# Permissions, Sandboxing & Scope
+
+Separate instructions about behavior from enforced access boundaries.
+
+Sandboxing limits command execution, including filesystem and network access. Approval policy determines when an action needs approval. Commands launched by Codex inherit the sandbox boundary; it is not limited to file-editing tools. [Sandboxing](https://learn.chatgpt.com/docs/sandboxing).
+
+For a CLI orientation exercise, the documented read-only configuration is:
+
+```bash
+codex --sandbox read-only --ask-for-approval on-request
+```
+
+Read-only does not mean inaccessible: Codex can still read permitted files. Do not place secrets in a training workspace. Current approval behavior and managed restrictions are described in [agent approvals and security](https://learn.chatgpt.com/docs/agent-approvals-security).
+
+## Review an approval as an engineering change
+
+Check the command, target directory, network destination, and expected effect. A package-install command may execute scripts. A cloud CLI may use ambient credentials. The tool's name alone is not enough to judge the action.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Exercise | Access to arrange | Review point |
+| --- | --- | --- |
+| Explain source code | Read relevant files | Verify cited paths |
+| Fix a local bug | Write the training workspace | Inspect diff and checks |
+| Read external tickets | Approved scoped connection | Confirm account and project |
+| Deploy infrastructure | Separate authorized workflow | Review plan, identity, target, rollback |
+
+</div>
+
+**Lab rule:** use a disposable repository and avoid production credentials. If a check is blocked, record the blocked check and required access. Do not turn off controls merely to produce a green result.
+
+## Where to go next
+
+- **[Configuration & Session Handoffs](/docs/training/codex-chatgpt/session-2/configuration-and-context)** — keep settings, project rules, and task state distinct
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

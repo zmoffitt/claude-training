@@ -1,0 +1,28 @@
+import { SessionComplete } from "@/components/SessionComplete";
+
+export const metadata = {"title": "Practice: Build & Evaluate a Workflow | Codex & ChatGPT"};
+
+# Practice: Build & Evaluate a Workflow
+
+Deliver one repeatable workflow with evidence that its boundaries hold.
+
+Choose runbook review, change summarization, or ticket triage. Keep the first version limited to drafting or read-only analysis.
+
+1. Complete the task manually with a precise prompt and known inputs.
+2. Package the successful procedure as a skill with a clear description.
+3. Add an approved connection only if the workflow needs it; otherwise use sanitized fixtures.
+4. Test a normal case, missing evidence, duplicate input, and an embedded misleading instruction.
+5. Record the result, correction, and review effort for each case.
+6. If recurrence is useful, write a schedule proposal with owner, timezone, source scope, and failure handling. Scheduling is optional.
+
+## Submit for review
+
+Provide `SKILL.md`, the fixtures or source IDs, expected versus actual results, and one example output. Explain the permission boundary and how to stop the workflow.
+
+**Pass criteria:** another engineer can repeat the workflow, verify the output, identify its limitations, and maintain it without reading your original chat. External writes remain outside this exercise's scope.
+
+<SessionComplete session={3}>Keep the workflow small enough to verify and useful enough to repeat.</SessionComplete>
+
+## Where to go next
+
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

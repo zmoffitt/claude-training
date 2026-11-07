@@ -1,0 +1,32 @@
+
+export const metadata = {"title": "Subagents & Worktrees | Codex & ChatGPT"};
+
+# Subagents & Worktrees
+
+Split independent work and keep ownership explicit.
+
+Codex supports delegating bounded work to subagents. Ask explicitly for delegation when you want it, and inspect the supported controls in your client. Read-heavy tasks such as exploration and review are a useful starting point; concurrent edits require coordination. [Subagent guidance](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+
+```text
+Use two subagents for independent read-only reviews of this diff:
+one checks error handling, the other checks test coverage. Each must
+return file references and concrete failure cases. Reconcile their
+findings before proposing changes. Do not edit during this review.
+```
+
+## Shared task, separate responsibilities
+
+The coordinating agent owns the final answer and resolves disagreements. A subagent finding is a hypothesis until the code or a test supports it. Two agents repeating a claim is not independent verification.
+
+A Git worktree provides a separate checkout for a branch. Use separate worktrees for concurrent implementation tasks that could otherwise overwrite files. Worktrees do not separate every external resource: ports, databases, credentials, and deployed systems still need explicit isolation.
+
+## Decide whether parallel work helps
+
+Split a task when the inputs and output contract are clear and the pieces can run independently. Keep it sequential when one result changes the requirements for the next step. Count coordination and integration time when evaluating whether parallel work saved time.
+
+**Exercise:** write two review assignments with non-overlapping responsibilities and a shared output format. Explain who will validate and integrate the findings.
+
+## Where to go next
+
+- **[Live Demo: From Repository to Verified Patch](/docs/training/codex-chatgpt/session-2/live-demo)** — walk the full loop in a disposable checkout
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

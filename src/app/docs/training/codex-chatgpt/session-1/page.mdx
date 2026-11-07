@@ -1,0 +1,53 @@
+import { PageHero } from "@/components/PageHero";
+import { SessionOutline } from "@/components/SessionOutline";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+
+export const metadata = {"title": "Foundations & ChatGPT | Codex & ChatGPT"};
+
+<PageHero eyebrow="Codex & ChatGPT · Session 1 of 3" title="Foundations & ChatGPT" subtitle="Ground an answer, choose a surface, and verify the result." />
+
+## What this session covers
+
+<SessionOutline items={[
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/orientation",
+    "title": "ChatGPT, Work & Codex",
+    "description": "Choose the workspace by the outcome you need"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/context-and-prompts",
+    "title": "Context & Effective Prompts",
+    "description": "Give the agent the evidence and acceptance criteria it needs"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/models-and-planning",
+    "title": "Choosing the Right Model",
+    "description": "Model use cases, pricing, context limits, and planning"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/projects-and-memory",
+    "title": "Projects, Instructions & Memory",
+    "description": "Keep reusable context in the place where it belongs"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/verification",
+    "title": "Verification That Produces Evidence",
+    "description": "Check the artifact against an independent source or executable test"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/hands-on-exercise",
+    "title": "Hands-On: Incident Brief to Coding Task",
+    "description": "Turn a small evidence set into a verifiable engineering handoff"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-1/practice-assignment",
+    "title": "Practice: A Grounded Engineering Answer",
+    "description": "Bring evidence of one successful task and one useful correction"
+  }
+]} />
+
+<TrainingRoadmap track="codex" activeStep={1} />
+
+## Workshop outcome
+
+Bring a sourced answer and a clear repository handoff. Allow 60 minutes including discussion and the exercise.
