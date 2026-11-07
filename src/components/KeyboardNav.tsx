@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePrevNextPage } from '@/lib/usePrevNextPage'
+import { navigateWithTransition } from '@/lib/pageTransition'
 
 /** How long the footer's kbd hint shows as pressed before the page changes. */
 const PRESS_MS = 150
@@ -19,11 +20,11 @@ export function KeyboardNav() {
       // being used. If the hint is not on screen (phones), go at once.
       const hint = document.querySelector<HTMLElement>(`kbd[data-shortcut="${key}"]`)
       if (!hint || hint.offsetParent === null) {
-        router.push(href)
+        navigateWithTransition(router, href)
         return
       }
       hint.setAttribute('data-pressed', '')
-      timer = setTimeout(() => router.push(href), PRESS_MS)
+      timer = setTimeout(() => navigateWithTransition(router, href), PRESS_MS)
     }
 
     function handleKeyDown(e: KeyboardEvent) {

@@ -2,6 +2,9 @@
 
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+
+import { navigateWithTransition, useTransitionActive } from '@/lib/pageTransition'
 import Link from 'next/link'
 import { usePagePath } from '@/lib/usePagePath'
 import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react'
@@ -84,14 +87,19 @@ function VisibleSectionHighlight({
 }) {
   let height = Math.max(remToPx(2), activeHeight)
   let top = activeCenter - height / 2
+  // During a view transition the snapshot does the moving (see
+  // `::view-transition-group(nav-highlight)`), so the layout animation and
+  // the exit fade stand down; a lingering exit would leave two elements with
+  // the same transition name and cancel the whole transition.
+  let vt = useTransitionActive()
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0 }}
-      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"
+      layout={!vt}
+      initial={vt ? false : { opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: vt ? 0 : 0.2 } }}
+      exit={vt ? undefined : { opacity: 0 }}
+      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform [view-transition-name:nav-highlight] dark:bg-white/2.5"
       style={{ borderRadius: 8, height, top }}
     />
   )
@@ -100,14 +108,15 @@ function VisibleSectionHighlight({
 function ActivePageMarker({ activeCenter }: { activeCenter: number }) {
   let markerHeight = remToPx(1.5)
   let top = activeCenter - markerHeight / 2
+  let vt = useTransitionActive()
 
   return (
     <motion.div
-      layout
-      className="absolute left-2 h-6 w-px"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0 }}
+      layout={!vt}
+      className="absolute left-2 h-6 w-px [view-transition-name:nav-marker]"
+      initial={vt ? false : { opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: vt ? 0 : 0.2 } }}
+      exit={vt ? undefined : { opacity: 0 }}
       style={{ top, backgroundColor: 'var(--session-hue, var(--color-violet-500))' }}
     />
   )
@@ -222,10 +231,13 @@ function NavigationGroup({
 
   // The title is a link, but a collapsed group opens on the first click
   // instead of navigating; the caret always toggles.
+  let router = useRouter()
   let handleTitleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
     if (!isOpen) {
-      event.preventDefault()
       setIsExpanded(true)
+    } else if (groupHref) {
+      navigateWithTransition(router, groupHref)
     }
   }
 
@@ -265,6 +277,7 @@ function NavigationGroup({
           <Link
             href={groupHref}
             onClick={handleTitleClick}
+            data-transition="none"
             className={clsx(
               'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 dark:hover:text-violet-400',
               focusRing,

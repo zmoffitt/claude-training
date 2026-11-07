@@ -46,7 +46,7 @@ export function Breadcrumbs() {
   ]
 
   return (
-    <nav aria-label="Breadcrumb" data-pagefind-ignore className="not-prose mb-2">
+    <nav aria-label="Breadcrumb" data-pagefind-ignore className="not-prose mb-2 [view-transition-name:breadcrumbs]">
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
         {crumbs.map((crumb, i) => (
           <li key={`${crumb.title}-${i}`} className="flex items-center gap-2">

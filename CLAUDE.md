@@ -80,6 +80,10 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 
 **Mobile navigation** uses a Zustand store (`useMobileNavigationStore` in `MobileNavigation.tsx`) for open/close state, rendered as a Headless UI `Dialog`. Both desktop sidebar and mobile drawer render the same `<Navigation>` component.
 
+### Page Transitions
+
+`src/lib/pageTransition.ts` wraps page changes in the View Transitions API. `PageTransitions` (mounted in `Layout`) intercepts in-site link clicks in the capture phase and `KeyboardNav` calls the same `navigateWithTransition`; both fall back to `router.push` without the API, under reduced motion, or while a transition is running. Named groups: `sidebar` (holds still), `nav-marker` / `nav-highlight` (glide; the framer `layout` animation stands down via `useTransitionActive` so the snapshot shows the settled row), `breadcrumbs` (crossfade), `article` (fade-through with a slide in the direction of travel, from the page order in `allPages`). Rules live under "Page transitions" in `tailwind.css`. Mark a link `data-transition="none"` to keep its own click handling.
+
 ### Theming
 
 next-themes with `attribute="class"` (dark mode via `.dark` class on `<html>`). A blocking script in `src/app/layout.tsx` sets the theme class before first paint to prevent FOLM (flash of light mode) per component. `Providers.tsx` wraps the app with `ThemeProvider`, `ThemeWatcher` (syncs with system preference), and `ConsoleGreeting` (one-time dev-console branded greeting).

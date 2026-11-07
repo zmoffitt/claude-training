@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Footer } from '@/components/Footer'
 import { KeyboardNav } from '@/components/KeyboardNav'
+import { PageTransitions } from '@/components/PageTransitions'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { Prose } from '@/components/Prose'
@@ -55,7 +56,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Desktop sidebar — unmounted when collapsed */}
         {!(hydrated && isCollapsed) && (
           <div
-            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-14 lg:pb-8 xl:w-88 lg:dark:border-white/10"
+            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-14 lg:pb-8 lg:[view-transition-name:sidebar] xl:w-88 lg:dark:border-white/10"
             style={{
               width: hydrated ? width : undefined,
               position: hydrated ? 'relative' : undefined,
@@ -77,7 +78,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </motion.header>
       <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8">
         <main id="main-content" tabIndex={-1} className="flex-auto focus:outline-none">
-          <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10">
+          <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10 [view-transition-name:article]">
             <Prose className="flex-auto">
               <Breadcrumbs />
               <InlineTableOfContents />
@@ -90,6 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <SearchDialog />
       <KeyboardNav />
+      <PageTransitions />
     </div>
   )
 }

@@ -143,6 +143,96 @@
     }
   }
 
+  /* ── Page transitions ──
+   * `navigateWithTransition` (lib/pageTransition.ts) wraps page changes in
+   * the View Transitions API. The sidebar holds still, its marker and
+   * highlight glide to the new row, the breadcrumb crossfades, and the
+   * article slides in from the direction of travel. Browsers without the API
+   * swap pages at once, as before. */
+  ::view-transition-group(*) {
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+  }
+  ::view-transition-group(sidebar) {
+    animation: none;
+  }
+  ::view-transition-old(sidebar) {
+    display: none;
+  }
+  ::view-transition-new(sidebar) {
+    animation: none;
+  }
+  ::view-transition-group(nav-marker),
+  ::view-transition-group(nav-highlight) {
+    animation-duration: 340ms;
+  }
+  ::view-transition-old(nav-marker),
+  ::view-transition-old(nav-highlight) {
+    display: none;
+  }
+  ::view-transition-new(nav-marker),
+  ::view-transition-new(nav-highlight) {
+    animation: none;
+  }
+  /* The article: keep each frame its natural height, fade and slide. */
+  ::view-transition-group(article) {
+    animation: none;
+  }
+  ::view-transition-old(article),
+  ::view-transition-new(article) {
+    height: auto;
+    animation-duration: 220ms;
+  }
+  /* Fade through: the old page leaves fast, the new one starts once it is
+     mostly gone, so dense pages never read as a double exposure. */
+  html[data-nav-direction='forward']::view-transition-old(article) {
+    animation: vt-out-left 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html[data-nav-direction='forward']::view-transition-new(article) {
+    animation: vt-in-right 320ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  html[data-nav-direction='back']::view-transition-old(article) {
+    animation: vt-out-right 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html[data-nav-direction='back']::view-transition-new(article) {
+    animation: vt-in-left 320ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  html:not([data-nav-direction='forward']):not([data-nav-direction='back'])::view-transition-old(article) {
+    animation: vt-out 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html:not([data-nav-direction='forward']):not([data-nav-direction='back'])::view-transition-new(article) {
+    animation: vt-in 280ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  @keyframes vt-in {
+    from { opacity: 0; transform: translateY(8px); }
+  }
+  @keyframes vt-out {
+    to { opacity: 0; }
+  }
+  @keyframes vt-in-right {
+    from { opacity: 0; transform: translateX(28px); }
+  }
+  @keyframes vt-in-left {
+    from { opacity: 0; transform: translateX(-28px); }
+  }
+  @keyframes vt-out-left {
+    to { opacity: 0; transform: translateX(-20px); }
+  }
+  @keyframes vt-out-right {
+    to { opacity: 0; transform: translateX(20px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+
   .scroll-progress {
     animation: scroll-progress auto linear;
     animation-timeline: scroll(root block);
