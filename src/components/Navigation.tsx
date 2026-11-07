@@ -21,6 +21,8 @@ export interface NavGroup {
   title: string
   icon?: React.ReactNode
   links: Array<NavLinkItem>
+  /** Where the group title goes once the group is open. Defaults to the first page in the group. */
+  href?: string
 }
 
 function flattenLinks(links: Array<NavLinkItem>): Array<{ title: string; href: string }> {
@@ -216,6 +218,16 @@ function NavigationGroup({
   let groupContentId = useId()
 
   let isOpen = isActiveGroup || isExpanded
+  let groupHref = group.href ?? flat[0]?.href ?? '/'
+
+  // The title is a link, but a collapsed group opens on the first click
+  // instead of navigating; the caret always toggles.
+  let handleTitleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isOpen) {
+      event.preventDefault()
+      setIsExpanded(true)
+    }
+  }
 
   let measure = useCallback(() => {
     if (!containerRef.current) return
@@ -249,20 +261,26 @@ function NavigationGroup({
         className="font-semibold text-zinc-900 dark:text-white"
         style={{ fontSize: '0.875rem' }}
       >
-        <button
-          type="button"
-          onClick={() => setIsExpanded((prev) => !prev)}
-          aria-expanded={isOpen}
-          aria-controls={groupContentId}
-          className={clsx(
-            'flex w-full cursor-pointer select-none items-center justify-between gap-2 rounded text-left',
-            focusRing,
-          )}
-        >
-          <span className="flex min-w-0 items-center gap-2">
+        <div className="flex w-full items-center justify-between gap-2">
+          <Link
+            href={groupHref}
+            onClick={handleTitleClick}
+            className={clsx(
+              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 dark:hover:text-violet-400',
+              focusRing,
+            )}
+          >
             {group.icon && <span className="shrink-0 text-violet-500 dark:text-violet-400" aria-hidden="true">{group.icon}</span>}
             <span className="leading-snug">{group.title}</span>
-          </span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setIsExpanded((prev) => !prev)}
+            aria-expanded={isOpen}
+            aria-controls={groupContentId}
+            aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title}`}
+            className={clsx('flex shrink-0 cursor-pointer items-center rounded p-1', focusRing)}
+          >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -278,7 +296,8 @@ function NavigationGroup({
               clipRule="evenodd"
             />
           </motion.svg>
-        </button>
+          </button>
+        </div>
       </motion.h2>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -357,6 +376,7 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Training Materials',
     icon: <BookIcon />,
+    href: '/',
     links: [
       {
         title: 'Claude Code', href: '/docs/training/claude-code',
