@@ -4,6 +4,7 @@ import {
   CheckCircleFilledIcon,
   WarningTriangleIcon,
 } from "@/components/ProConCards";
+import { Term } from "@/components/Term";
 
 export const metadata = {
   title: "Why Extend Claude?",
@@ -47,9 +48,9 @@ A great assistant that can't reach your tools is just a clever notepad.
 />
 
 <Callout variant="info" title="Four layers of extension" align="left">
-  **CLI + delegated auth** for what you already have, **connectors** for
-  approved SaaS, **scheduled tasks** to put Claude on a schedule, **skills** to teach
-  it your playbooks. MCP is the protocol that ties several of these together.
+  **CLI + delegated auth** for what you already have, <Term id="connector">**connectors**</Term> for
+  approved SaaS, <Term id="scheduled-task">**scheduled tasks**</Term> to put Claude on a schedule, **skills** to teach
+  it your playbooks. <Term id="mcp">MCP</Term> is the protocol that ties several of these together.
 </Callout>
 
 ## Where to go next

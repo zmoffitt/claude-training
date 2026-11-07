@@ -197,7 +197,7 @@ export function ContextSession() {
                       height: '28px',
                       borderRadius: '50%',
                       backgroundColor: b.badgeBg,
-                      color: '#ffffff',
+                      color: 'var(--on-accent)',
                       display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',

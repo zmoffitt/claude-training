@@ -1,4 +1,5 @@
 import { Callout } from "@/components/Callout";
+import { Term } from "@/components/Term";
 
 export const metadata = {
   title: "How Context Works",
@@ -15,7 +16,7 @@ Everything Claude knows about your task must fit in one context window. There is
 | **Your messages**       | Every prompt you've sent in this conversation |
 | **Claude's responses**  | All previous outputs in the thread            |
 | **Uploaded files**      | Documents, configs, logs you've attached      |
-| **Tool outputs**        | Results from web search, plugins, connectors  |
+| **Tool outputs**        | Results from web search, plugins, <Term id="connector">connectors</Term> |
 | **System instructions** | Preferences, memory, project context          |
 
 <Callout variant="warning" title="Keep it fresh" align="left">

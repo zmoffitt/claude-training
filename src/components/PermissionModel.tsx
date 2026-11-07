@@ -103,7 +103,7 @@ export function PermissionModel() {
                   style={{
                     flexShrink: 0,
                     backgroundColor: b.badgeBg,
-                    color: '#ffffff',
+                    color: 'var(--on-accent)',
                     fontSize: '0.75rem',
                     fontWeight: 700,
                     padding: '0.35rem 0.85rem',

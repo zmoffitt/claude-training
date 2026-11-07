@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePagePath } from '@/lib/usePagePath'
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
 import { remToPx } from '@/lib/remToPx'
@@ -13,6 +13,8 @@ export interface NavLinkItem {
   title: string
   href: string
   children?: Array<NavLinkItem>
+  /** Starts a labeled section before this item inside its parent's list. */
+  section?: string
 }
 
 export interface NavGroup {
@@ -178,7 +180,17 @@ function NestedNavItem({
             style={{ overflow: 'hidden' }}
           >
             {link.children.map((child) => (
-              <NestedNavItem key={child.href} link={child} pathname={pathname} />
+              <Fragment key={child.href}>
+                {child.section && (
+                  <li
+                    aria-hidden="true"
+                    className="mt-3 mb-1 pl-4 text-[11px] font-semibold tracking-wider text-zinc-400 uppercase first:mt-1 dark:text-zinc-500"
+                  >
+                    {child.section}
+                  </li>
+                )}
+                <NestedNavItem link={child} pathname={pathname} />
+              </Fragment>
             ))}
           </motion.ul>
         )}
@@ -449,6 +461,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Why Extend Claude?',
                 href: '/docs/training/claude-code/session-3/why-extend-claude',
+                section: 'Reach external systems',
               },
               {
                 title: 'Tool Priority Ladder',
@@ -464,6 +477,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Built-in Connectors',
                 href: '/docs/training/claude-code/session-3/built-in-connectors',
+                section: 'Approved SaaS and schedules',
               },
               {
                 title: 'Cloud Scheduled Tasks',
@@ -476,6 +490,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Plugins & Marketplaces',
                 href: '/docs/training/claude-code/session-3/plugins-marketplaces',
+                section: 'Distribute and standardize',
               },
               {
                 title: 'Skills Deep Dive',
@@ -491,6 +506,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Security & Scoping',
                 href: '/docs/training/claude-code/session-3/security-scoping',
+                section: 'Govern and measure',
               },
               {
                 title: 'Insights',
@@ -499,6 +515,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Live Demo: Bug Triage Task',
                 href: '/docs/training/claude-code/session-3/live-demo-bug-triage',
+                section: 'Live demo and practice',
               },
               {
                 title: 'Practice Assignment',

@@ -118,7 +118,7 @@ export function AgentTeams() {
                 x={LEAD.cx}
                 y={LEAD.cy - 3}
                 textAnchor="middle"
-                fill="#ffffff"
+                fill="var(--on-accent)"
                 fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={11}
                 fontWeight={700}
@@ -129,7 +129,7 @@ export function AgentTeams() {
                 x={LEAD.cx}
                 y={LEAD.cy + 11}
                 textAnchor="middle"
-                fill="rgba(255,255,255,0.85)"
+                fill="var(--on-accent)" fillOpacity={0.85}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
               >
@@ -326,7 +326,7 @@ export function AgentTeams() {
                   <th
                     style={{
                       backgroundColor: 'var(--at-header-sub-bg)',
-                      color: '#ffffff',
+                      color: 'var(--on-accent)',
                       padding: '0.75rem 1rem',
                       textAlign: 'center',
                       fontWeight: 700,
@@ -337,7 +337,7 @@ export function AgentTeams() {
                   <th
                     style={{
                       backgroundColor: 'var(--at-header-team-bg)',
-                      color: '#ffffff',
+                      color: 'var(--on-accent)',
                       padding: '0.75rem 1rem',
                       textAlign: 'center',
                       fontWeight: 700,

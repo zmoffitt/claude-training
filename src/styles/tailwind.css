@@ -162,61 +162,70 @@
     --callout-success-fg: #078708;
     --callout-success-bg: #E5F5E5;
 
-    /* AgentTeams local tints (Pulse aqua) */
-    --at-callout: #DCF3FA;
-    --at-card-bg: #ffffff;
-    --at-teammate-fill: #DCF3FA;
-    --at-teammate-stroke: #0078BC;
-    --at-task-list-fill: #DCF3FA;
-    --at-task-list-stroke: #0078BC;
-    --at-header-neutral-bg: #444443;
-    --at-header-sub-bg: #422981;
-    --at-header-team-bg: #0078BC;
-    --at-row-border: rgba(0,0,0,0.06);
-    --at-teammate-label: #444443;
-
-    /* Subagents local tints (Pulse plum) */
-    --sa-callout: #EFE9FC;
-    --sa-card-bg: #ffffff;
-    --sa-card-border: #6240E8;
-    --sa-satellite-fill: #EFE9FC;
-    --sa-satellite-stroke: #6240E8;
-    --sa-subagent-label: #444443;
-
-    /* HooksLifecycle local tints */
-    --hl-step-bg: #ffffff;
-    --hl-step-bg-active: #EFE9FC;
-    --hl-step-border: #6240E8;
-    --hl-arrow: #6F6F6F;
+    /* Semantic tints: the only fills diagram components may use. Each
+       diagram token below is an alias of a tint or a brand token, so a palette
+       change here reaches every visualization. */
+    --tint-blue: #DCF3FA;
+    --tint-green: #E5F5E5;
+    --tint-purple: #EFE9FC;
+    --tint-pink: #fae8f8;
+    --tint-amber: #FFF3EB;
+    --tint-red: #FDECEC;
+    --tint-neutral: var(--theme-card-bg);
+    --tint-raised: var(--theme-card-bg-white);
+    --on-accent: #ffffff;
     --hl-terminal-bg: #121212;
 
-    /* ContextSession local tints */
-    --cs-bar-track: #F7F9F9;
-    --cs-legend-tile: #F9F5FF;
-    --cs-context-rot: #fff3eb;
-    --cs-branch-blue: #DCF3FA;
-    --cs-branch-green: #E5F5E5;
-    --cs-branch-purple: #EFE9FC;
-    --cs-branch-pink: #fae8f8;
-    --cs-branch-neutral: #F9F5FF;
-    --cs-top-habit: #DCF3FA;
+    /* AgentTeams */
+    --at-callout: var(--tint-blue);
+    --at-card-bg: var(--tint-raised);
+    --at-teammate-fill: var(--tint-blue);
+    --at-teammate-stroke: var(--brand-blue-text);
+    --at-task-list-fill: var(--tint-blue);
+    --at-task-list-stroke: var(--brand-blue-text);
+    --at-header-neutral-bg: var(--brand-neutral-badge-bg);
+    --at-header-sub-bg: var(--brand-purple-badge-bg);
+    --at-header-team-bg: var(--brand-blue-badge-bg);
+    --at-row-border: var(--surface-border);
+    --at-teammate-label: var(--brand-blue-text);
 
-    /* SkillsPlugins local tints */
-    --sp-callout-green: #E5F5E5;
-    --sp-callout-purple: #EFE9FC;
-    --sp-callout-blue: #DCF3FA;
-    --sp-callout-pink: #fae8f8;
+    /* Subagents */
+    --sa-callout: var(--tint-purple);
+    --sa-card-bg: var(--tint-raised);
+    --sa-card-border: var(--brand-purple-accent-bar);
+    --sa-satellite-fill: var(--tint-purple);
+    --sa-satellite-stroke: var(--brand-purple-accent-bar);
+    --sa-subagent-label: var(--brand-purple-text);
 
-    /* ProjectConfig local tints */
-    --pc-callout: #F7F9F9;
+    /* HooksLifecycle */
+    --hl-step-bg: var(--tint-raised);
+    --hl-step-bg-active: var(--tint-purple);
+    --hl-step-border: var(--brand-purple-accent-bar);
+    --hl-arrow: var(--theme-text-muted);
 
-    /* PermissionModes local tints */
-    --pm-modes-callout: #F9F5FF;
+    /* ContextSession */
+    --cs-bar-track: var(--tint-neutral);
+    --cs-legend-tile: var(--tint-neutral);
+    --cs-context-rot: var(--tint-amber);
+    --cs-branch-blue: var(--tint-blue);
+    --cs-branch-green: var(--tint-green);
+    --cs-branch-purple: var(--tint-purple);
+    --cs-branch-pink: var(--tint-pink);
+    --cs-branch-neutral: var(--tint-neutral);
+    --cs-top-habit: var(--tint-blue);
 
-    /* PermissionModel local tints */
-    --pm-model-row: #F9F5FF;
-    --pm-model-purple-card: #EFE9FC;
-    --pm-model-pink-card: #fae8f8;
+    /* SkillsPlugins */
+    --sp-callout-green: var(--tint-green);
+    --sp-callout-purple: var(--tint-purple);
+    --sp-callout-blue: var(--tint-blue);
+    --sp-callout-pink: var(--tint-pink);
+
+    /* ProjectConfig, PermissionModes, PermissionModel */
+    --pc-callout: var(--tint-neutral);
+    --pm-modes-callout: var(--tint-neutral);
+    --pm-model-row: var(--tint-neutral);
+    --pm-model-purple-card: var(--tint-purple);
+    --pm-model-pink-card: var(--tint-red);
   }
 
   .dark {
@@ -257,56 +266,16 @@
     --callout-success-fg: #0FAC27;
     --callout-success-bg: rgba(15,172,39,0.10);
 
-    /* AgentTeams (Pulse aqua dark) */
-    --at-callout: rgba(0,181,226,0.10);
-    --at-card-bg: rgba(255,255,255,0.04);
-    --at-teammate-fill: rgba(0,181,226,0.18);
-    --at-teammate-stroke: #B0E9F8;
-    --at-task-list-fill: rgba(0,181,226,0.18);
-    --at-task-list-stroke: #B0E9F8;
-    --at-header-neutral-bg: #444443;
-    --at-row-border: rgba(255,255,255,0.06);
-    --at-teammate-label: #B0E9F8;
-
-    /* Subagents (Pulse purple dark) */
-    --sa-callout: rgba(98,64,232,0.18);
-    --sa-card-bg: rgba(255,255,255,0.04);
-    --sa-card-border: #858DF8;
-    --sa-satellite-fill: rgba(98,64,232,0.22);
-    --sa-satellite-stroke: #858DF8;
-    --sa-subagent-label: #A1B1FA;
-
-    /* HooksLifecycle (dark) */
-    --hl-step-bg: rgba(255,255,255,0.04);
-    --hl-step-bg-active: rgba(98,64,232,0.18);
-    --hl-step-border: #858DF8;
-    --hl-arrow: #A3A4A4;
+    /* Semantic tints (dark): the diagram aliases above resolve against these */
+    --tint-blue: rgba(0,181,226,0.12);
+    --tint-green: rgba(15,172,39,0.12);
+    --tint-purple: rgba(98,64,232,0.18);
+    --tint-pink: rgba(202,1,190,0.12);
+    --tint-amber: rgba(236,184,1,0.10);
+    --tint-red: rgba(226,53,35,0.12);
+    --tint-neutral: rgba(255,255,255,0.04);
+    --tint-raised: rgba(255,255,255,0.04);
     --hl-terminal-bg: #0f0f17;
-
-    /* ContextSession (dark) */
-    --cs-bar-track: rgba(255,255,255,0.06);
-    --cs-legend-tile: rgba(255,255,255,0.04);
-    --cs-context-rot: rgba(202,1,190,0.10);
-    --cs-branch-blue: rgba(0,181,226,0.10);
-    --cs-branch-green: rgba(15,172,39,0.10);
-    --cs-branch-purple: rgba(98,64,232,0.14);
-    --cs-branch-pink: rgba(202,1,190,0.10);
-    --cs-branch-neutral: rgba(255,255,255,0.04);
-    --cs-top-habit: rgba(0,181,226,0.10);
-
-    /* SkillsPlugins (dark) */
-    --sp-callout-green: rgba(15,172,39,0.10);
-    --sp-callout-purple: rgba(98,64,232,0.18);
-    --sp-callout-blue: rgba(0,181,226,0.10);
-    --sp-callout-pink: rgba(202,1,190,0.10);
-
-    --pc-callout: rgba(255,255,255,0.05);
-
-    --pm-modes-callout: rgba(255,255,255,0.05);
-
-    --pm-model-row: rgba(255,255,255,0.04);
-    --pm-model-purple-card: rgba(98,64,232,0.18);
-    --pm-model-pink-card: rgba(202,1,190,0.18);
   }
 }
 
@@ -371,4 +340,25 @@
     padding-top: 1.5rem;
     border-top: 1px solid var(--surface-border);
   }
+}
+
+/* ── Glossary chips ──
+ * First use of a program term before the page that defines it. Dotted
+ * underline marks "this is defined elsewhere"; the link goes there and the
+ * title carries the one-line definition. Distinct from ordinary links.
+ */
+.prose a.term {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--color-violet-500);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 150ms;
+}
+.prose a.term:hover {
+  color: var(--color-violet-600);
+}
+.dark .prose a.term:hover {
+  color: var(--color-violet-400);
 }

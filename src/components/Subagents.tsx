@@ -70,7 +70,7 @@ export function Subagents() {
                 x={170}
                 y={134}
                 textAnchor="middle"
-                fill="#ffffff"
+                fill="var(--on-accent)"
                 fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={12}
                 fontWeight={700}
@@ -81,7 +81,7 @@ export function Subagents() {
                 x={170}
                 y={150}
                 textAnchor="middle"
-                fill="rgba(255,255,255,0.85)"
+                fill="var(--on-accent)" fillOpacity={0.85}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={10}
               >

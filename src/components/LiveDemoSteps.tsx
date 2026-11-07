@@ -101,7 +101,7 @@ export function LiveDemoSteps() {
                 height: '32px',
                 borderRadius: '50%',
                 backgroundColor: brandVars.green.badgeBg,
-                color: '#ffffff',
+                color: 'var(--on-accent)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
