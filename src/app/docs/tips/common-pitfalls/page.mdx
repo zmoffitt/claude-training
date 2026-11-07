@@ -1,3 +1,6 @@
+import { Callout } from "@/components/Callout";
+import { Lead } from "@/components/Lead";
+
 export const metadata = {
   title: 'Common Pitfalls',
 }
@@ -8,17 +11,17 @@ Mistakes to avoid when working with AI coding tools.
 
 ## Trusting without verifying
 
-**The problem:** Accepting AI-generated code without reading it.
+<Lead tone="red">The problem:</Lead> Accepting AI-generated code without reading it.
 
-**Why it happens:** AI output looks confident and often compiles. It's tempting to merge without a thorough review.
+<Lead tone="amber">Why it happens:</Lead> AI output looks confident and often compiles. It's tempting to merge without a thorough review.
 
-**The fix:** Treat AI code like any other PR — read every line, run the tests, check edge cases.
+<Lead tone="green">The fix:</Lead> Treat AI code like any other PR — read every line, run the tests, check edge cases.
 
 ## Losing context in long sessions
 
-**The problem:** After many back-and-forth messages, the AI loses track of earlier decisions and starts contradicting itself.
+<Lead tone="red">The problem:</Lead> After many back-and-forth messages, the AI loses track of earlier decisions and starts contradicting itself.
 
-**The fix:**
+<Lead tone="green">The fix:</Lead>
 - Use `/rewind` in Claude Code to drop a failed attempt instead of arguing with it
 - Use `/compact` to summarize and free up context (Claude Code also auto-compacts near the limit)
 - Start a new session for unrelated tasks
@@ -26,9 +29,9 @@ Mistakes to avoid when working with AI coding tools.
 
 ## Over-engineering
 
-**The problem:** AI tends to add abstractions, error handling, and configurability beyond what's needed.
+<Lead tone="red">The problem:</Lead> AI tends to add abstractions, error handling, and configurability beyond what's needed.
 
-**The fix:** Be explicit about scope:
+<Lead tone="green">The fix:</Lead> Be explicit about scope:
 ```
 Keep it simple. No need for error handling beyond what's already in the codebase.
 Only implement the exact feature described — no extras.
@@ -36,18 +39,24 @@ Only implement the exact feature described — no extras.
 
 ## Hallucinated APIs
 
-**The problem:** AI suggests library functions or APIs that don't exist.
+<Lead tone="red">The problem:</Lead> AI suggests library functions or APIs that don't exist.
 
-**The fix:** Always check that suggested packages exist and that the API matches the current version. Verify imports compile before committing.
+<Lead tone="green">The fix:</Lead> Always check that suggested packages exist and that the API matches the current version. Verify imports compile before committing.
 
 ## Copy-pasting sensitive data
 
-**The problem:** Sharing production logs, customer data, or credentials in AI prompts.
+<Lead tone="red">The problem:</Lead> Sharing production logs, customer data, or credentials in AI prompts.
 
-**The fix:** Sanitize data before sharing. Replace real values with placeholders. Never paste API keys or tokens.
+<Lead tone="green">The fix:</Lead> Sanitize data before sharing. Replace real values with placeholders. Never paste API keys or tokens.
 
 ## Ignoring test failures
 
-**The problem:** AI fixes the code but breaks existing tests, then "fixes" the tests to match the broken behavior.
+<Callout variant="warning" title="A test that suddenly passes is a finding" align="left">
+  When an edit turns a red test green without touching the code under test,
+  the test was changed, not the behavior. Read the test diff before the code
+  diff.
+</Callout>
 
-**The fix:** Run the full test suite before and after changes. If a test needs updating, verify the behavioral change is intentional.
+<Lead tone="red">The problem:</Lead> AI fixes the code but breaks existing tests, then "fixes" the tests to match the broken behavior.
+
+<Lead tone="green">The fix:</Lead> Run the full test suite before and after changes. If a test needs updating, verify the behavioral change is intentional.

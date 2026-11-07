@@ -62,7 +62,7 @@ export function HomeSections() {
                 'text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
                 s.primary
                   ? 'text-violet-500 dark:text-violet-400'
-                  : 'text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300',
+                  : 'text-violet-500/80 group-hover:text-violet-500 dark:text-violet-400/80 dark:group-hover:text-violet-400',
               )}
             >
               {s.eyebrow}

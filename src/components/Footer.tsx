@@ -52,7 +52,7 @@ function PageLink({
           href={page.href}
           aria-label={`${label}: ${page.title}`}
           aria-keyshortcuts={previous ? 'ArrowLeft' : 'ArrowRight'}
-          variant="secondary"
+          variant={previous ? 'secondary' : 'filled'}
           arrow={previous ? 'left' : 'right'}
         >
           {label}

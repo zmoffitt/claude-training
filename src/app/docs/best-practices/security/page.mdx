@@ -1,3 +1,5 @@
+import { Callout } from "@/components/Callout";
+
 export const metadata = {
   title: 'Security Considerations',
 }
@@ -11,6 +13,12 @@ Guidelines for using AI coding tools safely and responsibly.
 - **Never paste secrets** into AI prompts — no API keys, passwords, tokens, or certificates
 - **Be cautious with PII** — avoid sharing customer data, health records, or personal information
 - **Review generated code for secrets** — AI may generate placeholder credentials that look real
+
+<Callout variant="error" title="The one-line test" align="left">
+  If posting it in a public Slack channel would be a security incident, it
+  does not go into a prompt. That covers keys, tokens, tenant IDs, customer
+  data, and anything under NDA.
+</Callout>
 
 ## Code security
 

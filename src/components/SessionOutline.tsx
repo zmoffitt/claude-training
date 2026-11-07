@@ -82,8 +82,8 @@ export function SessionOutline({ items }: { items: OutlineItem[] }) {
                   fontSize: '0.6875rem',
                   fontWeight: 700,
                   fontVariantNumeric: 'tabular-nums',
-                  backgroundColor: 'var(--surface-deep-purple)',
-                  color: '#fff',
+                  backgroundColor: 'color-mix(in oklch, var(--session-hue, var(--surface-deep-purple)) 14%, transparent)',
+                  color: 'var(--session-hue, var(--brand-purple-text))',
                   position: 'relative',
                   top: '0.0625rem',
                 }}
