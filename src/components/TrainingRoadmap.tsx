@@ -53,7 +53,10 @@ function Chip({ children, tone }: { children: React.ReactNode; tone: 'session' |
 }
 
 export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
+  // The wrapper takes the prose column's margins and keeps list styling off
+  // the steps when the roadmap sits directly in a page's MDX.
   return (
+    <div className="not-prose">
     <motion.ol
       role="list"
       aria-label="Training roadmap: five sessions"
@@ -61,7 +64,7 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
       whileInView="visible"
       viewport={{ once: true, margin: '-40px' }}
       variants={listVariants}
-      className="m-0 flex list-none flex-col gap-3 p-0 md:flex-row md:items-stretch md:gap-4 lg:gap-6"
+      className="flex list-none flex-col gap-3 md:flex-row md:items-stretch md:gap-4 lg:gap-6"
     >
       {steps.map((step, i) => {
         const isActive = step.number === activeStep
@@ -141,5 +144,6 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
         )
       })}
     </motion.ol>
+    </div>
   )
 }
