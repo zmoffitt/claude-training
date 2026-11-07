@@ -1,4 +1,4 @@
-import { themeVars, wcagText } from '@/lib/theme-colors'
+import { themeVars, accentFill, accentText } from '@/lib/theme-colors'
 
 interface ModelTier {
   title: string
@@ -36,7 +36,7 @@ export function ModelTierCards({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: wcagText(tier.color),
+                color: accentText(tier.color),
               }}
             >
               {tier.title}
@@ -79,7 +79,7 @@ export function ModelTierCards({
                       height: 10,
                       minWidth: 10,
                       borderRadius: '50%',
-                      backgroundColor: tier.color,
+                      backgroundColor: accentFill(tier.color),
                       marginTop: '0.375rem',
                     }}
                   />

@@ -6,7 +6,7 @@ function gridForCount(count: number): string {
   return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
 }
 
-import { themeVars, wcagText } from '@/lib/theme-colors'
+import { themeVars, accentText } from '@/lib/theme-colors'
 
 interface EffortColumn {
   arrow: 'up' | 'down'
@@ -41,7 +41,7 @@ export function EffortScale({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: wcagText(col.color),
+                color: accentText(col.color),
               }}
             >
               {col.arrow === 'up' ? '\u2191' : '\u2193'}{' '}

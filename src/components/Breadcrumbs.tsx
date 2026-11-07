@@ -62,6 +62,11 @@ export function Breadcrumbs() {
                   'rounded text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
                   focusRing,
                 )}
+                style={
+                  /^\/docs\/training\/claude-code\/session-\d$/.test(crumb.href)
+                    ? { color: 'var(--session-hue)', fontWeight: 500 }
+                    : undefined
+                }
               >
                 {crumb.title}
               </Link>

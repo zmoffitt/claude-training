@@ -68,7 +68,7 @@ export function PillarCards({
               } : undefined}
             >
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                <div style={{ color: safeAccent(card.color), width: 24, height: 24, flexShrink: 0, marginTop: '0.0625rem' }}>
+                <div style={{ color: `var(--session-hue, ${safeAccent(card.color)})`, width: 24, height: 24, flexShrink: 0, marginTop: '0.0625rem' }}>
                   {card.icon}
                 </div>
                 <h3

@@ -108,7 +108,7 @@
    * paint is already correct in dark mode (no FOLM per component). */
   :root {
     /* Pulse neutral semantic tokens */
-    --theme-card-bg: oklch(97.3% 0.009 292);
+    --theme-card-bg: oklch(96.8% 0.014 292);
     --theme-card-bg-white: oklch(98.9% 0.005 292);
     --theme-heading: #171717;
     --theme-text: #444443;
@@ -142,6 +142,15 @@
     --brand-amber-accent-bar: #ECB801;
     --brand-amber-text: #A25E00;
     --brand-amber-badge-bg: #8A5A00;
+
+    /* Session hues: the roadmap's five colors, as text-safe values. Set on the
+       page root as --session-hue (Layout) and used only on text, icons, and
+       markers so a page shows which session it belongs to. */
+    --session-1: var(--brand-blue-text);
+    --session-2: var(--brand-green-text);
+    --session-3: var(--brand-purple-text);
+    --session-4: var(--brand-pink-text);
+    --session-5: #422981;
     --brand-purple-text: #5156F5;
     --brand-purple-badge-bg: #422981;
 
@@ -232,8 +241,8 @@
     /* Pulse neutral semantic tokens (dark)
      * Text values adjusted upward from Pulse defaults for WCAG AAA (7:1)
      * on card surfaces (#232323). */
-    --theme-card-bg: oklch(25.5% 0.012 292);
-    --theme-card-bg-white: oklch(25.5% 0.012 292);
+    --theme-card-bg: oklch(26% 0.016 292);
+    --theme-card-bg-white: oklch(26% 0.016 292);
     --theme-heading: #F7F9F9;
     --theme-text: #B5B6B6;
     --theme-text-muted: #B0B0B0;
@@ -250,6 +259,7 @@
     --brand-purple-text: #A1B1FA;
     --brand-neutral-text: #B0B0B0;
     --brand-amber-text: #ECB801;
+    --session-5: #A892FB;
 
     --accent-deep-purple: #858DF8;
     --surface-deep-purple: #422981;
@@ -361,4 +371,30 @@
 }
 .dark .prose a.term:hover {
   color: var(--color-violet-400);
+}
+
+/* ── Tables: tinted header row and a quiet row hover ── */
+@layer components {
+  .prose thead th {
+    background: var(--tint-purple);
+    padding: 0.5rem 0.75rem;
+  }
+  .prose thead th:first-child {
+    padding-left: 0.75rem;
+    border-top-left-radius: var(--radius-chip);
+  }
+  .prose thead th:last-child {
+    padding-right: 0.75rem;
+    border-top-right-radius: var(--radius-chip);
+  }
+  .prose tbody td {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .prose tbody tr {
+    transition: background-color 150ms;
+  }
+  .prose tbody tr:hover {
+    background: color-mix(in oklch, var(--tint-purple) 55%, transparent);
+  }
 }

@@ -87,6 +87,21 @@ export function safeSurface(color: string): string {
  * For unmapped colors (already safe dark reds, dark purples, etc.) returns
  * the original hex unchanged.
  */
+/**
+ * Text color for a card accent. Neutral accents resolve to the current
+ * session's hue (set by Layout as --session-hue) so comparison cards carry
+ * their session's color without each page picking one; any other accent is
+ * made WCAG-safe as usual.
+ */
+export function accentText(hex: string): string {
+  return accentToBrand(hex) === 'neutral' ? 'var(--session-hue, var(--brand-neutral-text))' : wcagText(hex)
+}
+
+/** Fill color (bullets, chips) for a card accent, with the same neutral rule. */
+export function accentFill(hex: string): string {
+  return accentToBrand(hex) === 'neutral' ? 'var(--session-hue, var(--brand-neutral-accent-bar))' : hex
+}
+
 export function wcagText(hex: string): string {
   const key = accentToBrand(hex)
   return key ? brandVars[key].text : hex

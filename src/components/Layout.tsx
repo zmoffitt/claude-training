@@ -12,6 +12,7 @@ import { ScrollProgress } from '@/components/ScrollProgress'
 import { SearchDialog } from '@/components/SearchDialog'
 import { SidebarResizeHandle } from '@/components/SidebarResizeHandle'
 import { InlineTableOfContents, TableOfContents } from '@/components/TableOfContents'
+import { usePagePath } from '@/lib/usePagePath'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
 
@@ -26,10 +27,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const hydrated = isLg // true only after useEffect runs on the client
   const effectiveWidth = hydrated ? (isCollapsed ? 0 : width) : undefined
 
+  // Wayfinding: inside a session, eyebrows, icons, crumbs, and the sidebar
+  // marker take that session's hue (see --session-N in tailwind.css).
+  const pathname = usePagePath()
+  const session = pathname.match(/\/session-(\d)(?:\/|$)/)?.[1]
+  const rootStyle: React.CSSProperties = {
+    ...(hydrated ? { marginLeft: effectiveWidth } : {}),
+    ...(session ? ({ '--session-hue': `var(--session-${session})` } as React.CSSProperties) : {}),
+  }
+
   return (
     <div
       className="h-full lg:ml-80 xl:ml-88"
-      style={hydrated ? { marginLeft: effectiveWidth } : undefined}
+      style={rootStyle}
     >
       <a
         href="#main-content"

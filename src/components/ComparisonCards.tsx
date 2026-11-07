@@ -6,7 +6,7 @@ function gridForCount(count: number): string {
   return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
 }
 
-import { themeVars, wcagText, wcagBadgeBg } from '@/lib/theme-colors'
+import { themeVars, accentText, wcagBadgeBg } from '@/lib/theme-colors'
 
 interface ComparisonCard {
   title: string
@@ -27,7 +27,7 @@ export function ComparisonCards({
     <div>
       <div className={gridForCount(cards.length)}>
         {cards.map((card) => {
-          const safeTextColor = wcagText(card.color)
+          const safeTextColor = accentText(card.color)
           const safeBadgeBg = wcagBadgeBg(card.badgeColor)
           return (
             <div

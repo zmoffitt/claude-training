@@ -6,7 +6,7 @@ function gridForCount(count: number): string {
   return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
 }
 
-import { themeVars, wcagText } from '@/lib/theme-colors'
+import { themeVars, accentFill, accentText } from '@/lib/theme-colors'
 
 interface FeatureColumn {
   title: string
@@ -51,7 +51,7 @@ export function FeatureColumns({
                 fontSize: '0.875rem',
                 fontWeight: 500,
                 margin: '0 0 0.75rem',
-                color: wcagText(col.color),
+                color: accentText(col.color),
               }}
             >
               {col.subtitle}
@@ -85,7 +85,7 @@ export function FeatureColumns({
                       height: 10,
                       minWidth: 10,
                       borderRadius: '50%',
-                      backgroundColor: col.color,
+                      backgroundColor: accentFill(col.color),
                       marginTop: '0.375rem',
                     }}
                   />
