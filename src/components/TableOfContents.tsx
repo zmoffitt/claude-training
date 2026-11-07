@@ -52,6 +52,11 @@ function useArticleHeadings(): Array<Heading> {
  *
  * Active section tracked via IntersectionObserver.
  */
+/** Sections worth an outline entry: H2s other than the closing "Where to go next". */
+function jumpableSections(headings: ReturnType<typeof useArticleHeadings>) {
+  return headings.filter((h) => h.level === 2 && h.id !== 'where-to-go-next')
+}
+
 export function TableOfContents() {
   const headings = useArticleHeadings()
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -81,7 +86,9 @@ export function TableOfContents() {
     return () => observer.disconnect()
   }, [headings])
 
-  if (headings.length === 0) return null
+  // Same rule as the inline outline: two real sections, or no rail. A lone
+  // "Where to go next" is the page's ending, not an outline.
+  if (jumpableSections(headings).length < 2) return null
 
   return (
     <aside
@@ -128,7 +135,7 @@ export function InlineTableOfContents() {
   const headings = useArticleHeadings()
   const sections = headings.filter((h) => h.level === 2)
 
-  if (sections.length < 2) return null
+  if (jumpableSections(headings).length < 2) return null
 
   return (
     <details className="not-prose group mb-6 rounded-lg border border-zinc-900/10 text-sm min-[1366px]:hidden dark:border-white/10">

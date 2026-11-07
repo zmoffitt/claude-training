@@ -13,6 +13,7 @@ import { create } from 'zustand'
 
 import { focusRing } from '@/lib/focusRing'
 import { navigation, type NavLinkItem } from '@/components/Navigation'
+import { appPath } from '@/lib/pageTransition'
 
 export const useSearchStore = create<{
   isOpen: boolean
@@ -105,6 +106,11 @@ export function SearchDialog() {
   const router = useRouter()
 
   const index = useMemo(buildIndex, [])
+  // Pagefind knows pages by URL only; the sidebar knows where they live.
+  const trailByPath = useMemo(
+    () => new Map(index.map((item) => [appPath(item.href), item.trail])),
+    [index],
+  )
 
   useEffect(() => {
     const q = query.trim()
@@ -143,10 +149,12 @@ export function SearchDialog() {
           const items = await Promise.all(
             search.results.slice(0, 8).map(async (r: any) => {
               const data = await r.data()
+              const href = data.url.replace(/\.html$/, '')
               return {
                 title: data.meta?.title || 'Untitled',
-                href: data.url.replace(/\.html$/, ''),
+                href,
                 excerpt: data.excerpt ? sanitizeExcerpt(data.excerpt) : undefined,
+                trail: trailByPath.get(appPath(href)),
               }
             })
           )
@@ -306,7 +314,7 @@ export function SearchDialog() {
                       className={clsx(
                         'flex items-center gap-3 px-4 py-2.5 text-sm',
                         selected === gi
-                          ? 'bg-violet-500 text-white'
+                          ? 'bg-violet-500/10 text-violet-900 dark:bg-violet-400/15 dark:text-violet-50'
                           : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800',
                       )}
                     >
@@ -314,7 +322,7 @@ export function SearchDialog() {
                       <span
                         className={clsx(
                           'text-xs',
-                          selected === gi ? 'text-violet-200' : 'text-zinc-400 dark:text-zinc-500',
+                          selected === gi ? 'text-violet-700 dark:text-violet-200' : 'text-zinc-400 dark:text-zinc-500',
                         )}
                       >
                         {group.links.length} {group.links.length === 1 ? 'page' : 'pages'}
@@ -339,34 +347,35 @@ export function SearchDialog() {
                     className={clsx(
                       'block px-4 py-2.5 text-sm',
                       selected === i
-                        ? 'bg-violet-500 text-white'
+                        ? 'bg-violet-500/10 text-violet-900 dark:bg-violet-400/15 dark:text-violet-50'
                         : 'text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800',
                     )}
                   >
-                    <div className="font-medium">{r.title}</div>
-                    {r.excerpt ? (
+                    {r.trail && (
                       <div
                         className={clsx(
-                          'mt-0.5 line-clamp-2 text-xs',
-                          '[&_mark]:rounded-sm [&_mark]:bg-violet-200/60 [&_mark]:px-0.5 [&_mark]:text-inherit dark:[&_mark]:bg-violet-500/30',
+                          'truncate text-[10px] font-semibold tracking-wider uppercase',
                           selected === i
-                            ? 'text-violet-100 [&_mark]:bg-violet-400/40 dark:[&_mark]:bg-violet-300/30'
-                            : 'text-zinc-500 dark:text-zinc-400',
-                        )}
-                        dangerouslySetInnerHTML={{ __html: r.excerpt }}
-                      />
-                    ) : r.trail ? (
-                      <div
-                        className={clsx(
-                          'truncate text-xs',
-                          selected === i
-                            ? 'text-violet-100'
-                            : 'text-zinc-500 dark:text-zinc-500',
+                            ? 'text-violet-700 dark:text-violet-200'
+                            : 'text-zinc-400 dark:text-zinc-500',
                         )}
                       >
                         {r.trail}
                       </div>
-                    ) : null}
+                    )}
+                    <div className="font-medium">{r.title}</div>
+                    {r.excerpt && (
+                      <div
+                        className={clsx(
+                          'mt-0.5 line-clamp-2 text-xs',
+                          '[&_mark]:rounded-sm [&_mark]:bg-violet-200/70 [&_mark]:px-0.5 [&_mark]:text-inherit dark:[&_mark]:bg-violet-500/35',
+                          selected === i
+                            ? 'text-violet-800 dark:text-violet-100'
+                            : 'text-zinc-500 dark:text-zinc-400',
+                        )}
+                        dangerouslySetInnerHTML={{ __html: r.excerpt }}
+                      />
+                    )}
                   </Link>
                 </li>
               ))}
