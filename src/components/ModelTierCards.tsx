@@ -12,15 +12,11 @@ export function ModelTierCards({
 }: {
   tiers: Array<ModelTier>
 }) {
+  const columns = tiers.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
   return (
     <div>
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${tiers.length}, 1fr)`,
-          gap: '1rem',
-          alignItems: 'stretch',
-        }}
+        className={`grid grid-cols-1 ${columns} items-stretch gap-4`}
       >
         {tiers.map((tier) => (
           <div

@@ -17,7 +17,8 @@ const TREE: Array<TreeRow> = [
   { indent: 2, name: 'settings.json', kind: 'file', description: 'hooks, permissions (shared)' },
   { indent: 2, name: 'settings.local.json', kind: 'file', description: 'local overrides (gitignored)' },
   { indent: 2, name: 'rules/', kind: 'dir', brand: 'blue', description: 'modular instructions by concern' },
-  { indent: 2, name: 'commands/', kind: 'dir', brand: 'blue', description: 'custom /project:name slash commands' },
+  { indent: 2, name: 'skills/', kind: 'dir', brand: 'blue', description: 'SKILL.md per folder, invoked as /name (replaces commands/)' },
+  { indent: 2, name: 'agents/', kind: 'dir', brand: 'blue', description: 'custom subagent definitions' },
 ]
 
 interface WhatRow {
@@ -61,6 +62,15 @@ export function ProjectConfig() {
         <>
           split instructions by concern (<code style={codeStyle}>code-style.md</code>,{' '}
           <code style={codeStyle}>testing.md</code>). Supports path-scoped activation.
+        </>
+      ),
+    },
+    {
+      name: 'skills/',
+      body: (
+        <>
+          repeatable workflows as <code style={codeStyle}>SKILL.md</code> files, loaded on
+          demand. Old <code style={codeStyle}>commands/*.md</code> files still work.
         </>
       ),
     },

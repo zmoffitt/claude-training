@@ -22,11 +22,11 @@ There are no lint or test commands configured.
 
 ## Tech Stack
 
-Next.js 15 (static export via `output: 'export'`), React 19, TypeScript, Tailwind CSS v4 with `@tailwindcss/typography`, Headless UI, Framer Motion, MDX (`remark-gfm` + `rehype-slug`), next-themes, Zustand, pnpm.
+Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScript, Tailwind CSS v4 with `@tailwindcss/typography`, Headless UI, Framer Motion, MDX (`remark-gfm` + `rehype-slug`), next-themes, Zustand, pnpm.
 
 ## Architecture
 
-**Static export only** — `next.config.mjs` sets `output: 'export'` and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
+**Static export only** — `next.config.mjs` sets `output: 'export'`, `trailingSlash: true` (so GitHub Pages resolves both `/path` and `/path/`), and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
 
 **Deployed via GitHub Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and uploads `out/` as a Pages artifact on push to `main`. The site is served at `https://zmoffitt.github.io/claude-training/`, so `next.config.mjs` sets `basePath` and `assetPrefix` to `/claude-training`, and `NEXT_PUBLIC_BASE_PATH` is exposed for runtime asset paths (e.g. the Pagefind loader in `SearchDialog.tsx`). A `.nojekyll` file in `public/` prevents Jekyll from stripping `_next/` directories.
 
@@ -65,7 +65,7 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 
 ### Search & 404
 
-**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`); falls back to navigation-title scoring if the runtime can't load the Pagefind index. Empty state shows suggested queries; no-results offers a "broader term, or browse the sidebar" prompt.
+**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. Empty state shows suggested queries; no-results offers a "broader term, or browse the sidebar" prompt.
 
 **404** — `src/app/not-found.tsx` lists the three sessions with descriptions, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages.
 

@@ -15,7 +15,7 @@ const basePath = '/claude-training'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  trailingSlash: false,
+  trailingSlash: true,
   basePath,
   assetPrefix: basePath,
   env: {

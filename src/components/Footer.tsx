@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePagePath } from '@/lib/usePagePath'
 
 import { Button } from '@/components/Button'
 import { navigation, type NavLinkItem } from '@/components/Navigation'
@@ -25,7 +25,7 @@ function findSiblingPosition(
 }
 
 function ProgressIndicator() {
-  const pathname = usePathname()
+  const pathname = usePagePath()
   const allLinks: Array<NavLinkItem> = navigation.flatMap((g) => g.links)
   const found = findSiblingPosition(pathname, allLinks)
   if (!found || found.total < 3) return null

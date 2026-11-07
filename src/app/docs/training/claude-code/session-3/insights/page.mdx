@@ -9,41 +9,41 @@ export const metadata = {
 
 <ReadTime minutes={3} />
 
-Usage patterns inform what to standardize, what to retire, what to invest in.
+Usage patterns inform what to standardize, what to retire, what to invest in. Two surfaces give you that signal.
 
-## Adoption
+## Team analytics
 
-Who's using what, how often.
+Who's using what, how often — and what it ships.
 
-The Insights dashboard shows active users by week, the CLI vs. Desktop vs. web split, and per-team activity. The point isn't a vanity number; it's spotting the **quiet teams** so you can offer help before they decide Claude isn't for them.
+Admins and Owners on Team and Enterprise plans get the Claude Code analytics dashboard at `claude.ai/analytics/claude-code`. It shows daily active users and sessions, lines of code accepted, suggestion accept rate, and, with the GitHub app connected, which merged PRs contain Claude Code-assisted code. A leaderboard and CSV export cover every user. Console (API) organizations get a similar dashboard at `platform.claude.com/claude-code` with per-user spend instead of GitHub attribution.
 
-> _Example:_ Identity Engineering shows up in the dashboard at 12% weekly active vs. 78% for the Cloud team. A 30-minute walkthrough on `mg-graph` patterns lifts them to 60% the following week. The signal got there before the survey would have.
+> _Example:_ Identity Engineering shows 12% weekly active vs. 78% for the Cloud team. A 30-minute walkthrough on `mg-graph` patterns lifts them to 60% the following week. The signal got there before the survey would have.
 
-## Workflows
+## Personal insights
 
-Which skills, MCPs, and plugins win.
+Where each engineer's sessions go wrong.
 
-Most-used skills, MCP server invocations, and recurring prompts surface here. When the same workflow appears five times across five different engineers, that's a skill waiting to ship as a plugin. When an MCP server dominates usage, that's the one to harden first.
+Run `/insights` in Claude Code. It reads your last 30 days of local session transcripts, nothing leaves the machine, and writes an HTML report: usage stats, tool breakdown, and a ranked list of **friction points** with examples — misunderstood intent, buggy first attempts, repeated corrections. It ends with rules you can paste into `CLAUDE.md`. Ask engineers to bring their top friction point to a team review; five people hitting the same one is a skill or a hook waiting to ship.
 
-> _Example:_ Three engineers independently scripted "summarize this week's failed CI runs and file an issue per repeat." Promoted to a `ci-failure-triage` skill, distributed via the internal plugin marketplace. Time-to-PR on flaky-test fixes drops from days to hours.
+> _Example:_ Three engineers' reports show "re-explained the CI layout" as the top friction. Promoted to a `ci-failure-triage` skill and a `.claude/rules/ci.md`, distributed via the internal plugin marketplace. Time-to-PR on flaky-test fixes drops from days to hours.
 
 ## Cost
 
 Tokens, model mix, quota burn.
 
-Token spend by team and user, the Opus / Sonnet / Haiku ratio, and the workflows burning the most quota. Helpful for budgeting; more helpful for spotting **the wrong model on the wrong job**.
+Per-user token and usage-credit spend comes from the organization's spend report export, or from OpenTelemetry metrics if you run your own observability stack. Per session, `/usage` shows what the current conversation has cost. Helpful for budgeting; more helpful for spotting **the wrong model on the wrong job**.
 
-> _Example:_ A weekly report routine on Opus is costing 4× what it needs to. Same prompt on Sonnet produces functionally equivalent output for the same task. Switching saves the team's quota for the work that actually needs the bigger model.
+> _Example:_ A weekly report task on Opus is costing 2× what it needs to. Same prompt on Sonnet produces functionally equivalent output. Switching saves the team's quota for the work that actually needs the bigger model.
 
 <br />
 
-<Callout variant="info" title="Use Insights to drive standardization" align="left">
+<Callout variant="info" title="Use the signal to drive standardization" align="left">
   When five engineers independently invent the same workflow — that's a skill
-  waiting to ship as a plugin. When one MCP server dominates usage — harden
-  it. Don't guess; measure.
+  waiting to ship as a plugin. When the dashboard shows a quiet team — offer
+  help before they decide Claude isn't for them. Don't guess; measure.
 </Callout>
 
 ## Where to go next
 
-- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see the full skill + connector + routine pattern in action
+- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see the full skill + connector + scheduled task pattern in action
 - **[Practice Assignment](/docs/training/claude-code/session-3/practice-assignment)** — your turn to ship one

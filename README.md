@@ -13,7 +13,7 @@ This repo serves as the single source of truth for:
 
 ## Tech Stack
 
-- [Next.js 15](https://nextjs.org/) (static export)
+- [Next.js 16](https://nextjs.org/) (static export)
 - [React 19](https://react.dev/)
 - TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com/) with `@tailwindcss/typography`

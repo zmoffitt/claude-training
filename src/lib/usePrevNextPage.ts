@@ -1,10 +1,10 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePagePath } from '@/lib/usePagePath'
 import { allPages } from '@/components/Navigation'
 
 export function usePrevNextPage() {
-  const pathname = usePathname()
+  const pathname = usePagePath()
   const currentIndex = allPages.findIndex((page) => page.href === pathname)
 
   if (currentIndex === -1) {

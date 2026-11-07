@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePagePath } from '@/lib/usePagePath'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
@@ -188,7 +188,7 @@ function NavigationGroup({
   group: NavGroup
   className?: string
 }) {
-  let pathname = usePathname()
+  let pathname = usePagePath()
   let flat = flattenLinks(group.links)
   let isActiveGroup = flat.some((link) => link.href === pathname)
   let [isExpanded, setIsExpanded] = useState(isActiveGroup)
@@ -458,7 +458,7 @@ export const navigation: Array<NavGroup> = [
                 href: '/docs/training/claude-code/session-3/built-in-connectors',
               },
               {
-                title: 'Cloud Routines',
+                title: 'Cloud Scheduled Tasks',
                 href: '/docs/training/claude-code/session-3/cloud-routines',
               },
               {
@@ -489,7 +489,7 @@ export const navigation: Array<NavGroup> = [
                 href: '/docs/training/claude-code/session-3/insights',
               },
               {
-                title: 'Live Demo: Bug Triage Routine',
+                title: 'Live Demo: Bug Triage Task',
                 href: '/docs/training/claude-code/session-3/live-demo-bug-triage',
               },
               {

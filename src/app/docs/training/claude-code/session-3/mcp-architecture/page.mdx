@@ -11,7 +11,7 @@ export const metadata = {
 
 A protocol — not a product. Open standard, any client, any server.
 
-Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC, running over stdio (local) or HTTP/SSE (remote). The server brokers calls to an external system (Microsoft Graph, GitHub, Kubernetes, a database) and returns results. You stay in the loop, approving or denying each tool call.
+Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC, running over stdio (local) or streamable HTTP (remote). The server brokers calls to an external system (Microsoft Graph, GitHub, Kubernetes, a database) and returns results. You stay in the loop, approving or denying each tool call.
 
 <svg
   viewBox="0 0 440 280"
@@ -24,7 +24,7 @@ Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC
   <desc id="mcp-arch-desc">
     Claude (the MCP client, on the left) sends a tool call to an MCP server (on
     the right) over JSON-RPC, transported via stdio for local servers or
-    HTTP/SSE for remote servers. The MCP server brokers the request to an
+    streamable HTTP for remote servers. The MCP server brokers the request to an
     external system such as Microsoft Graph, GitHub, Kubernetes, or a database,
     and returns the result back to Claude. The user approves or denies each
     tool call before it executes.
@@ -39,7 +39,7 @@ Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC
   </defs>
 
   <text x="215" y="22" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="light-dark(#2E2E3A, #ffffff)">Model Context Protocol</text>
-  <text x="215" y="40" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="light-dark(#5A5A6E, #aaa)">JSON-RPC over stdio or HTTP/SSE</text>
+  <text x="215" y="40" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="light-dark(#5A5A6E, #aaa)">JSON-RPC over stdio or streamable HTTP</text>
   <line x1="80" y1="54" x2="350" y2="54" stroke="light-dark(#dcdce6, #444)" strokeWidth="1" />
 
   <rect x="20" y="100" width="140" height="84" rx="12" fill="light-dark(#6240e8, #6240e8)" />
@@ -75,17 +75,20 @@ Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC
 
 ## Local vs. remote
 
-- **Remote-first (HTTP/SSE)** reaches web, mobile, and managed agents
+- **Remote-first (streamable HTTP)** reaches web, mobile, and managed agents. The older SSE transport is deprecated; `claude mcp add --transport http` falls back to it only when a server offers nothing else
 - **Local (stdio)** is the developer-loop case: quick to iterate, single user
 
 The same protocol works in Claude Desktop, Claude Code CLI, and the web — write a server once, use it everywhere.
 
 <br />
 
-<Callout variant="success" title="Open standard, exploding adoption" align="left">
-  MCP SDK downloads grew from **100M to 300M per month** over the past year.
-  Servers you build work with any compliant client: current Claude, future
-  Claude, third-party agents in your stack.
+<Callout variant="success" title="Open standard, broad adoption" align="left">
+  MCP is governed under the Linux Foundation's Agentic AI Foundation alongside
+  Agent Skills, and the major agent platforms speak it. Servers you build work
+  with any compliant client: current Claude, future Claude, third-party agents
+  in your stack. Claude Code also defers MCP tool definitions behind **tool
+  search** by default, so a server with 50 tools no longer costs 50 tools'
+  worth of context on every turn.
 </Callout>
 
 ## Where to go next

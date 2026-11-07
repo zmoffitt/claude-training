@@ -25,7 +25,7 @@ Same engine, different shell — choose what fits your workflow.
       icon: <LaptopIcon />,
       title: "Claude Desktop (Code UI)",
       description:
-        "File browser, diff viewer, built-in terminal. Ultraplan: draft plans in the cloud, review with inline comments in the browser, then execute. Best for daily development.",
+        "The Code tab: file browser, diff viewer with line comments, built-in terminal, worktrees per session, PR monitoring with auto-fix. Starts in Manual mode. Best for daily development.",
       color: "#00B5E2",
     },
     {
@@ -39,7 +39,7 @@ Same engine, different shell — choose what fits your workflow.
       icon: <GlobeIcon />,
       title: "Claude Code on the Web",
       description:
-        "Browser-based. No local install. Autofix PRs in the cloud: watches CI failures, review comments, pushes fixes while you're away. Best for remote & async work.",
+        "Browser-based. No local install. Cloud sessions keep running when your laptop is closed, and scheduled tasks run here too. Best for remote, async, and unattended work.",
       color: "#6B5CF5",
       href: "https://claude.ai/code",
     },
@@ -49,9 +49,12 @@ Same engine, different shell — choose what fits your workflow.
 <br />
 
 <Callout variant="info" title="Start with the Desktop app" align="left">
-  It's the richest experience: visual diffs, plan mode with Ultraplan, and full
-  terminal in one window. The CLI and web extend it for specialized workflows.
-  **All three surfaces share the same config, CLAUDE.md, and permissions.**
+  It's the richest experience: visual diffs, plan mode, and a full terminal in
+  one window. The CLI and web extend it for specialized workflows. **Desktop,
+  CLI, and IDE read the same settings files and CLAUDE.md.** Cloud sessions
+  only see what you commit: `.claude/settings.json` and `CLAUDE.md` travel with
+  the repo; `~/.claude/settings.json` and `settings.local.json` stay on your
+  machine.
 </Callout>
 
 ## Where to go next

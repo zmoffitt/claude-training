@@ -16,7 +16,7 @@ export const metadata = {
 | Connector | Surfaces | What it unlocks |
 | --- | --- | --- |
 | <span style={{color: "light-dark(#0e7490, #00B5E2)", fontWeight: 700}}>Google Workspace</span> | Drive, Gmail, Calendar | Search docs, draft mail, find availability without leaving Claude |
-| <span style={{color: "light-dark(#5024d2, #A892FB)", fontWeight: 700}}>Microsoft 365</span> | Outlook, SharePoint, Teams | Search mail, find files, query Teams chat history with auth |
+| <span style={{color: "light-dark(#5024d2, #A892FB)", fontWeight: 700}}>Microsoft 365</span> | Outlook, SharePoint, Teams | Search mail, files, and Teams history. Write tools (send mail, calendar, Teams posts, file edits) exist but are admin-enabled and off by default |
 | <span style={{color: "light-dark(#15803d, #22c55e)", fontWeight: 700}}>GitHub</span> | Repos, Issues, PRs | Browse code, manage issues, review pull requests inline |
 | <span style={{color: "light-dark(#9d0090, #e879f9)", fontWeight: 700}}>Slack</span> | Channels, DMs | Search history, summarize threads, post updates with consent |
 
@@ -30,11 +30,13 @@ Settings → Connectors → pick provider → OAuth flow in your browser → sco
 
 <Callout variant="warning" title="Mind the scope" align="left">
   Connectors run with **your** identity. Anything Claude reads through them
-  follows your existing permissions — no more, no less. Privileged accounts
-  should connect from a least-privileged Claude session.
+  follows your existing permissions — no more, no less. Write tools are a
+  second gate: an org Owner enables them, Enterprise admins can limit them to
+  a custom role, and every write asks for approval before it runs. Privileged
+  accounts should connect from a least-privileged Claude session.
 </Callout>
 
 ## Where to go next
 
-- **[Cloud Routines](/docs/training/claude-code/session-3/cloud-routines)** — put a connector on a schedule
+- **[Cloud Scheduled Tasks](/docs/training/claude-code/session-3/cloud-routines)** — put a connector on a schedule
 - **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege, data flows, IAM red lines

@@ -34,17 +34,24 @@ Configure your IDE for the best experience with AI coding tools.
 ### Plugins
 
 1. Open **Settings > Plugins > Marketplace**
-2. Install **GitHub Copilot**
+2. Install **GitHub Copilot** and **Claude Code**
 3. Restart the IDE
-4. Sign in via **Tools > GitHub Copilot > Login**
+4. Sign in via **Tools > GitHub Copilot > Login**; Claude Code signs in on first launch
 
 ## Terminal (Claude Code)
 
-Claude Code runs in your terminal. No editor plugin needed for the CLI:
+Claude Code runs in your terminal. Use the native installer, which auto-updates:
 
 ```bash
-npm install -g @anthropic-ai/claude-code
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Homebrew (`brew install --cask claude-code`) and WinGet (`winget install Anthropic.ClaudeCode`) also work but don't auto-update. The npm package (`npm install -g @anthropic-ai/claude-code`) still exists and installs the same native binary.
+
+Then launch it in a project:
+
+```bash
 claude
 ```
 
-For VS Code integration, install the Claude Code extension which provides an embedded terminal panel.
+The VS Code extension adds a chat panel with inline diffs, and the Claude Desktop app's **Code** tab gives you the same engine with a file browser, diff viewer, and terminal, with no separate install.

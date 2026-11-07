@@ -19,7 +19,8 @@ Mistakes to avoid when working with AI coding tools.
 **The problem:** After many back-and-forth messages, the AI loses track of earlier decisions and starts contradicting itself.
 
 **The fix:**
-- Use `/compact` in Claude Code to summarize and free up context
+- Use `/rewind` in Claude Code to drop a failed attempt instead of arguing with it
+- Use `/compact` to summarize and free up context (Claude Code also auto-compacts near the limit)
 - Start a new session for unrelated tasks
 - Restate important constraints when switching topics
 
