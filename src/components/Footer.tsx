@@ -63,7 +63,8 @@ function PageLink({
         </Button>
         <kbd
           aria-hidden="true"
-          className="hidden rounded border border-zinc-200 px-1.5 py-0.5 font-sans text-[10px] font-semibold text-zinc-400 sm:inline dark:border-zinc-700 dark:text-zinc-500"
+          data-shortcut={previous ? 'ArrowLeft' : 'ArrowRight'}
+          className="kbd-hint hidden rounded border border-zinc-200 px-1.5 py-0.5 font-sans text-[10px] font-semibold text-zinc-400 sm:inline dark:border-zinc-700 dark:text-zinc-500"
         >
           {previous ? '←' : '→'}
         </kbd>

@@ -97,6 +97,52 @@
     animation: copy-pop 240ms cubic-bezier(0.25, 1, 0.5, 1);
   }
 
+  /* Landing-page hero: eyebrow, headline, subtitle rise in once on load.
+   * Each element sets its own animation-delay for the stagger. */
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .hero-rise {
+    animation: hero-rise 480ms cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
+
+  /* Theme toggle: the incoming icon turns in after a click. A keyframe, not
+   * a transition, because next-themes suppresses transitions while the theme
+   * flips. */
+  @keyframes icon-in {
+    from { opacity: 0; transform: rotate(-60deg) scale(0.7); }
+    to { opacity: 1; transform: none; }
+  }
+  .animate-icon-in {
+    animation: icon-in 320ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Footer paging hints: pressed state while ← / → is being handled, so the
+   * shortcut shows itself being used. */
+  .kbd-hint {
+    transition: transform 120ms cubic-bezier(0.25, 1, 0.5, 1), background-color 120ms, color 120ms, border-color 120ms;
+  }
+  .kbd-hint[data-pressed] {
+    transform: translateY(1px);
+    background-color: color-mix(in oklch, var(--color-violet-500) 14%, transparent);
+    border-color: var(--color-violet-500);
+    color: var(--color-violet-600);
+  }
+  .dark .kbd-hint[data-pressed] {
+    color: var(--color-violet-300);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rise,
+    .animate-icon-in {
+      animation: none;
+    }
+    .kbd-hint {
+      transition: none;
+    }
+  }
+
   .scroll-progress {
     animation: scroll-progress auto linear;
     animation-timeline: scroll(root block);

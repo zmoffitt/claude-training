@@ -63,6 +63,7 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 - **`PillarCards`** / **`ProConCards`** — Card-grid visualizations; both stack on mobile and restore N columns at `sm:` (4-card layouts step through 2×2 at `sm:` before going 4-across at `lg:`)
 - Other visualization components (`ModelTierCards`, `ComparisonCards`, `PermissionModel`, `HooksLifecycle`, etc.) are typically one-per-page
 - **`Term`** — glossary chip: `<Term id="opusplan">…</Term>` on the first use of a program term before its defining page; links to `/docs/glossary#id` (data in `src/lib/glossary.ts`, page body from `Glossary`)
+- **`SessionComplete`** — `<SessionComplete session={N}>handoff line</SessionComplete>` directly above "Where to go next" on each Practice Assignment; the check draws itself in the session hue
 - **`Lead`** — run-in label on the risk scale (`<Lead tone="red">The problem:</Lead>`) for problem/fix style pages
 
 ### Search & 404

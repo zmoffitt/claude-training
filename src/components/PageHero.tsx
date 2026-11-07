@@ -8,6 +8,9 @@ import clsx from 'clsx'
  *
  * Use on landing pages only — docs pages should keep the restrained prose h1
  * so content scanning stays fast.
+ *
+ * Eyebrow, headline, and subtitle rise in with a 60ms stagger on load
+ * (`.hero-rise` in tailwind.css); reduced motion shows them in place.
  */
 export function PageHero({
   eyebrow,
@@ -33,19 +36,23 @@ export function PageHero({
       />
       {eyebrow && (
         <p
-          className="text-xs font-semibold uppercase tracking-[0.2em]"
+          className="hero-rise text-xs font-semibold uppercase tracking-[0.2em]"
           style={{ color: 'var(--session-hue, var(--brand-purple-text))' }}
         >
           {eyebrow}
         </p>
       )}
       <h1
-        className="font-display text-balance break-words text-4xl font-bold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl dark:text-white"
+        className="hero-rise font-display text-balance break-words text-4xl font-bold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl dark:text-white"
+        style={{ animationDelay: '60ms' }}
       >
         {title}
       </h1>
       {subtitle && (
-        <p className="max-w-2xl text-pretty break-words text-lg font-light leading-relaxed text-zinc-600 sm:text-xl dark:text-zinc-400">
+        <p
+          className="hero-rise max-w-2xl text-pretty break-words text-lg font-light leading-relaxed text-zinc-600 sm:text-xl dark:text-zinc-400"
+          style={{ animationDelay: '120ms' }}
+        >
           {subtitle}
         </p>
       )}
