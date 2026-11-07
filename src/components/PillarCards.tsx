@@ -18,7 +18,7 @@ interface PillarCard {
 const gridForCount: Record<number, string> = {
   2: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
   3: 'grid grid-cols-1 gap-4 sm:grid-cols-3',
-  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
 }
 
 export function PillarCards({
@@ -67,14 +67,15 @@ export function PillarCards({
                 e.currentTarget.style.boxShadow = ''
               } : undefined}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                <div style={{ color: safeAccent(card.color), width: 24, height: 24, flexShrink: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                <div style={{ color: safeAccent(card.color), width: 24, height: 24, flexShrink: 0, marginTop: '0.0625rem' }}>
                   {card.icon}
                 </div>
                 <h3
                   style={{
                     fontSize: '1rem',
                     fontWeight: 700,
+                    lineHeight: 1.5,
                     margin: 0,
                     color: themeVars.heading,
                   }}

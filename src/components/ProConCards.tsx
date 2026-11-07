@@ -18,7 +18,7 @@ interface ProConCard {
 const gridForCount: Record<number, string> = {
   2: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
   3: 'grid grid-cols-1 gap-4 sm:grid-cols-3',
-  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
 }
 
 export function ProConCards({
@@ -48,7 +48,7 @@ export function ProConCards({
               gap: '0.25rem',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', marginBottom: '0.75rem' }}>
             <div style={{ width: 28, height: 28, flexShrink: 0 }}>
               {card.icon}
             </div>
