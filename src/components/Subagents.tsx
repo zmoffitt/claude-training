@@ -21,9 +21,8 @@ export function Subagents() {
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
         <div
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '1.25rem',
             alignItems: 'center',
           }}
@@ -70,8 +69,8 @@ export function Subagents() {
                 x={170}
                 y={134}
                 textAnchor="middle"
-                fill="#ffffff"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fill="var(--on-accent)"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={12}
                 fontWeight={700}
               >
@@ -81,8 +80,8 @@ export function Subagents() {
                 x={170}
                 y={150}
                 textAnchor="middle"
-                fill="rgba(255,255,255,0.85)"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fill="var(--on-accent)" fillOpacity={0.85}
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={10}
               >
                 Agent
@@ -137,7 +136,7 @@ export function Subagents() {
                     x={sat.cx}
                     y={sat.cy - 3}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={10}
                     fontWeight={600}
                     style={{ fill: brandVars.purple.text }}
@@ -148,7 +147,7 @@ export function Subagents() {
                     x={sat.cx}
                     y={sat.cy + 10}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={9}
                     style={{ fill: 'var(--sa-subagent-label)' }}
                   >
@@ -170,7 +169,7 @@ export function Subagents() {
               <text
                 x={138}
                 y={282}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -188,7 +187,7 @@ export function Subagents() {
               <text
                 x={223}
                 y={282}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -200,12 +199,12 @@ export function Subagents() {
           <div
             style={{
               backgroundColor: 'var(--sa-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
             }}
           >
-            <div style={{ height: '5px', backgroundColor: brandVars.purple.accentBar }} />
+            <div style={{ height: '3px', backgroundColor: brandVars.purple.accentBar }} />
             <div style={{ padding: '1.25rem 1.4rem 1.5rem' }}>
               <div
                 style={{

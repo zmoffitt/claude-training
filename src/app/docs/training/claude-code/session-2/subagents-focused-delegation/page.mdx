@@ -1,19 +1,17 @@
 import { Subagents } from "@/components/Subagents";
+import { Term } from "@/components/Term";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Subagents: Focused Delegation",
 };
 
 # Subagents: Focused Delegation
 
-<ReadTime minutes={2} />
-
 Spawn a focused helper, get results back, move on.
 
 <Subagents />
 
-**Built-ins and your own.** Claude Code ships `Explore` (read-only search), `Plan` (research for plan mode), and `general-purpose` (full tool set). Define custom ones as Markdown files with frontmatter in `.claude/agents/`, pinning a model, effort, tools, and permission mode per role.
+**Built-ins and your own.** Claude Code ships `Explore` (read-only search), `Plan` (research for plan mode), and `general-purpose` (full tool set). Define custom ones as Markdown files with frontmatter in `.claude/agents/`, pinning a model, <Term id="effort">effort</Term>, tools, and permission mode per role.
 
 ## Where to go next
 

@@ -18,7 +18,7 @@ interface PillarCard {
 const gridForCount: Record<number, string> = {
   2: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
   3: 'grid grid-cols-1 gap-4 sm:grid-cols-3',
-  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
 }
 
 export function PillarCards({
@@ -47,15 +47,12 @@ export function PillarCards({
               key={card.title}
               {...wrapperProps}
               style={{
-                borderTop: `4px solid ${safeAccent(card.color)}`,
-                borderRadius: '0.5rem',
+                border: '1px solid var(--surface-border)',
+                borderRadius: 'var(--radius-card)',
                 backgroundColor: themeVars.cardBgWhite,
-                boxShadow: themeVars.shadow,
                 padding: '1.5rem 1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
                 gap: '0.5rem',
                 textDecoration: 'none',
                 transition: 'transform 0.15s ease, box-shadow 0.15s ease',
@@ -67,22 +64,25 @@ export function PillarCards({
               } : undefined}
               onMouseLeave={card.href ? (e: React.MouseEvent<HTMLElement>) => {
                 e.currentTarget.style.transform = ''
-                e.currentTarget.style.boxShadow = 'var(--theme-shadow)'
+                e.currentTarget.style.boxShadow = ''
               } : undefined}
             >
-              <div style={{ color: safeAccent(card.color), width: 36, height: 36 }}>
-                {card.icon}
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                <div style={{ color: `var(--session-hue, ${safeAccent(card.color)})`, width: 24, height: 24, flexShrink: 0, marginTop: '0.0625rem' }}>
+                  {card.icon}
+                </div>
+                <h3
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    lineHeight: 1.5,
+                    margin: 0,
+                    color: themeVars.heading,
+                  }}
+                >
+                  {card.title}
+                </h3>
               </div>
-              <h3
-                style={{
-                  fontSize: '1rem',
-                  fontWeight: 700,
-                  margin: 0,
-                  color: themeVars.heading,
-                }}
-              >
-                {card.title}
-              </h3>
               <p
                 style={{
                   fontSize: '0.8125rem',
@@ -102,12 +102,10 @@ export function PillarCards({
           style={{
             marginTop: '1rem',
             backgroundColor: safeSurface(quoteColor),
-            borderRadius: '0.5rem',
+            borderRadius: 'var(--radius-card)',
             padding: '1rem 1.5rem',
-            textAlign: 'center',
             color: '#ffffff',
             fontSize: '0.9375rem',
-            fontStyle: 'italic',
             fontWeight: 500,
           }}
         >

@@ -2,9 +2,12 @@
 
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
+
+import { navigateWithTransition, useTransitionActive } from '@/lib/pageTransition'
 import Link from 'next/link'
 import { usePagePath } from '@/lib/usePagePath'
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
 import { remToPx } from '@/lib/remToPx'
@@ -13,12 +16,16 @@ export interface NavLinkItem {
   title: string
   href: string
   children?: Array<NavLinkItem>
+  /** Starts a labeled section before this item inside its parent's list. */
+  section?: string
 }
 
 export interface NavGroup {
   title: string
   icon?: React.ReactNode
   links: Array<NavLinkItem>
+  /** Where the group title goes once the group is open. Defaults to the first page in the group. */
+  href?: string
 }
 
 function flattenLinks(links: Array<NavLinkItem>): Array<{ title: string; href: string }> {
@@ -66,22 +73,33 @@ function NavLink({
         focusRing,
       )}
     >
-      <span className="truncate">{children}</span>
+      <span className="leading-snug">{children}</span>
     </Link>
   )
 }
 
-function VisibleSectionHighlight({ activeCenter }: { activeCenter: number }) {
-  let height = remToPx(2)
+function VisibleSectionHighlight({
+  activeCenter,
+  activeHeight,
+}: {
+  activeCenter: number
+  activeHeight: number
+}) {
+  let height = Math.max(remToPx(2), activeHeight)
   let top = activeCenter - height / 2
+  // During a view transition the snapshot does the moving (see
+  // `::view-transition-group(nav-highlight)`), so the layout animation and
+  // the exit fade stand down; a lingering exit would leave two elements with
+  // the same transition name and cancel the whole transition.
+  let vt = useTransitionActive()
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0 }}
-      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"
+      layout={!vt}
+      initial={vt ? false : { opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: vt ? 0 : 0.2 } }}
+      exit={vt ? undefined : { opacity: 0 }}
+      className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform [view-transition-name:nav-highlight] dark:bg-white/2.5"
       style={{ borderRadius: 8, height, top }}
     />
   )
@@ -90,15 +108,16 @@ function VisibleSectionHighlight({ activeCenter }: { activeCenter: number }) {
 function ActivePageMarker({ activeCenter }: { activeCenter: number }) {
   let markerHeight = remToPx(1.5)
   let top = activeCenter - markerHeight / 2
+  let vt = useTransitionActive()
 
   return (
     <motion.div
-      layout
-      className="absolute left-2 h-6 w-px bg-violet-500"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.2 } }}
-      exit={{ opacity: 0 }}
-      style={{ top }}
+      layout={!vt}
+      className="absolute left-2 h-6 w-px [view-transition-name:nav-marker]"
+      initial={vt ? false : { opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: vt ? 0 : 0.2 } }}
+      exit={vt ? undefined : { opacity: 0 }}
+      style={{ top, backgroundColor: 'var(--session-hue, var(--color-violet-500))' }}
     />
   )
 }
@@ -172,7 +191,17 @@ function NestedNavItem({
             style={{ overflow: 'hidden' }}
           >
             {link.children.map((child) => (
-              <NestedNavItem key={child.href} link={child} pathname={pathname} />
+              <Fragment key={child.href}>
+                {child.section && (
+                  <li
+                    aria-hidden="true"
+                    className="mt-3 mb-1 pl-4 text-[11px] font-semibold tracking-wider text-zinc-400 uppercase first:mt-1 dark:text-zinc-500"
+                  >
+                    {child.section}
+                  </li>
+                )}
+                <NestedNavItem link={child} pathname={pathname} />
+              </Fragment>
             ))}
           </motion.ul>
         )}
@@ -194,9 +223,23 @@ function NavigationGroup({
   let [isExpanded, setIsExpanded] = useState(isActiveGroup)
   let containerRef = useRef<HTMLDivElement>(null)
   let [activeCenter, setActiveCenter] = useState(0)
+  let [activeHeight, setActiveHeight] = useState(0)
   let groupContentId = useId()
 
   let isOpen = isActiveGroup || isExpanded
+  let groupHref = group.href ?? flat[0]?.href ?? '/'
+
+  // The title is a link, but a collapsed group opens on the first click
+  // instead of navigating; the caret always toggles.
+  let router = useRouter()
+  let handleTitleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    if (!isOpen) {
+      setIsExpanded(true)
+    } else if (groupHref) {
+      navigateWithTransition(router, groupHref)
+    }
+  }
 
   let measure = useCallback(() => {
     if (!containerRef.current) return
@@ -206,6 +249,7 @@ function NavigationGroup({
     let activeRect = activeEl.getBoundingClientRect()
     if (activeRect.height === 0) return
     setActiveCenter(activeRect.top - containerRect.top + activeRect.height / 2)
+    setActiveHeight(activeRect.height)
   }, [])
 
   useEffect(() => {
@@ -229,20 +273,27 @@ function NavigationGroup({
         className="font-semibold text-zinc-900 dark:text-white"
         style={{ fontSize: '0.875rem' }}
       >
-        <button
-          type="button"
-          onClick={() => setIsExpanded((prev) => !prev)}
-          aria-expanded={isOpen}
-          aria-controls={groupContentId}
-          className={clsx(
-            'flex w-full cursor-pointer select-none items-center justify-between gap-2 rounded text-left',
-            focusRing,
-          )}
-        >
-          <span className="flex min-w-0 items-center gap-2">
+        <div className="flex w-full items-center justify-between gap-2">
+          <Link
+            href={groupHref}
+            onClick={handleTitleClick}
+            data-transition="none"
+            className={clsx(
+              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 dark:hover:text-violet-400',
+              focusRing,
+            )}
+          >
             {group.icon && <span className="shrink-0 text-violet-500 dark:text-violet-400" aria-hidden="true">{group.icon}</span>}
-            <span className="truncate">{group.title}</span>
-          </span>
+            <span className="leading-snug">{group.title}</span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setIsExpanded((prev) => !prev)}
+            aria-expanded={isOpen}
+            aria-controls={groupContentId}
+            aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title}`}
+            className={clsx('flex shrink-0 cursor-pointer items-center rounded p-1', focusRing)}
+          >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -258,7 +309,8 @@ function NavigationGroup({
               clipRule="evenodd"
             />
           </motion.svg>
-        </button>
+          </button>
+        </div>
       </motion.h2>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -275,7 +327,7 @@ function NavigationGroup({
           >
             <AnimatePresence initial={false}>
               {isActiveGroup && (
-                <VisibleSectionHighlight activeCenter={activeCenter} />
+                <VisibleSectionHighlight activeCenter={activeCenter} activeHeight={activeHeight} />
               )}
             </AnimatePresence>
             <motion.div
@@ -337,6 +389,7 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Training Materials',
     icon: <BookIcon />,
+    href: '/',
     links: [
       {
         title: 'Claude Code', href: '/docs/training/claude-code',
@@ -345,7 +398,7 @@ export const navigation: Array<NavGroup> = [
             title: 'Session 1: Foundations',
             href: '/docs/training/claude-code/session-1',
             children: [
-              { title: 'AI Fluency Framework', href: '/docs/training/claude-code/session-1/ai-fluency-framework' },
+              { title: 'AI Fluency Framework', href: '/docs/training/claude-code/session-1/ai-fluency-framework', section: 'Orientation' },
               { title: 'Slope Over Snapshot', href: '/docs/training/claude-code/session-1/slope-over-snapshot' },
               { title: 'Three Eras', href: '/docs/training/claude-code/session-1/three-eras' },
               { title: "What Claude Is (and Isn't)", href: '/docs/training/claude-code/session-1/what-claude-is' },
@@ -353,6 +406,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: "How Context Works",
                 href: '/docs/training/claude-code/session-1/how-context-works',
+                section: 'How Claude works',
                 children: [
                   { title: 'Context Window & Tokens', href: '/docs/training/claude-code/session-1/context-window-tokens' },
                 ],
@@ -376,6 +430,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: "Hands-On Exercise",
                 href: '/docs/training/claude-code/session-1/hands-on-exercise',
+                section: 'Hands-on',
                 children: [
                   { title: 'Verification Pattern', href: '/docs/training/claude-code/session-1/verification-pattern' },
                   { title: 'Practice Assignment', href: '/docs/training/claude-code/session-1/practice-assignment' },
@@ -390,6 +445,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Your Claude, Three Ways',
                 href: '/docs/training/claude-code/session-2/your-claude-three-ways',
+                section: 'Surfaces and permissions',
               },
               {
                 title: 'Permissions Deep Dive',
@@ -402,6 +458,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Context & Session Management',
                 href: '/docs/training/claude-code/session-2/context-session-management',
+                section: 'Project context',
               },
               {
                 title: 'CLAUDE.md',
@@ -415,6 +472,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Hooks: Lifecycle & Control',
                 href: '/docs/training/claude-code/session-2/hooks-lifecycle-control',
+                section: 'Automation and agents',
               },
               {
                 title: 'Skills, Plugins & Connectors',
@@ -427,6 +485,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Live Demo: The Full Loop',
                 href: '/docs/training/claude-code/session-2/live-demo-full-loop',
+                section: 'Live demo and practice',
               },
               {
                 title: 'Practice Assignment',
@@ -441,6 +500,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Why Extend Claude?',
                 href: '/docs/training/claude-code/session-3/why-extend-claude',
+                section: 'Reach external systems',
               },
               {
                 title: 'Tool Priority Ladder',
@@ -456,6 +516,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Built-in Connectors',
                 href: '/docs/training/claude-code/session-3/built-in-connectors',
+                section: 'Approved SaaS and schedules',
               },
               {
                 title: 'Cloud Scheduled Tasks',
@@ -468,6 +529,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Plugins & Marketplaces',
                 href: '/docs/training/claude-code/session-3/plugins-marketplaces',
+                section: 'Distribute and standardize',
               },
               {
                 title: 'Skills Deep Dive',
@@ -483,6 +545,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Security & Scoping',
                 href: '/docs/training/claude-code/session-3/security-scoping',
+                section: 'Govern and measure',
               },
               {
                 title: 'Insights',
@@ -491,6 +554,7 @@ export const navigation: Array<NavGroup> = [
               {
                 title: 'Live Demo: Bug Triage Task',
                 href: '/docs/training/claude-code/session-3/live-demo-bug-triage',
+                section: 'Live demo and practice',
               },
               {
                 title: 'Practice Assignment',
@@ -503,6 +567,7 @@ export const navigation: Array<NavGroup> = [
 
       { title: 'GitHub Copilot', href: '/docs/training/github-copilot' },
       { title: 'Prompt Engineering', href: '/docs/training/prompt-engineering' },
+      { title: 'Glossary', href: '/docs/glossary' },
     ],
   },
   {
@@ -534,7 +599,16 @@ export const navigation: Array<NavGroup> = [
   },
 ]
 
-export const allPages = navigation.flatMap((group) => flattenLinks(group.links))
+export interface PageEntry {
+  title: string
+  href: string
+  /** Top-level sidebar group, so paging can say when it leaves one. */
+  group: string
+}
+
+export const allPages: Array<PageEntry> = navigation.flatMap((group) =>
+  flattenLinks(group.links).map((link) => ({ ...link, group: group.title })),
+)
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (

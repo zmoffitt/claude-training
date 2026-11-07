@@ -1,4 +1,4 @@
-import { themeVars, wcagText } from '@/lib/theme-colors'
+import { themeVars, accentFill, accentText } from '@/lib/theme-colors'
 
 interface ModelTier {
   title: string
@@ -22,8 +22,8 @@ export function ModelTierCards({
           <div
             key={tier.title}
             style={{
-              borderTop: `5px solid ${tier.color}`,
-              borderRadius: '0.5rem',
+              border: '1px solid var(--surface-border)',
+              borderRadius: 'var(--radius-card)',
               backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
@@ -36,18 +36,16 @@ export function ModelTierCards({
                 fontSize: '1.25rem',
                 fontWeight: 700,
                 margin: 0,
-                color: wcagText(tier.color),
-                textAlign: 'center',
+                color: accentText(tier.color),
               }}
             >
               {tier.title}
             </h3>
             <p
               style={{
-                fontSize: '0.8125rem',
+                fontSize: '0.875rem',
                 margin: '0 0 0.75rem',
                 color: themeVars.textSubtle,
-                textAlign: 'center',
               }}
             >
               {tier.subtitle}
@@ -81,7 +79,7 @@ export function ModelTierCards({
                       height: 10,
                       minWidth: 10,
                       borderRadius: '50%',
-                      backgroundColor: tier.color,
+                      backgroundColor: accentFill(tier.color),
                       marginTop: '0.375rem',
                     }}
                   />

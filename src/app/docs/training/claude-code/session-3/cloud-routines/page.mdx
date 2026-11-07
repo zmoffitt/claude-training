@@ -1,5 +1,6 @@
 import { Callout } from "@/components/Callout";
 import { ReadTime } from "@/components/ReadTime";
+import { Term } from "@/components/Term";
 
 export const metadata = {
   title: "Cloud Scheduled Tasks",
@@ -17,7 +18,7 @@ Claude on autopilot — scheduled work that runs on Anthropic infrastructure, no
 - Three triggers, combinable on one task: **schedule** (cron, or a one-off future time), **API** (HTTP POST with a bearer token), **GitHub event** (PRs, releases, draft-to-ready)
 - Runs as _you_ — your connectors, your identity, your audit trail — and counts against your account's usage
 - Create at `claude.ai/code/routines`, from the Desktop app's **Scheduled** page, or with `/schedule` in any Claude Code session (`/schedule daily PR review at 9am`, `/schedule list`, `/schedule run`)
-- Runs in auto mode by default, so write prompts that say what success looks like and where to stop
+- Runs in <Term id="auto-mode">auto mode</Term> by default, so write prompts that say what success looks like and where to stop
 - Tokens and secrets live in the managed environment, not on your machine
 
 ## Example: morning email triage
@@ -35,8 +36,6 @@ Emit a grouped summary as this run's output with subject lines and
 proposed actions. I'll review it in the scheduled-tasks panel.
 Do not send any replies.
 ```
-
-<br />
 
 <Callout variant="warning" title="Write access is a policy decision now" align="left">
   The M365 connector can send mail, manage calendar events, post to Teams, and

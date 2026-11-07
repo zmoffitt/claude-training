@@ -13,21 +13,13 @@ interface Heading {
 }
 
 /**
- * In-page table of contents, rendered as a sticky right-rail.
- *
- * - ≥1366px: narrow rail (w-44, right-3) — common 13"-15" laptop width
- * - ≥1440px: full rail (w-56, right-6) — desktop breakpoint
- * - Below 1366px: hidden, since the left-aligned Prose layout would force
- *   overlap (sidebar 352 + content 768 + TOC + gutters > viewport).
- *
- * Reads h2/h3 elements with rehype-slug-generated IDs from the current
- * article on mount + pathname change. Active section tracked via
- * IntersectionObserver.
+ * Collects h2/h3 elements with rehype-slug-generated IDs from the current
+ * article on mount and on every pathname change. Shared by the right-rail
+ * and the inline disclosure so both show the same outline.
  */
-export function TableOfContents() {
+function useArticleHeadings(): Array<Heading> {
   const pathname = usePathname()
   const [headings, setHeadings] = useState<Array<Heading>>([])
-  const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
     const article = document.querySelector('article')
@@ -38,16 +30,39 @@ export function TableOfContents() {
     const nodes = Array.from(
       article.querySelectorAll<HTMLHeadingElement>('h2[id], h3[id]'),
     )
-    const found: Array<Heading> = nodes.map((node) => ({
-      id: node.id,
-      text: node.textContent?.trim() ?? '',
-      level: node.tagName === 'H2' ? 2 : 3,
-    }))
-    setHeadings(found)
-    setActiveId(found[0]?.id ?? null)
+    setHeadings(
+      nodes.map((node) => ({
+        id: node.id,
+        text: node.textContent?.trim() ?? '',
+        level: node.tagName === 'H2' ? 2 : 3,
+      })),
+    )
   }, [pathname])
 
+  return headings
+}
+
+/**
+ * In-page table of contents, rendered as a sticky right-rail.
+ *
+ * - ≥1366px: narrow rail (w-44, right-3) — common 13"-15" laptop width
+ * - ≥1440px: full rail (w-56, right-6) — desktop breakpoint
+ * - Below 1366px: hidden, since the left-aligned Prose layout would force
+ *   overlap. `InlineTableOfContents` covers those widths instead.
+ *
+ * Active section tracked via IntersectionObserver.
+ */
+/** Sections worth an outline entry: H2s other than the closing "Where to go next". */
+function jumpableSections(headings: ReturnType<typeof useArticleHeadings>) {
+  return headings.filter((h) => h.level === 2 && h.id !== 'where-to-go-next')
+}
+
+export function TableOfContents() {
+  const headings = useArticleHeadings()
+  const [activeId, setActiveId] = useState<string | null>(null)
+
   useEffect(() => {
+    setActiveId(headings[0]?.id ?? null)
     if (headings.length === 0) return
 
     const observer = new IntersectionObserver(
@@ -71,8 +86,9 @@ export function TableOfContents() {
     return () => observer.disconnect()
   }, [headings])
 
-  // Hide if no headings or below the 2xl viewport where the rail has room.
-  if (headings.length === 0) return null
+  // Same rule as the inline outline: two real sections, or no rail. A lone
+  // "Where to go next" is the page's ending, not an outline.
+  if (jumpableSections(headings).length < 2) return null
 
   return (
     <aside
@@ -106,5 +122,59 @@ export function TableOfContents() {
         </ul>
       </nav>
     </aside>
+  )
+}
+
+/**
+ * Compact "On this page" disclosure for viewports below 1366px, where the
+ * right-rail has no room. Rendered inside the article, above the H1, so
+ * reference-mode readers on laptops and phones still get the outline.
+ * Only shown when a page has at least two sections worth jumping to.
+ */
+export function InlineTableOfContents() {
+  const headings = useArticleHeadings()
+  const sections = headings.filter((h) => h.level === 2)
+
+  if (jumpableSections(headings).length < 2) return null
+
+  return (
+    <details className="not-prose group mb-6 rounded-lg border border-zinc-900/10 text-sm min-[1366px]:hidden dark:border-white/10">
+      <summary
+        className={clsx(
+          'flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-2.5 font-medium text-zinc-700 select-none dark:text-zinc-300',
+          focusRing,
+        )}
+      >
+        <span>
+          On this page
+          <span className="ml-2 font-normal text-zinc-500 dark:text-zinc-400">
+            {sections.length} sections
+          </span>
+        </span>
+        <svg
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          aria-hidden="true"
+          className="h-3 w-3 shrink-0 text-zinc-400 transition-transform group-open:rotate-90"
+        >
+          <path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z" />
+        </svg>
+      </summary>
+      <ol className="border-t border-zinc-900/10 px-4 py-3 dark:border-white/10">
+        {sections.map((h) => (
+          <li key={h.id}>
+            <a
+              href={`#${h.id}`}
+              className={clsx(
+                'block rounded py-1.5 text-zinc-600 hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400',
+                focusRing,
+              )}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </details>
   )
 }

@@ -1,14 +1,12 @@
 import { EffortScale } from "@/components/EffortScale";
 import { Callout } from "@/components/Callout";
+import { Term } from "@/components/Term";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Thinking Effort & Quotas",
 };
 
 # Thinking Effort & Quotas
-
-<ReadTime minutes={2} />
 
 Effort controls how deeply Claude reasons before responding. In claude.ai it is a slider; in Claude Code it is `/effort` with five levels: `low`, `medium`, `high`, `xhigh`, `max`.
 
@@ -17,7 +15,7 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
     {
       arrow: "up",
       title: "Go High",
-      color: "#0078BC",
+      color: "#6240E8",
       items: [
         "Architecture decisions",
         "Complex debugging",
@@ -29,7 +27,7 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
     {
       arrow: "down",
       title: "Go Low",
-      color: "#0FAC27",
+      color: "#727286",
       items: [
         "Boilerplate generation",
         "Simple formatting or reformatting",
@@ -41,9 +39,8 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
   ]}
 />
 
-**Know the defaults.** Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium`; older models default to `high`. `xhigh` is the sweet spot for hard agentic coding. Type `ultrathink` anywhere in a prompt to run that one turn at `xhigh`, or pass `--effort xhigh` when you launch. Subagents and skills can pin their own effort in frontmatter, so a cheap helper stays cheap.
+**Know the defaults.** Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium`; older models default to `high`. `xhigh` is the sweet spot for hard agentic coding. Type `ultrathink` anywhere in a prompt to run that one turn at `xhigh`, or pass `--effort xhigh` when you launch. <Term id="subagent">Subagents</Term> and skills can pin their own effort in frontmatter, so a cheap helper stays cheap.
 
-<br />
 <Callout variant="warning" title="Why does this matter?" align="left">
   Higher effort = more tokens = more quota consumed. Raise effort when a wrong
   answer is expensive; drop it for routine work. Be efficient with context to

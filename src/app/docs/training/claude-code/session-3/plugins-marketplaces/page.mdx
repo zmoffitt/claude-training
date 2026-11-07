@@ -1,5 +1,5 @@
 import { Callout } from "@/components/Callout";
-import { ReadTime } from "@/components/ReadTime";
+import { Term } from "@/components/Term";
 
 export const metadata = {
   title: "Plugins & Marketplaces",
@@ -7,14 +7,12 @@ export const metadata = {
 
 # Plugins & Marketplaces
 
-<ReadTime minutes={2} />
-
 ## What's in a plugin
 
-- One or more **skills** (`SKILL.md` files)
-- Optional **subagents** with focused prompts
+- One or more **skills** (<Term id="skill-md">`SKILL.md`</Term> files)
+- Optional <Term id="subagent">**subagents**</Term> with focused prompts
 - Optional **MCP server** config
-- Optional **hooks** and slash commands
+- Optional <Term id="hook">**hooks**</Term> and slash commands
 - Versioned, distributed via marketplaces
 
 ## Install flow
@@ -29,8 +27,6 @@ export const metadata = {
 # List what's installed
 /plugin list
 ```
-
-<br />
 
 <Callout variant="info" title="Private marketplace = team standardization" align="left">
   Build a single internal plugin repo. Every engineer installs it. New

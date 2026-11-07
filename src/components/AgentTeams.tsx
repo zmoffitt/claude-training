@@ -27,9 +27,8 @@ export function AgentTeams() {
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
         <div
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '1.5rem',
             alignItems: 'start',
           }}
@@ -70,7 +69,7 @@ export function AgentTeams() {
                 x={TASK_LIST.x + TASK_LIST.w / 2}
                 y={TASK_LIST.y + 22}
                 textAnchor="middle"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={11}
                 fontWeight={700}
                 style={{ fill: brandVars.blue.text }}
@@ -118,8 +117,8 @@ export function AgentTeams() {
                 x={LEAD.cx}
                 y={LEAD.cy - 3}
                 textAnchor="middle"
-                fill="#ffffff"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fill="var(--on-accent)"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={11}
                 fontWeight={700}
               >
@@ -129,8 +128,8 @@ export function AgentTeams() {
                 x={LEAD.cx}
                 y={LEAD.cy + 11}
                 textAnchor="middle"
-                fill="rgba(255,255,255,0.85)"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fill="var(--on-accent)" fillOpacity={0.85}
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
               >
                 coordinates
@@ -206,7 +205,7 @@ export function AgentTeams() {
                     x={tm.cx}
                     y={tm.cy - 3}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={10}
                     fontWeight={600}
                     style={{ fill: brandVars.blue.text }}
@@ -217,7 +216,7 @@ export function AgentTeams() {
                     x={tm.cx}
                     y={tm.cy + 9}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={9}
                     style={{ fill: 'var(--at-teammate-label)' }}
                   >
@@ -238,7 +237,7 @@ export function AgentTeams() {
               <text
                 x={100}
                 y={303}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -256,7 +255,7 @@ export function AgentTeams() {
               <text
                 x={200}
                 y={303}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -272,8 +271,8 @@ export function AgentTeams() {
               gap: '0.6rem',
               padding: '0.9rem 1rem',
               backgroundColor: 'var(--at-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               fontSize: '0.875rem',
               color: themeVars.text,
               lineHeight: 1.5,
@@ -301,8 +300,8 @@ export function AgentTeams() {
           <div
             style={{
               backgroundColor: 'var(--at-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
             }}
           >
@@ -326,7 +325,7 @@ export function AgentTeams() {
                   <th
                     style={{
                       backgroundColor: 'var(--at-header-sub-bg)',
-                      color: '#ffffff',
+                      color: 'var(--on-accent)',
                       padding: '0.75rem 1rem',
                       textAlign: 'center',
                       fontWeight: 700,
@@ -337,7 +336,7 @@ export function AgentTeams() {
                   <th
                     style={{
                       backgroundColor: 'var(--at-header-team-bg)',
-                      color: '#ffffff',
+                      color: 'var(--on-accent)',
                       padding: '0.75rem 1rem',
                       textAlign: 'center',
                       fontWeight: 700,

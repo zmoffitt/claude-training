@@ -18,7 +18,7 @@ const MODES: Array<Mode> = [
       'Best for learning, unfamiliar repos',
       'Production-adjacent work',
     ],
-    brand: 'blue',
+    brand: 'green',
   },
   {
     title: 'Accept Edits',
@@ -29,7 +29,7 @@ const MODES: Array<Mode> = [
       'Best for iterating on code you review in git diff',
       'Still asks for other shell commands and network access',
     ],
-    brand: 'green',
+    brand: 'amber',
   },
   {
     title: 'Auto',
@@ -51,7 +51,7 @@ const MODES: Array<Mode> = [
       'Maximum speed, minimum guardrails',
       'Isolated, low-risk environments only',
     ],
-    brand: 'pink',
+    brand: 'red',
   },
 ]
 
@@ -76,14 +76,7 @@ export function PermissionModes() {
   return (
     <div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-            gap: '1rem',
-            alignItems: 'stretch',
-          }}
-        >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {MODES.map((m) => {
             const b = brandVars[m.brand]
             return (
@@ -91,14 +84,13 @@ export function PermissionModes() {
                 key={m.title}
                 style={{
                   backgroundColor: themeVars.cardBg,
-                  borderRadius: '6px',
-                  boxShadow: themeVars.shadow,
+                  borderRadius: 'var(--radius-card)',
+                  border: '1px solid var(--surface-border)',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
                 }}
               >
-                <div style={{ height: '5px', backgroundColor: b.accentBar }} />
                 <div
                   style={{
                     padding: '1.25rem 1.25rem 1.5rem',
@@ -113,7 +105,6 @@ export function PermissionModes() {
                       fontSize: '1.125rem',
                       fontWeight: 800,
                       color: b.text,
-                      textAlign: 'center',
                       lineHeight: 1.2,
                     }}
                   >
@@ -123,7 +114,6 @@ export function PermissionModes() {
                     style={{
                       fontSize: '0.8125rem',
                       color: themeVars.textMuted,
-                      textAlign: 'center',
                       fontWeight: 600,
                     }}
                   >
@@ -240,7 +230,7 @@ export function PermissionModes() {
             ))}
           </div>
           <div style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.5 }}>
-            A <strong style={{ color: brandVars.pink.text }}>deny</strong> at any level
+            A <strong style={{ color: brandVars.red.text }}>deny</strong> at any level
             cannot be overridden by a lower level. Start strict, relax
             selectively.
           </div>

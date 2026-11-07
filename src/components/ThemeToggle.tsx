@@ -30,10 +30,16 @@ export function ThemeToggle() {
   let { resolvedTheme, setTheme } = useTheme()
   let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
   let [mounted, setMounted] = useState(false)
+  // The incoming icon turns in only after a click, never on page load.
+  // next-themes suppresses transitions while the theme flips, so this is a
+  // keyframe animation; the key remounts the icon so it replays each time.
+  let [toggled, setToggled] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const iconClass = clsx('h-5 w-5', toggled && 'animate-icon-in')
 
   return (
     <button
@@ -43,10 +49,15 @@ export function ThemeToggle() {
         focusRing,
       )}
       aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
-      onClick={() => setTheme(otherTheme)}
+      onClick={() => {
+        setToggled(true)
+        setTheme(otherTheme)
+      }}
     >
-      <SunIcon className="h-5 w-5 stroke-zinc-900 dark:hidden" />
-      <MoonIcon className="hidden h-5 w-5 stroke-white dark:block" />
+      <span key={mounted ? resolvedTheme : 'ssr'} className="contents">
+        <SunIcon className={clsx(iconClass, 'stroke-zinc-900 dark:hidden')} />
+        <MoonIcon className={clsx(iconClass, 'hidden stroke-white dark:block')} />
+      </span>
     </button>
   )
 }

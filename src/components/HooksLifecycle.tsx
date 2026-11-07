@@ -111,7 +111,7 @@ export function HooksLifecycle() {
 
   const stages = STAGES.map((s) => ({
     ...s,
-    color: s.brand === 'neutral' ? '#444443' : brandVars[s.brand].badgeBg,
+    color: s.brand === 'neutral' ? 'var(--brand-neutral-badge-bg)' : brandVars[s.brand].badgeBg,
   }))
 
   const walkSteps: Array<WalkStep> = [
@@ -180,8 +180,8 @@ export function HooksLifecycle() {
                   x={x + w / 2}
                   y={65}
                   textAnchor="middle"
-                  fill="#ffffff"
-                  fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                  fill="var(--on-accent)"
+                  fontFamily="var(--font-sans), system-ui, sans-serif"
                   fontSize="13"
                   fontWeight={700}
                 >
@@ -213,7 +213,7 @@ export function HooksLifecycle() {
             x={490}
             y={18}
             textAnchor="middle"
-            fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+            fontFamily="var(--font-sans), system-ui, sans-serif"
             fontSize="11"
             fontStyle="italic"
             style={{ fill: 'var(--hl-arrow)' }}
@@ -237,7 +237,7 @@ export function HooksLifecycle() {
                   padding: '0.625rem 0.875rem',
                   borderRadius: '8px',
                   backgroundColor: stage.color,
-                  color: '#ffffff',
+                  color: 'var(--on-accent)',
                   fontSize: '0.875rem',
                   fontWeight: 700,
                 }}
@@ -265,9 +265,8 @@ export function HooksLifecycle() {
 
         {/* TWO COLUMNS: walkthrough + config */}
         <div
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '1.25rem',
           }}
         >
@@ -326,7 +325,7 @@ export function HooksLifecycle() {
                   justifyContent: 'center',
                   padding: '0.85rem 1rem',
                   backgroundColor: brandVars.red.badgeBg,
-                  color: '#ffffff',
+                  color: 'var(--on-accent)',
                   fontWeight: 800,
                   borderRadius: '8px',
                   fontSize: '0.95rem',

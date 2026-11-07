@@ -5,6 +5,7 @@
 
 @theme {
   --font-sans: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-bricolage), 'Bricolage Grotesque', var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, 'Times New Roman', serif;
   --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
 
@@ -49,6 +50,11 @@
   --text-9xl: 8rem;
   --text-9xl--line-height: 1;
 
+  /* Brand-tinted page surfaces. Never pure white or pure black: a hint of the
+     violet hue in the neutrals makes every page feel like one system. */
+  --color-paper: oklch(98.9% 0.005 292);
+  --color-ink: oklch(20.5% 0.012 292);
+
   --shadow-glow: 0 0 4px rgb(0 0 0 / 0.1);
 
   --container-lg: 33rem;
@@ -71,11 +77,6 @@
     to { transform: scaleX(1); }
   }
 
-  @keyframes badge-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-
   /* Copy-button checkmark pop — fires when CodeBlock copy succeeds.
    * Subtle scale overshoot for tactile confirmation without crossing
    * into decorative territory. Respected by `prefers-reduced-motion`
@@ -96,6 +97,142 @@
     animation: copy-pop 240ms cubic-bezier(0.25, 1, 0.5, 1);
   }
 
+  /* Landing-page hero: eyebrow, headline, subtitle rise in once on load.
+   * Each element sets its own animation-delay for the stagger. */
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .hero-rise {
+    animation: hero-rise 480ms cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
+
+  /* Theme toggle: the incoming icon turns in after a click. A keyframe, not
+   * a transition, because next-themes suppresses transitions while the theme
+   * flips. */
+  @keyframes icon-in {
+    from { opacity: 0; transform: rotate(-60deg) scale(0.7); }
+    to { opacity: 1; transform: none; }
+  }
+  .animate-icon-in {
+    animation: icon-in 320ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Footer paging hints: pressed state while ← / → is being handled, so the
+   * shortcut shows itself being used. */
+  .kbd-hint {
+    transition: transform 120ms cubic-bezier(0.25, 1, 0.5, 1), background-color 120ms, color 120ms, border-color 120ms;
+  }
+  .kbd-hint[data-pressed] {
+    transform: translateY(1px);
+    background-color: color-mix(in oklch, var(--color-violet-500) 14%, transparent);
+    border-color: var(--color-violet-500);
+    color: var(--color-violet-600);
+  }
+  .dark .kbd-hint[data-pressed] {
+    color: var(--color-violet-300);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-rise,
+    .animate-icon-in {
+      animation: none;
+    }
+    .kbd-hint {
+      transition: none;
+    }
+  }
+
+  /* ── Page transitions ──
+   * `navigateWithTransition` (lib/pageTransition.ts) wraps page changes in
+   * the View Transitions API. The sidebar holds still, its marker and
+   * highlight glide to the new row, the breadcrumb crossfades, and the
+   * article slides in from the direction of travel. Browsers without the API
+   * swap pages at once, as before. */
+  ::view-transition-group(*) {
+    animation-duration: 300ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 180ms;
+  }
+  ::view-transition-group(sidebar) {
+    animation: none;
+  }
+  ::view-transition-old(sidebar) {
+    display: none;
+  }
+  ::view-transition-new(sidebar) {
+    animation: none;
+  }
+  ::view-transition-group(nav-marker),
+  ::view-transition-group(nav-highlight) {
+    animation-duration: 340ms;
+  }
+  ::view-transition-old(nav-marker),
+  ::view-transition-old(nav-highlight) {
+    display: none;
+  }
+  ::view-transition-new(nav-marker),
+  ::view-transition-new(nav-highlight) {
+    animation: none;
+  }
+  /* The article: keep each frame its natural height, fade and slide. */
+  ::view-transition-group(article) {
+    animation: none;
+  }
+  ::view-transition-old(article),
+  ::view-transition-new(article) {
+    height: auto;
+    animation-duration: 220ms;
+  }
+  /* Fade through: the old page leaves fast, the new one starts once it is
+     mostly gone, so dense pages never read as a double exposure. */
+  html[data-nav-direction='forward']::view-transition-old(article) {
+    animation: vt-out-left 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html[data-nav-direction='forward']::view-transition-new(article) {
+    animation: vt-in-right 320ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  html[data-nav-direction='back']::view-transition-old(article) {
+    animation: vt-out-right 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html[data-nav-direction='back']::view-transition-new(article) {
+    animation: vt-in-left 320ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  html:not([data-nav-direction='forward']):not([data-nav-direction='back'])::view-transition-old(article) {
+    animation: vt-out 130ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  html:not([data-nav-direction='forward']):not([data-nav-direction='back'])::view-transition-new(article) {
+    animation: vt-in 280ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
+  }
+  @keyframes vt-in {
+    from { opacity: 0; transform: translateY(8px); }
+  }
+  @keyframes vt-out {
+    to { opacity: 0; }
+  }
+  @keyframes vt-in-right {
+    from { opacity: 0; transform: translateX(28px); }
+  }
+  @keyframes vt-in-left {
+    from { opacity: 0; transform: translateX(-28px); }
+  }
+  @keyframes vt-out-left {
+    to { opacity: 0; transform: translateX(-20px); }
+  }
+  @keyframes vt-out-right {
+    to { opacity: 0; transform: translateX(20px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+
   .scroll-progress {
     animation: scroll-progress auto linear;
     animation-timeline: scroll(root block);
@@ -107,21 +244,24 @@
    * paint is already correct in dark mode (no FOLM per component). */
   :root {
     /* Pulse neutral semantic tokens */
-    --theme-card-bg: #F7F9F9;
-    --theme-card-bg-white: #FFFFFF;
+    --theme-card-bg: oklch(96.8% 0.014 292);
+    --theme-card-bg-white: oklch(98.9% 0.005 292);
     --theme-heading: #171717;
     --theme-text: #444443;
-    --theme-text-muted: #6F6F6F;
-    --theme-text-subtle: #6F6F6F;
-    --theme-label-muted: #6F6F6F;
+    --theme-text-muted: #696969;
+    --theme-text-subtle: #696969;
+    --theme-label-muted: #696969;
     --theme-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --surface-border: rgba(23,23,23,0.10);
+    --radius-card: 0.75rem;
+    --radius-chip: 0.375rem;
 
     /* Pulse brand palette */
     --brand-blue-accent-bar: #00B5E2;
-    --brand-blue-text: #0078BC;
+    --brand-blue-text: #006DB1; /* AA on every tint (was #0078BC, 4.0:1 on purple tint) */
     --brand-blue-badge-bg: #00498A;
     --brand-green-accent-bar: #0FAC27;
-    --brand-green-text: #078708;
+    --brand-green-text: #007B00; /* was #078708, 4.0:1 on purple tint */
     --brand-green-badge-bg: #005C00;
     --brand-pink-accent-bar: #ca01be;
     --brand-pink-text: #a21caf;
@@ -130,7 +270,24 @@
     --brand-red-text: #CD000A;
     --brand-red-badge-bg: #B91C1C;
     --brand-purple-accent-bar: #6240E8;
-    --brand-purple-text: #5156F5;
+    /* Neutral: for comparison cards where color would imply a meaning it doesn't have */
+    --brand-neutral-accent-bar: #727286;
+    --brand-neutral-text: #5A5A6E;
+    --brand-neutral-badge-bg: #444443;
+    /* Amber: caution — an action that asks before it runs */
+    --brand-amber-accent-bar: #ECB801;
+    --brand-amber-text: #9C5900;
+    --brand-amber-badge-bg: #8A5A00;
+
+    /* Session hues: the roadmap's five colors, as text-safe values. Set on the
+       page root as --session-hue (Layout) and used only on text, icons, and
+       markers so a page shows which session it belongs to. */
+    --session-1: var(--brand-blue-text);
+    --session-2: var(--brand-green-text);
+    --session-3: var(--brand-purple-text);
+    --session-4: var(--brand-pink-text);
+    --session-5: #422981;
+    --brand-purple-text: #4F53F1;
     --brand-purple-badge-bg: #422981;
 
     /* Deep-purple accent — theme-aware replacement for #351F65 */
@@ -143,89 +300,102 @@
     /* Pulse callout semantic palette */
     --callout-error-fg: #CD000A;
     --callout-error-bg: #FFF2FC;
-    --callout-warning-fg: #A25E00;
+    --callout-warning-fg: #9C5900;
     --callout-warning-bg: #FFFDF2;
-    --callout-info-fg: #0078BC;
-    --callout-info-bg: #DCF3FA;
-    --callout-success-fg: #078708;
+    --callout-info-fg: #4F53F1;
+    --callout-info-bg: #EFE9FC;
+    --callout-success-fg: #007B00;
     --callout-success-bg: #E5F5E5;
 
-    /* AgentTeams local tints (Pulse aqua) */
-    --at-callout: #DCF3FA;
-    --at-card-bg: #ffffff;
-    --at-teammate-fill: #DCF3FA;
-    --at-teammate-stroke: #0078BC;
-    --at-task-list-fill: #DCF3FA;
-    --at-task-list-stroke: #0078BC;
-    --at-header-neutral-bg: #444443;
-    --at-header-sub-bg: #422981;
-    --at-header-team-bg: #0078BC;
-    --at-row-border: rgba(0,0,0,0.06);
-    --at-teammate-label: #444443;
-
-    /* Subagents local tints (Pulse plum) */
-    --sa-callout: #EFE9FC;
-    --sa-card-bg: #ffffff;
-    --sa-card-border: #6240E8;
-    --sa-satellite-fill: #EFE9FC;
-    --sa-satellite-stroke: #6240E8;
-    --sa-subagent-label: #444443;
-
-    /* HooksLifecycle local tints */
-    --hl-step-bg: #ffffff;
-    --hl-step-bg-active: #EFE9FC;
-    --hl-step-border: #6240E8;
-    --hl-arrow: #6F6F6F;
+    /* Semantic tints: the only fills diagram components may use. Each
+       diagram token below is an alias of a tint or a brand token, so a palette
+       change here reaches every visualization. */
+    --tint-blue: #DCF3FA;
+    --tint-green: #E5F5E5;
+    --tint-purple: #EFE9FC;
+    --tint-pink: #fae8f8;
+    --tint-amber: #FFF3EB;
+    --tint-red: #FDECEC;
+    --tint-neutral: var(--theme-card-bg);
+    --tint-raised: var(--theme-card-bg-white);
+    --on-accent: #ffffff;
     --hl-terminal-bg: #121212;
 
-    /* ContextSession local tints */
-    --cs-bar-track: #F7F9F9;
-    --cs-legend-tile: #F9F5FF;
-    --cs-context-rot: #fff3eb;
-    --cs-branch-blue: #DCF3FA;
-    --cs-branch-green: #E5F5E5;
-    --cs-branch-purple: #EFE9FC;
-    --cs-branch-pink: #fae8f8;
-    --cs-branch-neutral: #F9F5FF;
-    --cs-top-habit: #DCF3FA;
+    /* AgentTeams */
+    --at-callout: var(--tint-blue);
+    --at-card-bg: var(--tint-raised);
+    --at-teammate-fill: var(--tint-blue);
+    --at-teammate-stroke: var(--brand-blue-text);
+    --at-task-list-fill: var(--tint-blue);
+    --at-task-list-stroke: var(--brand-blue-text);
+    --at-header-neutral-bg: var(--brand-neutral-badge-bg);
+    --at-header-sub-bg: var(--brand-purple-badge-bg);
+    --at-header-team-bg: var(--brand-blue-badge-bg);
+    --at-row-border: var(--surface-border);
+    --at-teammate-label: var(--brand-blue-text);
 
-    /* SkillsPlugins local tints */
-    --sp-callout-green: #E5F5E5;
-    --sp-callout-purple: #EFE9FC;
-    --sp-callout-blue: #DCF3FA;
-    --sp-callout-pink: #fae8f8;
+    /* Subagents */
+    --sa-callout: var(--tint-purple);
+    --sa-card-bg: var(--tint-raised);
+    --sa-card-border: var(--brand-purple-accent-bar);
+    --sa-satellite-fill: var(--tint-purple);
+    --sa-satellite-stroke: var(--brand-purple-accent-bar);
+    --sa-subagent-label: var(--brand-purple-text);
 
-    /* ProjectConfig local tints */
-    --pc-callout: #F7F9F9;
+    /* HooksLifecycle */
+    --hl-step-bg: var(--tint-raised);
+    --hl-step-bg-active: var(--tint-purple);
+    --hl-step-border: var(--brand-purple-accent-bar);
+    --hl-arrow: var(--theme-text-muted);
 
-    /* PermissionModes local tints */
-    --pm-modes-callout: #F9F5FF;
+    /* ContextSession */
+    --cs-bar-track: var(--tint-neutral);
+    --cs-legend-tile: var(--tint-neutral);
+    --cs-context-rot: var(--tint-amber);
+    --cs-branch-blue: var(--tint-blue);
+    --cs-branch-green: var(--tint-green);
+    --cs-branch-purple: var(--tint-purple);
+    --cs-branch-pink: var(--tint-pink);
+    --cs-branch-neutral: var(--tint-neutral);
+    --cs-top-habit: var(--tint-blue);
 
-    /* PermissionModel local tints */
-    --pm-model-row: #F9F5FF;
-    --pm-model-purple-card: #EFE9FC;
-    --pm-model-pink-card: #fae8f8;
+    /* SkillsPlugins */
+    --sp-callout-green: var(--tint-green);
+    --sp-callout-purple: var(--tint-purple);
+    --sp-callout-blue: var(--tint-blue);
+    --sp-callout-pink: var(--tint-pink);
+
+    /* ProjectConfig, PermissionModes, PermissionModel */
+    --pc-callout: var(--tint-neutral);
+    --pm-modes-callout: var(--tint-neutral);
+    --pm-model-row: var(--tint-neutral);
+    --pm-model-purple-card: var(--tint-purple);
+    --pm-model-pink-card: var(--tint-red);
   }
 
   .dark {
     /* Pulse neutral semantic tokens (dark)
      * Text values adjusted upward from Pulse defaults for WCAG AAA (7:1)
      * on card surfaces (#232323). */
-    --theme-card-bg: #232323;
-    --theme-card-bg-white: #232323;
+    --theme-card-bg: oklch(26% 0.016 292);
+    --theme-card-bg-white: oklch(26% 0.016 292);
     --theme-heading: #F7F9F9;
     --theme-text: #B5B6B6;
     --theme-text-muted: #B0B0B0;
     --theme-text-subtle: #B0B0B0;
     --theme-label-muted: #B0B0B0;
     --theme-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --surface-border: rgba(255,255,255,0.10);
 
     /* Pulse brand palette (dark) */
     --brand-blue-text: #B0E9F8;
     --brand-green-text: #9CE390;
     --brand-pink-text: #f0abfc;
-    --brand-red-text: #E62338;
+    --brand-red-text: #FF4F56; /* was #E62338, 3.3:1 on tints */
     --brand-purple-text: #A1B1FA;
+    --brand-neutral-text: #B0B0B0;
+    --brand-amber-text: #ECB801;
+    --session-5: #A892FB;
 
     --accent-deep-purple: #858DF8;
     --surface-deep-purple: #422981;
@@ -237,66 +407,152 @@
     --callout-error-bg: rgba(230,35,56,0.12);
     --callout-warning-fg: #ECB801;
     --callout-warning-bg: rgba(236,184,1,0.10);
-    --callout-info-fg: #00B5E2;
-    --callout-info-bg: rgba(0,181,226,0.10);
+    --callout-info-fg: #A1B1FA;
+    --callout-info-bg: rgba(133,141,248,0.12);
     --callout-success-fg: #0FAC27;
     --callout-success-bg: rgba(15,172,39,0.10);
 
-    /* AgentTeams (Pulse aqua dark) */
-    --at-callout: rgba(0,181,226,0.10);
-    --at-card-bg: rgba(255,255,255,0.04);
-    --at-teammate-fill: rgba(0,181,226,0.18);
-    --at-teammate-stroke: #B0E9F8;
-    --at-task-list-fill: rgba(0,181,226,0.18);
-    --at-task-list-stroke: #B0E9F8;
-    --at-header-neutral-bg: #444443;
-    --at-row-border: rgba(255,255,255,0.06);
-    --at-teammate-label: #B0E9F8;
-
-    /* Subagents (Pulse purple dark) */
-    --sa-callout: rgba(98,64,232,0.18);
-    --sa-card-bg: rgba(255,255,255,0.04);
-    --sa-card-border: #858DF8;
-    --sa-satellite-fill: rgba(98,64,232,0.22);
-    --sa-satellite-stroke: #858DF8;
-    --sa-subagent-label: #A1B1FA;
-
-    /* HooksLifecycle (dark) */
-    --hl-step-bg: rgba(255,255,255,0.04);
-    --hl-step-bg-active: rgba(98,64,232,0.18);
-    --hl-step-border: #858DF8;
-    --hl-arrow: #A3A4A4;
+    /* Semantic tints (dark): the diagram aliases above resolve against these */
+    --tint-blue: rgba(0,181,226,0.12);
+    --tint-green: rgba(15,172,39,0.12);
+    --tint-purple: rgba(98,64,232,0.18);
+    --tint-pink: rgba(202,1,190,0.12);
+    --tint-amber: rgba(236,184,1,0.10);
+    --tint-red: rgba(226,53,35,0.12);
+    --tint-neutral: rgba(255,255,255,0.04);
+    --tint-raised: rgba(255,255,255,0.04);
     --hl-terminal-bg: #0f0f17;
-
-    /* ContextSession (dark) */
-    --cs-bar-track: rgba(255,255,255,0.06);
-    --cs-legend-tile: rgba(255,255,255,0.04);
-    --cs-context-rot: rgba(202,1,190,0.10);
-    --cs-branch-blue: rgba(0,181,226,0.10);
-    --cs-branch-green: rgba(15,172,39,0.10);
-    --cs-branch-purple: rgba(98,64,232,0.14);
-    --cs-branch-pink: rgba(202,1,190,0.10);
-    --cs-branch-neutral: rgba(255,255,255,0.04);
-    --cs-top-habit: rgba(0,181,226,0.10);
-
-    /* SkillsPlugins (dark) */
-    --sp-callout-green: rgba(15,172,39,0.10);
-    --sp-callout-purple: rgba(98,64,232,0.18);
-    --sp-callout-blue: rgba(0,181,226,0.10);
-    --sp-callout-pink: rgba(202,1,190,0.10);
-
-    --pc-callout: rgba(255,255,255,0.05);
-
-    --pm-modes-callout: rgba(255,255,255,0.05);
-
-    --pm-model-row: rgba(255,255,255,0.04);
-    --pm-model-purple-card: rgba(98,64,232,0.18);
-    --pm-model-pink-card: rgba(202,1,190,0.18);
   }
 }
 
 @media (min-width: 1440px) {
   div:has(> aside[aria-label="On this page"]) :where(.prose > *:not(.absolute)) {
     max-width: var(--container-3xl);
+  }
+}
+
+/* ── Scrollable tables ──
+ * Dense markdown tables scroll sideways on narrow viewports. The scrolling
+ * shadows (Lea Verou's technique) show that there is more to the right or
+ * left, and `th` stays on one line so headers don't stack three deep.
+ */
+.table-scroll {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  --scroll-shadow: light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.55));
+  --scroll-bg: light-dark(var(--color-paper), var(--color-ink));
+  background:
+    linear-gradient(to right, var(--scroll-bg) 30%, transparent),
+    linear-gradient(to left, var(--scroll-bg) 30%, transparent) 100% 0,
+    linear-gradient(to right, var(--scroll-shadow), transparent),
+    linear-gradient(to left, var(--scroll-shadow), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 48px 100%, 48px 100%, 16px 100%, 16px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.table-scroll:focus-visible {
+  outline: 2px solid var(--color-violet-500);
+  outline-offset: 2px;
+}
+.table-scroll table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.table-scroll th {
+  white-space: nowrap;
+}
+/* Below md the first column stays put while the rest scrolls, so a row keeps
+   its label. Opaque on the page color so scrolled cells pass beneath it; a
+   hairline on its right edge marks the seam. */
+@media (max-width: 767px) {
+  .table-scroll th:first-child,
+  .table-scroll td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    max-width: 45vw;
+    box-shadow: inset -1px 0 0 var(--surface-border);
+  }
+  .table-scroll th:first-child {
+    white-space: normal;
+  }
+  .table-scroll td:first-child {
+    background: var(--scroll-bg);
+  }
+  .prose .table-scroll tbody tr:hover td:first-child {
+    background: color-mix(in oklch, var(--tint-purple) 55%, var(--scroll-bg));
+  }
+}
+
+/* ── Prose rhythm ──
+ * Custom components (cards, diagrams, callouts, tables) are block elements
+ * the typography plugin knows nothing about. Give them the same vertical
+ * beat as paragraphs and headings so pages don't need <br /> spacers.
+ * Lives in the components layer so utility classes on a component still win.
+ */
+@layer components {
+  .prose > :where(div, svg, details, section):not(:first-child) {
+    margin-top: 2rem;
+  }
+  /* The one-line tagline under a page title reads as a lead, not body copy. */
+  .prose > h1 + div + p,
+  .prose > h1 + p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--theme-text-muted);
+  }
+  /* "Where to go next" closes every content page: a rule above it marks the
+     end of the material and the start of navigation. */
+  .prose > h2#where-to-go-next {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--surface-border);
+  }
+}
+
+/* ── Glossary chips ──
+ * First use of a program term before the page that defines it. Dotted
+ * underline marks "this is defined elsewhere"; the link goes there and the
+ * title carries the one-line definition. Distinct from ordinary links.
+ */
+.prose a.term {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--color-violet-500);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 150ms;
+}
+.prose a.term:hover {
+  color: var(--color-violet-600);
+}
+.dark .prose a.term:hover {
+  color: var(--color-violet-400);
+}
+
+/* ── Tables: tinted header row and a quiet row hover ── */
+@layer components {
+  .prose thead th {
+    background: var(--tint-purple);
+    padding: 0.5rem 0.75rem;
+  }
+  .prose thead th:first-child {
+    padding-left: 0.75rem;
+    border-top-left-radius: var(--radius-chip);
+  }
+  .prose thead th:last-child {
+    padding-right: 0.75rem;
+    border-top-right-radius: var(--radius-chip);
+  }
+  .prose tbody td {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .prose tbody tr {
+    transition: background-color 150ms;
+  }
+  .prose tbody tr:hover {
+    background: color-mix(in oklch, var(--tint-purple) 55%, transparent);
   }
 }

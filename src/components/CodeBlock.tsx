@@ -29,7 +29,7 @@ function CopyButton({ code }: { code: string }) {
       onClick={handleCopy}
       aria-label={copied ? 'Copied' : 'Copy code to clipboard'}
       className={clsx(
-        'absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-md border border-zinc-200 bg-white text-zinc-500 opacity-0 transition-all group-hover:opacity-100 hover:bg-zinc-50 hover:text-zinc-900 focus-visible:opacity-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-zinc-100',
+        'flex h-6 w-6 items-center justify-center rounded-md text-current opacity-70 transition hover:bg-black/5 hover:opacity-100 focus-visible:opacity-100 dark:hover:bg-white/10',
         focusRing,
       )}
     >
@@ -54,11 +54,14 @@ export function CodeBlock({
   children: string
   className?: string
 }) {
-  const language = className?.replace(/language-/, '') || 'text'
+  const fence = className?.replace(/language-/, '') || 'text'
+  // ```prompt is a plain-text block that is meant to be pasted into Claude.
+  const language = fence === 'prompt' ? 'text' : fence
   const code = children.replace(/\n$/, '')
+  const label = fence === 'text' ? 'plain text' : fence
   const customStyle: React.CSSProperties = {
     margin: 0,
-    borderRadius: '0.5rem',
+    borderRadius: 0,
     fontSize: '0.8125rem',
     lineHeight: '1.7',
     overflow: 'auto',
@@ -68,8 +71,20 @@ export function CodeBlock({
   }
 
   return (
-    <div className="group relative">
-      <CopyButton code={code} />
+    <div
+      className="group relative overflow-hidden rounded-lg"
+      style={{ border: '1px solid var(--surface-border)' }}
+    >
+      {/* Header bar: language on the left, copy on the right. The tint ties
+          code blocks to the rest of the system instead of floating as a
+          third-party theme. */}
+      <div
+        className="flex items-center justify-between px-3 py-1.5 font-mono text-[11px] font-semibold tracking-wider uppercase"
+        style={{ background: 'var(--tint-purple)', color: 'var(--brand-purple-text)' }}
+      >
+        <span>{label}</span>
+        <CopyButton code={code} />
+      </div>
       <div className="dark:hidden">
         <SyntaxHighlighter language={language} style={oneLight} customStyle={customStyle}>
           {code}

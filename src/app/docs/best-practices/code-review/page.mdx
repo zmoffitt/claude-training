@@ -1,3 +1,9 @@
+import {
+  ProConCards,
+  CheckCircleFilledIcon,
+  WarningTriangleIcon,
+} from "@/components/ProConCards";
+
 export const metadata = {
   title: 'AI-Assisted Code Review',
 }
@@ -23,18 +29,44 @@ When reviewing AI-generated code, always check:
 - Performance — no unnecessary loops, allocations, or N+1 queries
 - Style — does it match existing patterns in the codebase?
 
-## What AI review catches well
+## Who catches what
 
-- Syntax errors and typos
-- Missing null checks
-- Unused imports and variables
-- Common security patterns (SQL injection, XSS)
-- Documentation gaps
+<ProConCards
+  cards={[
+    {
+      icon: <CheckCircleFilledIcon />,
+      title: 'AI catches',
+      items: [
+        'Syntax errors and typos',
+        'Missing null checks',
+        'Unused imports and variables',
+        'Common security patterns (SQL injection, XSS)',
+        'Documentation gaps',
+      ],
+      color: '#0FAC27',
+      bulletColor: '#005C00',
+      bgLight: '#E5F5E5',
+      bgDark: 'rgba(34,197,94,0.15)',
+    },
+    {
+      icon: <WarningTriangleIcon />,
+      title: 'Humans still own',
+      items: [
+        'Business logic correctness',
+        'Architectural decisions',
+        'UX implications',
+        'Cross-team impact',
+        'Compliance and regulatory requirements',
+      ],
+      color: '#CD000A',
+      bulletColor: '#FF485D',
+      bgLight: 'rgba(255, 76, 76, 0.15)',
+      bgDark: 'rgba(255, 76, 76, 0.25)',
+    },
+  ]}
+/>
 
-## What still needs human review
+## Where to go next
 
-- Business logic correctness
-- Architectural decisions
-- UX implications
-- Cross-team impact
-- Compliance and regulatory requirements
+- **[Common Pitfalls](/docs/tips/common-pitfalls)** — trusting without verifying, and the other five
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — make Claude review its own diff before you do

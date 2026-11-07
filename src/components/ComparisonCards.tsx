@@ -1,4 +1,12 @@
-import { themeVars, wcagText, wcagBadgeBg } from '@/lib/theme-colors'
+// Stack on phones, side by side from the `sm` breakpoint. Classes are spelled
+// out so Tailwind's scanner can see them.
+function gridForCount(count: number): string {
+  if (count === 2) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 items-stretch'
+  if (count === 4) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 items-stretch'
+  return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
+}
+
+import { themeVars, accentText, wcagBadgeBg } from '@/lib/theme-colors'
 
 interface ComparisonCard {
   title: string
@@ -17,25 +25,17 @@ export function ComparisonCards({
 }) {
   return (
     <div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${cards.length}, 1fr)`,
-          gap: '1rem',
-          alignItems: 'stretch',
-        }}
-      >
+      <div className={gridForCount(cards.length)}>
         {cards.map((card) => {
-          const safeTextColor = wcagText(card.color)
+          const safeTextColor = accentText(card.color)
           const safeBadgeBg = wcagBadgeBg(card.badgeColor)
           return (
             <div
               key={card.title}
               style={{
-                borderTop: `5px solid ${card.color}`,
-                borderRadius: '0.5rem',
+                border: '1px solid var(--surface-border)',
+                borderRadius: 'var(--radius-card)',
                 backgroundColor: themeVars.cardBg,
-                boxShadow: themeVars.shadow,
                 padding: '1.75rem 1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -47,8 +47,7 @@ export function ComparisonCards({
                   fontSize: '1.25rem',
                   fontWeight: 700,
                   margin: 0,
-                  color: themeVars.heading,
-                  textAlign: 'center',
+                  color: safeTextColor,
                 }}
               >
                 {card.title}
@@ -56,15 +55,13 @@ export function ComparisonCards({
               <p
                 style={{
                   fontSize: '0.875rem',
-                  fontStyle: 'italic',
                   margin: 0,
                   color: themeVars.textMuted,
-                  textAlign: 'center',
                 }}
               >
                 {card.subtitle}
               </p>
-              <div style={{ textAlign: 'center' }}>
+              <div>
                 <span
                   style={{
                     display: 'inline-block',
@@ -73,7 +70,7 @@ export function ComparisonCards({
                     fontSize: '0.875rem',
                     fontWeight: 600,
                     padding: '0.375rem 1.25rem',
-                    borderRadius: '0.375rem',
+                    borderRadius: 'var(--radius-chip)',
                   }}
                 >
                   {card.badge}
@@ -93,8 +90,7 @@ export function ComparisonCards({
               <p
                 style={{
                   fontSize: '0.875rem',
-                  fontWeight: 700,
-                  fontStyle: 'italic',
+                  fontWeight: 600,
                   margin: 0,
                   color: safeTextColor,
                 }}

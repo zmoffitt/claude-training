@@ -132,17 +132,21 @@ export default {
 
           // Headings
           h1: {
+            fontFamily: 'var(--font-display)',
+            letterSpacing: '-0.02em',
+            lineHeight: '1.15',
             color: 'var(--tw-prose-headings)',
-            fontWeight: '700',
-            fontSize: theme('fontSize.2xl')[0],
-            ...theme('fontSize.2xl')[1],
+            fontWeight: '600',
+            fontSize: 'clamp(1.875rem, 1.4rem + 1.4vw, 2.5rem)',
             marginBottom: theme('spacing.2'),
           },
           h2: {
+            fontFamily: 'var(--font-display)',
+            letterSpacing: '-0.01em',
             color: 'var(--tw-prose-headings)',
             fontWeight: '600',
-            fontSize: theme('fontSize.lg')[0],
-            ...theme('fontSize.lg')[1],
+            fontSize: '1.375rem',
+            lineHeight: '1.3',
             marginTop: theme('spacing.16'),
             marginBottom: theme('spacing.2'),
           },
@@ -170,6 +174,7 @@ export default {
 
           // Tables
           table: {
+            fontVariantNumeric: 'tabular-nums',
             width: '100%',
             tableLayout: 'auto',
             textAlign: 'left',

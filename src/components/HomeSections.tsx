@@ -62,7 +62,7 @@ export function HomeSections() {
                 'text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
                 s.primary
                   ? 'text-violet-500 dark:text-violet-400'
-                  : 'text-zinc-400 group-hover:text-zinc-600 dark:text-zinc-500 dark:group-hover:text-zinc-300',
+                  : 'text-violet-500/60 group-hover:text-violet-500 dark:text-violet-400/60 dark:group-hover:text-violet-400',
               )}
             >
               {s.eyebrow}
@@ -70,7 +70,7 @@ export function HomeSections() {
             <span className="flex flex-col gap-1">
               <span
                 className={clsx(
-                  'font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-violet-500 dark:text-white dark:group-hover:text-violet-400',
+                  'font-display font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-violet-500 dark:text-white dark:group-hover:text-violet-400',
                   s.primary ? 'text-2xl' : 'text-lg',
                 )}
               >

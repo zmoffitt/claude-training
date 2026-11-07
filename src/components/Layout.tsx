@@ -5,13 +5,15 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Footer } from '@/components/Footer'
 import { KeyboardNav } from '@/components/KeyboardNav'
+import { PageTransitions } from '@/components/PageTransitions'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import { Prose } from '@/components/Prose'
 import { ScrollProgress } from '@/components/ScrollProgress'
 import { SearchDialog } from '@/components/SearchDialog'
 import { SidebarResizeHandle } from '@/components/SidebarResizeHandle'
-import { TableOfContents } from '@/components/TableOfContents'
+import { InlineTableOfContents, TableOfContents } from '@/components/TableOfContents'
+import { usePagePath } from '@/lib/usePagePath'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
 
@@ -26,10 +28,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const hydrated = isLg // true only after useEffect runs on the client
   const effectiveWidth = hydrated ? (isCollapsed ? 0 : width) : undefined
 
+  // Wayfinding: inside a session, eyebrows, icons, crumbs, and the sidebar
+  // marker take that session's hue (see --session-N in tailwind.css).
+  const pathname = usePagePath()
+  const session = pathname.match(/\/session-(\d)(?:\/|$)/)?.[1]
+  const rootStyle: React.CSSProperties = {
+    ...(hydrated ? { marginLeft: effectiveWidth } : {}),
+    ...(session ? ({ '--session-hue': `var(--session-${session})` } as React.CSSProperties) : {}),
+  }
+
   return (
     <div
       className="h-full lg:ml-80 xl:ml-88"
-      style={hydrated ? { marginLeft: effectiveWidth } : undefined}
+      style={rootStyle}
     >
       <a
         href="#main-content"
@@ -52,7 +63,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             }}
           >
             <Header />
-            <Navigation className="hidden lg:block" />
+            {/* The transition name sits on the nav, not its container: a named
+                element becomes a containing block in WebKit, which would trap
+                the fixed Header inside the sidebar. */}
+            <Navigation className="hidden lg:block [view-transition-name:sidebar]" />
             {hydrated && <SidebarResizeHandle />}
           </div>
         )}
@@ -67,9 +81,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </motion.header>
       <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8">
         <main id="main-content" tabIndex={-1} className="flex-auto focus:outline-none">
-          <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10">
+          <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10 [view-transition-name:article]">
             <Prose className="flex-auto">
               <Breadcrumbs />
+              <InlineTableOfContents />
               {children}
             </Prose>
           </article>
@@ -79,6 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </div>
       <SearchDialog />
       <KeyboardNav />
+      <PageTransitions />
     </div>
   )
 }

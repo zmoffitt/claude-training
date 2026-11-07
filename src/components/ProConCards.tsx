@@ -18,7 +18,7 @@ interface ProConCard {
 const gridForCount: Record<number, string> = {
   2: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
   3: 'grid grid-cols-1 gap-4 sm:grid-cols-3',
-  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4',
+  4: 'grid grid-cols-1 gap-4 sm:grid-cols-2',
 }
 
 export function ProConCards({
@@ -36,8 +36,8 @@ export function ProConCards({
           <div
             key={card.title}
             style={{
-              borderTop: `5px solid ${card.color}`,
-              borderRadius: '0.5rem',
+              border: '1px solid var(--surface-border)',
+              borderRadius: 'var(--radius-card)',
               // light-dark() reads color-scheme on <html>; our blocking script
               // sets that in <head> before first paint, so per-card bg is
               // correct on SSR + first render (no FOLM).
@@ -45,24 +45,24 @@ export function ProConCards({
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
               gap: '0.25rem',
             }}
           >
-            <div style={{ width: 44, height: 44 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem', marginBottom: '0.75rem' }}>
+            <div style={{ width: 28, height: 28, flexShrink: 0 }}>
               {card.icon}
             </div>
             <h3
               style={{
                 fontSize: '1.25rem',
                 fontWeight: 700,
-                margin: '0 0 0.75rem',
+                margin: 0,
                 color: themeVars.heading,
-                textAlign: 'center',
               }}
             >
               {card.title}
             </h3>
+            </div>
             <ul
               style={{
                 listStyle: 'none',

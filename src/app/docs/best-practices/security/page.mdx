@@ -1,3 +1,10 @@
+import { Callout } from "@/components/Callout";
+import {
+  ProConCards,
+  CheckCircleFilledIcon,
+  WarningTriangleIcon,
+} from "@/components/ProConCards";
+
 export const metadata = {
   title: 'Security Considerations',
 }
@@ -8,9 +15,44 @@ Guidelines for using AI coding tools safely and responsibly.
 
 ## Data handling
 
-- **Never paste secrets** into AI prompts — no API keys, passwords, tokens, or certificates
-- **Be cautious with PII** — avoid sharing customer data, health records, or personal information
-- **Review generated code for secrets** — AI may generate placeholder credentials that look real
+<ProConCards
+  cards={[
+    {
+      icon: <WarningTriangleIcon />,
+      title: 'Never',
+      items: [
+        'Paste API keys, passwords, tokens, or certificates into a prompt',
+        'Share customer data, health records, or other PII',
+        'Expose a Global Admin token to any session',
+        'Commit a placeholder credential that looks real',
+      ],
+      color: '#CD000A',
+      bulletColor: '#FF485D',
+      bgLight: 'rgba(255, 76, 76, 0.15)',
+      bgDark: 'rgba(255, 76, 76, 0.25)',
+    },
+    {
+      icon: <CheckCircleFilledIcon />,
+      title: 'Always',
+      items: [
+        'Sanitize logs and data before sharing; replace real values',
+        'Review generated code for secrets before committing',
+        'Use approved tools with enterprise agreements in place',
+        'Rotate anything exposed, then report it',
+      ],
+      color: '#0FAC27',
+      bulletColor: '#005C00',
+      bgLight: '#E5F5E5',
+      bgDark: 'rgba(34,197,94,0.15)',
+    },
+  ]}
+/>
+
+<Callout variant="error" title="The one-line test" align="left">
+  If posting it in a public Slack channel would be a security incident, it
+  does not go into a prompt. That covers keys, tokens, tenant IDs, customer
+  data, and anything under NDA.
+</Callout>
 
 ## Code security
 
@@ -40,3 +82,8 @@ If you accidentally share sensitive data with an AI tool:
 1. Rotate any exposed credentials immediately
 2. Report the incident following the standard security incident process
 3. Document what was shared and with which tool
+
+## Where to go next
+
+- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege for connectors, MCP servers, and IAM red lines
+- **[Common Pitfalls](/docs/tips/common-pitfalls)** — copy-pasting sensitive data, and what to do instead

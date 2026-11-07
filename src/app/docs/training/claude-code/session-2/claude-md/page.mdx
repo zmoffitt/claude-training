@@ -1,13 +1,10 @@
 import { Callout } from "@/components/Callout";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "CLAUDE.md & Inheritance",
 };
 
 # CLAUDE.md + Inheritance
-
-<ReadTime minutes={2} />
 
 Persistent instructions that travel with your repo — from your home directory down to the module you're editing.
 
@@ -28,8 +25,6 @@ Persistent instructions that travel with your repo — from your home directory 
 | `./.claude/rules/*.md` | **Project rules** — one topic per file, optionally path-scoped | Yes (via git) |
 | `./modules/auth/CLAUDE.md` | **Nested directory** — module context, loaded when Claude touches that folder | Yes (via git) |
 | `./CLAUDE.local.md` | **Personal, per-project** — sandbox URLs, test data | No (gitignored) |
-
-<br />
 
 <Callout variant="info" title="They concatenate, they don't override" align="left">
   Claude loads every file from the filesystem root down to your working

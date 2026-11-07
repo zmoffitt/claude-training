@@ -24,8 +24,9 @@ export function StackedFeatures({
         <div
           key={feature.title}
           style={{
-            borderLeft: `5px solid ${safeAccent(feature.color)}`,
-            borderRadius: '0.5rem',
+            border: '1px solid var(--surface-border)',
+            borderLeft: `3px solid ${safeAccent(feature.color)}`,
+            borderRadius: 'var(--radius-card)',
             backgroundColor: themeVars.cardBg,
             padding: '1.25rem 1.5rem',
             display: 'flex',
@@ -63,7 +64,7 @@ export function StackedFeatures({
               fontSize: '0.8125rem',
               fontWeight: 700,
               padding: '0.5rem 1.5rem',
-              borderRadius: '0.375rem',
+              borderRadius: 'var(--radius-chip)',
               whiteSpace: 'nowrap',
             }}
           >

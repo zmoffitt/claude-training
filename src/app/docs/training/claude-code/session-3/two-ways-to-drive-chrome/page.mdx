@@ -1,5 +1,4 @@
 import { Callout } from "@/components/Callout";
-import { ReadTime } from "@/components/ReadTime";
 import {
   PillarCards,
   GlobeIcon,
@@ -12,11 +11,7 @@ export const metadata = {
 
 # Two Ways to Drive Chrome
 
-<ReadTime minutes={2} />
-
 Same browser, very different jobs — pick by what you're trying to do.
-
-<br />
 
 <PillarCards
   cards={[
@@ -25,19 +20,17 @@ Same browser, very different jobs — pick by what you're trying to do.
       title: "Claude Chrome Extension",
       description:
         "Generally available. Start Claude Code with --chrome or run /chrome. Drives your live browser session: same tab, same cookies, same SSO. Sees the rendered page and clicks where you'd click. Best for doing tasks in SaaS you're already logged into: filing a ticket in a portal, completing a form, navigating an admin UI. Scoped to one session, one user; not headless.",
-      color: "#00B5E2",
+      color: "#6240E8",
     },
     {
       icon: <TerminalIcon />,
       title: "Chrome DevTools MCP",
       description:
         "Programmatic Chrome via the DevTools Protocol. An MCP server in your config; no extension required. Spins up a controlled (often headless) Chrome instance. Best for inspecting and debugging web apps you build: read console errors, capture network traces, run Lighthouse, snapshot the DOM, evaluate scripts. Treat it as a clean browser — not your auth context.",
-      color: "#6B5CF5",
+      color: "#6240E8",
     },
   ]}
 />
-
-<br />
 
 <Callout variant="info" title="Quick mnemonic" align="left">
   Extension is for **operating** a tool you use as a human. DevTools MCP is

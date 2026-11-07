@@ -1,14 +1,11 @@
 import { FeatureColumns } from "@/components/FeatureColumns";
 import { Callout } from "@/components/Callout";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Plan Mode & Opus",
 };
 
 # Plan Mode & Opus
-
-<ReadTime minutes={2} />
 
 Think before building — the most important habit in this program.
 
@@ -17,7 +14,7 @@ Think before building — the most important habit in this program.
     {
       title: "Plan Mode",
       subtitle: "Shift+Tab in Claude Code",
-      color: "#0FAC27",
+      color: "#727286",
       items: [
         "Claude reads, analyzes, proposes an approach",
         "No code written until you approve the plan",
@@ -29,7 +26,7 @@ Think before building — the most important habit in this program.
     {
       title: "Opus Plan Mode",
       subtitle: "/model opusplan",
-      color: "#6B5CF5",
+      color: "#6240E8",
       items: [
         "Opus 5.5 plans \u2014 deep reasoning for the approach",
         "Sonnet 5.5 executes \u2014 faster, half the token price",
@@ -41,7 +38,6 @@ Think before building — the most important habit in this program.
   ]}
 />
 
-<br />
 <Callout variant="info" title="Why does this matter?" align="left">
   *Plan mode is the built-in example of human-in-the-loop: Claude proposes, you
   approve, then Claude executes.* Shift+Tab cycles the permission modes;
