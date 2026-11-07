@@ -56,14 +56,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Desktop sidebar — unmounted when collapsed */}
         {!(hydrated && isCollapsed) && (
           <div
-            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-14 lg:pb-8 lg:[view-transition-name:sidebar] xl:w-88 lg:dark:border-white/10"
+            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-14 lg:pb-8 xl:w-88 lg:dark:border-white/10"
             style={{
               width: hydrated ? width : undefined,
               position: hydrated ? 'relative' : undefined,
             }}
           >
             <Header />
-            <Navigation className="hidden lg:block" />
+            {/* The transition name sits on the nav, not its container: a named
+                element becomes a containing block in WebKit, which would trap
+                the fixed Header inside the sidebar. */}
+            <Navigation className="hidden lg:block [view-transition-name:sidebar]" />
             {hydrated && <SidebarResizeHandle />}
           </div>
         )}
