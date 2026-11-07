@@ -70,7 +70,7 @@ export function AgentTeams() {
                 x={TASK_LIST.x + TASK_LIST.w / 2}
                 y={TASK_LIST.y + 22}
                 textAnchor="middle"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={11}
                 fontWeight={700}
                 style={{ fill: brandVars.blue.text }}
@@ -119,7 +119,7 @@ export function AgentTeams() {
                 y={LEAD.cy - 3}
                 textAnchor="middle"
                 fill="#ffffff"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={11}
                 fontWeight={700}
               >
@@ -130,7 +130,7 @@ export function AgentTeams() {
                 y={LEAD.cy + 11}
                 textAnchor="middle"
                 fill="rgba(255,255,255,0.85)"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
               >
                 coordinates
@@ -206,7 +206,7 @@ export function AgentTeams() {
                     x={tm.cx}
                     y={tm.cy - 3}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={10}
                     fontWeight={600}
                     style={{ fill: brandVars.blue.text }}
@@ -217,7 +217,7 @@ export function AgentTeams() {
                     x={tm.cx}
                     y={tm.cy + 9}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={9}
                     style={{ fill: 'var(--at-teammate-label)' }}
                   >
@@ -238,7 +238,7 @@ export function AgentTeams() {
               <text
                 x={100}
                 y={303}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -256,7 +256,7 @@ export function AgentTeams() {
               <text
                 x={200}
                 y={303}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -272,8 +272,8 @@ export function AgentTeams() {
               gap: '0.6rem',
               padding: '0.9rem 1rem',
               backgroundColor: 'var(--at-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               fontSize: '0.875rem',
               color: themeVars.text,
               lineHeight: 1.5,
@@ -301,8 +301,8 @@ export function AgentTeams() {
           <div
             style={{
               backgroundColor: 'var(--at-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
             }}
           >

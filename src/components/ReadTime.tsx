@@ -3,6 +3,7 @@ import { themeVars } from '@/lib/theme-colors'
 export function ReadTime({ minutes }: { minutes: number }) {
   return (
     <div
+      data-pagefind-ignore
       style={{
         marginTop: 0,
         marginBottom: '1.25rem',

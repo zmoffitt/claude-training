@@ -70,7 +70,7 @@ export function HomeSections() {
             <span className="flex flex-col gap-1">
               <span
                 className={clsx(
-                  'font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-violet-500 dark:text-white dark:group-hover:text-violet-400',
+                  'font-display font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-violet-500 dark:text-white dark:group-hover:text-violet-400',
                   s.primary ? 'text-2xl' : 'text-lg',
                 )}
               >

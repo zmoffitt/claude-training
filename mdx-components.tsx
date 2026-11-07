@@ -26,7 +26,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     // viewports instead of compressing every cell to one-word-per-line.
     table({ children, ...props }) {
       return (
-        <div className="overflow-x-auto">
+        <div
+          className="table-scroll"
+          tabIndex={0}
+          role="region"
+          aria-label="Scrollable table"
+        >
           <table {...props}>{children}</table>
         </div>
       )

@@ -66,13 +66,19 @@ function NavLink({
         focusRing,
       )}
     >
-      <span className="truncate">{children}</span>
+      <span className="leading-snug">{children}</span>
     </Link>
   )
 }
 
-function VisibleSectionHighlight({ activeCenter }: { activeCenter: number }) {
-  let height = remToPx(2)
+function VisibleSectionHighlight({
+  activeCenter,
+  activeHeight,
+}: {
+  activeCenter: number
+  activeHeight: number
+}) {
+  let height = Math.max(remToPx(2), activeHeight)
   let top = activeCenter - height / 2
 
   return (
@@ -194,6 +200,7 @@ function NavigationGroup({
   let [isExpanded, setIsExpanded] = useState(isActiveGroup)
   let containerRef = useRef<HTMLDivElement>(null)
   let [activeCenter, setActiveCenter] = useState(0)
+  let [activeHeight, setActiveHeight] = useState(0)
   let groupContentId = useId()
 
   let isOpen = isActiveGroup || isExpanded
@@ -206,6 +213,7 @@ function NavigationGroup({
     let activeRect = activeEl.getBoundingClientRect()
     if (activeRect.height === 0) return
     setActiveCenter(activeRect.top - containerRect.top + activeRect.height / 2)
+    setActiveHeight(activeRect.height)
   }, [])
 
   useEffect(() => {
@@ -241,7 +249,7 @@ function NavigationGroup({
         >
           <span className="flex min-w-0 items-center gap-2">
             {group.icon && <span className="shrink-0 text-violet-500 dark:text-violet-400" aria-hidden="true">{group.icon}</span>}
-            <span className="truncate">{group.title}</span>
+            <span className="leading-snug">{group.title}</span>
           </span>
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
@@ -275,7 +283,7 @@ function NavigationGroup({
           >
             <AnimatePresence initial={false}>
               {isActiveGroup && (
-                <VisibleSectionHighlight activeCenter={activeCenter} />
+                <VisibleSectionHighlight activeCenter={activeCenter} activeHeight={activeHeight} />
               )}
             </AnimatePresence>
             <motion.div

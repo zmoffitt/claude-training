@@ -181,7 +181,7 @@ export function HooksLifecycle() {
                   y={65}
                   textAnchor="middle"
                   fill="#ffffff"
-                  fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                  fontFamily="var(--font-sans), system-ui, sans-serif"
                   fontSize="13"
                   fontWeight={700}
                 >
@@ -213,7 +213,7 @@ export function HooksLifecycle() {
             x={490}
             y={18}
             textAnchor="middle"
-            fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+            fontFamily="var(--font-sans), system-ui, sans-serif"
             fontSize="11"
             fontStyle="italic"
             style={{ fill: 'var(--hl-arrow)' }}

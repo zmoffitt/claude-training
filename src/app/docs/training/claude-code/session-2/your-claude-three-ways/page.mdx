@@ -6,18 +6,13 @@ import {
 } from "@/components/PillarCards";
 import { Callout } from "@/components/Callout";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Your Claude, Three Ways",
 };
 
 # Your Claude, Three Ways
 
-<ReadTime minutes={2} />
-
 Same engine, different shell — choose what fits your workflow.
-
-<br />
 
 <PillarCards
   cards={[
@@ -26,27 +21,25 @@ Same engine, different shell — choose what fits your workflow.
       title: "Claude Desktop (Code UI)",
       description:
         "The Code tab: file browser, diff viewer with line comments, built-in terminal, worktrees per session, PR monitoring with auto-fix. Starts in Manual mode. Best for daily development.",
-      color: "#00B5E2",
+      color: "#6240E8",
     },
     {
       icon: <TerminalIcon />,
       title: "Raw CLI (Terminal)",
       description:
         "Pure terminal. Best for SSH, scripting, CI/CD, and pipeline automation. Use Ghostty (ghostty.org) for GPU-accelerated rendering of large outputs.",
-      color: "#0FAC27",
+      color: "#6240E8",
     },
     {
       icon: <GlobeIcon />,
       title: "Claude Code on the Web",
       description:
         "Browser-based. No local install. Cloud sessions keep running when your laptop is closed, and scheduled tasks run here too. Best for remote, async, and unattended work.",
-      color: "#6B5CF5",
+      color: "#6240E8",
       href: "https://claude.ai/code",
     },
   ]}
 />
-
-<br />
 
 <Callout variant="info" title="Start with the Desktop app" align="left">
   It's the richest experience: visual diffs, plan mode, and a full terminal in

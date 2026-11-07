@@ -46,7 +46,7 @@ Every page exports a `metadata` object for the document title:
 export const metadata = { title: "Page Title" };
 ```
 
-**Page rhythm** — content pages follow `H1 → <ReadTime /> → one-line tagline → body → "## Where to go next"`. Landing pages follow `<HeroPattern /> → H1 → <ReadTime /> → tagline → SessionOutline → <TrainingRoadmap />`.
+**Page rhythm** — content pages follow `H1 → <ReadTime /> (3+ min pages only) → one-line tagline → body → "## Where to go next"`. Components get their vertical rhythm from the `.prose` rules in `tailwind.css`; never add `<br />` spacers. Landing pages follow `<PageHero eyebrow title subtitle /> → SessionOutline → <TrainingRoadmap />` (no ReadTime, no hero gradient).
 
 **One Callout per page max** — reserve `<Callout>` for one moment of real punctuation per page. Use bold lead-in inline emphasis (`**Key idea.** Sentence...`) for secondary points instead of stacking Callout boxes.
 
@@ -58,8 +58,8 @@ export const metadata = { title: "Page Title" };
 Fenced code blocks are automatically routed to `CodeBlock` — no import needed. Custom components must be explicitly imported. Key reusable components:
 
 - **`Callout`** — Alert box with `variant` (`error` | `warning` | `info` | `success`), `title`, and `align` props
-- **`ReadTime`** — `<ReadTime minutes={N} />` chip placed directly under the H1 on every content page (excludes practice assignments and live demos)
-- **`HeroPattern`** / **`TrainingRoadmap`** / **`SessionOutline`** — Used on session landing pages
+- **`ReadTime`** — `<ReadTime minutes={N} />` chip placed directly under the H1 on content pages of three minutes or more (shorter pages, landing pages, practice assignments, and live demos omit it)
+- **`PageHero`** / **`TrainingRoadmap`** / **`SessionOutline`** — Used on the home page and session landing pages (eyebrow + display headline; no gradient hero)
 - **`PillarCards`** / **`ProConCards`** — Card-grid visualizations; both stack on mobile and restore N columns at `sm:` (4-card layouts step through 2×2 at `sm:` before going 4-across at `lg:`)
 - Other visualization components (`ModelTierCards`, `ComparisonCards`, `PermissionModel`, `HooksLifecycle`, etc.) are typically one-per-page
 
@@ -106,7 +106,7 @@ MDX pages support GFM (tables, strikethrough, task lists) and auto-generate head
 
 ## Design Context
 
-Full context lives in `.impeccable.md` at repo root. Load it before any design, UI, or frontend work.
+Full context lives in `.impeccable.md` at repo root (same content as this section, in the format the design skills read). Load it before any design, UI, or frontend work.
 
 ### Users
 Engineers using the site in two overlapping modes: **learning** (going through training sessions linearly) and **reference** (jumping in mid-task to look up a pattern or setting). Design must serve both: structured enough to read end-to-end, scannable enough to land cold on any page.

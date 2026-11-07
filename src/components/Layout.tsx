@@ -11,7 +11,7 @@ import { Prose } from '@/components/Prose'
 import { ScrollProgress } from '@/components/ScrollProgress'
 import { SearchDialog } from '@/components/SearchDialog'
 import { SidebarResizeHandle } from '@/components/SidebarResizeHandle'
-import { TableOfContents } from '@/components/TableOfContents'
+import { InlineTableOfContents, TableOfContents } from '@/components/TableOfContents'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
 
@@ -70,6 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10">
             <Prose className="flex-auto">
               <Breadcrumbs />
+              <InlineTableOfContents />
               {children}
             </Prose>
           </article>

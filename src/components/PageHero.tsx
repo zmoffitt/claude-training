@@ -28,7 +28,7 @@ export function PageHero({
         </p>
       )}
       <h1
-        className="text-balance break-words text-4xl font-extrabold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl dark:text-white"
+        className="font-display text-balance break-words text-4xl font-bold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl dark:text-white"
       >
         {title}
       </h1>

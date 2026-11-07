@@ -27,6 +27,8 @@ export const brandVars = {
   pink:   { accentBar: 'var(--brand-pink-accent-bar)',   text: 'var(--brand-pink-text)',   badgeBg: 'var(--brand-pink-badge-bg)' },
   red:    { accentBar: 'var(--brand-red-accent-bar)',    text: 'var(--brand-red-text)',    badgeBg: 'var(--brand-red-badge-bg)' },
   purple: { accentBar: 'var(--brand-purple-accent-bar)', text: 'var(--brand-purple-text)', badgeBg: 'var(--brand-purple-badge-bg)' },
+  neutral: { accentBar: 'var(--brand-neutral-accent-bar)', text: 'var(--brand-neutral-text)', badgeBg: 'var(--brand-neutral-badge-bg)' },
+  amber:  { accentBar: 'var(--brand-amber-accent-bar)',  text: 'var(--brand-amber-text)',  badgeBg: 'var(--brand-amber-badge-bg)' },
 } as const
 
 export type BrandKey = keyof typeof brandVars
@@ -49,6 +51,9 @@ const ACCENT_MAP: Record<string, BrandKey> = {
   // pinks / magentas (no Pulse equivalent)
   '#d03ad0': 'pink', '#ca01be': 'pink', '#a21caf': 'pink',
   '#f0abfc': 'pink', '#e879f9': 'pink',
+  // neutral + amber
+  '#727286': 'neutral', '#5a5a6e': 'neutral', '#444443': 'neutral',
+  '#ecb801': 'amber', '#a25e00': 'amber', '#8a5a00': 'amber',
   // reds
   '#e23523': 'red', '#cd000a': 'red', '#b91c1c': 'red',
   '#e62338': 'red',

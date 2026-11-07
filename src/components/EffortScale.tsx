@@ -1,3 +1,11 @@
+// Stack on phones, side by side from the `sm` breakpoint. Classes are spelled
+// out so Tailwind's scanner can see them.
+function gridForCount(count: number): string {
+  if (count === 2) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 items-stretch'
+  if (count === 4) return 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch'
+  return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
+}
+
 import { themeVars, wcagText } from '@/lib/theme-colors'
 
 interface EffortColumn {
@@ -14,20 +22,13 @@ export function EffortScale({
 }) {
   return (
     <div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${columns.length}, 1fr)`,
-          gap: '1rem',
-          alignItems: 'stretch',
-        }}
-      >
+      <div className={gridForCount(columns.length)}>
         {columns.map((col) => (
           <div
             key={col.title}
             style={{
-              borderTop: `5px solid ${col.color}`,
-              borderRadius: '0.5rem',
+              border: '1px solid var(--surface-border)',
+              borderRadius: 'var(--radius-card)',
               backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
@@ -41,7 +42,6 @@ export function EffortScale({
                 fontWeight: 700,
                 margin: 0,
                 color: wcagText(col.color),
-                textAlign: 'center',
               }}
             >
               {col.arrow === 'up' ? '\u2191' : '\u2193'}{' '}

@@ -11,22 +11,14 @@ interface OutlineItem {
 }
 
 const listVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 },
-  },
-}
-
-const easeOutQuart = [0.25, 1, 0.5, 1] as const
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: easeOutQuart },
+    transition: { duration: 0.35, ease: [0.25, 1, 0.5, 1] as const },
   },
 }
+
 
 export function SessionOutline({ items }: { items: OutlineItem[] }) {
   return (
@@ -45,7 +37,7 @@ export function SessionOutline({ items }: { items: OutlineItem[] }) {
         }}
       >
         {items.map((item, i) => (
-          <motion.li key={item.href} variants={itemVariants}>
+          <li key={item.href}>
             <Link
               href={item.href}
               className={focusRing}
@@ -122,7 +114,7 @@ export function SessionOutline({ items }: { items: OutlineItem[] }) {
                 &rarr;
               </span>
             </Link>
-          </motion.li>
+          </li>
         ))}
       </motion.ol>
     </nav>

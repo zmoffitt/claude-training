@@ -1,5 +1,4 @@
 import { Callout } from "@/components/Callout";
-import { ReadTime } from "@/components/ReadTime";
 
 export const metadata = {
   title: "Built-in Connectors",
@@ -7,26 +6,22 @@ export const metadata = {
 
 # Built-in Connectors
 
-<ReadTime minutes={2} />
-
 ## Available connectors
 
 <div className="max-w-2xl lg:max-w-3xl">
 
 | Connector | Surfaces | What it unlocks |
 | --- | --- | --- |
-| <span style={{color: "light-dark(#0e7490, #00B5E2)", fontWeight: 700}}>Google Workspace</span> | Drive, Gmail, Calendar | Search docs, draft mail, find availability without leaving Claude |
-| <span style={{color: "light-dark(#5024d2, #A892FB)", fontWeight: 700}}>Microsoft 365</span> | Outlook, SharePoint, Teams | Search mail, files, and Teams history. Write tools (send mail, calendar, Teams posts, file edits) exist but are admin-enabled and off by default |
-| <span style={{color: "light-dark(#15803d, #22c55e)", fontWeight: 700}}>GitHub</span> | Repos, Issues, PRs | Browse code, manage issues, review pull requests inline |
-| <span style={{color: "light-dark(#9d0090, #e879f9)", fontWeight: 700}}>Slack</span> | Channels, DMs | Search history, summarize threads, post updates with consent |
+| **Google Workspace** | Drive, Gmail, Calendar | Search docs, draft mail, find availability without leaving Claude |
+| **Microsoft 365** | Outlook, SharePoint, Teams | Search mail, files, and Teams history. Write tools (send mail, calendar, Teams posts, file edits) exist but are admin-enabled and off by default |
+| **GitHub** | Repos, Issues, PRs | Browse code, manage issues, review pull requests inline |
+| **Slack** | Channels, DMs | Search history, summarize threads, post updates with consent |
 
 </div>
 
 ## How to enable
 
 Settings → Connectors → pick provider → OAuth flow in your browser → scope the permissions you grant. Revoke any time from the same panel or the provider's admin console.
-
-<br />
 
 <Callout variant="warning" title="Mind the scope" align="left">
   Connectors run with **your** identity. Anything Claude reads through them

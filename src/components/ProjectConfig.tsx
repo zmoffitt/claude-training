@@ -94,14 +94,14 @@ export function ProjectConfig() {
           <div
             style={{
               backgroundColor: themeVars.cardBg,
-              borderRadius: '6px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <div style={{ height: '5px', backgroundColor: themeVars.heading }} />
+            <div style={{ height: '3px', backgroundColor: themeVars.heading }} />
             <div style={{ padding: '1.25rem 1.25rem 1.5rem' }}>
               <div
                 style={{
@@ -160,14 +160,14 @@ export function ProjectConfig() {
           <div
             style={{
               backgroundColor: themeVars.cardBg,
-              borderRadius: '6px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
             }}
           >
-            <div style={{ height: '5px', backgroundColor: brandVars.blue.accentBar }} />
+            <div style={{ height: '3px', backgroundColor: brandVars.blue.accentBar }} />
             <div style={{ padding: '1.25rem 1.25rem 1.5rem' }}>
               <div
                 style={{

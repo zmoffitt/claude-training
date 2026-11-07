@@ -1,16 +1,11 @@
 import { ComparisonCards } from "@/components/ComparisonCards";
 import { Callout } from "@/components/Callout";
 
-import { ReadTime } from "@/components/ReadTime";
 export const metadata = {
   title: "Three Eras of Development",
 };
 
 # Three Eras of Development
-
-<ReadTime minutes={2} />
-
-<br />
 
 <ComparisonCards
   cards={[
@@ -18,8 +13,8 @@ export const metadata = {
       title: "No AI",
       subtitle: "Traditional",
       badge: "2\u20135 days",
-      badgeColor: "#D03AD0",
-      color: "#D03AD0",
+      badgeColor: "#727286",
+      color: "#727286",
       steps:
         "Read ticket \u2192 Research \u2192 Write code \u2192 Write tests \u2192 Debug \u2192 PR \u2192 Fix feedback \u2192 Merge",
       takeaway: "You do all the thinking AND all the typing",
@@ -28,8 +23,8 @@ export const metadata = {
       title: "Human IN the Loop",
       subtitle: "AI in your IDE",
       badge: "1\u20133 days",
-      badgeColor: "#00B5E2",
-      color: "#00B5E2",
+      badgeColor: "#727286",
+      color: "#727286",
       steps:
         "Open IDE \u2192 Ask Copilot \u2192 Review \u2192 Ask AI for tests \u2192 Debug manually \u2192 PR \u2192 Merge",
       takeaway: "AI does the typing. You do everything else.",
@@ -38,8 +33,8 @@ export const metadata = {
       title: "Human ON the Loop",
       subtitle: "Describe goal, review output",
       badge: "30\u201360 min",
-      badgeColor: "#0FAC27",
-      color: "#0FAC27",
+      badgeColor: "#6240E8",
+      color: "#6240E8",
       steps:
         "Write task \u2192 Agent plans \u2192 Agent implements \u2192 Agent tests \u2192 Agent creates PR \u2192 You review \u2192 Merge",
       takeaway: "AI does everything. You define the goal and approve.",
@@ -47,7 +42,6 @@ export const metadata = {
   ]}
 />
 
-<br />
 <Callout variant="error" title="Day-one rule" align="left">
   **Never paste passwords, API keys, client secrets, or unmasked PII into any
   Claude interface. We'll cover data handling in depth in Session 5.**

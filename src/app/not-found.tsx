@@ -31,7 +31,7 @@ export default function NotFound() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-400">
           404
         </p>
-        <h1 className="text-balance break-words text-4xl font-extrabold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
+        <h1 className="font-display text-balance break-words text-4xl font-bold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
           That page isn&rsquo;t here.
         </h1>
         <p className="max-w-xl text-pretty text-base text-zinc-600 dark:text-zinc-400">

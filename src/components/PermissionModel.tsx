@@ -12,7 +12,7 @@ const TIERS: Array<Tier> = [
     title: 'Read-only (file reads, grep, glob)',
     description: 'No approval needed. Claude can read any file in your working directory freely.',
     badge: 'No Approval',
-    brand: 'blue',
+    brand: 'green',
   },
   {
     title: 'Bash commands (shell execution)',
@@ -23,7 +23,7 @@ const TIERS: Array<Tier> = [
       </>
     ),
     badge: 'Permanent / Project',
-    brand: 'pink',
+    brand: 'red',
   },
   {
     title: 'File modifications (create, edit, delete)',
@@ -34,7 +34,7 @@ const TIERS: Array<Tier> = [
       </>
     ),
     badge: 'Session Only',
-    brand: 'green',
+    brand: 'amber',
   },
 ]
 
@@ -187,7 +187,7 @@ export function PermissionModel() {
                 top: 0,
                 bottom: 0,
                 width: '5px',
-                backgroundColor: brandVars.pink.accentBar,
+                backgroundColor: brandVars.red.accentBar,
               }}
             />
             <div
@@ -208,7 +208,7 @@ export function PermissionModel() {
                 marginBottom: '0.35rem',
               }}
             >
-              <strong style={{ color: brandVars.pink.text }}>deny</strong>{' '}
+              <strong style={{ color: brandVars.red.text }}>deny</strong>{' '}
               <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}
               <strong style={{ color: themeVars.text }}>ask</strong>{' '}
               <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}

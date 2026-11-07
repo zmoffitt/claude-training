@@ -1,5 +1,5 @@
 import { type Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Bricolage_Grotesque, Inter } from 'next/font/google'
 
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
@@ -11,6 +11,15 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+})
+
+// Display face for H1/H2, hero headlines, and the roadmap numerals. Body stays
+// on Inter: the identity lives in the headings, the reading stays neutral.
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bricolage',
+  axes: ['opsz'],
 })
 
 export const metadata: Metadata = {
@@ -43,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`h-full ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`h-full ${inter.variable} ${bricolage.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
@@ -51,7 +60,7 @@ export default function RootLayout({
           data-* attributes to <body> before React hydrates, which otherwise
           logs a mismatch on every page. Attribute-only; children still check. */}
       <body
-        className="flex min-h-full bg-white antialiased dark:bg-zinc-900"
+        className="flex min-h-full bg-paper antialiased dark:bg-ink"
         suppressHydrationWarning
       >
         <Providers>

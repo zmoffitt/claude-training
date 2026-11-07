@@ -22,8 +22,8 @@ export function ModelTierCards({
           <div
             key={tier.title}
             style={{
-              borderTop: `5px solid ${tier.color}`,
-              borderRadius: '0.5rem',
+              border: '1px solid var(--surface-border)',
+              borderRadius: 'var(--radius-card)',
               backgroundColor: themeVars.cardBg,
               padding: '1.5rem 1.5rem 1.75rem',
               display: 'flex',
@@ -37,17 +37,15 @@ export function ModelTierCards({
                 fontWeight: 700,
                 margin: 0,
                 color: wcagText(tier.color),
-                textAlign: 'center',
               }}
             >
               {tier.title}
             </h3>
             <p
               style={{
-                fontSize: '0.8125rem',
+                fontSize: '0.875rem',
                 margin: '0 0 0.75rem',
                 color: themeVars.textSubtle,
-                textAlign: 'center',
               }}
             >
               {tier.subtitle}

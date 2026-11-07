@@ -1,13 +1,10 @@
 import { Callout } from "@/components/Callout";
-import { ReadTime } from "@/components/ReadTime";
 
 export const metadata = {
   title: "Skills Deep Dive",
 };
 
 # Skills: Reusable Playbooks
-
-<ReadTime minutes={2} />
 
 Markdown files that teach Claude how to do specific tasks — your team's way.
 
@@ -26,8 +23,6 @@ Markdown files that teach Claude how to do specific tasks — your team's way.
 | `.claude/skills/<name>/SKILL.md` | **Entrypoint** | Frontmatter + when-to-use + steps; invoked as `/name` or picked up automatically |
 | `reference.md`, `examples.md` | **Deep docs** | Any sibling file, loaded only when `SKILL.md` points Claude at it |
 | `scripts/` | **Helper scripts** | Optional executables Claude can call via `${CLAUDE_SKILL_DIR}` |
-
-<br />
 
 <Callout variant="info" title="Skill vs. CLAUDE.md" align="left">
   `CLAUDE.md` is **always-on** project context. A skill is **on-demand

@@ -85,8 +85,8 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
                   width: '2rem',
                   textAlign: 'center',
                   fontSize: '1.5rem',
-                  fontStyle: 'italic',
-                  fontWeight: 300,
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 600,
                   lineHeight: 1,
                 }}
               >
@@ -107,7 +107,6 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
                     padding: '0.25rem 0.5rem',
                     borderRadius: '4px',
                     backgroundColor: 'rgba(0,0,0,0.2)',
-                    animation: 'badge-pulse 2.5s ease-in-out infinite',
                   }}
                 >
                   You are here
@@ -152,9 +151,8 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
               textAnchor="middle"
               fill={step.textColor}
               fontSize={38}
-              fontWeight={300}
-              fontStyle="italic"
-              fontFamily="var(--font-sans), ui-sans-serif, system-ui, sans-serif"
+              fontWeight={600}
+              fontFamily="var(--font-display), ui-sans-serif, system-ui, sans-serif"
             >
               {step.number}
             </text>
@@ -192,7 +190,7 @@ export function TrainingRoadmap({ activeStep = 1 }: { activeStep?: number }) {
               />
             )}
             {step.number === activeStep && (
-              <g style={{ animation: 'badge-pulse 2.5s ease-in-out infinite' }}>
+              <g>
                 <rect
                   x={x + (BOX_W - 120) / 2}
                   y={BOX_H + 12}

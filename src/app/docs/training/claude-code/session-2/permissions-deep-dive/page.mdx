@@ -18,8 +18,6 @@ Three tiers of risk — with fine-grained rule syntax.
 
 **Start strict, relax selectively.** Auto mode is now the default, so for an unfamiliar or production-adjacent repo switch to **Manual** (`Shift+Tab`) first. As you learn which commands and edits are safe, add `allow` rules for those specific patterns, then let auto mode handle the rest. Never start with bypass and try to lock down later.
 
-<br />
-
 <Callout variant="error" title="Deny rules are absolute">
   A `deny` rule **always wins**, regardless of where it's defined. This makes
   guardrails reliable: a project-level deny cannot be overridden by a more

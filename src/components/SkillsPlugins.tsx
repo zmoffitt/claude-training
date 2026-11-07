@@ -113,14 +113,13 @@ export function SkillsPlugins() {
                 key={topic.title}
                 style={{
                   backgroundColor: themeVars.cardBg,
-                  borderRadius: '6px',
-                  boxShadow: themeVars.shadow,
+                  borderRadius: 'var(--radius-card)',
+                  border: '1px solid var(--surface-border)',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
                 }}
               >
-                <div style={{ height: '5px', backgroundColor: b.accentBar }} />
                 <div
                   style={{
                     padding: '1.25rem 1.25rem 1.5rem',
@@ -135,7 +134,6 @@ export function SkillsPlugins() {
                       fontSize: '1.125rem',
                       fontWeight: 800,
                       color: b.text,
-                      textAlign: 'center',
                       lineHeight: 1.2,
                     }}
                   >
@@ -145,7 +143,6 @@ export function SkillsPlugins() {
                     style={{
                       fontSize: '0.8125rem',
                       color: themeVars.textMuted,
-                      textAlign: 'center',
                       fontWeight: 500,
                     }}
                   >

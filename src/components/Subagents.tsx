@@ -71,7 +71,7 @@ export function Subagents() {
                 y={134}
                 textAnchor="middle"
                 fill="#ffffff"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={12}
                 fontWeight={700}
               >
@@ -82,7 +82,7 @@ export function Subagents() {
                 y={150}
                 textAnchor="middle"
                 fill="rgba(255,255,255,0.85)"
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={10}
               >
                 Agent
@@ -137,7 +137,7 @@ export function Subagents() {
                     x={sat.cx}
                     y={sat.cy - 3}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={10}
                     fontWeight={600}
                     style={{ fill: brandVars.purple.text }}
@@ -148,7 +148,7 @@ export function Subagents() {
                     x={sat.cx}
                     y={sat.cy + 10}
                     textAnchor="middle"
-                    fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                    fontFamily="var(--font-sans), system-ui, sans-serif"
                     fontSize={9}
                     style={{ fill: 'var(--sa-subagent-label)' }}
                   >
@@ -170,7 +170,7 @@ export function Subagents() {
               <text
                 x={138}
                 y={282}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -188,7 +188,7 @@ export function Subagents() {
               <text
                 x={223}
                 y={282}
-                fontFamily="'Plus Jakarta Sans', system-ui, sans-serif"
+                fontFamily="var(--font-sans), system-ui, sans-serif"
                 fontSize={9}
                 style={{ fill: themeVars.textMuted }}
               >
@@ -200,12 +200,12 @@ export function Subagents() {
           <div
             style={{
               backgroundColor: 'var(--sa-card-bg)',
-              borderRadius: '8px',
-              boxShadow: themeVars.shadow,
+              borderRadius: 'var(--radius-card)',
+              border: '1px solid var(--surface-border)',
               overflow: 'hidden',
             }}
           >
-            <div style={{ height: '5px', backgroundColor: brandVars.purple.accentBar }} />
+            <div style={{ height: '3px', backgroundColor: brandVars.purple.accentBar }} />
             <div style={{ padding: '1.25rem 1.4rem 1.5rem' }}>
               <div
                 style={{

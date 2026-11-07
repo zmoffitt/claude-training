@@ -17,8 +17,6 @@ Every connector and MCP server expands your data perimeter, so treat it accordin
 4. **Audit and rotate.** Treat MCP server credentials like any service principal: rotate keys, log invocations, review on a cadence.
 5. **Use managed Vaults for OAuth tokens.** Claude Managed Agents inject scoped OAuth tokens at session start and refresh them automatically — tokens never sit in env vars or config files.
 
-<br />
-
 <Callout variant="error" title="IAM red lines" align="left">
   Never expose Global Admin tokens to a Claude session. Privileged role changes,
   CA policy mutations, and PIM activations should require human-in-the-loop
