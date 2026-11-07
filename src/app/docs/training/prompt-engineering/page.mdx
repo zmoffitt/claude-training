@@ -16,11 +16,7 @@ A prompt is a work order. The good ones say what, where, why, and what done look
 
 ### Be specific
 
-Vague in, vague out. The model fills every gap you leave with the most average possible answer.
-
-```prompt
-Fix the bug
-```
+Vague in, vague out. "Fix the bug" and "make this better" get the average of better, because the model fills every gap you leave with the most average possible answer. Name the file, the symptom, and the fix you want, and paste the error verbatim. A stack trace is more specific than any paraphrase of it.
 
 ```prompt
 Fix the TypeError in src/api/users.ts:42 where `user.email` is undefined
@@ -33,9 +29,8 @@ UPN. Add a test for the no-email case.
 Include what the model cannot see. In Claude Code, the repo is visible; your intent, constraints, and history are not.
 
 - **What** you're trying to accomplish
-- **Where** in the codebase the change belongs
-- **Why** the current behavior is wrong
-- **How** you'll know it's fixed
+- **Where** in the codebase the change belongs. In Claude Code, type `@` and pick the file; the path lands in the prompt and Claude reads it first.
+- **Why** the current behavior is wrong, and what must not change
 
 Anything you'd repeat on every task belongs in <Term id="claude-md">`CLAUDE.md`</Term>, not in the prompt.
 
@@ -45,7 +40,13 @@ One request, one outcome. For anything with a design decision in it, ask for the
 
 ### Say what done looks like
 
-The single highest-leverage line you can add is a verification step: "then run the tests", "then compare against the original", "then spot-check five rows". The [Verification Pattern](/docs/training/claude-code/session-1/verification-pattern) page has the four forms.
+The fourth item in the work order, and the one most people skip. The single highest-leverage line you can add is a verification step: "then run the tests", "then compare against the original", "then spot-check five rows". The [Verification Pattern](/docs/training/claude-code/session-1/verification-pattern) page has the four forms.
+
+### Rewind instead of correcting
+
+When an attempt goes wrong, "no, not like that" leaves the failed attempt in context, and the next one is shaped by it. In Claude Code, `/rewind` to the message before it and re-ask with the detail that was missing. [Context & Session Management](/docs/training/claude-code/session-2/context-session-management) covers when to rewind, compact, or start fresh.
+
+**The same rules in Copilot.** The comment above the function is the prompt, the signature and your open tabs are the context, and the check is you reading the body before you press `Tab`. [GitHub Copilot](/docs/training/github-copilot) has the rest.
 
 ## Prompt templates
 
@@ -76,7 +77,8 @@ Review [file or diff] for:
 - Security issues (auth bypass, injection, secrets)
 - Error handling gaps
 - Adherence to the conventions in CLAUDE.md
-Report findings by severity. Do not change anything.
+Do not change anything. Report findings by severity and quote the line
+each one points at.
 ```
 
 ### Refactoring
@@ -93,7 +95,8 @@ Run the existing tests before and after; they must still pass unchanged.
 Draft a runbook for [incident type] for the on-call engineer.
 Use the escalation matrix in docs/escalation.md.
 Each step is one action with a command and an expected result.
-Flag any step that needs a privileged role.
+Cite the section of docs/escalation.md each step relies on, and flag
+any step that needs a privileged role.
 ```
 
 <Callout variant="info" title="What the sessions teach" align="left">
@@ -103,15 +106,7 @@ Flag any step that needs a privileged role.
   for the hard ones instead of writing longer prompts.
 </Callout>
 
-## Anti-patterns to avoid
-
-- **Vague requests** — "Make this better" produces the average of better
-- **Too many goals at once** — one prompt, one outcome; chain the rest
-- **No acceptance criteria** — if you can't say what done looks like, the model can't either
-- **Restating the repo** — Claude Code can read it; tell it what it can't see
-- **Correcting instead of rewinding** — "no, not like that" piles failed attempts into context; `/rewind` and re-ask
-
 ## Where to go next
 
-- **[Effective Prompts](/docs/tips/effective-prompts)** — ready-to-use prompts built on these templates
-- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — the line to append to every one of them
+- **[Effective Prompts](/docs/tips/effective-prompts)** — seven prompts that follow this shape, check line included
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — the four forms that check line can take
