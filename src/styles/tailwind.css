@@ -304,7 +304,7 @@
   overflow-x: auto;
   border-radius: 0.5rem;
   --scroll-shadow: light-dark(rgb(0 0 0 / 0.14), rgb(0 0 0 / 0.55));
-  --scroll-bg: light-dark(#ffffff, #18181b);
+  --scroll-bg: light-dark(var(--color-paper), var(--color-ink));
   background:
     linear-gradient(to right, var(--scroll-bg) 30%, transparent),
     linear-gradient(to left, var(--scroll-bg) 30%, transparent) 100% 0,
@@ -324,6 +324,28 @@
 }
 .table-scroll th {
   white-space: nowrap;
+}
+/* Below md the first column stays put while the rest scrolls, so a row keeps
+   its label. Opaque on the page color so scrolled cells pass beneath it; a
+   hairline on its right edge marks the seam. */
+@media (max-width: 767px) {
+  .table-scroll th:first-child,
+  .table-scroll td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    max-width: 45vw;
+    box-shadow: inset -1px 0 0 var(--surface-border);
+  }
+  .table-scroll th:first-child {
+    white-space: normal;
+  }
+  .table-scroll td:first-child {
+    background: var(--scroll-bg);
+  }
+  .prose .table-scroll tbody tr:hover td:first-child {
+    background: color-mix(in oklch, var(--tint-purple) 55%, var(--scroll-bg));
+  }
 }
 
 /* ── Prose rhythm ──

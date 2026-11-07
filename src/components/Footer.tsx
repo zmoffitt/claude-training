@@ -94,7 +94,7 @@ function PageNavigation() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex flex-col gap-8 sm:flex-row">
       {previousPage && (
         <div className="flex flex-col items-start gap-3">
           <PageLink
@@ -106,7 +106,7 @@ function PageNavigation() {
         </div>
       )}
       {nextPage && (
-        <div className="ml-auto flex flex-col items-end gap-3">
+        <div className="flex flex-col items-start gap-3 sm:ml-auto sm:items-end">
           <PageLink
             label="Next"
             page={nextPage}
