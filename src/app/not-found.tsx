@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/Button'
+import { NotFoundSuggestions } from '@/components/NotFoundSuggestions'
 
 export const metadata = {
   title: 'Page not found',
@@ -46,6 +47,7 @@ export default function NotFound() {
           , or head home.
         </p>
       </div>
+      <NotFoundSuggestions />
       <ul className="flex flex-col divide-y divide-zinc-900/10 border-y border-zinc-900/10 dark:divide-white/10 dark:border-white/10">
         {startingPoints.map((s) => (
           <li key={s.href}>
