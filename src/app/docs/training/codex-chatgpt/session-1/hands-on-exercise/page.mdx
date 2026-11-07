@@ -1,0 +1,33 @@
+
+export const metadata = {"title": "Hands-On: Incident Brief to Coding Task | Codex & ChatGPT"};
+
+# Hands-On: Incident Brief to Coding Task
+
+Turn a small evidence set into a verifiable engineering handoff.
+
+**Timebox:** 20 minutes. Use only the synthetic scenario below; no live cloud account is required.
+
+```text
+09:00 — staging deployment r42 completed; retry limit changed 2 → 8.
+09:03 — downstream request latency increased from 100 ms to 2 s.
+09:04 — gateway timeout errors appeared.
+09:07 — retry limit restored to 2.
+09:10 — timeout error rate returned to baseline.
+Unknown: downstream error rate and concurrent request count.
+```
+
+1. In ChatGPT, request a timeline and two hypotheses, with evidence and gaps for each.
+2. Ask it to draft an incident brief for the on-call engineer. Require the unknowns to remain explicit.
+3. Request a Codex task brief for investigating retry behavior in a repository. Include the expected timeout budget and mark it as a requirement still needing a value.
+4. Review the brief. Remove any invented filenames, code paths, or root-cause claims.
+
+## Compare with the expected result
+
+A defensible brief says the retry change and downstream latency are candidates for investigation. It does not claim that restoring the retry limit proves the root cause. The coding task should first locate the retry implementation, establish existing behavior, and propose a test before editing.
+
+**Deliverable:** the brief, one correction you made, and the evidence that justified it. If you have no approved repository for Session 2, use a disposable local sample project.
+
+## Where to go next
+
+- **[Practice: A Grounded Engineering Answer](/docs/training/codex-chatgpt/session-1/practice-assignment)** — bring evidence of one successful task and one useful correction
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

@@ -1,9 +1,17 @@
 import type { MDXComponents } from 'mdx/types'
+import Link from 'next/link'
 import { CodeBlock } from '@/components/CodeBlock'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
+    a({ href, children, ...props }) {
+      // Next Link applies the configured deployment base path to docs links.
+      if (href?.startsWith('/') && !href.startsWith('//')) {
+        return <Link href={href} {...props}>{children}</Link>
+      }
+      return <a href={href} {...props}>{children}</a>
+    },
     pre({ children }) {
       return <div>{children}</div>
     },

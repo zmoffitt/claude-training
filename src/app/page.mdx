@@ -4,20 +4,31 @@ import { TrainingRoadmap } from "@/components/TrainingRoadmap";
 import { HomeSections } from "@/components/HomeSections";
 
 export const metadata = {
-  title: "Claude AI Training",
+  title: "Cloud AI Training",
 };
 
 <PageHero
-  eyebrow={<><span className="hidden sm:inline">Cloud Engineering · </span>Five-session program</>}
+  eyebrow="Cloud Engineering · AI Training"
   title="Your AI Training"
   subtitle="From first prompt to agents you can trust with production. Sessions, reference, and the conventions the team converged on, written by engineers for engineers."
 />
 
-<div className="not-prose mb-10">
-  <Button href="/docs/training/claude-code" variant="filled" arrow="right">
-    Start Session 1
+<div className="not-prose mb-10 flex flex-wrap gap-3">
+  <Button href="/docs/training/codex-chatgpt" variant="filled" arrow="right">
+    Explore Codex & ChatGPT
+  </Button>
+  <Button href="/docs/training/claude-code/session-1" arrow="right">
+    Start Claude training
   </Button>
 </div>
+
+## Codex & ChatGPT track
+
+<div className="not-prose mb-14">
+  <TrainingRoadmap track="codex" activeStep={0} />
+</div>
+
+## Claude track
 
 <div className="not-prose mb-14">
   <TrainingRoadmap activeStep={1} />

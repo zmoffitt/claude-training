@@ -1,0 +1,36 @@
+
+export const metadata = {"title": "The Implementation & Review Loop | Codex & ChatGPT"};
+
+# The Implementation & Review Loop
+
+A finished task includes the diff, the checks, and the limits of the evidence.
+
+## Start with a reproducible defect
+
+Use a small issue in a disposable repository. State observed and expected behavior, including an example input. Ask Codex to investigate before making assumptions about the implementation.
+
+```text
+Find why an empty service name passes validation. Reproduce the
+behavior, make the smallest suitable fix, and add a regression check
+using this project's existing test setup. Preserve the public response
+shape. Run the relevant checks and summarize any untested cases.
+```
+
+## Inspect three layers
+
+1. **Behavior:** does the patch address the failing case and neighboring edge cases, such as whitespace and missing values?
+2. **Implementation:** does it follow existing conventions without unrelated refactors or dependency changes?
+3. **Evidence:** did the checks run against the final patch, and do they exercise the failure?
+
+Ask for a separate review pass focused on regressions. In the CLI, `/review` can review changes; use the [CLI guide](https://learn.chatgpt.com/docs/codex/cli) for available review options. Agent review supplements your review and required CI.
+
+## Write a useful handoff
+
+A good completion report says what changed, which checks ran, and what remains uncertain. “All tests pass” is incomplete if no tests cover the modified behavior. Inspect the actual diff before committing or opening a pull request.
+
+**Rollback drill:** explain how you would revert only this task's changes while preserving unrelated work. If you cannot identify the task's diff, make the scope smaller before proceeding.
+
+## Where to go next
+
+- **[Subagents & Worktrees](/docs/training/codex-chatgpt/session-2/subagents-and-worktrees)** — split independent work and keep ownership explicit
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

@@ -1,0 +1,40 @@
+
+export const metadata = {"title": "Verification That Produces Evidence | Codex & ChatGPT"};
+
+# Verification That Produces Evidence
+
+Check the artifact against an independent source or executable test.
+
+“Review your answer” is a useful prompt, but it is still another model judgment. Make the check concrete and inspect it yourself.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Artifact | Check | Reject the result when… |
+| --- | --- | --- |
+| Incident brief | Compare claims with timestamps in the source | Correlation is presented as established cause |
+| Runbook | Walk the steps in a disposable environment | A prerequisite or recovery step is missing |
+| Code patch | Reproduce the failure, then run a regression check | Only the happy path was tested |
+| IAM proposal | Compare actions, resources, and conditions | Access expands without an explained requirement |
+
+</div>
+
+## Ask for a verification record
+
+```text
+Return the result plus a verification record: source or command,
+observed outcome, and limitations. Separate checks you ran from
+checks you recommend. Do not describe unexecuted checks as passing.
+```
+
+## Make the failure visible
+
+For a bug fix, capture a failing input before changing the code. Confirm that the proposed check detects the old behavior and passes with the fix. A green test that never exercised the bug proves little.
+
+For a written answer, choose one strong factual claim and trace it to the original source. Verify dates, units, and scope. If the source supports only part of the sentence, narrow the sentence.
+
+**Exit criterion:** another engineer can reproduce your check without reconstructing the entire chat.
+
+## Where to go next
+
+- **[Hands-On: Incident Brief to Coding Task](/docs/training/codex-chatgpt/session-1/hands-on-exercise)** — turn a small evidence set into a verifiable engineering handoff
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

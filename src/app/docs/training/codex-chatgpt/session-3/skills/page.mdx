@@ -1,0 +1,39 @@
+
+export const metadata = {"title": "Skills: Reusable Engineering Procedures | Codex & ChatGPT"};
+
+# Skills: Reusable Engineering Procedures
+
+Package a tested workflow with a clear trigger and output contract.
+
+A skill folder contains `SKILL.md` with a name, description, and workflow instructions. Optional references and scripts support the procedure. Codex can discover repository skills in `.agents/skills`; personal skills live under `~/.agents/skills`. Skill metadata helps discovery before the full instructions are loaded. [Build skills](https://learn.chatgpt.com/docs/build-skills).
+
+## Example: runbook review
+
+Save this as `.agents/skills/review-runbook/SKILL.md` in a training repository:
+
+```markdown
+---
+name: review-runbook
+description: Review an operational runbook for missing prerequisites, verification, and rollback. Use for runbook reviews, not live incident execution.
+---
+
+1. Read the supplied runbook. Identify its system and environment.
+2. Check prerequisites, identity assumptions, commands, expected output,
+   rollback, and escalation ownership.
+3. Cite a section for each finding. Mark missing evidence explicitly.
+4. Return a table: severity, section, issue, proposed correction.
+5. Do not execute runbook commands or change external systems.
+```
+
+## Evaluate before sharing
+
+Try three inputs: a complete runbook, one missing rollback, and one with no environment specified. The expected results are different. If every input produces the same generic checklist, revise the instructions.
+
+Test a non-matching request as well: “explain this function” should not need this skill. Clear descriptions reduce accidental activation.
+
+**Maintenance:** version the skill with its examples. Record the failure that motivated each new rule so the skill does not become a collection of unexplained restrictions.
+
+## Where to go next
+
+- **[MCP, Plugins & Connected Sources](/docs/training/codex-chatgpt/session-3/mcp-and-plugins)** — a connected tool adds access; your workflow still needs scope and verification
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic

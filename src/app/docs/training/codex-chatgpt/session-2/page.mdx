@@ -1,0 +1,58 @@
+import { PageHero } from "@/components/PageHero";
+import { SessionOutline } from "@/components/SessionOutline";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+
+export const metadata = {"title": "Codex Workflows & Project Context | Codex & ChatGPT"};
+
+<PageHero eyebrow="Codex & ChatGPT · Session 2 of 3" title="Codex Workflows & Project Context" subtitle="Turn a repository task into a focused, verified patch." />
+
+## What this session covers
+
+<SessionOutline items={[
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/setup-and-surfaces",
+    "title": "Set Up Codex & Choose a Surface",
+    "description": "Start in the intended repository and confirm what the session can access"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/agents-md",
+    "title": "AGENTS.md: Durable Repository Guidance",
+    "description": "Write down the rules an engineer would need on their first day"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/permissions-and-scope",
+    "title": "Permissions, Sandboxing & Scope",
+    "description": "Separate instructions about behavior from enforced access boundaries"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/configuration-and-context",
+    "title": "Configuration & Session Handoffs",
+    "description": "Keep settings, project rules, and task state distinct"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/implementation-and-review",
+    "title": "The Implementation & Review Loop",
+    "description": "A finished task includes the diff, the checks, and the limits of the evidence"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/subagents-and-worktrees",
+    "title": "Subagents & Worktrees",
+    "description": "Split independent work and keep ownership explicit"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/live-demo",
+    "title": "Live Demo: From Repository to Verified Patch",
+    "description": "Walk the full loop in a disposable checkout"
+  },
+  {
+    "href": "/docs/training/codex-chatgpt/session-2/practice-assignment",
+    "title": "Practice: A Reviewable Codex Change",
+    "description": "Complete one bounded repository task from orientation through review"
+  }
+]} />
+
+<TrainingRoadmap track="codex" activeStep={2} />
+
+## Workshop outcome
+
+Bring a focused patch, verification evidence, and a reviewed AGENTS.md. Allow 75 minutes including the live demo.

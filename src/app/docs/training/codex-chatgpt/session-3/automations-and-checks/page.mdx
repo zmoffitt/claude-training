@@ -1,0 +1,33 @@
+
+export const metadata = {"title": "Scheduled Tasks & Deterministic Checks | Codex & ChatGPT"};
+
+# Scheduled Tasks & Deterministic Checks
+
+Prove the workflow once before asking it to run unattended.
+
+Scheduled tasks run a saved workflow on a cadence. Execution context matters: project-scoped desktop tasks require the machine and app to remain running, while web tasks use accessible uploaded or connected sources rather than a persistent local checkout. Review current behavior in the [scheduled tasks guide](https://learn.chatgpt.com/docs/automations).
+
+## Design a useful recurring report
+
+```text
+Every Monday at 09:00 America/New_York, draft a digest of merged PRs
+in the approved training repository from the previous seven days.
+Include PR links, user-visible changes, and missing evidence.
+If the source is unavailable, report that failure explicitly.
+Return the draft for review; do not send messages or change tickets.
+```
+
+Before scheduling, run the prompt manually and check the time range, duplicate handling, repository identity, and output destination. Review the first scheduled runs. Pause the task when the owner or source disappears.
+
+## Keep mechanical checks mechanical
+
+Use scripts and CI for requirements such as type checking, formatting, or forbidden file patterns. A scheduled model review can explain findings, but it should not be the sole enforcement of a deterministic rule.
+
+Do not translate Claude hook event names directly into Codex configuration. When adopting lifecycle hooks, use the current client documentation and test the event, exit behavior, and failure reporting in a disposable project.
+
+**Operational contract:** document the owner, timezone, inputs, permissions, success criteria, failure destination, and stop condition before enabling recurring work.
+
+## Where to go next
+
+- **[Security, Scope & Workflow Evaluation](/docs/training/codex-chatgpt/session-3/security-and-evaluation)** — judge the system by observed outcomes and controlled access
+- **[Training overview](/docs/training/codex-chatgpt)** — choose a session or reference topic
