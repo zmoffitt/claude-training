@@ -4,31 +4,25 @@ import { TrainingRoadmap } from "@/components/TrainingRoadmap";
 import { HomeSections } from "@/components/HomeSections";
 
 export const metadata = {
-  title: "Cloud AI Training",
+  title: "Claude AI Training",
 };
 
 <PageHero
-  eyebrow="Cloud Engineering · AI Training"
-  title="Your AI Training"
-  subtitle="From first prompt to agents you can trust with production. Sessions, reference, and the conventions the team converged on, written by engineers for engineers."
+  eyebrow="Cloud Engineering · Five-session Claude program"
+  title="Your Claude Training"
+  subtitle="Learn Claude through practical engineering work: from your first prompt to repository workflows, skills, and agents. Sessions and reference material written by engineers for engineers."
 />
 
 <div className="not-prose mb-10 flex flex-wrap gap-3">
-  <Button href="/docs/training/codex-chatgpt" variant="filled" arrow="right">
-    Explore Codex & ChatGPT
-  </Button>
-  <Button href="/docs/training/claude-code/session-1" arrow="right">
+  <Button href="/docs/training/claude-code/session-1" variant="filled" arrow="right">
     Start Claude training
   </Button>
+  <Button href="/docs/training/codex-chatgpt" variant="text" arrow="right">
+    Explore Codex & ChatGPT
+  </Button>
 </div>
 
-## Codex & ChatGPT track
-
-<div className="not-prose mb-14">
-  <TrainingRoadmap track="codex" activeStep={0} />
-</div>
-
-## Claude track
+## Your Claude learning path
 
 <div className="not-prose mb-14">
   <TrainingRoadmap activeStep={1} />
