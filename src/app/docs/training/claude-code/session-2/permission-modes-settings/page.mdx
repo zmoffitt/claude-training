@@ -13,6 +13,8 @@ Choose your comfort level — settings cascade through layers.
 
 <PermissionModes />
 
+**The default moved.** Since September 2026 the terminal and VS Code start in **Auto** mode on every plan; the Desktop Code tab still starts in Manual. Two more modes exist: `plan` (read-only until you approve a plan) and `dontAsk` (anything that would prompt is denied, for CI). `Shift+Tab` cycles Manual → Accept Edits → Plan → Bypass → Auto. Note that `auto` and `bypassPermissions` are ignored as a `defaultMode` in a repo's `.claude/settings.json`; set them in your user settings or managed policy, or pass `--permission-mode`.
+
 ## Where to go next
 
 - **[Working Directories & Scope](/docs/training/claude-code/session-2/working-directories-scope)** — Claude operates from where you launch it; scope tight

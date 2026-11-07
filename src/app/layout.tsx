@@ -47,7 +47,13 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="flex min-h-full bg-white antialiased dark:bg-zinc-900">
+      {/* suppressHydrationWarning: browser extensions such as Grammarly add
+          data-* attributes to <body> before React hydrates, which otherwise
+          logs a mismatch on every page. Attribute-only; children still check. */}
+      <body
+        className="flex min-h-full bg-white antialiased dark:bg-zinc-900"
+        suppressHydrationWarning
+      >
         <Providers>
           <div className="w-full">
             <Layout>{children}</Layout>

@@ -16,7 +16,7 @@ Brief description of what this project does.
 ## Tech stack
 
 - Language: TypeScript
-- Framework: Next.js 15 (App Router)
+- Framework: Next.js 16 (App Router)
 - Database: PostgreSQL with Prisma ORM
 - Testing: Vitest + Playwright
 
@@ -49,13 +49,19 @@ Claude Code looks for `CLAUDE.md` in several places:
 
 | Location | Scope |
 |---|---|
-| Project root `CLAUDE.md` | Loaded for everyone working on the project |
+| Project root `CLAUDE.md` (or `.claude/CLAUDE.md`) | Loaded for everyone working on the project |
+| `AGENTS.md` | Read in place of `CLAUDE.md` when a repo has only the vendor-neutral file |
+| `.claude/rules/*.md` | Topic files, optionally scoped to paths with `paths:` frontmatter |
+| `CLAUDE.local.md` | Your personal notes for this project; gitignored |
 | `~/.claude/CLAUDE.md` | Your personal preferences across all projects |
-| Subdirectory `CLAUDE.md` | Loaded when working in that directory |
+| Subdirectory `CLAUDE.md` | Loaded on demand when Claude reads or edits in that directory |
+
+All matching files are concatenated into context; none overrides another.
 
 ## Tips
 
-- Keep it concise — Claude reads the whole file on every session
+- Keep it concise — Claude reads the whole file on every session; aim for under 200 lines and move procedures into skills
 - Focus on things that aren't obvious from the code itself
 - Include the exact commands to build, test, and lint
 - Document non-obvious conventions and decisions
+- Run `/init` to draft one, and `/insights` to find rules worth adding

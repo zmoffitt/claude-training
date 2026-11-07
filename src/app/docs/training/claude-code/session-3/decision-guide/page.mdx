@@ -4,13 +4,13 @@ export const metadata = {
   title: "Decision Guide",
 };
 
-# Skill, Routine, MCP, or Plugin?
+# Skill, Scheduled Task, MCP, or Plugin?
 
 <ReadTime minutes={2} />
 
 <div className="max-w-2xl lg:max-w-3xl">
 
-| When you need to… | Skill | Routine | MCP / Connector | Plugin |
+| When you need to… | Skill | Scheduled task | MCP / Connector | Plugin |
 | --- | :---: | :---: | :---: | :---: |
 | Encode a team workflow Claude should follow | **Best fit** | — | — | — |
 | Pull data from an approved SaaS (M365, GitHub) | — | — | **Built-in connector** | — |
@@ -20,9 +20,9 @@ export const metadata = {
 
 </div>
 
-A **routine** runs a **skill** that uses a **connector**, and the whole thing can ship inside a **plugin**. The interesting decision is usually _which connector / MCP_, and _does it need to run while I'm away_ (routine) or with me at the keyboard (skill).
+A **scheduled task** runs a **skill** that uses a **connector**, and the whole thing can ship inside a **plugin**. The interesting decision is usually _which connector / MCP_, and _does it need to run while I'm away_ (scheduled task) or with me at the keyboard (skill).
 
 ## Where to go next
 
 - **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege, data flows, IAM red lines
-- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — skill + connector + routine, end-to-end
+- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage)** — skill + connector + scheduled task, end-to-end

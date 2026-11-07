@@ -10,7 +10,7 @@ interface LifecycleStage {
 
 const STAGES: Array<LifecycleStage> = [
   { label: 'SessionStart', brand: 'blue' },
-  { label: 'UserPrompt', brand: 'neutral' },
+  { label: 'UserPromptSubmit', brand: 'neutral' },
   { label: 'PreToolUse', brand: 'purple' },
   { label: 'PostToolUse', brand: 'green' },
   { label: 'Stop', brand: 'red' },
@@ -155,7 +155,7 @@ export function HooksLifecycle() {
         <svg
           viewBox="0 0 900 110"
           style={{ width: '100%', maxWidth: '900px', height: 'auto' }}
-          aria-label="Hook lifecycle: SessionStart, UserPrompt, PreToolUse, PostToolUse with tool loop, Stop"
+          aria-label="Hook lifecycle: SessionStart, UserPromptSubmit, PreToolUse, PostToolUse with tool loop, Stop"
         >
           <defs>
             <marker

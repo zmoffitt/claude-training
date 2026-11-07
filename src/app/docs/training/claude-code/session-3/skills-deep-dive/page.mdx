@@ -23,9 +23,9 @@ Markdown files that teach Claude how to do specific tasks — your team's way.
 
 | Path | Role | Notes |
 | --- | --- | --- |
-| `SKILL.md` | **Entrypoint** | Frontmatter + when-to-use + steps |
-| `references/` | **Deep docs** | Loaded only when relevant |
-| `scripts/` | **Helper scripts** | Optional executables Claude can call |
+| `.claude/skills/<name>/SKILL.md` | **Entrypoint** | Frontmatter + when-to-use + steps; invoked as `/name` or picked up automatically |
+| `reference.md`, `examples.md` | **Deep docs** | Any sibling file, loaded only when `SKILL.md` points Claude at it |
+| `scripts/` | **Helper scripts** | Optional executables Claude can call via `${CLAUDE_SKILL_DIR}` |
 
 <br />
 
@@ -33,6 +33,8 @@ Markdown files that teach Claude how to do specific tasks — your team's way.
   `CLAUDE.md` is **always-on** project context. A skill is **on-demand
   expertise**: Claude pulls it in when the task matches its description. Use
   skills for repeatable workflows; use `CLAUDE.md` for project conventions.
+  The older `.claude/commands/*.md` slash commands were folded into skills and
+  still work; write new ones as skills.
 </Callout>
 
 ## Where to go next

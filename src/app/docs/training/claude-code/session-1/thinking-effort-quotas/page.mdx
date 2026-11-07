@@ -10,7 +10,7 @@ export const metadata = {
 
 <ReadTime minutes={2} />
 
-The thinking effort slider controls how deeply Claude reasons before responding.
+Effort controls how deeply Claude reasons before responding. In claude.ai it is a slider; in Claude Code it is `/effort` with five levels: `low`, `medium`, `high`, `xhigh`, `max`.
 
 <EffortScale
   columns={[
@@ -41,13 +41,16 @@ The thinking effort slider controls how deeply Claude reasons before responding.
   ]}
 />
 
+**Know the defaults.** Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium`; older models default to `high`. `xhigh` is the sweet spot for hard agentic coding. Type `ultrathink` anywhere in a prompt to run that one turn at `xhigh`, or pass `--effort xhigh` when you launch. Subagents and skills can pin their own effort in frontmatter, so a cheap helper stays cheap.
+
 <br />
 <Callout variant="warning" title="Why does this matter?" align="left">
-  Higher thinking effort = more quota consumed. Be efficient with context to
+  Higher effort = more tokens = more quota consumed. Raise effort when a wrong
+  answer is expensive; drop it for routine work. Be efficient with context to
   stretch your usage.
 </Callout>
 
 ## Where to go next
 
-- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Sonnet, Opus, Haiku — which fits which job
+- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus, Sonnet, Haiku, Fable — which fits which job
 - **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — best of both at lower cost

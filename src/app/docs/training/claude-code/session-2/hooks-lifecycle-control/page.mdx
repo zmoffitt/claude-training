@@ -14,6 +14,8 @@ Deterministic automation at every stage of a Claude session. Hooks are shell com
 
 <HooksLifecycle />
 
+**Five shown, thirty-plus available.** The diagram covers the events you will use first. The full catalog includes `PermissionRequest`, `PostToolUseFailure`, `SubagentStop`, `PreCompact`, `TeammateIdle`, and `ConfigChange`. The `if` field takes a permission rule such as `Bash(rm *)` so a hook fires only for matching calls, and `"onFailure": "block"` turns a crashed or timed-out hook into a hard stop.
+
 <br />
 
 <Callout variant="success" title="Why use hooks?" align="left">

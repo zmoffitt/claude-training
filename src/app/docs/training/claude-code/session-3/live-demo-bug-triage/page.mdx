@@ -1,11 +1,11 @@
 export const metadata = {
-  title: "Live Demo: Bug Triage Routine",
+  title: "Live Demo: Bug Triage Task",
 };
 
 # Bugs Hiding in Your Inbox
 
 ```text
-# Routine run — 09:02
+# Scheduled task run — 09:02
 
 🐛 Bug-triage sweep
 Scanned: 38 emails, 22 DMs
@@ -23,9 +23,9 @@ Scanned: 38 emails, 22 DMs
 ⏭ Skipped: 0
 ```
 
-That's a single morning sweep — produced by a routine, not a person. Here's what it does.
+That's a single morning sweep — produced by a cloud scheduled task, not a person. Here's what it does.
 
-## Every morning, the routine…
+## Every morning, the task…
 
 - Searches the **last 24 hours of email and Teams DMs**
 - Spots the messages that read like **bug reports**
@@ -33,9 +33,9 @@ That's a single morning sweep — produced by a routine, not a person. Here's wh
 - If yes → **comments** on the existing issue with the new reporter
 - If no → **opens a new issue**, labeled for triage
 
-The pattern: **read** through the M365 connector (read-only), **write** through the GitHub connector. The whole routine runs on Anthropic-managed infrastructure with your scoped OAuth. No tokens on your laptop, no manual triage at 9 AM.
+The pattern: **read** through the M365 connector (write tools left disabled), **write** through the GitHub connector. The whole task runs on Anthropic-managed infrastructure with your scoped OAuth. No tokens on your laptop, no manual triage at 9 AM.
 
 ## Where to go next
 
-- **[Practice Assignment](/docs/training/claude-code/session-3/practice-assignment)** — build your own routine for the week ahead
+- **[Practice Assignment](/docs/training/claude-code/session-3/practice-assignment)** — design your own scheduled task for the week ahead
 - **[Automation Primitives](/docs/training/claude-code/session-3/automation-primitives)** — pick the right scheduling surface for your version

@@ -2,21 +2,22 @@ import { Callout } from "@/components/Callout";
 import { ReadTime } from "@/components/ReadTime";
 
 export const metadata = {
-  title: "Cloud Routines",
+  title: "Cloud Scheduled Tasks",
 };
 
-# Cloud Routines
+# Cloud Scheduled Tasks
 
 <ReadTime minutes={3} />
 
-Claude on autopilot — scheduled work that runs on Anthropic infrastructure, not your laptop. Currently a **research preview**.
+Claude on autopilot — scheduled work that runs on Anthropic infrastructure, not your laptop. Anthropic renamed these from **routines** to **scheduled tasks** in late 2026; the old name still shows in some menus and in the `claude.ai/code/routines` URL. Still a **research preview**.
 
-## What a routine is
+## What a scheduled task is
 
-- A saved prompt + repos + connectors, run on a schedule
-- Three triggers: **schedule** (cron), **API** (webhook), **GitHub event**
-- Runs as _you_ — your connectors, your identity, your audit trail
-- Create at `claude.ai/code/routines` or with `/schedule` in the Claude Code CLI
+- A saved prompt + repos + connectors, run automatically as a full Claude Code cloud session
+- Three triggers, combinable on one task: **schedule** (cron, or a one-off future time), **API** (HTTP POST with a bearer token), **GitHub event** (PRs, releases, draft-to-ready)
+- Runs as _you_ — your connectors, your identity, your audit trail — and counts against your account's usage
+- Create at `claude.ai/code/routines`, from the Desktop app's **Scheduled** page, or with `/schedule` in any Claude Code session (`/schedule daily PR review at 9am`, `/schedule list`, `/schedule run`)
+- Runs in auto mode by default, so write prompts that say what success looks like and where to stop
 - Tokens and secrets live in the managed environment, not on your machine
 
 ## Example: morning email triage
@@ -31,19 +32,22 @@ Read unread Outlook mail since 6 PM yesterday. Classify each into:
   - noise   (ignore)
 
 Emit a grouped summary as this run's output with subject lines and
-proposed actions. I'll review it in the routines panel.
+proposed actions. I'll review it in the scheduled-tasks panel.
 Do not send any replies.
 ```
 
 <br />
 
-<Callout variant="warning" title="One real constraint" align="left">
-  The M365 connector is **read-only** for email and chat today. Routines that
-  need a write action go through GitHub, a CLI shell-out, or an outgoing
-  webhook. You'll see this pattern in the live demo.
+<Callout variant="warning" title="Write access is a policy decision now" align="left">
+  The M365 connector can send mail, manage calendar events, post to Teams, and
+  write SharePoint files, but write tools are **off by default** and an admin
+  must enable them per organization, with each write approved individually.
+  Keep triage tasks read-only by prompt and by scope. Route writes through
+  GitHub, a CLI shell-out, or an outgoing webhook until your org has approved
+  M365 write tools. You'll see this pattern in the live demo.
 </Callout>
 
 ## Where to go next
 
-- **[Automation Primitives](/docs/training/claude-code/session-3/automation-primitives)** — routines vs. local Desktop tasks vs. `/loop` vs. Monitor
-- **[Live Demo: Bug Triage Routine](/docs/training/claude-code/session-3/live-demo-bug-triage)** — a routine end-to-end
+- **[Automation Primitives](/docs/training/claude-code/session-3/automation-primitives)** — cloud tasks vs. local Desktop tasks vs. `/loop` vs. Monitor
+- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage)** — a scheduled task end-to-end

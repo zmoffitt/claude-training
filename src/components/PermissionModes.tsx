@@ -10,8 +10,9 @@ interface Mode {
 
 const MODES: Array<Mode> = [
   {
-    title: 'Ask Every Time',
-    tagline: 'Default • Maximum control',
+    title: 'Manual',
+    setting: 'default',
+    tagline: 'Maximum control • Desktop default',
     bullets: [
       'Permission prompt for every write and command',
       'Best for learning, unfamiliar repos',
@@ -20,15 +21,26 @@ const MODES: Array<Mode> = [
     brand: 'blue',
   },
   {
-    title: 'Auto-Approve',
+    title: 'Accept Edits',
     setting: 'acceptEdits',
-    tagline: 'Best balance',
+    tagline: 'Edits flow, commands still ask',
     bullets: [
-      'Allow specific categories (reads, safe commands)',
-      'Best for daily dev in trusted repos',
-      'Still asks for risky operations',
+      'File edits and safe filesystem commands in your working directory',
+      'Best for iterating on code you review in git diff',
+      'Still asks for other shell commands and network access',
     ],
     brand: 'green',
+  },
+  {
+    title: 'Auto',
+    setting: 'auto',
+    tagline: 'Terminal & VS Code default',
+    bullets: [
+      'A classifier model reviews every action before it runs',
+      'Blocks escalation, unknown infrastructure, hostile-content actions',
+      'Your deny and ask rules still apply',
+    ],
+    brand: 'purple',
   },
   {
     title: 'Bypass All',

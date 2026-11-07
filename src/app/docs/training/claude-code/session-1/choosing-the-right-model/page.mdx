@@ -12,50 +12,95 @@ export const metadata = {
 
 Match the model to the task — the biggest lever for managing token consumption.
 
+**The current lineup is the Claude 5 family.** Opus 5.5 is the default on every plan and in Claude Code. Sonnet 5.5 and Haiku 5.5 sit below it; Fable 5.1 sits above it, selected with `/model fable` (or `best`, which falls back to Opus where Fable is unavailable). Run `/model` in Claude Code to see what your plan offers.
+
 <ModelTierCards
   tiers={[
     {
-      title: "Opus",
-      subtitle: "Deepest reasoning \u2022 Highest cost",
+      title: "Fable 5.1",
+      subtitle: "Most capable • Highest cost",
+      color: "#D03AD0",
+      items: [
+        "Hardest, longest-running agentic work",
+        "Problems Opus could not crack",
+        "Deep multi-system investigations",
+        "Not the default on any plan",
+      ],
+    },
+    {
+      title: "Opus 5.5",
+      subtitle: "Default • Deepest everyday reasoning",
       color: "#00B5E2",
       items: [
         "Architecture & design decisions",
         "Complex debugging across systems",
         "Security analysis & CA policy review",
-        "Multi-step reasoning & planning",
+        "Agentic coding and multi-step plans",
       ],
     },
     {
-      title: "Sonnet",
-      subtitle: "Everyday workhorse \u2022 Best balance",
+      title: "Sonnet 5.5",
+      subtitle: "Faster • Half the price",
       color: "#6B5CF5",
       items: [
         "Script writing & code generation",
         "Log analysis & troubleshooting",
         "Drafting runbooks & documentation",
-        "Most day-to-day DevOps & IAM tasks",
+        "Subagents and routine DevOps & IAM tasks",
       ],
     },
     {
-      title: "Haiku",
-      subtitle: "Fast & lightweight \u2022 Lowest cost",
+      title: "Haiku 5.5",
+      subtitle: "Fastest • Lowest cost",
       color: "#0FAC27",
       items: [
         "Quick lookups & definitions",
         "Boilerplate & template generation",
         "Simple reformatting & conversion",
-        "Summarizing short documents",
+        "High-volume summarization and triage",
       ],
     },
   ]}
 />
 
+## Current pricing
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Model | Input / output per 1M tokens | Context |
+| --- | --- | --- |
+| Fable 5.1 | $10 / $50 | 1M |
+| Opus 5.5 | $4 / $20 | 1M |
+| Sonnet 5.5 | $2 / $10 | 1M |
+| Haiku 5.5 | $0.10 / $0.50 (higher above 100K-token prompts) | 1M |
+
+</div>
+
+## Legacy models you'll still meet
+
+The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform or an older org default.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Model | Price (in / out per 1M) | Where it still shows up |
+| --- | --- | --- |
+| Fable 5 | $10 / $50 | What `fable` resolves to in Claude apps gateway sessions |
+| Opus 5 | $5 / $25 | Older Enterprise org defaults; Opus 5.5 is cheaper and stronger |
+| Opus 4.8 / 4.7 | $5 / $25 | 1M context by default; fast mode on 4.8 is retired on 30 Nov 2026 |
+| Opus 4.6 | $5 / $25, 200K unless `[1m]` | The `opus` alias on Microsoft Foundry |
+| Sonnet 5 | $2 / $10 | The auto-mode classifier model |
+| Sonnet 4.6 | $3 / $15, 200K unless `[1m]` | The `sonnet` alias on Claude Platform on AWS |
+| Sonnet 4.5 / Haiku 4.5 | 200K only | The `sonnet` and `haiku` aliases on Bedrock, Google Cloud, and Foundry |
+
+</div>
+
 <br />
 <Callout variant="info" title="Rule of thumb:" align="left">
-  Start with Sonnet. Escalate to Opus when the task requires deep reasoning or
-  you're not getting good results. Drop to Haiku for quick, simple tasks. In
-  Claude Code, use **Opus plan mode** — Opus plans the approach, Sonnet executes
-  it — best of both at lower cost.
+  Stay on Opus 5.5 for interactive work: it is the default, and lower effort on
+  Opus often beats a smaller model at high effort. Drop to Sonnet or Haiku for
+  subagents, bulk jobs, and scheduled tasks where volume matters more than
+  depth. Reach for Fable only when Opus is not getting there. In Claude Code,
+  `/model opusplan` keeps Opus for plan mode and switches to Sonnet to execute.
 </Callout>
 
 ## Where to go next

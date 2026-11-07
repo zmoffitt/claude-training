@@ -3,7 +3,7 @@ import { themeVars, brandVars } from '@/lib/theme-colors'
 const SATELLITES = [
   { label: 'Explore', cx: 60, cy: 40 },
   { label: 'Plan', cx: 280, cy: 40 },
-  { label: 'Research', cx: 60, cy: 240 },
+  { label: 'General', cx: 60, cy: 240 },
   { label: 'Custom', cx: 280, cy: 240 },
 ]
 
@@ -11,7 +11,8 @@ const BULLETS: Array<React.ReactNode> = [
   <>Spawned for a <strong>specific, focused task</strong></>,
   <>Own context window — <strong>isolated</strong></>,
   <>Reports results back, then <strong>terminates</strong></>,
-  <>No peer-to-peer communication</>,
+  <>Runs in the <strong>background</strong> by default; a <strong>fork</strong> inherits your conversation</>,
+  <>Can spawn its own subagents, three levels deep</>,
   <>Lower token cost, short-lived</>,
 ]
 
@@ -31,7 +32,7 @@ export function Subagents() {
             <svg
               viewBox="0 0 340 290"
               style={{ width: '100%', maxWidth: '340px', height: 'auto', display: 'block' }}
-              aria-label="Subagent hub-and-spoke: Main Agent at center, four subagents (Explore, Plan, Research, Custom) around it. Dashed pink arrows indicate spawn; solid purple arrows indicate result."
+              aria-label="Subagent hub-and-spoke: Main Agent at center, four subagents (Explore, Plan, General, Custom) around it. Dashed pink arrows indicate spawn; solid purple arrows indicate result."
             >
               <defs>
                 <marker

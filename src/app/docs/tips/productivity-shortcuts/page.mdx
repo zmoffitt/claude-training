@@ -10,19 +10,28 @@ Quick tricks to speed up your workflow with AI tools.
 
 ### Slash commands
 
-| Command    | Description                                                |
-| ---------- | ---------------------------------------------------------- |
-| `/help`    | Show available commands                                    |
-| `/clear`   | Clear conversation history                                 |
-| `/compact` | Summarize conversation to save context                     |
-| `/cost`    | Show token usage for the session                           |
-| `/export`  | Exports the current conversation to clipboard or text file |
+| Command     | Description                                                            |
+| ----------- | ---------------------------------------------------------------------- |
+| `/help`     | Show available commands                                                |
+| `/clear`    | Clear conversation history                                             |
+| `/compact`  | Summarize conversation to save context (also runs automatically)       |
+| `/rewind`   | Jump back to an earlier point, dropping a failed attempt               |
+| `/usage`    | Token usage and cost for the session (replaced `/cost` and `/stats`)   |
+| `/model`    | Switch model (`opus`, `sonnet`, `haiku`, `fable`, `opusplan`)          |
+| `/effort`   | Set reasoning depth: `low`, `medium`, `high`, `xhigh`, `max`           |
+| `/fast`     | Toggle fast mode on Opus for 2.5× output speed at a higher price       |
+| `/plan`     | Enter plan mode, optionally with a task: `/plan fix the auth bug`      |
+| `/schedule` | Create or manage cloud scheduled tasks                                 |
+| `/insights` | Generate a personal usage and friction report from local sessions     |
+| `/export`   | Export the current conversation to clipboard or a text file            |
 
 ### Keyboard shortcuts
 
-- `Esc` — Cancel the current AI response
-- `Ctrl+C` — Exit Claude Code
-- `!command` — Run a shell command inline
+- `Esc` — Interrupt Claude mid-turn; `Esc Esc` opens the rewind menu
+- `Shift+Tab` — Cycle permission modes (Manual → Accept Edits → Plan → Bypass → Auto)
+- `Ctrl+C` — First press clears the input, second press exits; `Ctrl+D` exits directly
+- `!command` — Run a shell command inline and add its output to the session
+- `ultrathink` in a prompt — Run that one turn at `xhigh` effort
 
 ### Quick patterns
 

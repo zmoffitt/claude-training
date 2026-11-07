@@ -9,7 +9,7 @@ export const metadata = {
 
 <ReadTime minutes={2} />
 
-Persistent instructions that travel with your repo — three levels deep.
+Persistent instructions that travel with your repo — from your home directory down to the module you're editing.
 
 ## What CLAUDE.md does
 
@@ -19,20 +19,25 @@ Persistent instructions that travel with your repo — three levels deep.
 - Loaded automatically when Claude enters the directory
 - Shared with the team via git — everyone benefits
 
-## The three-level hierarchy
+## The hierarchy
 
 | Path | Scope | Shared? |
 | --- | --- | --- |
 | `~/.claude/CLAUDE.md` | **Personal global** — your style and conventions | No |
 | `./CLAUDE.md` | **Project root** — architecture, deploy rules | Yes (via git) |
-| `./modules/auth/CLAUDE.md` | **Nested directory** — module overrides | Yes (via git); closer files win |
+| `./.claude/rules/*.md` | **Project rules** — one topic per file, optionally path-scoped | Yes (via git) |
+| `./modules/auth/CLAUDE.md` | **Nested directory** — module context, loaded when Claude touches that folder | Yes (via git) |
+| `./CLAUDE.local.md` | **Personal, per-project** — sandbox URLs, test data | No (gitignored) |
 
 <br />
 
-<Callout variant="info" title="Think CSS specificity" align="left">
-  Claude **merges** all three levels. Global is the base, project overrides
-  global, directory overrides project. Keep the root `CLAUDE.md` under ~5K
-  tokens to protect your context budget.
+<Callout variant="info" title="They concatenate, they don't override" align="left">
+  Claude loads every file from the filesystem root down to your working
+  directory and **appends** them in order; nested files load on demand when
+  Claude reads or edits in that folder. If two files disagree, Claude may pick
+  either, so keep them consistent. Target under ~200 lines per file to protect
+  adherence and context budget. Repos with an `AGENTS.md` and no `CLAUDE.md`
+  are read too.
 </Callout>
 
 ## Where to go next

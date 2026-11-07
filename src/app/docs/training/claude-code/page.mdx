@@ -33,13 +33,11 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 Navigate to your project directory and launch Claude Code:
 
 ```bash
-> cd your-project
-> claude
-> claude /init ### This command initializes Claude's understanding of your
-               ### project and may take a few minutes on the first run
+cd your-project
+claude
 ```
 
-Claude will analyze your project structure and be ready to assist.
+Then, inside the session, run `/init`. Claude scans the project and drafts a `CLAUDE.md` with its conventions and commands. This can take a few minutes on a large repo. Review the draft before committing it.
 
 ## Key features
 

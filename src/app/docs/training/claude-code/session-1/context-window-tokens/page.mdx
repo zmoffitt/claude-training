@@ -12,24 +12,26 @@ Understanding the economics of every conversation.
 
 ## Context Window Sizes
 
-- **200K** tokens (default) — ~150K words
-- **1M** tokens with Opus (opt-in) — entire codebases in one window
+- **1M tokens** is now the default for the Claude 5 family and Opus 4.7+ — roughly 750K words, enough for an entire mid-sized codebase
+- **200K tokens** on older models (Opus 4.6, Sonnet 4.6, Haiku 4.5), or on any model if you set `CLAUDE_CODE_DISABLE_1M_CONTEXT=1` to keep sessions smaller
+- A bigger window is not free: every token you carry is re-read on every turn, and attention spreads thinner as it fills
 
 ## Input vs. Output Tokens
 
 - **Input tokens** — what you send: prompts, files, conversation history, system instructions
 - **Output tokens** — what Claude generates: responses, code, analysis (costs ~5x more per token)
+- **Cached input** — Claude Code caches the stable prefix of a session, so a long but unchanged history costs a fraction of a fresh read. Idle for an hour and the cache expires.
 
 ## Context Compounding — Why Long Conversations Get Expensive
 
 - Every message re-sends the ENTIRE conversation history: Claude is stateless
 - Message 1 costs X tokens. Message 10 costs 10X+ because all prior context is included
 - Files, tool outputs, and previous responses all accumulate in the window
-- When context fills up, older content gets compressed or dropped — quality degrades
+- When context nears the limit, Claude Code **auto-compacts**: it summarizes the session (lossy) and continues. Quality degrades before that point, not just after it.
 
 > *Treat sessions like git commits: finish a task, start fresh. Don't carry yesterday's context into today's work.*
 
 ## Where to go next
 
 - **[Thinking Effort, Models, & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas)** — match model and depth to the task
-- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Sonnet by default, escalate when you need to
+- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus by default, Sonnet and Haiku for volume

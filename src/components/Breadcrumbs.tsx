@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePagePath } from '@/lib/usePagePath'
 
 import { focusRing } from '@/lib/focusRing'
 import { navigation, type NavLinkItem } from '@/components/Navigation'
@@ -29,7 +29,7 @@ function findTrail(
 }
 
 export function Breadcrumbs() {
-  const pathname = usePathname()
+  const pathname = usePagePath()
 
   let trail: Array<Crumb> | null = null
   for (const group of navigation) {
