@@ -85,10 +85,15 @@ export function SidebarResizeHandle() {
       aria-valuemax={MAX_WIDTH}
       aria-valuenow={width}
       style={{
-        position: 'absolute',
+        // Fixed to the viewport, like the Header, rather than positioned in
+        // the sidebar: the sidebar scrolls, so a handle laid out inside it
+        // adds sideways overflow and scrolls away with the nav. The sidebar
+        // starts at the left edge, so `width` is where its right border is;
+        // the handle covers 3px inside that border, the border, and 1px past.
+        position: 'fixed',
         top: 0,
-        right: -2,
         bottom: 0,
+        left: width - 4,
         width: '5px',
         cursor: 'col-resize',
         zIndex: 50,
