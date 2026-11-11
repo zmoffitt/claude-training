@@ -37,7 +37,7 @@ Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScri
 
 ### MDX Pipeline
 
-Content flows through: `next.config.mjs` (configures remark-gfm + rehype-slug) → `mdx-components.tsx` (root-level, maps fenced code blocks to `CodeBlock` by their language tag, wraps every markdown table in a focusable `.table-scroll` region for narrow-viewport scroll) → `CodeBlock.tsx` (theme-aware syntax highlighting via react-syntax-highlighter with oneLight/oneDark themes).
+Content flows through: `next.config.mjs` (configures remark-gfm + rehype-slug) → `mdx-components.tsx` (root-level, routes every fenced code block to `CodeBlock` from its `<pre>`, tagged or not, wraps every markdown table in a focusable `.table-scroll` region for narrow-viewport scroll) → `CodeBlock.tsx` (theme-aware syntax highlighting via react-syntax-highlighter with oneLight/oneDark themes).
 
 Internal root-relative Markdown links are rendered with Next.js `Link`, which applies the configured base path. Write `/docs/...` links without hard-coding the deployment prefix; external and fragment links remain ordinary anchors.
 
@@ -72,7 +72,7 @@ export const metadata = { title: "Page Title" };
 - *Comparison-led*: `PillarCards` or `ProConCards` as the focal element.
 - *Narrative-led*: example, code block, or numbered walkthrough as the focal element.
 
-Fenced code blocks are routed to `CodeBlock` by their language tag — no import needed. Tag every fence: `text` for plain text, `prompt` for a prompt meant to be pasted into Claude. Custom components must be explicitly imported. Key reusable components:
+Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fence: `text` for plain text, `prompt` for a prompt meant to be pasted into Claude; an untagged fence still renders as a code block, labeled plain text. Custom components must be explicitly imported. Key reusable components:
 
 - **`Callout`** — Alert box with `variant` (`error` | `warning` | `info` | `success`), `title`, and `align` props
 - **`ReadTime`** — `<ReadTime minutes={N} />` chip placed directly under the H1 on content pages of three minutes or more (shorter pages, landing pages, practice assignments, and live demos omit it)
@@ -99,7 +99,7 @@ Fenced code blocks are routed to `CodeBlock` by their language tag — no import
 
 ### Page Transitions
 
-`src/lib/pageTransition.ts` wraps page changes in the View Transitions API. `PageTransitions` (mounted in `Layout`) intercepts in-site link clicks in the capture phase and `KeyboardNav` (the ←/→ previous/next-page shortcut) calls the same `navigateWithTransition`; both fall back to `router.push` without the API, under reduced motion, or while a transition is running. Named groups: `sidebar` (holds still), `nav-marker` / `nav-highlight` (glide; the framer `layout` animation stands down via `useTransitionActive` so the snapshot shows the settled row), `breadcrumbs` (crossfade), `article` (fade-through with a slide in the direction of travel, from the page order in `allPages`). Rules live under "Page transitions" in `tailwind.css`. Mark a link `data-transition="none"` to keep its own click handling.
+`src/lib/pageTransition.ts` wraps page changes in the View Transitions API. `PageTransitions` (mounted in `Layout`) intercepts in-site link clicks in the capture phase and `KeyboardNav` (the ←/→ previous/next-page shortcut) calls the same `navigateWithTransition`; both fall back to `router.push` without the API, under reduced motion, or while a transition is running. `KeyboardNav` stands down when the event is already `defaultPrevented`, when the focus is on or inside a sideways scroll container that is a tab stop (the `.table-scroll` region, so a link inside a table keeps the keys for the table), or when it is on a container that overflows sideways (a code block with a long line). It also ignores modified keys, form fields, editable text, and dialogs. A component that uses the arrow keys calls `preventDefault` on them, and `KeyboardNav` then needs no change. Named groups: `sidebar` (holds still), `nav-marker` / `nav-highlight` (glide; the framer `layout` animation stands down via `useTransitionActive` so the snapshot shows the settled row), `breadcrumbs` (crossfade), `article` (fade-through with a slide in the direction of travel, from the page order in `allPages`). Rules live under "Page transitions" in `tailwind.css`. Mark a link `data-transition="none"` to keep its own click handling.
 
 ### Theming
 

@@ -243,6 +243,13 @@
    * Components reference these as var(--...) in inline styles so first
    * paint is already correct in dark mode (no FOLM per component). */
   :root {
+    /* The blocking script sets color-scheme inline; it is declared here too
+     * because the build lowers every light-dark() in this file to a pair of
+     * switches that exist only under a color-scheme it can see in CSS.
+     * Without it a light-dark() resolves to both of its colors at once,
+     * which is no color at all. `.dark` below carries the other half. */
+    color-scheme: light;
+
     /* Pulse neutral semantic tokens */
     --theme-card-bg: oklch(96.8% 0.014 292);
     --theme-card-bg-white: oklch(98.9% 0.005 292);
@@ -374,6 +381,8 @@
   }
 
   .dark {
+    color-scheme: dark;
+
     /* Pulse neutral semantic tokens (dark)
      * Text values adjusted upward from Pulse defaults for WCAG AAA (7:1)
      * on card surfaces (#232323). */
@@ -475,12 +484,19 @@
   }
   .table-scroll th:first-child {
     white-space: normal;
+    /* The header tint is translucent in dark: lay it over the page color so
+       the scrolled headings pass beneath this cell too. */
+    background: linear-gradient(var(--tint-purple), var(--tint-purple)), var(--scroll-bg);
   }
   .table-scroll td:first-child {
     background: var(--scroll-bg);
   }
+  /* Same for the row hover: the wash a hovered row gets, over the page color.
+     Mixing the tint into the page color instead leaves the cell see-through
+     in dark, where the tint carries its own alpha. */
   .prose .table-scroll tbody tr:hover td:first-child {
-    background: color-mix(in oklch, var(--tint-purple) 55%, var(--scroll-bg));
+    --wash: color-mix(in oklch, var(--tint-purple) 55%, transparent);
+    background: linear-gradient(var(--wash), var(--wash)), var(--scroll-bg);
   }
 }
 
