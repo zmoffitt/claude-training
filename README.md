@@ -36,7 +36,7 @@ GitHub Copilot and Prompt Engineering are standalone pages beside the two tracks
 ## Prerequisites
 
 - **Node.js** >= 20.9 (the Next.js 16 minimum; CI builds on Node 22)
-- **pnpm** >= 10 — install via `corepack enable` or `npm install -g pnpm`
+- **pnpm** >= 10 — install via `corepack enable` (bundled with Node below 25) or `npm install -g pnpm`
 
 ## Getting Started
 
@@ -79,6 +79,7 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 
 ```
 .
+├── .github/workflows/     # GitHub Pages deploy (deploy-pages.yml)
 ├── src/
 │   ├── app/
 │   │   ├── docs/          # MDX documentation pages (file-based routing)
@@ -86,7 +87,7 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 │   │   ├── providers.tsx  # Theme and motion providers
 │   │   ├── page.mdx       # Home page
 │   │   ├── not-found.tsx  # 404 page
-│   │   └── error.tsx      # Runtime error boundary
+│   │   └── error.tsx      # Error boundary for page content
 │   ├── components/        # React components (Navigation, CodeBlock, etc.)
 │   ├── lib/               # Utilities, hooks, glossary data
 │   └── styles/            # Tailwind CSS and design tokens
@@ -95,24 +96,25 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 ├── next.config.mjs        # Static export, base path, MDX plugins
 ├── scripts/
 │   ├── preview.mjs        # Static server behind `pnpm start`
-│   └── color-audit.py     # Contrast check for every text token
+│   └── color-audit.py     # Contrast report for the main text tokens
 └── public/                # Static files (.nojekyll)
 ```
 
 ## Adding Documentation
 
 1. Create a new MDX file at `src/app/docs/<section>/<slug>/page.mdx`
-2. Add a corresponding entry to the `navigation` array in `src/components/Navigation.tsx`
+2. Give it a title with `export const metadata = { title: "Page Title" };` (the browser tab title)
+3. Add a corresponding entry to the `navigation` array in `src/components/Navigation.tsx`
 
-MDX pages support GitHub Flavored Markdown (tables, strikethrough, task lists) and auto-generate heading anchor IDs. Write internal links as `/docs/...`; the base path is applied for you.
+MDX pages support GitHub Flavored Markdown (tables, strikethrough, task lists) and auto-generate heading anchor IDs. Write internal links as `/docs/...` without the `/claude-training` prefix; `next/link` adds the base path.
 
 ### Page conventions
 
 Content pages follow `# H1 → <ReadTime minutes={N} /> (pages of 3+ minutes only) → one-line tagline → body → ## Where to go next`. Reuse:
 
-- `<Callout>` — one per page, reserved for the single most important call-out
+- `<Callout>` — at most one per page, reserved for the single most important call-out
 - `<ReadTime minutes={N} />` — chip under the H1 on content pages of three minutes or more
 - `<PillarCards />` / `<ProConCards />` — card-grid visualizations that stack responsively
-- `<PageHero />` / `<SessionOutline />` / `<TrainingRoadmap />` — home and session landing-page primitives
+- `<PageHero />` / `<SessionOutline />` / `<TrainingRoadmap />` — landing-page primitives (the home page uses `PageHero` and `TrainingRoadmap` only)
 
-`CLAUDE.md` and `AGENTS.md` hold the full component inventory, architecture notes, and design conventions for coding agents (Claude Code and Codex respectively); `.impeccable.md` holds the design context.
+`CLAUDE.md` and `AGENTS.md` list the key components and hold the architecture notes and design conventions for coding agents (Claude Code and Codex respectively); `.impeccable.md` holds the design context.
