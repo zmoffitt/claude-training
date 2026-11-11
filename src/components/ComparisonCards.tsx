@@ -66,7 +66,7 @@ export function ComparisonCards({
                   style={{
                     display: 'inline-block',
                     backgroundColor: safeBadgeBg,
-                    color: '#ffffff',
+                    color: 'var(--on-accent)',
                     fontSize: '0.875rem',
                     fontWeight: 600,
                     padding: '0.375rem 1.25rem',

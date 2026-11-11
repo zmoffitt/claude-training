@@ -86,15 +86,16 @@ const TOKENS_BY_LINE: Array<Array<Token>> = [
   [{ kind: 'punct', text: '}' }],
 ]
 
-// Colors for the dark terminal code block — always dark, so fixed hex is fine.
+// Colors for the terminal code block. It is dark in both themes; the tokens
+// (tailwind.css) carry one set per theme so it matches the dark palette.
 const tokenColor: Record<Token['kind'], string> = {
-  comment: '#A3A4A4',
-  key: '#858DF8',
-  string: '#9CE390',
-  punct: '#DFE0DF',
-  plain: '#DFE0DF',
-  newline: '#DFE0DF',
-  indent: '#DFE0DF',
+  comment: 'var(--hl-terminal-comment)',
+  key: 'var(--hl-terminal-key)',
+  string: 'var(--hl-terminal-string)',
+  punct: 'var(--hl-terminal-fg)',
+  plain: 'var(--hl-terminal-fg)',
+  newline: 'var(--hl-terminal-fg)',
+  indent: 'var(--hl-terminal-fg)',
 }
 
 const codeStyle: React.CSSProperties = {
@@ -347,7 +348,7 @@ export function HooksLifecycle() {
                 margin: 0,
                 padding: '1rem 1.25rem',
                 backgroundColor: 'var(--hl-terminal-bg)',
-                color: '#EBEDEC',
+                color: 'var(--hl-terminal-fg)',
                 fontFamily: '"SF Mono", Menlo, Consolas, monospace',
                 fontSize: '0.8125rem',
                 lineHeight: 1.55,

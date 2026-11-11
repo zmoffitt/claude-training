@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
+import { switchThemeWithTransition } from '@/lib/themeTransition'
 
 function SunIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -33,6 +34,7 @@ export function ThemeToggle() {
   // The incoming icon turns in only after a click, never on page load.
   // next-themes suppresses transitions while the theme flips, so this is a
   // keyframe animation; the key remounts the icon so it replays each time.
+  // The page itself crossfades between themes (lib/themeTransition.ts).
   let [toggled, setToggled] = useState(false)
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export function ThemeToggle() {
       aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
       onClick={() => {
         setToggled(true)
-        setTheme(otherTheme)
+        switchThemeWithTransition(() => setTheme(otherTheme))
       }}
     >
       <span key={mounted ? resolvedTheme : 'ssr'} className="contents">

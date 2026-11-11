@@ -31,40 +31,40 @@ Claude is the **client**. An **MCP server** exposes tools and data over JSON-RPC
   </desc>
   <defs>
     <marker id="arr-call" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="light-dark(#15803d, #22c55e)" />
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--brand-green-text)" />
     </marker>
     <marker id="arr-result" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="light-dark(#0e7490, #00B5E2)" />
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--brand-blue-text)" />
     </marker>
   </defs>
 
-  <text x="215" y="22" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="light-dark(#2E2E3A, #ffffff)">Model Context Protocol</text>
-  <text x="215" y="40" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="light-dark(#5A5A6E, #aaa)">JSON-RPC over stdio or streamable HTTP</text>
-  <line x1="80" y1="54" x2="350" y2="54" stroke="light-dark(#dcdce6, #444)" strokeWidth="1" />
+  <text x="215" y="22" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="var(--theme-heading)">Model Context Protocol</text>
+  <text x="215" y="40" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="var(--theme-text-muted)">JSON-RPC over stdio or streamable HTTP</text>
+  <line x1="80" y1="54" x2="350" y2="54" stroke="light-dark(var(--color-zinc-300), var(--color-zinc-700))" strokeWidth="1" />
 
-  <rect x="20" y="100" width="140" height="84" rx="12" fill="light-dark(#6240e8, #6240e8)" />
-  <text x="90" y="138" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="15" fontWeight={700} fill="#fff">Claude</text>
-  <text x="90" y="158" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="rgba(255,255,255,0.85)">MCP client</text>
+  <rect x="20" y="100" width="140" height="84" rx="12" fill="var(--brand-purple-badge-bg)" />
+  <text x="90" y="138" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="15" fontWeight={700} fill="var(--on-accent)">Claude</text>
+  <text x="90" y="158" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="11" fill="var(--on-accent)" fillOpacity={0.85}>MCP client</text>
 
-  <line x1="165" y1="132" x2="245" y2="132" stroke="light-dark(#15803d, #22c55e)" strokeWidth="2.5" markerEnd="url(#arr-call)" />
-  <line x1="245" y1="152" x2="165" y2="152" stroke="light-dark(#0e7490, #00B5E2)" strokeWidth="2.5" markerEnd="url(#arr-result)" />
-  <text x="205" y="124" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="light-dark(#15803d, #22c55e)">tool call</text>
-  <text x="205" y="170" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="light-dark(#0e7490, #00B5E2)">result</text>
+  <line x1="165" y1="132" x2="245" y2="132" stroke="var(--brand-green-text)" strokeWidth="2.5" markerEnd="url(#arr-call)" />
+  <line x1="245" y1="152" x2="165" y2="152" stroke="var(--brand-blue-text)" strokeWidth="2.5" markerEnd="url(#arr-result)" />
+  <text x="205" y="124" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="var(--brand-green-text)">tool call</text>
+  <text x="205" y="170" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fontWeight={600} fill="var(--brand-blue-text)">result</text>
 
-  <rect x="250" y="100" width="160" height="84" rx="12" fill="light-dark(#F0EBFA, #2a1f4a)" stroke="light-dark(#6240e8, #A892FB)" strokeWidth="2" />
-  <text x="330" y="130" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="light-dark(#6240e8, #A892FB)">MCP Server</text>
-  <text x="330" y="148" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">exposes tools</text>
-  <text x="330" y="162" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">+ resources</text>
+  <rect x="250" y="100" width="160" height="84" rx="12" fill="var(--tint-purple)" stroke="var(--brand-purple-text)" strokeWidth="2" />
+  <text x="330" y="130" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="13" fontWeight={700} fill="var(--brand-purple-text)">MCP Server</text>
+  <text x="330" y="148" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="var(--theme-text-muted)">exposes tools</text>
+  <text x="330" y="162" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="var(--theme-text-muted)">+ resources</text>
 
-  <line x1="330" y1="190" x2="330" y2="222" stroke="light-dark(#727286, #888)" strokeWidth="1.5" strokeDasharray="3 3" />
-  <rect x="240" y="222" width="180" height="48" rx="8" fill="light-dark(#fff, #1e1e2e)" stroke="light-dark(#727286, #888)" strokeWidth="1.5" />
-  <text x="330" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="light-dark(#2E2E3A, #fff)">External System</text>
-  <text x="330" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">Graph · GitHub · K8s · DB</text>
+  <line x1="330" y1="190" x2="330" y2="222" stroke="var(--brand-neutral-accent-bar)" strokeWidth="1.5" strokeDasharray="3 3" />
+  <rect x="240" y="222" width="180" height="48" rx="8" fill="light-dark(var(--theme-card-bg-white), var(--theme-card-bg))" stroke="var(--brand-neutral-accent-bar)" strokeWidth="1.5" />
+  <text x="330" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="var(--theme-heading)">External System</text>
+  <text x="330" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="var(--theme-text-muted)">Graph · GitHub · K8s · DB</text>
 
-  <line x1="90" y1="190" x2="90" y2="222" stroke="light-dark(#727286, #888)" strokeWidth="1.5" strokeDasharray="3 3" />
-  <rect x="20" y="222" width="140" height="48" rx="8" fill="light-dark(#fff, #1e1e2e)" stroke="light-dark(#727286, #888)" strokeWidth="1.5" />
-  <text x="90" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="light-dark(#2E2E3A, #fff)">You</text>
-  <text x="90" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="light-dark(#5A5A6E, #aaa)">approve / deny</text>
+  <line x1="90" y1="190" x2="90" y2="222" stroke="var(--brand-neutral-accent-bar)" strokeWidth="1.5" strokeDasharray="3 3" />
+  <rect x="20" y="222" width="140" height="48" rx="8" fill="light-dark(var(--theme-card-bg-white), var(--theme-card-bg))" stroke="var(--brand-neutral-accent-bar)" strokeWidth="1.5" />
+  <text x="90" y="242" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="12" fontWeight={700} fill="var(--theme-heading)">You</text>
+  <text x="90" y="258" textAnchor="middle" fontFamily="var(--font-sans), sans-serif" fontSize="10" fill="var(--theme-text-muted)">approve / deny</text>
 </svg>
 
 ## Three primitives

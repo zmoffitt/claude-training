@@ -3,10 +3,7 @@
 import clsx from 'clsx'
 import { useState, useCallback } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import {
-  oneLight,
-  oneDark,
-} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { codeTheme } from '@/lib/codeTheme'
 
 import { focusRing } from '@/lib/focusRing'
 
@@ -85,16 +82,9 @@ export function CodeBlock({
         <span>{label}</span>
         <CopyButton code={code} />
       </div>
-      <div className="dark:hidden">
-        <SyntaxHighlighter language={language} style={oneLight} customStyle={customStyle}>
-          {code}
-        </SyntaxHighlighter>
-      </div>
-      <div className="hidden dark:block">
-        <SyntaxHighlighter language={language} style={oneDark} customStyle={customStyle}>
-          {code}
-        </SyntaxHighlighter>
-      </div>
+      <SyntaxHighlighter language={language} style={codeTheme} customStyle={customStyle}>
+        {code}
+      </SyntaxHighlighter>
     </div>
   )
 }

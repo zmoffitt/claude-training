@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 
-import { themeVars } from '@/lib/theme-colors'
+import { themeVars, wcagText } from '@/lib/theme-colors'
 
 interface ProConCard {
   icon: React.ReactNode
@@ -93,7 +93,8 @@ export function ProConCards({
                       height: 12,
                       minWidth: 12,
                       borderRadius: '50%',
-                      backgroundColor: card.bulletColor,
+                      // Drawn in the card's text-safe hue for the active theme.
+                      backgroundColor: wcagText(card.color),
                       marginTop: '0.35rem',
                     }}
                   />
@@ -113,8 +114,8 @@ export function ProConCards({
 export function CheckCircleFilledIcon() {
   return (
     <svg viewBox="0 0 24 24" width="100%" height="100%">
-      <circle cx="12" cy="12" r="11" fill="#0FAC27" />
-      <path d="M7.5 12l3 3 6-6" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx="12" cy="12" r="11" style={{ fill: 'var(--brand-green-accent-bar)' }} />
+      <path d="M7.5 12l3 3 6-6" style={{ stroke: 'var(--on-accent)' }} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
   )
 }
@@ -122,9 +123,9 @@ export function CheckCircleFilledIcon() {
 export function WarningTriangleIcon() {
   return (
     <svg viewBox="0 0 24 24" width="100%" height="100%">
-      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="#CD000A" />
-      <line x1="12" y1="9" x2="12" y2="13" stroke="white" strokeWidth={2.5} strokeLinecap="round" />
-      <circle cx="12" cy="17" r="1.2" fill="white" />
+      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" style={{ fill: 'var(--brand-red-accent-bar)' }} />
+      <line x1="12" y1="9" x2="12" y2="13" style={{ stroke: 'var(--on-accent)' }} strokeWidth={2.5} strokeLinecap="round" />
+      <circle cx="12" cy="17" r="1.2" style={{ fill: 'var(--on-accent)' }} />
     </svg>
   )
 }
