@@ -13,7 +13,7 @@ const BULLETS: Array<React.ReactNode> = [
   <>Reports results back, then <strong>terminates</strong></>,
   <>Runs in the <strong>background</strong> by default; a <strong>fork</strong> inherits your conversation</>,
   <>Can spawn its own subagents, three levels deep</>,
-  <>Lower token cost, short-lived</>,
+  <>Short-lived; costs what its <strong>model</strong> costs</>,
 ]
 
 export function Subagents() {

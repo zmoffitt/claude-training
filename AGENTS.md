@@ -85,7 +85,7 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 
 ### Search & 404
 
-**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. The index only exists after `pnpm build`, so `pnpm dev` always runs on the fallback; use `pnpm start` to exercise real Pagefind results. Empty state shows suggested queries; no-results offers a "broader term, or browse the sidebar" prompt.
+**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. The index only exists after `pnpm build`, so `pnpm dev` always runs on the fallback; use `pnpm start` to exercise real Pagefind results. Empty state shows suggested queries; no-results says "Try a broader term, or one of these." above the same suggested queries.
 
 **404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (up to three "did you mean" links scored against `allPages`; renders nothing when no page comes close), lists the three developed Claude sessions with descriptions, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the runtime error boundary ("Try again" / "Go home").
 

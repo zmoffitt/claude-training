@@ -19,7 +19,7 @@ Quick tricks to speed up your workflow with AI tools.
 | `/usage`    | Token usage and cost for the session (replaced `/cost` and `/stats`)   |
 | `/model`    | Switch model (`opus`, `sonnet`, `haiku`, `fable`, `opusplan`)          |
 | `/effort`   | Set reasoning depth: `low`, `medium`, `high`, `xhigh`, `max`           |
-| `/fast`     | Toggle fast mode on Opus 5.5 or Fable 5.2: up to 2.5× output speed at twice the token price, billed to usage credits |
+| `/fast`     | Toggle [fast mode](https://code.claude.com/docs/en/fast-mode) on Opus or Fable: up to 2.5× output speed at twice the token price; on a subscription it bills to usage credits |
 | `/plan`     | Enter plan mode, optionally with a task: `/plan fix the auth bug`      |
 | `/schedule` | Create or manage cloud scheduled tasks                                 |
 | `/insights` | Generate a personal usage and friction report from local sessions     |
@@ -31,7 +31,7 @@ Quick tricks to speed up your workflow with AI tools.
 - `Shift+Tab` — Cycle permission modes (Manual → Accept Edits → Plan → Bypass → Auto)
 - `Ctrl+C` — First press clears the input, second press exits; `Ctrl+D` exits directly
 - `!command` — Run a shell command inline and add its output to the session
-- `ultrathink` in a prompt — Ask for deeper reasoning on that one turn; typed in the terminal it also raises the turn to `xhigh` effort
+- `ultrathink` in a prompt — Ask for deeper reasoning on that one turn; typed in the terminal it can also raise the turn to `xhigh` effort
 
 ### Quick patterns
 

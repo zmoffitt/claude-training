@@ -96,11 +96,11 @@ Change one thing at a time, in this order:
 2. **Raise effort one level.** Higher effort buys more verification, more tool calls, and more edge-case testing. It does not add knowledge or skill the model lacks.
 3. **Move up a model, at a lower effort than you were using.** Do not carry `xhigh` from Opus to Fable; start Fable at `medium` or `high`.
 
-**Past `high`, switch models instead of pushing effort.** One more effort level can cost as much as the next model up. In Anthropic's runs, Fable 5.2 at `high` scored the same as Opus 5.5 at `max` on FrontierCode 2.0 for roughly half the cost per task, and Opus 5.5 at `xhigh` gained about 1.4 points on SWE-bench Pro over `high` for 2.5 times the cost.
+**Past `high`, switch models instead of pushing effort.** One more effort level can cost as much as the next model up. In Anthropic's runs, Fable 5.2 at `high` scored about level with Opus 5.5 at `max` on FrontierCode 2.0 (45.3% against 45.5%) for roughly half the cost per task, and Opus 5.5 at `xhigh` gained about 1.4 points on SWE-bench Pro over `high` for 2.5 times the cost.
 
 ## Moving up to Fable 5.2
 
-**What it is for.** Fable 5.2 is Anthropic's most capable generally available model, built for the hardest technical projects: work Opus 5.5 at `high` could not finish, long runs nobody is watching, and large changes that coordinate many subagents. For interactive work Opus 5.5 is the better fit: lower latency, half the price. Mythos 5.2 offers the same capabilities, but only to organizations verified through Anthropic's programs such as the Cyber Verification Program.
+**What it is for.** Fable 5.2 is Anthropic's most capable generally available model, built for the hardest technical projects: work Opus 5.5 at `high` could not finish, long runs nobody is watching, and large changes that coordinate many subagents. Between the two, Opus 5.5 is the better fit for work you steer turn by turn, at half the price. Mythos 5.2 offers the same capabilities, but only to organizations verified through Anthropic's programs such as the Cyber Verification Program.
 
 **What it costs.** $8 / $40 per million tokens, down from $10 / $50 on Fable 5.1, with output up to 30% faster. That is twice Opus 5.5 on uncached input and output, but cache reads cost the same $0.20, so the gap is narrowest on long, cache-heavy sessions and widest on tasks that write a lot. On subscription plans Fable can bill to usage credits; the `/model` picker says so before you select it.
 
@@ -131,7 +131,7 @@ All four have a 1M-token context window and 128K maximum output. Fast mode (`/fa
 
 ## Legacy models you'll still meet
 
-The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform or an older org default.
+The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform, on an older org default, or in a session that fell back after a flagged request.
 
 <div className="max-w-2xl lg:max-w-3xl">
 
@@ -144,7 +144,7 @@ The previous generation is still served, and some providers resolve the `opus`, 
 | Opus 4.6 | $5 / $25, 200K unless `[1m]` | The `opus` alias on Microsoft Foundry |
 | Sonnet 5 | $2 / $10 | The auto-mode classifier model; the fallback for flagged cybersecurity requests on Sonnet 5.5 |
 | Sonnet 4.6 | $3 / $15, 200K unless `[1m]` | The `sonnet` alias on Claude Platform on AWS |
-| Sonnet 4.5 / Haiku 4.5 | 200K only | `sonnet` on Bedrock, Google Cloud, and Foundry (where Sonnet 4.5 is also the default model); `haiku` everywhere except the Anthropic API |
+| Sonnet 4.5 / Haiku 4.5 | 200K only | `sonnet` on Bedrock, Google Cloud, and Foundry (Sonnet 4.5 is also Foundry's default model); `haiku` on Claude Platform on AWS, Bedrock, Google Cloud, and Foundry |
 
 </div>
 

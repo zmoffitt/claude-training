@@ -1,6 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
+import Link from 'next/link'
 
 import { themeVars, safeAccent, safeSurface } from '@/lib/theme-colors'
 
@@ -37,10 +38,15 @@ export function PillarCards({
     <div>
       <div className={clsx(gridClass, 'not-prose')}>
         {cards.map((card) => {
-          const Wrapper = card.href ? 'a' : 'div'
-          const wrapperProps = card.href
-            ? { href: card.href, target: '_blank' as const, rel: 'noopener noreferrer' }
-            : {}
+          // Root-relative hrefs are pages on this site: Link adds the base path
+          // and keeps them in the same tab. Everything else opens a new one.
+          const internal = card.href?.startsWith('/')
+          const Wrapper: React.ElementType = !card.href ? 'div' : internal ? Link : 'a'
+          const wrapperProps = !card.href
+            ? {}
+            : internal
+              ? { href: card.href }
+              : { href: card.href, target: '_blank' as const, rel: 'noopener noreferrer' }
 
           return (
             <Wrapper

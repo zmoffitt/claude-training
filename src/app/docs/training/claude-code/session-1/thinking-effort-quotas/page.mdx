@@ -58,7 +58,7 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
 
 </div>
 
-**A loop that works.** Have Claude interview you about the spec, implement at `low`, review that it got the gist, then verify and test at `high`. In Anthropic's SWE-bench Pro runs on Opus 5.5, doing everything at `low` and re-running only the failures at `high` passed about 97% of a task subset for $0.17 each, against 95.3% at $0.29 for running everything at `high`.
+**A loop for staged work.** When a task splits into stages, spend effort by stage instead of holding one level: have Claude interview you about the spec, implement at `low`, review that it got the gist, then verify and test at `high`. In Anthropic's SWE-bench Pro runs on Opus 5.5, doing everything at `low` and re-running only the failures at `high` passed about 97% of a task subset for $0.17 each, against 95.3% at $0.29 for running everything at `high`.
 
 ## What each level costs
 
@@ -78,7 +78,7 @@ Past `high` the curve flattens while the bill does not, so one more level can co
 
 **Know the defaults.** In Claude Code, Fable 5.2, Opus 5.5, Sonnet 5.5, and Haiku 5.5 all default to `medium`; Opus 4.7 defaults to `xhigh` and the other older models to `high`. A level is not the same amount of thinking on every model: Opus 5.5 thinks more per turn than Opus 5 did at the same setting, so do not carry an old level over. On current models thinking cannot be turned off, so lowering effort is the only way to get less of it.
 
-**Setting it.** `/effort high` sets a level and `/effort status` prints the current one; `/effort auto` returns to the model's default. Pass `--effort xhigh` at launch for one session, or type `ultrathink` anywhere in a prompt to ask for deeper reasoning on that one turn. <Term id="subagent">Subagents</Term> and skills can pin their own `effort` in frontmatter, so a cheap helper stays cheap. On a subscription or an API key, changing effort mid-session keeps the prompt cache, so raise it for one hard step and drop back. On Bedrock, Google Cloud, or a gateway the change clears the cached conversation; make it at a natural break.
+**Setting it.** `/effort high` sets a level and `/effort status` prints the current one; `/effort auto` returns to the model's default. Pass `--effort xhigh` at launch for one session, or type `ultrathink` anywhere in a prompt to ask for deeper reasoning on that one turn. <Term id="subagent">Subagents</Term> and skills can pin their own `effort` in frontmatter, so a cheap helper stays cheap. On a subscription or an API key, changing effort mid-session keeps the prompt cache on the current models, so raise it for one hard step and drop back. On Bedrock, Google Cloud, or a Claude apps gateway the change clears the cached conversation; make it at a natural break.
 
 <Callout variant="warning" title="Why does this matter?" align="left">
   Higher effort = more tokens = more quota consumed. Raise effort when a wrong
@@ -89,4 +89,4 @@ Past `high` the curve flattens while the bill does not, so one more level can co
 ## Where to go next
 
 - **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus, Sonnet, Haiku, Fable — which fits which job
-- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — best of both at lower cost
+- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — a quota lever worth measuring

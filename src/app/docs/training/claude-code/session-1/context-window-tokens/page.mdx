@@ -17,8 +17,10 @@ Understanding the economics of every conversation.
 
 - **Input tokens** — what you send: prompts, files, conversation history, system instructions
 - **Output tokens** — what Claude generates: responses, code, analysis (costs ~5x more per token)
-- **Cached input** — Claude Code caches the stable prefix of a session, so a long but unchanged history costs a fraction of a fresh read: 5% of the input price on Opus 5.5. The cache lasts an hour on a subscription and five minutes on an API key or cloud provider, and each hit resets the clock. Pause longer and the next turn pays to write the whole conversation back.
+- **Cached input** — Claude Code caches the stable prefix of a session, so a long but unchanged history costs a fraction of a fresh read: 5% of the input price on Opus 5.5. The cache lasts an hour on a subscription within plan usage and five minutes on usage credits, an API key, or a cloud provider, and each hit resets the clock. Pause longer and the next turn pays to write the whole conversation back.
 - **What breaks the cache** — switching models, compacting, connecting an MCP server mid-session, and turning on fast mode for the first time can each force a fresh write. Set these up at the start of a session and leave them alone while it works.
+
+Dollar figures on this page are Opus 5.5 API list prices from the [pricing table](https://platform.claude.com/docs/en/about-claude/pricing), November 2026. Cache lifetimes and what invalidates them are in the [prompt caching reference](https://code.claude.com/docs/en/prompt-caching).
 
 ## Context Compounding — Why Long Conversations Get Expensive
 
@@ -26,7 +28,7 @@ Understanding the economics of every conversation.
 - Message 1 costs X tokens. Message 10 costs 10X+ because all prior context is included
 - Files, tool outputs, and previous responses all accumulate in the window
 - Even fully cached, a turn costs more as context grows: on Opus 5.5 the cache read alone is about $0.004 per turn at 20K tokens of context and about $0.03 at 150K
-- When context nears the limit (about 967K tokens on a 1M model), Claude Code **auto-compacts**: it summarizes the session (lossy) and continues. Quality degrades before that point, not just after it. `/autocompact 500k` moves the threshold earlier.
+- When context nears the limit (about 967K tokens on a 1M model), Claude Code **auto-compacts**: it summarizes the session (lossy) and continues. Quality degrades before that point, not just after it. `/autocompact 500k` moves the threshold earlier ([model configuration reference](https://code.claude.com/docs/en/model-config)).
 
 > *Treat sessions like git commits: finish a task, start fresh. Don't carry yesterday's context into today's work.*
 
