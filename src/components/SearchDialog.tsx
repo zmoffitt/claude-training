@@ -149,12 +149,14 @@ export function SearchDialog() {
           const items = await Promise.all(
             search.results.slice(0, 8).map(async (r: any) => {
               const data = await r.data()
-              const href = data.url.replace(/\.html$/, '')
+              // Pagefind URLs carry the deployment base path. Link and
+              // router.push add it again, so hand them the app path.
+              const href = appPath(data.url.replace(/\.html$/, ''))
               return {
                 title: data.meta?.title || 'Untitled',
                 href,
                 excerpt: data.excerpt ? sanitizeExcerpt(data.excerpt) : undefined,
-                trail: trailByPath.get(appPath(href)),
+                trail: trailByPath.get(href),
               }
             })
           )

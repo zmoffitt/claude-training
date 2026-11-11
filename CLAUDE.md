@@ -4,25 +4,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-Documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools.
+Documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools. Claude is the primary training program; Codex/ChatGPT is a secondary training track.
 
 ## Prerequisites
 
-Node.js >= 18, pnpm >= 10 (install via `corepack enable` or `npm install -g pnpm`).
+Node.js >= 20.9 (the Next.js 16 minimum; CI builds on Node 22), pnpm >= 10 (install via `corepack enable` or `npm install -g pnpm`; `packageManager` pins `pnpm@10.33.0`).
 
 ## Commands
 
 ```bash
-pnpm dev        # Start local dev server
-pnpm build      # Static export to out/
-pnpm start      # Serve the static build (uses `serve out`, not `next start`)
+pnpm dev        # Dev server at http://localhost:3000/claude-training/ (`/` is a 404 because of basePath)
+pnpm build      # Static export to out/, then Pagefind indexes it into out/pagefind/
+pnpm start      # Serve out/ at http://localhost:3000/claude-training/ (`scripts/preview.mjs`, not `next start`)
+pnpm clean      # Remove .next, out, .wrangler, and tsconfig.tsbuildinfo
 ```
 
-There are no lint or test commands configured.
+There are no lint or test commands configured. `pnpm build` is the only check; `python3 -I scripts/color-audit.py` prints the contrast ratio of every text token on every tint.
+
+**`pnpm start`** — `scripts/preview.mjs` is a dependency-free static server that mounts `out/` under the `basePath` read from `next.config.mjs`, the way GitHub Pages serves it. It needs a prior `pnpm build`, serves `out/404.html` for misses, and takes `PORT` to change the port. A generic static server at the root (`serve out`) does not work: every asset URL in the export carries the base path.
 
 ## Tech Stack
 
-Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScript, Tailwind CSS v4 with `@tailwindcss/typography`, Headless UI, Framer Motion, MDX (`remark-gfm` + `rehype-slug`), next-themes, Zustand, pnpm.
+Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScript, Tailwind CSS v4 with `@tailwindcss/typography`, Headless UI, Framer Motion, MDX (`remark-gfm` + `rehype-slug`), next-themes, Zustand, Pagefind (search index, built after the export), pnpm.
 
 ## Architecture
 
@@ -34,9 +37,23 @@ Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScri
 
 ### MDX Pipeline
 
-Content flows through: `next.config.mjs` (configures remark-gfm + rehype-slug) → `mdx-components.tsx` (root-level, maps fenced code blocks to `CodeBlock`, wraps every markdown table in `<div className="overflow-x-auto">` for narrow-viewport scroll) → `CodeBlock.tsx` (theme-aware syntax highlighting via react-syntax-highlighter with oneLight/oneDark themes).
+Content flows through: `next.config.mjs` (configures remark-gfm + rehype-slug) → `mdx-components.tsx` (root-level, maps fenced code blocks to `CodeBlock`, wraps every markdown table in a focusable `.table-scroll` region for narrow-viewport scroll) → `CodeBlock.tsx` (theme-aware syntax highlighting via react-syntax-highlighter with oneLight/oneDark themes).
+
+Internal root-relative Markdown links are rendered with Next.js `Link`, which applies the configured base path. Write `/docs/...` links without hard-coding the deployment prefix; external and fragment links remain ordinary anchors.
 
 All documentation pages are `.mdx` files at `src/app/docs/**/page.mdx`, using Next.js App Router file-based routing.
+
+### Training Tracks
+
+Keep Claude first in the homepage, Start Here, and training navigation. Use the filled primary CTA and homepage roadmap for Claude; keep Codex/ChatGPT discoverable as a secondary option.
+
+- **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first three sessions developed (sessions 4 and 5 show as upcoming on the roadmap and have no pages).
+- **Codex & ChatGPT**: `src/app/docs/training/codex-chatgpt/`; three complete sessions covering foundations, repository workflows, and extensions. 26 pages including demos and practice assignments.
+- **Standalone pages**: `training/github-copilot` and `training/prompt-engineering` sit beside the two tracks in the Training Materials group, not inside either.
+- Use `<TrainingRoadmap track="codex" activeStep={N} />` for Codex sessions. The default track is `claude`; use `activeStep={0}` for an overview without a current-step marker.
+- Keep the homepage, Start Here, sidebar, and session outlines aligned when changing the curriculum. Preserve existing routes when retitling lessons.
+- Product-specific guidance must link to official sources. Date model/pricing snapshots, distinguish API token pricing from ChatGPT subscription usage, and distinguish API context capacity from client defaults.
+- The Codex model lesson is at `session-1/models-and-planning/page.mdx` and reuses `ModelTierCards` from the Claude track.
 
 ### MDX Page Conventions
 
@@ -68,9 +85,9 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 
 ### Search & 404
 
-**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. Empty state shows suggested queries; no-results offers a "broader term, or browse the sidebar" prompt.
+**Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. The index only exists after `pnpm build`, so `pnpm dev` always runs on the fallback; use `pnpm start` to exercise real Pagefind results. Empty state shows suggested queries; no-results offers a "broader term, or browse the sidebar" prompt.
 
-**404** — `src/app/not-found.tsx` lists the three sessions with descriptions, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages.
+**404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (up to three "did you mean" links scored against `allPages`; renders nothing when no page comes close), lists the three developed Claude sessions with descriptions, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the runtime error boundary ("Try again" / "Go home").
 
 ### Layout & Navigation
 
@@ -86,7 +103,7 @@ Fenced code blocks are automatically routed to `CodeBlock` — no import needed.
 
 ### Theming
 
-next-themes with `attribute="class"` (dark mode via `.dark` class on `<html>`). A blocking script in `src/app/layout.tsx` sets the theme class before first paint to prevent FOLM (flash of light mode) per component. `Providers.tsx` wraps the app with `ThemeProvider`, `ThemeWatcher` (syncs with system preference), and `ConsoleGreeting` (one-time dev-console branded greeting).
+next-themes with `attribute="class"` (dark mode via `.dark` class on `<html>`). A blocking script in `src/app/layout.tsx` sets the theme class before first paint to prevent FOLM (flash of light mode) per component. `src/app/providers.tsx` wraps the app with `ThemeProvider`, `ThemeWatcher` (syncs with system preference), and `ConsoleGreeting` (one-time dev-console branded greeting).
 
 - **CSS theming**: Custom violet palette and design tokens defined in `src/styles/tailwind.css` under `:root` and `.dark`
 - **Typography**: Extensive prose styling in root-level `typography.ts`, imported by Tailwind via `@config` directive
@@ -101,7 +118,7 @@ All interactive/themed components are `'use client'` and use `themeVars` / `bran
 
 - **Sidebar**: `Layout.tsx` collapses below `lg:` (1024px); the same `<Navigation>` renders inside a Headless UI `Dialog` for mobile.
 - **TableOfContents**: visible from 1366px (narrow rail, `w-44 right-3`), expands at `min-[1440px]:` to `w-56 right-6`. Hidden below 1366 to avoid overlap with the left-aligned Prose.
-- **Tables**: every markdown table is auto-wrapped by `mdx-components.tsx` in `overflow-x-auto`; dense tables scroll horizontally on narrow viewports rather than compressing every cell.
+- **Tables**: every markdown table is auto-wrapped by `mdx-components.tsx` in a focusable `.table-scroll` region; dense tables scroll horizontally on narrow viewports rather than compressing every cell.
 - **Cards**: `PillarCards` / `ProConCards` / `HomeSections` all stack at mobile and step through breakpoints (see component source for the exact pattern).
 
 ## Adding Documentation
@@ -113,7 +130,7 @@ MDX pages support GFM (tables, strikethrough, task lists) and auto-generate head
 
 ## Design Context
 
-Full context lives in `.impeccable.md` at repo root (same content as this section, in the format the design skills read). Load it before any design, UI, or frontend work.
+Full context lives in `.impeccable.md` at repo root (this section plus the color rules and typefaces, in the format the design skills read). `AGENTS.md` carries the same section; change all three together. Load it before any design, UI, or frontend work.
 
 ### Users
 Engineers using the site in two overlapping modes: **learning** (going through training sessions linearly) and **reference** (jumping in mid-task to look up a pattern or setting). Design must serve both: structured enough to read end-to-end, scannable enough to land cold on any page.
