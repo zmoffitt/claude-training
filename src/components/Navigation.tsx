@@ -391,6 +391,7 @@ export const navigation: Array<NavGroup> = [
     icon: <BookIcon />,
     href: '/',
     links: [
+      { title: 'Start Here', href: '/docs' },
       {
         title: 'Claude Code', href: '/docs/training/claude-code',
         children: [

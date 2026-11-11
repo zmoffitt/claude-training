@@ -9,45 +9,45 @@ export const metadata = {
 
 # Choosing the Right Model
 
-<ReadTime minutes={3} />
+<ReadTime minutes={7} />
 
 Match the model to the task — the biggest lever for managing token consumption.
 
-**The current lineup is the Claude 5 family.** Opus 5.5 is the default on every plan and in Claude Code. Sonnet 5.5 and Haiku 5.5 sit below it; Fable 5.1 sits above it, selected with `/model fable` (or `best`, which falls back to Opus where Fable is unavailable). Run `/model` in Claude Code to see what your plan offers.
+**The current lineup is the Claude 5 family.** Opus 5.5 is the default in Claude Code on Pro, Max, Ultra, Team, Enterprise, and the Anthropic API, and it is where most work should start. Sonnet 5.5 and Haiku 5.5 sit below it. Fable 5.2 sits above it and is not the default on any plan: select it with `/model fable` (Claude Code v2.1.321 or later). Run `/model` to see what your plan offers.
 
 <ModelTierCards
   tiers={[
     {
-      title: "Fable 5.1",
-      subtitle: "Most capable • Highest cost",
+      title: "Fable 5.2",
+      subtitle: "Most capable • Twice the Opus price",
       color: "#727286",
       items: [
-        "Hardest, longest-running agentic work",
-        "Problems Opus could not crack",
-        "Deep multi-system investigations",
-        "Not the default on any plan",
+        "Major refactors, migrations, architecture planning",
+        "Long runs you will not supervise",
+        "Leading many subagents on one large change",
+        "Deep research and quantitative analysis",
       ],
     },
     {
       title: "Opus 5.5",
-      subtitle: "Default • Deepest everyday reasoning",
+      subtitle: "Default • Start here",
       color: "#6240E8",
       items: [
-        "Architecture & design decisions",
-        "Complex debugging across systems",
+        "Everyday engineering and debugging",
+        "Feature work that spans several PRs",
         "Security analysis & CA policy review",
-        "Agentic coding and multi-step plans",
+        "Computer use and screenshot-heavy workflows",
       ],
     },
     {
       title: "Sonnet 5.5",
-      subtitle: "Faster • Half the price",
+      subtitle: "Faster • Half the Opus price",
       color: "#727286",
       items: [
-        "Script writing & code generation",
-        "Log analysis & troubleshooting",
-        "Drafting runbooks & documentation",
-        "Subagents and routine DevOps & IAM tasks",
+        "Well-scoped coding: bug fixes, spec-driven changes",
+        "Chat and quick back-and-forth",
+        "Runbooks, documents, slides, spreadsheets",
+        "Repeated agent tasks: investigate, review, draft",
       ],
     },
     {
@@ -55,52 +55,108 @@ Match the model to the task — the biggest lever for managing token consumption
       subtitle: "Fastest • Lowest cost",
       color: "#727286",
       items: [
-        "Quick lookups & definitions",
-        "Boilerplate & template generation",
-        "Simple reformatting & conversion",
-        "High-volume summarization and triage",
+        "Classification, routing, tagging",
+        "High-volume extraction and summarization",
+        "Subagents that search files and read logs",
+        "Simple high-volume chat",
       ],
     },
   ]}
 />
 
-## Current pricing
+## Which model for which job
+
+Pick the starting model and <Term id="effort">effort</Term> from the kind of work, then adjust from what you see. The effort column is the Claude Code setting; `medium` is the default there for all four models.
 
 <div className="max-w-2xl lg:max-w-3xl">
 
-| Model | Input / output per 1M tokens | Context |
+| Work | Start on | Starting effort |
 | --- | --- | --- |
-| Fable 5.1 | $10 / $50 | 1M |
-| Opus 5.5 | $4 / $20 | 1M |
-| Sonnet 5.5 | $2 / $10 | 1M |
-| Haiku 5.5 | $0.10 / $0.50 (higher above 100K-token prompts) | 1M |
+| Everyday engineering, debugging, multi-PR features | Opus 5.5 | `medium`, then `high` |
+| Computer use and vision-heavy workflows | Opus 5.5 | `medium` |
+| Well-scoped coding: bug fixes, feature iteration, spec-driven work | Sonnet 5.5 | `medium`, then `high` for harder tasks |
+| Chat and interactive sessions | Sonnet 5.5 | `low` or `medium` |
+| Everyday documents, slides, spreadsheets | Sonnet 5.5 | `medium` |
+| Repeated agent tasks: investigation, review, drafting | Sonnet 5.5 | `medium` |
+| <Term id="subagent">Subagents</Term> that search files, read logs, summarize | Haiku 5.5 or Sonnet 5.5 | Model default |
+| Classification, routing, tagging, bulk extraction | Haiku 5.5 | `medium` |
+| Major refactors, migrations, architecture planning, leading many subagents | Fable 5.2 | `medium`, then `high` |
+| Deep research; scientific or quantitative analysis | Fable 5.2 | `medium`, then `high` |
+| Not sure | Opus 5.5 | `medium` |
 
 </div>
 
+**A clear spec does not mean Sonnet by default.** A migration or a performance pass can be fully specified and still need Opus 5.5, or Fable 5.2 for the large ones. Complex financial models and work over large source material also start on Opus. The table follows Anthropic's [model selection guide](https://claude.dev/blog/which-claude-model-should-you-build-with/) from November 2026.
+
+## When the model is not getting there
+
+Change one thing at a time, in this order:
+
+1. **Give it a way to check its work.** A test, a build, or a script that calls the endpoint. A model that can verify finds its own mistakes a turn earlier, and one test run costs less than more thinking on every turn.
+2. **Raise effort one level.** Higher effort buys more verification, more tool calls, and more edge-case testing. It does not add knowledge or skill the model lacks.
+3. **Move up a model, at a lower effort than you were using.** Do not carry `xhigh` from Opus to Fable; start Fable at `medium` or `high`.
+
+**Past `high`, switch models instead of pushing effort.** One more effort level can cost as much as the next model up. In Anthropic's runs, Fable 5.2 at `high` scored about level with Opus 5.5 at `max` on FrontierCode 2.0 (45.3% against 45.5%) for roughly half the cost per task, and Opus 5.5 at `xhigh` gained about 1.4 points on SWE-bench Pro over `high` for 2.5 times the cost.
+
+## Moving up to Fable 5.2
+
+**What it is for.** Fable 5.2 is Anthropic's most capable generally available model, built for the hardest technical projects: work Opus 5.5 at `high` could not finish, long runs nobody is watching, and large changes that coordinate many subagents. Between the two, Opus 5.5 is the better fit for work you steer turn by turn, at half the price. Mythos 5.2 offers the same capabilities, but only to organizations verified through Anthropic's programs such as the Cyber Verification Program.
+
+**What it costs.** $8 / $40 per million tokens, down from $10 / $50 on Fable 5.1, with output up to 30% faster. That is twice Opus 5.5 on uncached input and output, but cache reads cost the same $0.20, so the gap is narrowest on long, cache-heavy sessions and widest on tasks that write a lot. On subscription plans Fable can bill to usage credits; the `/model` picker says so before you select it.
+
+**How to brief it.** Describe the outcome and the finish line, hand over the whole problem including the ambiguous parts, and drop the "remember to verify" reminders. Two habits worth a line in your prompt: at `low` and `medium` effort it sometimes ends a turn with a list of what remains, so say when to keep going; and when nobody says who owns the code, it tends to build onto the existing structure and report nearby problems instead of fixing them. It also delegates readily, and subagents can be a large share of what a session costs, so pin their models.
+
+**Switching has a price.** The prompt cache belongs to the model that wrote it, so the first turn after `/model` pays the cache-write price on the whole conversation, and Fable's reasoning from earlier turns does not carry to any other model. Run `/compact` first or start a fresh session from a short written plan, switch at a natural break, and switch back when the hard part is solved. `/model` also saves your choice as the default for new sessions unless you apply it with `s` for this session only.
+
+**Flagged requests fall back to an older model.** Fable 5.2, Opus 5.5, and Sonnet 5.5 run safety classifiers that mostly flag cybersecurity and biology content, which makes them relevant to security work. In Claude Code a flagged request on Fable or Opus 5.5 re-runs on Opus 4.8 (cybersecurity) or Opus 5 (biology), with a notice in the transcript; on Sonnet 5.5 a cybersecurity flag re-runs on Sonnet 5. The session stays on the fallback until you run `/model`, so check which model answered before you trust a security review. To be asked first, set "Switch models when a message is flagged" in `/config`.
+
+**Organization limits.** On the API, Fable 5.2 requires 30-day data retention and is not available under zero data retention without Anthropic's sign-off.
+
+## Current pricing
+
+API list prices per 1M tokens, November 2026, from the [official pricing table](https://platform.claude.com/docs/en/about-claude/pricing). Subscription plans draw on plan limits instead of billing per token, but a cheaper model still stretches those limits further.
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Model | Input / output | Cache read | Fast mode (in / out) |
+| --- | --- | --- | --- |
+| Fable 5.2 | $8 / $40 | $0.20 | $16 / $80 |
+| Opus 5.5 | $4 / $20 | $0.20 | $8 / $40 |
+| Sonnet 5.5 | $2 / $10 | $0.10 | Not available |
+| Haiku 5.5 | $0.10 / $0.50 up to 100K-token prompts, $0.50 / $2.50 above | $0.01, then $0.05 | Not available |
+
+</div>
+
+All four have a 1M-token context window and 128K maximum output. Fast mode (`/fast`) runs the same model at up to 2.5× the output speed for twice the token price; on subscription plans it bills to usage credits only, never to plan limits.
+
 ## Legacy models you'll still meet
 
-The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform or an older org default.
+The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform, on an older org default, or in a session that fell back after a flagged request.
 
 <div className="max-w-2xl lg:max-w-3xl">
 
 | Model | Price (in / out per 1M) | Where it still shows up |
 | --- | --- | --- |
+| Fable 5.1 | $10 / $50 | What `fable` resolved to before Claude Code v2.1.321; now selected by ID, `claude-fable-5-1` |
 | Fable 5 | $10 / $50 | What `fable` resolves to in Claude apps gateway sessions |
-| Opus 5 | $5 / $25 | Older Enterprise org defaults; Opus 5.5 is cheaper and stronger |
-| Opus 4.8 / 4.7 | $5 / $25 | 1M context by default; fast mode on 4.8 is retired on 30 Nov 2026 |
+| Opus 5 | $5 / $25 | Older Enterprise org defaults; the fallback for flagged biology requests |
+| Opus 4.8 / 4.7 | $5 / $25 | The fallback for flagged cybersecurity requests (4.8); fast mode on 4.8 is removed on 30 Nov 2026 |
 | Opus 4.6 | $5 / $25, 200K unless `[1m]` | The `opus` alias on Microsoft Foundry |
-| Sonnet 5 | $2 / $10 | The auto-mode classifier model |
+| Sonnet 5 | $2 / $10 | The auto-mode classifier model; the fallback for flagged cybersecurity requests on Sonnet 5.5 |
 | Sonnet 4.6 | $3 / $15, 200K unless `[1m]` | The `sonnet` alias on Claude Platform on AWS |
-| Sonnet 4.5 / Haiku 4.5 | 200K only | The `sonnet` and `haiku` aliases on Bedrock, Google Cloud, and Foundry |
+| Sonnet 4.5 / Haiku 4.5 | 200K only | `sonnet` on Bedrock, Google Cloud, and Foundry (Sonnet 4.5 is also Foundry's default model); `haiku` on Claude Platform on AWS, Bedrock, Google Cloud, and Foundry |
 
 </div>
 
+**Aliases move.** `best` used to pick Fable where it was available; from v2.1.321 it resolves to the same model as `opus`. Organizations on third-party platforms should pin versions with `ANTHROPIC_DEFAULT_OPUS_MODEL` and its siblings so an alias never changes under them. The [model configuration reference](https://code.claude.com/docs/en/model-config) lists what every alias resolves to per provider.
+
 <Callout variant="info" title="Rule of thumb:" align="left">
-  Stay on Opus 5.5 for interactive work: it is the default, and lower <Term id="effort">effort</Term> on
-  Opus often beats a smaller model at high effort. Drop to Sonnet or Haiku for
-  <Term id="subagent">subagents</Term>, bulk jobs, and <Term id="scheduled-task">scheduled tasks</Term> where volume matters more than
-  depth. Reach for Fable only when Opus is not getting there. In Claude Code,
-  <Term id="opusplan">`/model opusplan`</Term> keeps Opus for <Term id="plan-mode">plan mode</Term> and switches to Sonnet to execute.
+  Start on Opus 5.5 at `medium`. Move down to Sonnet for well-scoped work and
+  to Haiku for subagents, bulk jobs, and <Term id="scheduled-task">scheduled tasks</Term> whose output is
+  cheap to check; keep code edits and judgment calls on the main model. Move up
+  to Fable 5.2 when Opus at `high` falls short or the run will go unattended.
+  <Term id="opusplan">`/model opusplan`</Term> keeps Opus for <Term id="plan-mode">plan mode</Term> and hands execution to Sonnet;
+  measure it before you make it a habit.
 </Callout>
 
 ## Where to go next

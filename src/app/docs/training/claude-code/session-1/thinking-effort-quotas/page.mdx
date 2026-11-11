@@ -1,5 +1,6 @@
 import { EffortScale } from "@/components/EffortScale";
 import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
 import { Term } from "@/components/Term";
 
 export const metadata = {
@@ -7,6 +8,8 @@ export const metadata = {
 };
 
 # Thinking Effort & Quotas
+
+<ReadTime minutes={3} />
 
 Effort controls how deeply Claude reasons before responding. In claude.ai it is a slider; in Claude Code it is `/effort` with five levels: `low`, `medium`, `high`, `xhigh`, `max`.
 
@@ -39,7 +42,43 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
   ]}
 />
 
-**Know the defaults.** Opus 5.5, Sonnet 5.5, and Haiku 5.5 default to `medium`; older models default to `high`. `xhigh` is the sweet spot for hard agentic coding. Type `ultrathink` anywhere in a prompt to run that one turn at `xhigh`, or pass `--effort xhigh` when you launch. <Term id="subagent">Subagents</Term> and skills can pin their own effort in frontmatter, so a cheap helper stays cheap.
+**What effort changes.** More than thinking time: at higher effort Claude makes more tool calls, verifies more, tests more edge cases, and makes more decisions on your behalf. It pays where hidden edge cases decide the outcome, and it is wasted on a task `medium` would have finished the first time. It does not add knowledge or skill the model lacks; for that, move up a model.
+
+## Which level when
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Level | Use it for |
+| --- | --- |
+| `low` | Quick replies while you stay in the loop: brainstorming, sketches, renames, applying a known pattern across files |
+| `medium` | Most day-to-day engineering, including new feature work. The default on current models |
+| `high` | Work where verification matters or edge cases hide, such as fixing a bug in an unfamiliar codebase |
+| `xhigh` | Your hardest long-running work, and only where you have seen a gain over `high` |
+| `max` | Fully autonomous runs on hard problems when time and tokens do not matter. Applies to the current session only |
+
+</div>
+
+**A loop for staged work.** When a task splits into stages, spend effort by stage instead of holding one level: have Claude interview you about the spec, implement at `low`, review that it got the gist, then verify and test at `high`. In Anthropic's SWE-bench Pro runs on Opus 5.5, doing everything at `low` and re-running only the failures at `high` passed about 97% of a task subset for $0.17 each, against 95.3% at $0.29 for running everything at `high`.
+
+## What each level costs
+
+Opus 5.5 on SWE-bench Pro, relative to `high`, from Anthropic's runs as reported in its [model selection guide](https://claude.dev/blog/which-claude-model-should-you-build-with/) (November 2026):
+
+<div className="max-w-2xl lg:max-w-3xl">
+
+| Level | Score | Cost per task |
+| --- | --- | --- |
+| `low` | About 8 points lower | About a third |
+| `medium` | About 2.5 points lower | About 70% |
+| `xhigh` | About 1.4 points higher | 2.5× |
+
+</div>
+
+Past `high` the curve flattens while the bill does not, so one more level can cost as much as a bigger model. Before going to `xhigh`, try the next model up at a lower effort.
+
+**Know the defaults.** In Claude Code, Fable 5.2, Opus 5.5, Sonnet 5.5, and Haiku 5.5 all default to `medium`; Opus 4.7 defaults to `xhigh` and the other older models to `high`. A level is not the same amount of thinking on every model: Opus 5.5 thinks more per turn than Opus 5 did at the same setting, so do not carry an old level over. On current models thinking cannot be turned off, so lowering effort is the only way to get less of it.
+
+**Setting it.** `/effort high` sets a level and `/effort status` prints the current one; `/effort auto` returns to the model's default. Pass `--effort xhigh` at launch for one session, or type `ultrathink` anywhere in a prompt to ask for deeper reasoning on that one turn. <Term id="subagent">Subagents</Term> and skills can pin their own `effort` in frontmatter, so a cheap helper stays cheap. On a subscription or an API key, changing effort mid-session keeps the prompt cache on the current models, so raise it for one hard step and drop back. On Bedrock, Google Cloud, or a Claude apps gateway the change clears the cached conversation; make it at a natural break.
 
 <Callout variant="warning" title="Why does this matter?" align="left">
   Higher effort = more tokens = more quota consumed. Raise effort when a wrong
@@ -50,4 +89,4 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
 ## Where to go next
 
 - **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus, Sonnet, Haiku, Fable — which fits which job
-- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — best of both at lower cost
+- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — a quota lever worth measuring

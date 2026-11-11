@@ -2,8 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSyncExternalStore } from 'react'
 
 import { allPages, type PageEntry } from '@/components/Navigation'
+
+const subscribeNever = () => () => {}
 
 /** Words that appear in most paths and say nothing about the page. */
 const NOISE = new Set(['docs', 'training', 'claude', 'code', 'and', 'the', 'session'])
@@ -35,6 +38,12 @@ function score(page: PageEntry, pathTokens: string[], lastSegment: string) {
  */
 export function NotFoundSuggestions() {
   const pathname = usePathname()
+  // The export prerenders one 404.html for every missing path, so the server
+  // HTML can't know which page was asked for. Wait for hydration to finish
+  // before rendering anything that depends on the real path.
+  const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false)
+  if (!hydrated) return null
+
   const segments = pathname.split('/').filter(Boolean)
   const lastSegment = segments[segments.length - 1] ?? ''
   const pathTokens = tokens(lastSegment)
