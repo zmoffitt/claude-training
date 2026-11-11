@@ -71,10 +71,21 @@ function accentToBrand(hex: string): BrandKey | undefined {
 
 const DARK_UNSAFE: Record<string, { accent: string; surface: string }> = {
   '#351f65': { accent: 'var(--accent-deep-purple)', surface: 'var(--surface-deep-purple)' },
+  '#422981': { accent: 'var(--accent-deep-purple)', surface: 'var(--surface-deep-purple)' },
+}
+
+/**
+ * A fill or stroke for an accent hex from page props. The hex only names a
+ * role: a page that passes `#6240E8` gets the active theme's purple, not a
+ * fixed violet. Unmapped colors pass through unchanged.
+ */
+function themed(hex: string): string {
+  const key = accentToBrand(hex)
+  return key ? brandVars[key].accentBar : hex
 }
 
 export function safeAccent(color: string): string {
-  return DARK_UNSAFE[color.toLowerCase()]?.accent ?? color
+  return DARK_UNSAFE[color.toLowerCase()]?.accent ?? themed(color)
 }
 
 export function safeSurface(color: string): string {
@@ -99,7 +110,7 @@ export function accentText(hex: string): string {
 
 /** Fill color (bullets, chips) for a card accent, with the same neutral rule. */
 export function accentFill(hex: string): string {
-  return accentToBrand(hex) === 'neutral' ? 'var(--session-hue, var(--brand-neutral-accent-bar))' : hex
+  return accentToBrand(hex) === 'neutral' ? 'var(--session-hue, var(--brand-neutral-accent-bar))' : themed(hex)
 }
 
 export function wcagText(hex: string): string {

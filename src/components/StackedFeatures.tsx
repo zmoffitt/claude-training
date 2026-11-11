@@ -59,8 +59,10 @@ export function StackedFeatures({
           <span
             style={{
               flexShrink: 0,
+              // A deep surface holds white text in both themes; a badge fill
+              // takes the theme's on-accent color.
               backgroundColor: safeSurface(feature.color) !== feature.color ? safeSurface(feature.color) : wcagBadgeBg(feature.color),
-              color: '#ffffff',
+              color: safeSurface(feature.color) !== feature.color ? '#ffffff' : 'var(--on-accent)',
               fontSize: '0.8125rem',
               fontWeight: 700,
               padding: '0.5rem 1.5rem',

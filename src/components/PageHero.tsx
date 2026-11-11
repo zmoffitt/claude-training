@@ -24,16 +24,7 @@ export function PageHero({
   className?: string
 }) {
   return (
-    <div className={clsx('not-prose relative mt-2 mb-12 flex flex-col gap-4', className)}>
-      {/* Faint brand wash behind the headline: a tint, not a hero gradient. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-x-6 -top-8 -bottom-6 -z-10 rounded-2xl"
-        style={{
-          background:
-            'radial-gradient(75% 95% at 0% 0%, color-mix(in oklch, var(--color-violet-500) 9%, transparent), transparent 70%)',
-        }}
-      />
+    <div className={clsx('not-prose mt-2 mb-12 flex flex-col gap-4', className)}>
       {eyebrow && (
         <p
           className="hero-rise text-xs font-semibold uppercase tracking-[0.2em]"
