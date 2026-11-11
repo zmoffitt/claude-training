@@ -508,6 +508,12 @@
     padding-top: 1.5rem;
     border-top: 1px solid var(--surface-border);
   }
+  /* The header is fixed at 3.5rem, so a heading reached by its #anchor needs
+     room above it or it lands underneath. 5rem matches the 80px offset the
+     table of contents uses to pick the current section. */
+  .prose :where(h1, h2, h3, h4, h5, h6)[id] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 /* ── Glossary chips ──
