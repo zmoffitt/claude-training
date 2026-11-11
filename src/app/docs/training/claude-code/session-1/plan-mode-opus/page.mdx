@@ -41,9 +41,11 @@ Think before building — the most important habit in this program.
 <Callout variant="info" title="Why does this matter?" align="left">
   *Plan mode is the built-in example of human-in-the-loop: Claude proposes, you
   approve, then Claude executes.* Shift+Tab cycles the permission modes;
-  `/plan` jumps straight to it. Since Opus 5.5 became the default model, the
-  saving from `opusplan` is smaller than it was, so treat it as a quota lever,
-  not a quality one.
+  `/plan` jumps straight to it. `opusplan` hands the code edits to Sonnet,
+  which is the opposite of the usual advice to keep edits on your main model
+  and send only searches and log reading to a smaller one. Treat it as a quota
+  lever, not a quality one, and compare `/usage` on a real task before making
+  it your default.
 </Callout>
 
 ## Where to go next
