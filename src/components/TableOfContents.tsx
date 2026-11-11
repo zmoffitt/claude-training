@@ -112,7 +112,9 @@ export function TableOfContents() {
                   focusRing,
                   activeId === h.id
                     ? 'border-violet-500 font-medium text-violet-500 dark:border-violet-400 dark:text-violet-400'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
+                    : // The active item owns the interaction color, so hover
+                      // lights the rail in gray beside the heading-colored text.
+                      'border-transparent text-zinc-500 hover:border-zinc-400 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-white',
                 )}
               >
                 {h.text}

@@ -4,6 +4,8 @@ import { MotionConfig } from 'framer-motion'
 import { ThemeProvider, useTheme } from 'next-themes'
 import { useEffect, useRef } from 'react'
 
+import { siteName } from '@/lib/site'
+
 function ConsoleGreeting() {
   const greeted = useRef(false)
   useEffect(() => {
@@ -11,7 +13,7 @@ function ConsoleGreeting() {
     greeted.current = true
     // Dev-facing greeting. One-time per page load; skipped if already logged.
     console.log(
-      '%cZachary Moffitt × AI Training',
+      `%cZachary Moffitt × ${siteName}`,
       'font-weight: 700; color: #6240e8; font-size: 13px; letter-spacing: 0.02em;',
     )
     console.log(

@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Inter } from 'next/font/google'
 
 import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
+import { siteName } from '@/lib/site'
 
 // @ts-ignore CSS import
 import '@/styles/tailwind.css'
@@ -24,8 +25,8 @@ const bricolage = Bricolage_Grotesque({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - AI Training',
-    default: 'AI Training',
+    template: `%s - ${siteName}`,
+    default: siteName,
   },
   description:
     'Training materials, best practices, and documentation for AI coding tools — Zachary Moffitt',

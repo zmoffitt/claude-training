@@ -1,12 +1,15 @@
 'use client'
 
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Footer } from '@/components/Footer'
 import { KeyboardNav } from '@/components/KeyboardNav'
 import { PageTransitions } from '@/components/PageTransitions'
 import { Header } from '@/components/Header'
+import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 import { Prose } from '@/components/Prose'
 import { ScrollProgress } from '@/components/ScrollProgress'
@@ -16,6 +19,8 @@ import { InlineTableOfContents, TableOfContents } from '@/components/TableOfCont
 import { usePagePath } from '@/lib/usePagePath'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
+import { focusRing } from '@/lib/focusRing'
+import { siteName } from '@/lib/site'
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { width, isCollapsed } = useSidebarStore()
@@ -56,17 +61,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Desktop sidebar — unmounted when collapsed */}
         {!(hydrated && isCollapsed) && (
           <div
-            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-14 lg:pb-8 xl:w-88 lg:dark:border-white/10"
+            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pb-8 xl:w-88 lg:dark:border-white/10"
             style={{
               width: hydrated ? width : undefined,
               position: hydrated ? 'relative' : undefined,
             }}
           >
             <Header />
+            {/* The wordmark stays at the top of the sidebar while the
+                navigation scrolls beneath it. It has its own transition name
+                so a page change keeps it above the navigation snapshot. */}
+            <div className="hidden lg:sticky lg:top-0 lg:z-40 lg:-mx-6 lg:flex lg:h-14 lg:items-center lg:bg-paper lg:px-6 lg:dark:bg-ink [view-transition-name:sidebar-brand]">
+              <Link
+                href="/"
+                aria-label={`${siteName} home`}
+                className={clsx('rounded', focusRing)}
+              >
+                <Logo />
+              </Link>
+              {/* Continues the Header's hairline across the sidebar. */}
+              <div className="absolute inset-x-0 top-full h-px bg-zinc-900/7.5 dark:bg-white/7.5" />
+            </div>
             {/* The transition name sits on the nav, not its container: a named
                 element becomes a containing block in WebKit, which would trap
                 the fixed Header inside the sidebar. */}
-            <Navigation className="hidden lg:block [view-transition-name:sidebar]" />
+            <Navigation className="hidden lg:mt-6 lg:block [view-transition-name:sidebar]" />
             {hydrated && <SidebarResizeHandle />}
           </div>
         )}

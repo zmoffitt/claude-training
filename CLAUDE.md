@@ -93,6 +93,8 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 `Layout.tsx` renders the page shell: fixed sidebar (desktop, `lg:` breakpoint) with `Navigation` + a fixed `Header` + `Footer`. The desktop sidebar can be resized (240–480px, `SidebarResizeHandle`) and collapsed from the header; `useSidebarStore` keeps both in `localStorage`. All pages share this layout via `layout.tsx`.
 
+**Wordmark** — `Logo.tsx` sets the program name from `siteName` (`src/lib/site.ts`) in the display face and links home. It sits at the top of the desktop sidebar, pinned while the navigation scrolls, and moves into the `Header` below `lg:` and when the sidebar is collapsed. `siteName` also feeds the document title template and the console greeting; change the name there, not in each place.
+
 **Navigation is data-driven** — the `navigation` array exported from `Navigation.tsx` defines all sidebar links. It supports arbitrarily nested collapsible groups (see `NavLinkItem.children`). To add a new page, create the `.mdx` file **and** add its entry to this array.
 
 **Mobile navigation** uses a Zustand store (`useMobileNavigationStore` in `MobileNavigation.tsx`) for open/close state, rendered as a Headless UI `Dialog`. Both desktop sidebar and mobile drawer render the same `<Navigation>` component.
