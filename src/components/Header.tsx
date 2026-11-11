@@ -17,6 +17,7 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
 import { focusRing } from '@/lib/focusRing'
+import { siteName } from '@/lib/site'
 
 export const Header = forwardRef<
   React.ComponentRef<'div'>,
@@ -40,7 +41,7 @@ export const Header = forwardRef<
       ref={ref}
       className={clsx(
         className,
-        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:z-30 lg:px-8',
+        'fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-4 px-4 transition sm:px-6 lg:z-30 lg:gap-12 lg:px-8',
         !isInsideMobileNavigation && 'backdrop-blur-xs dark:backdrop-blur-sm',
         isInsideMobileNavigation
           ? 'bg-paper dark:bg-ink'
@@ -62,8 +63,11 @@ export const Header = forwardRef<
             'bg-zinc-900/7.5 dark:bg-white/7.5',
         )}
       />
-      {/* Toggle button — visible on all screen sizes */}
-      <div className="flex items-center gap-5">
+      {/* Toggle button — visible on all screen sizes. The negative margins
+          here and on the right-hand group pull each 44px button outward by
+          its own inset, so the icons, not the button boxes, line up with the
+          edges of the page text below. */}
+      <div className="-ml-4 flex min-w-0 items-center gap-2 lg:gap-5">
         {isLg ? (
           /* Desktop: toggle sidebar collapse */
           <button
@@ -86,15 +90,23 @@ export const Header = forwardRef<
           /* Mobile: existing MobileNavigation toggle */
           <MobileNavigation />
         )}
+        {/* The wordmark sits here on small screens and when the desktop
+            sidebar is collapsed; otherwise the sidebar carries it. The class
+            is a breakpoint rule, not a check of `isLg`, so it is right on the
+            server-rendered first paint too. */}
         <Link
           href="/"
-          aria-label="Home"
-          className={clsx(isLg && 'hidden', 'rounded', focusRing)}
+          aria-label={`${siteName} home`}
+          className={clsx(
+            !(isLg && isCollapsed) && 'lg:hidden',
+            'min-w-0 rounded',
+            focusRing,
+          )}
         >
           <Logo />
         </Link>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="-mr-3 flex items-center gap-5">
         <div className="flex gap-4">
           <SearchButton />
           <ThemeToggle />

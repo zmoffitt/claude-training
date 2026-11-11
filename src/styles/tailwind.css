@@ -160,13 +160,16 @@
   ::view-transition-new(root) {
     animation-duration: 180ms;
   }
-  ::view-transition-group(sidebar) {
+  ::view-transition-group(sidebar),
+  ::view-transition-group(sidebar-brand) {
     animation: none;
   }
-  ::view-transition-old(sidebar) {
+  ::view-transition-old(sidebar),
+  ::view-transition-old(sidebar-brand) {
     display: none;
   }
-  ::view-transition-new(sidebar) {
+  ::view-transition-new(sidebar),
+  ::view-transition-new(sidebar-brand) {
     animation: none;
   }
   ::view-transition-group(nav-marker),

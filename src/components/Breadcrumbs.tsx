@@ -28,6 +28,11 @@ function findTrail(
   return null
 }
 
+/** A session landing page: its crumb is drawn in that session's hue. */
+function isSessionCrumb(href: string) {
+  return /^\/docs\/training\/(?:claude-code|codex-chatgpt)\/session-\d$/.test(href)
+}
+
 export function Breadcrumbs() {
   const pathname = usePagePath()
 
@@ -59,11 +64,15 @@ export function Breadcrumbs() {
               <Link
                 href={crumb.href}
                 className={clsx(
-                  'rounded text-zinc-500 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
+                  // Hover takes the interaction color, as the sidebar links
+                  // do. The session crumb keeps its session hue, so there
+                  // the hover shows as a line under the text.
+                  'rounded text-zinc-500 transition hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400',
+                  isSessionCrumb(crumb.href) && 'underline-offset-2 hover:underline',
                   focusRing,
                 )}
                 style={
-                  /^\/docs\/training\/(?:claude-code|codex-chatgpt)\/session-\d$/.test(crumb.href)
+                  isSessionCrumb(crumb.href)
                     ? { color: 'var(--session-hue)', fontWeight: 500 }
                     : undefined
                 }

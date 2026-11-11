@@ -65,11 +65,14 @@ function NavLink({
       href={href}
       aria-current={active ? 'page' : undefined}
       className={clsx(
-        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1 pr-3 text-sm transition',
+        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
           ? 'text-zinc-900 dark:text-white'
-          : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white',
+          : // Hover takes the interaction color, as the group titles do. A
+            // step to the heading color is too small to see in dark, where
+            // resting links are already close to white.
+            'text-zinc-600 hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400',
         focusRing,
       )}
     >
@@ -157,7 +160,7 @@ function NestedNavItem({
           aria-controls={childListId}
           aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${link.title}`}
           className={clsx(
-            'flex shrink-0 items-center rounded pr-3',
+            'flex shrink-0 items-center self-stretch rounded pr-3 pl-2',
             focusRing,
           )}
         >
@@ -292,7 +295,7 @@ function NavigationGroup({
             aria-expanded={isOpen}
             aria-controls={groupContentId}
             aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title}`}
-            className={clsx('flex shrink-0 cursor-pointer items-center rounded p-1', focusRing)}
+            className={clsx('flex shrink-0 cursor-pointer items-center rounded py-1 pr-3 pl-2', focusRing)}
           >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
@@ -339,7 +342,7 @@ function NavigationGroup({
                 <ActivePageMarker activeCenter={activeCenter} />
               )}
             </AnimatePresence>
-            <ul role="list" className="border-l border-transparent">
+            <ul role="list">
               {group.links.map((link) => (
                 <NestedNavItem key={link.href} link={link} pathname={pathname} />
               ))}
