@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { Footer } from '@/components/Footer'
@@ -19,6 +20,7 @@ import { InlineTableOfContents, TableOfContents } from '@/components/TableOfCont
 import { usePagePath } from '@/lib/usePagePath'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
+import { recordVisit } from '@/lib/progress'
 import { focusRing } from '@/lib/focusRing'
 import { siteName } from '@/lib/site'
 
@@ -29,7 +31,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // `isLg` is false during SSR and the first client render. Tailwind's
   // responsive classes (`lg:w-80`, `lg:ml-80`) provide a correct CSS fallback
   // so the layout is stable before hydration. Once the media-query hook fires,
-  // inline styles take over with the user's persisted width.
+  // inline styles take over with the user's persisted width. The fallback must
+  // equal `DEFAULT_WIDTH` in `useSidebarStore` at every breakpoint, or the
+  // sidebar changes width on each load and its labels wrap again.
   const hydrated = isLg // true only after useEffect runs on the client
   const effectiveWidth = hydrated ? (isCollapsed ? 0 : width) : undefined
 
@@ -37,6 +41,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // marker take that session's hue (see --session-N in tailwind.css).
   const pathname = usePagePath()
   const session = pathname.match(/\/session-(\d)(?:\/|$)/)?.[1]
+
+  // Remember the learner's place so the home page can offer to continue.
+  useEffect(() => {
+    recordVisit(pathname)
+  }, [pathname])
   const rootStyle: React.CSSProperties = {
     ...(hydrated ? { marginLeft: effectiveWidth } : {}),
     ...(session ? ({ '--session-hue': `var(--session-${session})` } as React.CSSProperties) : {}),
@@ -44,7 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="h-full lg:ml-80 xl:ml-88"
+      className="h-full lg:ml-80"
       style={rootStyle}
     >
       <a
@@ -61,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Desktop sidebar — unmounted when collapsed */}
         {!(hydrated && isCollapsed) && (
           <div
-            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pb-8 xl:w-88 lg:dark:border-white/10"
+            className="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pb-8 lg:dark:border-white/10"
             style={{
               width: hydrated ? width : undefined,
               position: hydrated ? 'relative' : undefined,

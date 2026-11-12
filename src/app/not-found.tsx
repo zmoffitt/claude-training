@@ -2,28 +2,20 @@ import Link from 'next/link'
 
 import { Button } from '@/components/Button'
 import { NotFoundSuggestions } from '@/components/NotFoundSuggestions'
+import { claudeSessions } from '@/lib/sessions'
 
 export const metadata = {
   title: 'Page not found',
 }
 
-const startingPoints = [
-  {
-    href: '/docs/training/claude-code/session-1',
-    title: 'Session 1',
-    description: 'Foundations — models, context, planning',
-  },
-  {
-    href: '/docs/training/claude-code/session-2',
-    title: 'Session 2',
-    description: 'Local Claude — CLAUDE.md, permissions, hooks',
-  },
-  {
-    href: '/docs/training/claude-code/session-3',
-    title: 'Session 3',
-    description: 'Extending Claude — skills, plugins, MCP',
-  },
-]
+// The sessions that have pages, under the names the rest of the site uses.
+const startingPoints = claudeSessions
+  .filter((s) => s.href)
+  .map((s) => ({
+    href: s.href as string,
+    title: `Session ${s.number}`,
+    description: `${s.title} — ${s.covers}`,
+  }))
 
 export default function NotFound() {
   return (

@@ -1,16 +1,28 @@
+import { PageHero } from "@/components/PageHero";
+import { SessionOutline } from "@/components/SessionOutline";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
 import { Term } from "@/components/Term";
+import { sessionOutline } from "@/lib/sessions";
 
 export const metadata = {
   title: "Claude Code",
 };
 
-# Claude Code
+<PageHero
+  eyebrow="Cloud Engineering · Five-session program"
+  title="Claude Code"
+  subtitle="Five weekly sessions for cloud, container, and IAM engineers: from a first prompt to repository workflows, skills, and agents. Sessions 1 to 3 are published."
+/>
 
-Claude Code is Anthropic's CLI tool for AI-assisted development. It runs in your terminal and can read, write, and reason about your entire codebase.
+<SessionOutline items={sessionOutline("claude")} />
 
-Use this guide to set up Claude Code and start using it to supercharge your development workflow.
+<TrainingRoadmap activeStep={0} />
 
-## Installation
+The second line on each step is the working mode that session reaches. [Three Eras](/docs/training/claude-code/session-1/three-eras) defines them.
+
+## Install Claude Code
+
+Install the CLI before the Session 1 hands-on exercise. Everything from Session 2 on runs in it.
 
 ### macOS, Linux, or Windows Subsystem for Linux (WSL)
 
@@ -30,56 +42,26 @@ irm https://claude.ai/install.ps1 | iex
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 ```
 
-### First run
+## First run
 
-Navigate to your project directory and launch Claude Code:
+Go to a project directory and start a session:
 
 ```bash
 cd your-project
 claude
 ```
 
-Then, inside the session, run `/init`. Claude scans the project and drafts a `CLAUDE.md` with its conventions and commands. This can take a few minutes on a large repo. Review the draft before committing it.
+Then run `/init` inside the session. Claude scans the project and drafts a <Term id="claude-md">`CLAUDE.md`</Term> with its conventions and commands. This can take a few minutes on a large repo. Review the draft before committing it.
 
-## Key features
+Then give it one real task. Name the file, the function, or the failing behavior:
 
-- **Full codebase awareness** — reads and understands your entire project
-- **Multi-file editing** — makes coordinated changes across files
-- **Terminal access** — runs commands, tests, and builds
-- **Git integration** — commits, creates PRs, and manages branches
-- **IDE extensions** — available for VS Code and JetBrains
-
-## Common workflows
-
-### Bug fixing
-
-Describe the bug and let Claude investigate:
-
-```text
+```prompt
 Fix the 500 error that occurs when users submit the login form with an empty email
 ```
 
-### Code generation
-
-Ask Claude to implement features:
-
-```text
-Add a rate limiter middleware that limits API requests to 100 per minute per user
-```
-
-### Code review
-
-Ask Claude to review changes:
-
-```text
+```prompt
 Review the changes in this branch and flag any issues
 ```
-
-## Tips
-
-- Be specific about what you want — include file paths, function names, and expected behavior
-- Use <Term id="claude-md">`CLAUDE.md`</Term> files in your repo to give Claude persistent context about your project
-- Start broad, then refine — let Claude propose an approach before diving into details
 
 ## Where to go next
 

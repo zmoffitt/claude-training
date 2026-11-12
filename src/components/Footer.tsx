@@ -6,19 +6,28 @@ import { Button } from '@/components/Button'
 import { navigation, type NavLinkItem, type PageEntry } from '@/components/Navigation'
 import { usePrevNextPage } from '@/lib/usePrevNextPage'
 
-function findSiblingPosition(
+function pagesIn(item: NavLinkItem): Array<string> {
+  return [item.href, ...(item.children ?? []).flatMap(pagesIn)]
+}
+
+/**
+ * Where a page sits in its session. A session is a child of a track (a
+ * top-level sidebar link) that has pages of its own; its landing page is
+ * page 1 and every page under it counts, however deeply the sidebar nests
+ * it, in the order the Next button walks them. Pages outside a session
+ * have no sequence to report.
+ */
+function findSessionPosition(
   pathname: string,
-  items: Array<NavLinkItem>,
-  parent: NavLinkItem | null = null,
-): { parent: NavLinkItem; index: number; total: number } | null {
-  for (const item of items) {
-    if (item.href === pathname && parent && parent.children) {
-      const index = parent.children.findIndex((s) => s.href === pathname)
-      if (index >= 0) return { parent, index, total: parent.children.length }
-    }
-    if (item.children) {
-      const found = findSiblingPosition(pathname, item.children, item)
-      if (found) return found
+): { session: NavLinkItem; index: number; total: number } | null {
+  for (const group of navigation) {
+    for (const track of group.links) {
+      for (const session of track.children ?? []) {
+        if (!session.children) continue
+        const pages = pagesIn(session)
+        const index = pages.indexOf(pathname)
+        if (index >= 0) return { session, index, total: pages.length }
+      }
     }
   }
   return null
@@ -26,12 +35,11 @@ function findSiblingPosition(
 
 function ProgressIndicator() {
   const pathname = usePagePath()
-  const allLinks: Array<NavLinkItem> = navigation.flatMap((g) => g.links)
-  const found = findSiblingPosition(pathname, allLinks)
-  if (!found || found.total < 3) return null
+  const found = findSessionPosition(pathname)
+  if (!found) return null
   return (
     <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
-      {found.parent.title} &middot; Page {found.index + 1} of {found.total}
+      {found.session.title} &middot; Page {found.index + 1} of {found.total}
     </p>
   )
 }

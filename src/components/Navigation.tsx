@@ -11,6 +11,7 @@ import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react
 
 import { focusRing } from '@/lib/focusRing'
 import { remToPx } from '@/lib/remToPx'
+import { claudeSessions, codexSessions, sessionLabel } from '@/lib/sessions'
 
 export interface NavLinkItem {
   title: string
@@ -245,14 +246,24 @@ function NavigationGroup({
   }
 
   let measure = useCallback(() => {
-    if (!containerRef.current) return
-    let activeEl = containerRef.current.querySelector<HTMLElement>('[aria-current="page"]')
-    if (!activeEl) return
-    let containerRect = containerRef.current.getBoundingClientRect()
-    let activeRect = activeEl.getBoundingClientRect()
-    if (activeRect.height === 0) return
-    setActiveCenter(activeRect.top - containerRect.top + activeRect.height / 2)
-    setActiveHeight(activeRect.height)
+    let container = containerRef.current
+    if (!container) return
+    let activeEl = container.querySelector<HTMLElement>('[aria-current="page"]')
+    if (!activeEl || activeEl.offsetHeight === 0) return
+    // Add up layout offsets instead of comparing bounding rects. A bounding
+    // rect includes transforms, and the rows carry one while a layout
+    // animation runs (the sidebar takes its stored width after hydration and
+    // the labels wrap again), so a rect read then reports where the row was,
+    // not where it comes to rest.
+    let top = 0
+    let el: HTMLElement | null = activeEl
+    while (el && el !== container) {
+      top += el.offsetTop
+      el = el.offsetParent as HTMLElement | null
+    }
+    if (el !== container) return
+    setActiveCenter(top + activeEl.offsetHeight / 2)
+    setActiveHeight(activeEl.offsetHeight)
   }, [])
 
   useEffect(() => {
@@ -399,14 +410,14 @@ export const navigation: Array<NavGroup> = [
         title: 'Claude Code', href: '/docs/training/claude-code',
         children: [
           {
-            title: 'Session 1: Foundations',
+            title: sessionLabel(claudeSessions[0]),
             href: '/docs/training/claude-code/session-1',
             children: [
               { title: 'AI Fluency Framework', href: '/docs/training/claude-code/session-1/ai-fluency-framework', section: 'Orientation' },
               { title: 'Slope Over Snapshot', href: '/docs/training/claude-code/session-1/slope-over-snapshot' },
               { title: 'Three Eras', href: '/docs/training/claude-code/session-1/three-eras' },
               { title: "What Claude Is (and Isn't)", href: '/docs/training/claude-code/session-1/what-claude-is' },
-              { title: 'Claude Everywhere', href: '/docs/training/claude-code/session-1/claude-everywhere' },
+              { title: 'Your Claude, Everywhere', href: '/docs/training/claude-code/session-1/claude-everywhere' },
               {
                 title: "How Context Works",
                 href: '/docs/training/claude-code/session-1/how-context-works',
@@ -416,7 +427,7 @@ export const navigation: Array<NavGroup> = [
                 ],
               },
               {
-                title: "Thinking Effort, Models, & Quotas",
+                title: "Thinking Effort & Quotas",
                 href: '/docs/training/claude-code/session-1/thinking-effort-quotas',
                 children: [
                   { title: 'Choosing the Right Model', href: '/docs/training/claude-code/session-1/choosing-the-right-model' },
@@ -443,7 +454,7 @@ export const navigation: Array<NavGroup> = [
             ],
           },
           {
-            title: 'Session 2: CLI Workflows & Context',
+            title: sessionLabel(claudeSessions[1]),
             href: '/docs/training/claude-code/session-2',
             children: [
               {
@@ -498,7 +509,7 @@ export const navigation: Array<NavGroup> = [
             ],
           },
           {
-            title: 'Session 3: Extending Claude',
+            title: sessionLabel(claudeSessions[2]),
             href: '/docs/training/claude-code/session-3',
             children: [
               {
@@ -574,7 +585,7 @@ export const navigation: Array<NavGroup> = [
         href: '/docs/training/codex-chatgpt',
         children: [
           {
-            title: 'Session 1: Foundations & ChatGPT',
+            title: sessionLabel(codexSessions[0]),
             href: '/docs/training/codex-chatgpt/session-1',
             children: [
               {
@@ -608,7 +619,7 @@ export const navigation: Array<NavGroup> = [
             ],
           },
           {
-            title: 'Session 2: Codex Workflows & Project Context',
+            title: sessionLabel(codexSessions[1]),
             href: '/docs/training/codex-chatgpt/session-2',
             children: [
               {
@@ -646,7 +657,7 @@ export const navigation: Array<NavGroup> = [
             ],
           },
           {
-            title: 'Session 3: Skills, Connections & Automation',
+            title: sessionLabel(codexSessions[2]),
             href: '/docs/training/codex-chatgpt/session-3',
             children: [
               {
