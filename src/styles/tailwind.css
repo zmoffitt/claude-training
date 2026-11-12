@@ -669,11 +669,29 @@
   }
 }
 
+/* ── Figure width ──
+ * Everything on a page that is not running text (a table, a code block, a
+ * card set, a diagram, a callout) stops at one width, so a page has two right
+ * edges: the text measure below and this one. Landing-page pieces (the hero,
+ * the roadmap, the session outline, the home list) are marked `.not-prose`
+ * and keep the full column; so does a figure wrapped in `<div className="wide">`.
+ * The rule sits in the utilities layer with a specificity just above the
+ * column width `Prose` sets and below a single class, so a component can
+ * still pick a narrower width with a utility of its own.
+ */
+@layer utilities {
+  @media (min-width: 1024px) {
+    html body :where(.prose > :is(div, pre, table, figure, section, svg):not(.not-prose, .wide)) {
+      max-width: var(--container-3xl);
+    }
+  }
+}
+
 /* ── Reading measure ──
  * Running text stops at about 75 characters a line (38rem of 16px Inter; the
  * 18px lead under a page title comes to about 67). Tables, code, cards, and
- * diagrams keep the full column, so a page reads as narrow text with wider
- * figures. The measure is in rem, not ch, so the lead and the body share one
+ * diagrams run to the figure width above, so a page reads as narrow text with
+ * wider figures. The measure is in rem, not ch, so the lead and the body share one
  * right edge. The rule stays outside the cascade layers and carries `html`
  * to outrank both the column widths `Prose` sets and the rule above.
  */

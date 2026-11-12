@@ -19,7 +19,9 @@ const startingPoints = claudeSessions
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-2xl flex-col justify-center gap-6 px-4 py-16">
+    // The page styles every element itself. Without `not-prose` the lists
+    // below pick up the article's bullets and indent.
+    <div className="not-prose mx-auto flex min-h-[60vh] max-w-2xl flex-col justify-center gap-6 px-4 py-16">
       <div className="flex flex-col gap-4">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-violet-500 dark:text-violet-400">
           404
@@ -55,7 +57,7 @@ export default function NotFound() {
               </span>
               <span
                 aria-hidden="true"
-                className="ml-auto translate-x-0 text-zinc-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100 dark:text-zinc-500"
+                className="ml-auto translate-x-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:opacity-100 [@media(hover:hover)]:opacity-0 dark:text-zinc-500"
               >
                 &rarr;
               </span>

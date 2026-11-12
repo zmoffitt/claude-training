@@ -69,7 +69,7 @@ export const metadata = { title: "Page Title" };
 **One Callout per page max** — reserve `<Callout>` for one moment of real punctuation per page. Use bold lead-in inline emphasis (`**Key idea.** Sentence...`) for secondary points instead of stacking Callout boxes.
 
 **Page archetypes** — content pages cast into one of three rhythms so the visual sequence varies:
-- *Table-led*: focal markdown table wrapped in `<div className="max-w-2xl lg:max-w-3xl">` to match Callout width.
+- *Table-led*: focal markdown table. It takes the figure width on its own; do not wrap it in a width `div`.
 - *Comparison-led*: `PillarCards` or `ProConCards` as the focal element.
 - *Narrative-led*: example, code block, or numbered walkthrough as the focal element.
 
@@ -89,7 +89,7 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 **Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. The index only exists after `pnpm build`, so `pnpm dev` always runs on the fallback; use `pnpm start` to exercise real Pagefind results. Empty state shows suggested queries; no-results says "Try a broader term, or one of these." above the same suggested queries.
 
-**404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (up to three "did you mean" links scored against `allPages`, rendered after hydration because the export serves one `404.html` for every missing path; nothing when no page comes close), lists the developed Claude sessions from `lib/sessions.ts`, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the error boundary for page content ("Try again" / "Go home"); it does not cover the shell in the root layout, and there is no `global-error.tsx`.
+**404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (recovery links chosen from the failed path, rendered after hydration because the export serves one `404.html` for every missing path: the pages inside it when the path is a section with no page of its own, such as `/docs/tips`; otherwise up to three "did you mean" links, which tolerate a plural or one typo; otherwise the nearest page above it; nothing when the path gives no lead), lists the developed Claude sessions from `lib/sessions.ts`, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the error boundary for page content ("Try again" / "Go home"); it does not cover the shell in the root layout, and there is no `global-error.tsx`.
 
 ### Layout & Navigation
 
@@ -130,7 +130,8 @@ Add `'use client'` only when a component needs state, effects, event handlers, t
 - **Breadcrumbs**: below `sm:` the trail is one line, the parent page as a back link (`‹ Parent`); from `sm:` it is the full trail.
 - **TableOfContents**: right rail visible from 1366px (narrow, `w-44 right-3`), expanding at `min-[1440px]:` to `w-56 right-6`. Below 1366 the rail is hidden to avoid overlapping the left-aligned Prose, and `InlineTableOfContents` shows a collapsed "On this page" disclosure instead. `scripts/remark-page-outline.mjs` adds it to each MDX page at build time, below the H1 and tagline (below `PageHero` on a landing page), with the page's H2 counts as props so the summary row is in the static HTML. Both render only on pages with at least two H2 sections besides "Where to go next".
 - **Tables**: every markdown table is auto-wrapped by `mdx-components.tsx` in a focusable `.table-scroll` region; dense tables scroll horizontally on narrow viewports rather than compressing every cell.
-- **Reading measure**: paragraphs, lists, and blockquotes directly inside `.prose` stop at `--measure` (38rem, about 75 characters of body text); tables, code blocks, cards, and diagrams keep the full column. The rule is under "Reading measure" in `tailwind.css`.
+- **Reading measure**: paragraphs, lists, and blockquotes directly inside `.prose` stop at `--measure` (38rem, about 75 characters of body text); the rule is under "Reading measure" in `tailwind.css`.
+- **Figure width**: from `lg:`, every other direct child of `.prose` (a table, a code block, a card set, a diagram, a `Callout`) stops at `--container-3xl` (50rem), so a lesson page has two right edges: text and figures. Landing-page pieces marked `.not-prose` (hero, roadmap, session outline, home list) keep the full column. Wrap a figure in `<div className="wide">` to let it run the full column. The rule is under "Figure width" in `tailwind.css`; it sits in the utilities layer below single-class specificity, so a component can still set a narrower `max-w-*`.
 - **Cards**: `PillarCards` / `ProConCards` stack at mobile and switch to their column grid at `sm:` (two or three columns; four cards make a 2×2). `HomeSections` is a divided list whose rows become a three-column grid at `sm:`.
 
 ## Adding Documentation

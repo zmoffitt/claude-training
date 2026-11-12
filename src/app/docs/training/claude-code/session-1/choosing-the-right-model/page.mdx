@@ -68,8 +68,6 @@ Match the model to the task — the biggest lever for managing token consumption
 
 Pick the starting model and <Term id="effort">effort</Term> from the kind of work, then adjust from what you see. The effort column is the Claude Code setting; `medium` is the default there for all four models.
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Work | Start on | Starting effort |
 | --- | --- | --- |
 | Everyday engineering, debugging, multi-PR features | Opus 5.5 | `medium`, then `high` |
@@ -83,8 +81,6 @@ Pick the starting model and <Term id="effort">effort</Term> from the kind of wor
 | Major refactors, migrations, architecture planning, leading many subagents | Fable 5.2 | `medium`, then `high` |
 | Deep research; scientific or quantitative analysis | Fable 5.2 | `medium`, then `high` |
 | Not sure | Opus 5.5 | `medium` |
-
-</div>
 
 **A clear spec does not mean Sonnet by default.** A migration or a performance pass can be fully specified and still need Opus 5.5, or Fable 5.2 for the large ones. Complex financial models and work over large source material also start on Opus. The table follows Anthropic's [model selection guide](https://claude.dev/blog/which-claude-model-should-you-build-with/) from November 2026.
 
@@ -116,8 +112,6 @@ Change one thing at a time, in this order:
 
 API list prices per 1M tokens, November 2026, from the [official pricing table](https://platform.claude.com/docs/en/about-claude/pricing). Subscription plans draw on plan limits instead of billing per token, but a cheaper model still stretches those limits further.
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Model | Input / output | Cache read | Fast mode (in / out) |
 | --- | --- | --- | --- |
 | Fable 5.2 | $8 / $40 | $0.20 | $16 / $80 |
@@ -125,15 +119,11 @@ API list prices per 1M tokens, November 2026, from the [official pricing table](
 | Sonnet 5.5 | $2 / $10 | $0.10 | Not available |
 | Haiku 5.5 | $0.10 / $0.50 up to 100K-token prompts, $0.50 / $2.50 above | $0.01, then $0.05 | Not available |
 
-</div>
-
 All four have a 1M-token context window and 128K maximum output. Fast mode (`/fast`) runs the same model at up to 2.5× the output speed for twice the token price; on subscription plans it bills to usage credits only, never to plan limits.
 
 ## Legacy models you'll still meet
 
 The previous generation is still served, and some providers resolve the `opus`, `sonnet`, and `haiku` aliases to it. If `/model` shows one of these, you're usually on a third-party platform, on an older org default, or in a session that fell back after a flagged request.
-
-<div className="max-w-2xl lg:max-w-3xl">
 
 | Model | Price (in / out per 1M) | Where it still shows up |
 | --- | --- | --- |
@@ -145,8 +135,6 @@ The previous generation is still served, and some providers resolve the `opus`, 
 | Sonnet 5 | $2 / $10 | The auto-mode classifier model; the fallback for flagged cybersecurity requests on Sonnet 5.5 |
 | Sonnet 4.6 | $3 / $15, 200K unless `[1m]` | The `sonnet` alias on Claude Platform on AWS |
 | Sonnet 4.5 / Haiku 4.5 | 200K only | `sonnet` on Bedrock, Google Cloud, and Foundry (Sonnet 4.5 is also Foundry's default model); `haiku` on Claude Platform on AWS, Bedrock, Google Cloud, and Foundry |
-
-</div>
 
 **Aliases move.** `best` used to pick Fable where it was available; from v2.1.321 it resolves to the same model as `opus`. Organizations on third-party platforms should pin versions with `ANTHROPIC_DEFAULT_OPUS_MODEL` and its siblings so an alias never changes under them. The [model configuration reference](https://code.claude.com/docs/en/model-config) lists what every alias resolves to per provider.
 

@@ -23,8 +23,6 @@ All five guardrail layers, end-to-end, on one real IAM problem: a daily watch fo
 
 Each row maps to one of the [five guardrail layers](/docs/training/claude-code/session-4/designing-guardrails), under the same number.
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Layer | In this workflow |
 | --- | --- |
 | **1. `CLAUDE.md` constraints** | `"never call CA write endpoints; report only"`. The agent reads this every session. |
@@ -32,8 +30,6 @@ Each row maps to one of the [five guardrail layers](/docs/training/claude-code/s
 | **3. Plan-then-execute** | The orchestrator skill emits a numbered plan before any classification runs. |
 | **4. Checkpoints & escalation** | Stop and ask if more than five policies changed in one day. Drift that big means something is happening that the task should not handle alone. |
 | **5. Definition of done** | A markdown file in `runs/yyyy-mm-dd.md` with all diffs and links. If that file does not appear, the run did not complete. |
-
-</div>
 
 <Callout variant="info" title="Why this is a fair Level 3 candidate" align="left">
   Read-only Graph access, write surface is just a GitHub ticket, blast radius is "humans review the report." If the agent misclassifies a change, the worst outcome is a wrongly-labeled ticket — not a misconfigured tenant.
