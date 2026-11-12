@@ -18,12 +18,12 @@ const sections: Section[] = [
     eyebrow: 'Training',
     title: 'Claude Code',
     description:
-      'Five-session program — sessions, walkthroughs, and notes from team trainings.',
+      'Five weekly sessions, from a first prompt to skills and agents. Sessions 1 to 3 are published.',
     href: '/docs/training/claude-code',
     primary: true,
   },
   {
-    eyebrow: 'Also available',
+    eyebrow: 'Second track',
     title: 'Codex & ChatGPT',
     description:
       'Three complete sessions: grounded answers, verified code, and reusable engineering workflows.',
@@ -33,21 +33,21 @@ const sections: Section[] = [
     eyebrow: 'Reference',
     title: 'Best Practices',
     description:
-      'Proven patterns and workflows for using AI coding tools in real engineering work.',
+      'Code review, security, and fitting AI tools into the workflow you already have.',
     href: '/docs/best-practices/code-review',
   },
   {
     eyebrow: 'Reference',
     title: 'Configuration',
     description:
-      'Shared configs, prompts, CLAUDE.md examples, and editor setup for the team.',
+      'The CLAUDE.md template, editor setup, and the conventions the team shares.',
     href: '/docs/configuration/claude-md',
   },
   {
     eyebrow: 'Reference',
     title: 'Tips & Tricks',
     description:
-      'Team-contributed knowledge for getting the most out of AI assistants day to day.',
+      'Prompts that work, shortcuts worth memorizing, and the pitfalls that cost people a day.',
     href: '/docs/tips/effective-prompts',
   },
 ]
@@ -55,7 +55,10 @@ const sections: Section[] = [
 export function HomeSections() {
   return (
     <ul className="flex flex-col divide-y divide-zinc-900/10 border-y border-zinc-900/10 dark:divide-white/10 dark:border-white/10">
-      {sections.map((s) => (
+      {sections.map((s, i) => {
+        // Consecutive rows of one kind share a single eyebrow, on the first.
+        const showEyebrow = i === 0 || sections[i - 1].eyebrow !== s.eyebrow
+        return (
         <li key={s.title}>
           <Link
             href={s.href}
@@ -66,6 +69,7 @@ export function HomeSections() {
               focusRing,
             )}
           >
+            {showEyebrow && (
             <span
               className={clsx(
                 'col-start-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
@@ -76,6 +80,7 @@ export function HomeSections() {
             >
               {s.eyebrow}
             </span>
+            )}
             <span className="col-start-1 flex flex-col gap-1 sm:col-start-2">
               <span
                 className={clsx(
@@ -99,7 +104,8 @@ export function HomeSections() {
             </span>
           </Link>
         </li>
-      ))}
+        )
+      })}
     </ul>
   )
 }

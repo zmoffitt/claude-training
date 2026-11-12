@@ -11,10 +11,10 @@ export interface Session {
   number: number
   /** The session's name on every surface. */
   title: string
-  /** The roadmap's second line: the working mode or outcome the session reaches. */
-  mode: string
   /** Topics, as a short list that can follow a dash or stand alone. */
   covers: string
+  /** An outcome to show as the roadmap's second line in place of the topics. */
+  outcome?: string
   /** Absent until the session has pages. */
   href?: string
 }
@@ -23,47 +23,44 @@ export const claudeSessions: Array<Session> = [
   {
     number: 1,
     title: 'Foundations',
-    mode: 'Manual',
     covers: 'what Claude is, how context works, models and effort, plan mode',
     href: '/docs/training/claude-code/session-1',
   },
   {
     number: 2,
     title: 'CLI Workflows & Project Context',
-    mode: 'Task Execution',
     covers: 'permissions, CLAUDE.md, hooks, subagents',
     href: '/docs/training/claude-code/session-2',
   },
   {
     number: 3,
     title: 'Extending Claude',
-    mode: 'Human in Loop',
     covers: 'skills, plugins, MCP, connectors, scheduled tasks',
     href: '/docs/training/claude-code/session-3',
   },
-  { number: 4, title: 'Agents', mode: 'Human on Loop', covers: 'agents' },
-  { number: 5, title: 'Capstone', mode: 'Scaling', covers: 'capstone' },
+  { number: 4, title: 'Agents', covers: 'agents' },
+  { number: 5, title: 'Capstone', covers: 'capstone' },
 ]
 
 export const codexSessions: Array<Session> = [
   {
     number: 1,
     title: 'Foundations & ChatGPT',
-    mode: 'ChatGPT & verification',
+    outcome: 'ChatGPT & verification',
     covers: 'context, projects, model selection, and evidence-based verification',
     href: '/docs/training/codex-chatgpt/session-1',
   },
   {
     number: 2,
     title: 'Codex Workflows & Project Context',
-    mode: 'Verified repository work',
+    outcome: 'Verified repository work',
     covers: 'setup, AGENTS.md, permissions, implementation, and review',
     href: '/docs/training/codex-chatgpt/session-2',
   },
   {
     number: 3,
     title: 'Skills, Connections & Automation',
-    mode: 'Reusable workflows',
+    outcome: 'Reusable workflows',
     covers: 'reusable skills, MCP, plugins, scheduled tasks, and evaluation',
     href: '/docs/training/codex-chatgpt/session-3',
   },
@@ -79,6 +76,11 @@ export function sessionLabel(session: Session): string {
   return `Session ${session.number}: ${session.title}`
 }
 
+/** A session's topics as a line that stands alone: "Permissions, CLAUDE.md, hooks, subagents". */
+export function sessionTopics(session: Session): string {
+  return session.covers.charAt(0).toUpperCase() + session.covers.slice(1)
+}
+
 /** The sessions that have pages, as items for `SessionOutline`. */
 export function sessionOutline(track: Track) {
   return sessionsByTrack[track]
@@ -86,7 +88,7 @@ export function sessionOutline(track: Track) {
     .map((s) => ({
       href: s.href,
       title: sessionLabel(s),
-      description: s.covers.charAt(0).toUpperCase() + s.covers.slice(1),
+      description: sessionTopics(s),
     }))
 }
 
