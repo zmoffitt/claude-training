@@ -1,0 +1,53 @@
+import { AgentLoop } from "@/components/AgentLoop";
+import { Callout } from "@/components/Callout";
+import { FeatureColumns } from "@/components/FeatureColumns";
+
+export const metadata = {
+  title: "What Makes It Agentic",
+};
+
+# What Makes It Agentic
+
+Same Claude, but the loop closes inside the agent before you check in.
+
+<FeatureColumns
+  columns={[
+    {
+      title: "Conversation",
+      subtitle: "You close the loop",
+      color: "#727286",
+      items: [
+        "You prompt, Claude responds, you read",
+        "Single shot, or single approved action",
+        "You decide what to do with each output",
+        "Claude doesn't see the result of running its suggestion",
+      ],
+    },
+    {
+      title: "Agentic task",
+      subtitle: "The agent closes the loop",
+      color: "#6240E8",
+      items: [
+        "Multi-step: many tool calls before the goal is met",
+        "Tool usage: reads, writes, shells out, calls APIs",
+        "Self-correction: sees its own results, adjusts course",
+        "Decision-making: chooses the next step from context",
+      ],
+    },
+  ]}
+/>
+
+## The four-beat loop
+
+<AgentLoop />
+
+The trick isn't building the loop — Claude already does it. The trick is choosing *which beats need a human*, and which can run on rails. That's the autonomy decision.
+
+<Callout variant="info" title="No new app to install" align="left">
+  Claude Code, Cowork, and scheduled tasks are *already* agents in this sense — the difference is how much of the loop you let them run before you check in. This session is about widening that window deliberately, with guardrails.
+</Callout>
+
+## Where to go next
+
+- **[Hub-and-Spoke Orchestration](/docs/training/claude-code/session-4/hub-and-spoke-orchestration)** — how an orchestrator dispatches focused subagents in parallel
+- **[The Autonomy Trajectory](/docs/training/claude-code/session-4/autonomy-trajectory)** — three rungs, picked per task

@@ -65,7 +65,7 @@ def surfaces(T, paper):
         v=resolve(T,k,paper)
         if v: out[k]=v
     return out
-checks=[("session-1","Session 1 hue"),("session-2","Session 2 hue"),("session-3","Session 3 hue"),("session-4","Session 4 hue"),("session-5","Session 5 hue"),
+checks=[("session-1","Session 1 hue"),("session-2","Session 2 hue"),("session-3","Session 3 hue"),("session-4","Session 4 hue"),
         ("brand-neutral-text","neutral text"),("brand-amber-text","amber text"),("brand-red-text","red text"),("brand-green-text","green text"),("brand-purple-text","purple text"),
         ("theme-text","body text"),("theme-text-muted","muted text"),("callout-info-fg","info callout fg"),("callout-warning-fg","warning fg")]
 for theme,T,paper in [("LIGHT",L,parse(L["color-paper"])),("DARK",D,parse(D["color-ink"]))]:

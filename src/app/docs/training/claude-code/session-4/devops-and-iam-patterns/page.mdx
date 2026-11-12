@@ -1,0 +1,63 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+import {
+  PillarCards,
+  TerminalIcon,
+  GlobeIcon,
+  PuzzleIcon,
+  BuildingIcon,
+} from "@/components/PillarCards";
+
+export const metadata = {
+  title: "DevOps & IAM Patterns",
+};
+
+# DevOps & IAM Patterns That Earn Their Keep
+
+<ReadTime minutes={3} />
+
+Four shapes ready to fork — two DevOps, two IAM. Highest-frequency, lowest-blast-radius first; pick one as your week-1 target.
+
+<PillarCards
+  cards={[
+    {
+      icon: <TerminalIcon />,
+      title: "Automated PR review chain",
+      description:
+        "DevOps · Level 2. Style, security, and test coverage in parallel subagents → one consolidated PR comment. Human still merges; agent never does.",
+      color: "#0e7490",
+    },
+    {
+      icon: <GlobeIcon />,
+      title: "Infrastructure drift detection",
+      description:
+        "DevOps · Level 3. Daily scheduled task: terraform plan across managed envs → diff vs. known-good → file a GitHub issue when drift appears. You read the issue, decide.",
+      color: "#15803d",
+    },
+    {
+      icon: <PuzzleIcon />,
+      title: "Conditional Access audit",
+      description:
+        "IAM · Level 3. Weekly read-only Graph task. Lists CA policies, flags unprotected sign-ins and report-only stragglers, posts a gap report. Zero policy writes.",
+      color: "#6140E8",
+    },
+    {
+      icon: <BuildingIcon />,
+      title: "Access review automation",
+      description:
+        "IAM · Level 3 read · Level 1 act. Quarterly: pulls memberships, last sign-in, last activity. Surfaces stale guests and orphaned roles. Drafts the worklist; humans approve every revoke.",
+      color: "#CA01BE",
+    },
+  ]}
+/>
+
+**DevOps rule of thumb.** Highest-frequency, lowest-blast-radius first. Drift detection runs daily and costs nothing if wrong. Prod deploys run once and cost everything if wrong.
+
+<Callout variant="error" title="IAM red lines" align="left">
+  CA writes, PIM activations, role assignments, and group edits stay **Level 1** regardless of agent quality. The value is in the human pause, not the speed.
+</Callout>
+
+## Where to go next
+
+- **[Worked Example: CA Drift Watch](/docs/training/claude-code/session-4/worked-example-ca-drift-watch)** — the IAM Level 3 audit pattern, end-to-end
+- **[Live Demo: Marketplace Auditor](/docs/training/claude-code/session-4/live-demo-marketplace-auditor)** — the orchestration shape behind these patterns, running in the session demo

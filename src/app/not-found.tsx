@@ -63,9 +63,6 @@ export default function NotFound() {
           </li>
         ))}
       </ul>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400">
-        Sessions 4 (agents) and 5 (capstone) are in progress and not linked yet.
-      </p>
       <div className="flex gap-3">
         <Button href="/" variant="filled">Go home</Button>
         <Button href="/docs" variant="secondary">

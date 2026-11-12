@@ -47,7 +47,7 @@ All documentation pages are `.mdx` files at `src/app/docs/**/page.mdx`, using Ne
 
 Keep Claude first in the homepage, Start Here, and training navigation. Use the filled primary CTA and homepage roadmap for Claude; keep Codex/ChatGPT discoverable as a secondary option.
 
-- **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first three sessions developed (sessions 4 and 5 show as upcoming on the roadmap and have no pages).
+- **Claude**: `src/app/docs/training/claude-code/`; four complete sessions covering foundations, CLI workflows and project context, extending Claude, and agents. 60 pages including demos and practice assignments.
 - **Codex & ChatGPT**: `src/app/docs/training/codex-chatgpt/`; three complete sessions covering foundations, repository workflows, and extensions. 26 pages including demos and practice assignments.
 - **Standalone pages**: `training/github-copilot` and `training/prompt-engineering` sit beside the two tracks in the Training Materials group, not inside either.
 - Use `<TrainingRoadmap track="codex" activeStep={N} />` for Codex sessions. The default track is `claude`; use `activeStep={0}` for an overview without a current-step marker. The marked step's chip reads "You are here"; pass `activeLabel` where that would not be true (the home page uses "Start here" and "Continue"). Each step's second line is the session's topics (`covers` in `lib/sessions.ts`), or its `outcome` where a track sets one, as the Codex track does.
@@ -96,6 +96,8 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 `Layout.tsx` renders the page shell: fixed sidebar (desktop, `lg:` breakpoint) with `Navigation` + a fixed `Header` + `Footer`. The desktop sidebar can be resized (240–480px, `SidebarResizeHandle`) and collapsed from the header; `useSidebarStore` keeps both in `localStorage`. Before hydration the sidebar takes its width from the `lg:w-80` / `lg:ml-80` classes; they must equal `DEFAULT_WIDTH` in `useSidebarStore`, or the sidebar changes width on every load. All pages share this layout via `layout.tsx`.
 
 **Wordmark** — `Logo.tsx` sets the program name from `siteName` (`src/lib/site.ts`) in the display face and links home. It sits at the top of the desktop sidebar, pinned while the navigation scrolls, and moves into the `Header` below `lg:` and when the sidebar is collapsed. `siteName` also feeds the document title template and the console greeting; change the name there, not in each place.
+
+**Favicon** — `public/icon.svg` is the favicon served at claude.dev, copied unchanged. `public/favicon.ico` is the same image drawn at 16, 32, and 48 pixels, for clients that do not take an SVG icon. It is a separate file, so replace both together. Both are declared in `metadata.icons` in `src/app/layout.tsx`, with the base path, so every page links both. Do not move them to Next's icon file names (`app/favicon.ico`, `app/icon.svg`): with both in the app root, Next 16.4 leaves the `.ico` link off the home page. There is no Apple touch icon.
 
 **Navigation is data-driven** — the `navigation` array exported from `Navigation.tsx` defines all sidebar links. It supports arbitrarily nested collapsible groups (see `NavLinkItem.children`). To add a new page, create the `.mdx` file **and** add its entry to this array.
 
@@ -156,6 +158,6 @@ Three words: **confident, crafted, program**. Voice is direct, technical, mildly
 ### Design Principles
 1. **Docs-grade bones, program-grade skin.** Scannability and nav predictability come first; identity shows through typography and purposeful violet on top of that skeleton.
 2. **Earn every decoration.** Borders, shadows, gradients, motion must serve comprehension, hierarchy, or brand — never filler.
-3. **Violet with restraint.** Reserve violet for real primary moments (active nav, primary CTA, key callouts). Session hues (`--session-1..5`) mark wayfinding inside a session, on text, icons, and markers only; other semantic colors stay inside the visualization component that defines them.
+3. **Violet with restraint.** Reserve violet for real primary moments (active nav, primary CTA, key callouts). Session hues (`--session-1..4`) mark wayfinding inside a session, on text, icons, and markers only; other semantic colors stay inside the visualization component that defines them.
 4. **Both themes, equal care.** Review every surface in both light and dark; neither is an afterthought.
 5. **Write like an engineer talking to an engineer.** Specific nouns over vague adjectives, no exclamation marks, humor only when precise.

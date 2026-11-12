@@ -1,0 +1,114 @@
+import { PageHero } from "@/components/PageHero";
+import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+import { SessionOutline } from "@/components/SessionOutline";
+
+export const metadata = {
+  title: "Agents, Orchestration & Autonomous Workflows",
+};
+
+<PageHero
+  numeral={4}
+  eyebrow="Session 4 of 4"
+  title="Agents, Orchestration & Autonomous Workflows"
+  subtitle="Closing the loop: Claude composes multi-step work inside guardrails you designed, and you move from approver to monitor."
+/>
+
+## What this session covers
+
+### Define the loop
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-4/what-makes-it-agentic",
+      title: "What Makes It Agentic",
+      description:
+        "Conversation vs. agentic task — the four properties, and the four-beat loop",
+    },
+    {
+      href: "/docs/training/claude-code/session-4/hub-and-spoke-orchestration",
+      title: "Hub-and-Spoke Orchestration",
+      description:
+        "One orchestrator dispatches focused subagents in parallel — only summaries return",
+    },
+  ]}
+/>
+
+### Choose the autonomy level
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-4/autonomy-trajectory",
+      title: "The Autonomy Trajectory",
+      description:
+        "Three rungs — task execution, human in the loop, human on the loop",
+    },
+    {
+      href: "/docs/training/claude-code/session-4/picking-the-right-rung",
+      title: "Picking the Right Rung",
+      description:
+        "A decision matrix — match the rung to the blast radius, not the seniority",
+    },
+  ]}
+/>
+
+### Build the guardrails
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-4/designing-guardrails",
+      title: "Designing Guardrails",
+      description: "Five layers that turn autonomy into accountability",
+    },
+    {
+      href: "/docs/training/claude-code/session-4/guardrails-in-practice",
+      title: "Guardrails in Practice",
+      description:
+        "What the layers look like in real CLAUDE.md and settings.json",
+    },
+  ]}
+/>
+
+### Apply the patterns
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-4/devops-and-iam-patterns",
+      title: "DevOps & IAM Patterns",
+      description:
+        "Four shapes ready to fork — PR review chains, drift detection, CA audits, access reviews",
+    },
+    {
+      href: "/docs/training/claude-code/session-4/worked-example-ca-drift-watch",
+      title: "Worked Example: CA Drift Watch",
+      description:
+        "All five guardrail layers, end-to-end, on one real IAM problem",
+    },
+  ]}
+/>
+
+### Live demo and practice
+
+<SessionOutline
+  items={[
+    {
+      href: "/docs/training/claude-code/session-4/live-demo-marketplace-auditor",
+      title: "Live Demo: Marketplace Auditor",
+      description:
+        "19 plugins, 19 parallel subagents, one report — fork this shape this week",
+    },
+    {
+      href: "/docs/training/claude-code/session-4/practice-assignment",
+      title: "Practice Assignment",
+      description:
+        "Build your own audit, apply three guardrail layers, write up the workflow",
+    },
+  ]}
+/>
+
+---
+
+<TrainingRoadmap activeStep={4} />

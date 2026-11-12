@@ -38,8 +38,12 @@ export const claudeSessions: Array<Session> = [
     covers: 'skills, plugins, MCP, connectors, scheduled tasks',
     href: '/docs/training/claude-code/session-3',
   },
-  { number: 4, title: 'Agents', covers: 'agents' },
-  { number: 5, title: 'Capstone', covers: 'capstone' },
+  {
+    number: 4,
+    title: 'Agents',
+    covers: 'the agent loop, orchestration, autonomy levels, guardrails',
+    href: '/docs/training/claude-code/session-4',
+  },
 ]
 
 export const codexSessions: Array<Session> = [

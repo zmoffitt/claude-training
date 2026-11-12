@@ -385,14 +385,13 @@
     --brand-amber-badge-bg: var(--term-yellow-text);
     --on-accent: var(--term-bg);
 
-    /* Session hues: the roadmap's five colors, as text-safe values. Set on the
+    /* Session hues: the roadmap's four colors, as text-safe values. Set on the
        page root as --session-hue (Layout) and used only on text, icons, and
        markers so a page shows which session it belongs to. */
     --session-1: var(--brand-blue-text);
     --session-2: var(--brand-green-text);
     --session-3: var(--brand-purple-text);
     --session-4: var(--brand-pink-text);
-    --session-5: var(--term-purple-deep);
 
     /* Deep accent and surface: a dark fill that holds white text in both themes */
     --accent-deep-purple: var(--term-purple-deep);
@@ -606,7 +605,6 @@
     --brand-amber-text: var(--term-yellow);
     --brand-amber-badge-bg: var(--term-yellow);
     --on-accent: var(--term-bg);
-    --session-5: var(--term-blue-light);
 
     --accent-deep-purple: var(--term-bright-blue);
     --surface-deep-purple: #0a3470; /* derived: blue at 40% over bg; holds white text at 12:1 */
