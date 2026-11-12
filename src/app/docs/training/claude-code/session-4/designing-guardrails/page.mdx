@@ -1,0 +1,21 @@
+import { GuardrailLayers } from "@/components/GuardrailLayers";
+import { ReadTime } from "@/components/ReadTime";
+
+export const metadata = {
+  title: "Designing Guardrails",
+};
+
+# Designing Guardrails
+
+<ReadTime minutes={3} />
+
+Five layers make autonomy *auditable* — instruction, enforcement, reasoning, escalation, and a clear definition of done.
+
+<GuardrailLayers />
+
+The first two layers are framework features (what Claude reads, what permissions enforce). The next two are skill-design discipline (how you write the prompt). The last is workflow discipline (what counts as finished). All five, layered, are what makes a Level 3 task worth running.
+
+## Where to go next
+
+- **[Guardrails in Practice](/docs/training/claude-code/session-4/guardrails-in-practice)** — what the layers look like in real `CLAUDE.md` and `settings.json`
+- **[DevOps & IAM Patterns](/docs/training/claude-code/session-4/devops-and-iam-patterns)** — patterns where these guardrails earn their keep

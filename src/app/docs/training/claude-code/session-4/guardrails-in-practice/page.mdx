@@ -1,0 +1,56 @@
+import { Callout } from "@/components/Callout";
+
+export const metadata = {
+  title: "Guardrails in Practice",
+};
+
+# Guardrails in Practice
+
+What the five layers look like in real config — instruction in `CLAUDE.md`, enforcement in `settings.json`.
+
+## CLAUDE.md — agent-level rules
+
+```markdown
+# Project: iam-ops
+
+## Autonomous behaviour
+Stop and ask before:
+- modifying any CA policy
+- activating a PIM role
+- emitting > 50 changes/run
+
+## Definition of done
+- Markdown report in /runs/
+- Findings linked to source IDs
+- No silent skips
+```
+
+**Layer 1, always-on rules.** This is **instruction** — the agent reads it on every session. It also encodes the "stop and ask" checkpoints (layer 4) and the definition of done (layer 5) in plain prose.
+
+## .claude/settings.json — hard limits
+
+```json
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(kubectl delete *)",
+      "Bash(az role assignment*)",
+      "Bash(mg-graph * delete*)",
+      "Edit(/secrets/**)"
+    ],
+    "ask": ["Bash(terraform apply*)"]
+  }
+}
+```
+
+**Layer 2, hard limits.** This is **enforcement** — the framework refuses these patterns regardless of what the agent or the user requests at runtime. **Deny beats ask beats allow**, always. It encodes the permission-scoping layer and surfaces the most dangerous patterns explicitly.
+
+<Callout variant="info" title="Two surfaces, two jobs" align="left">
+  `CLAUDE.md` teaches the agent *how to behave*; permissions enforce what it *cannot do*. Always layer both — instruction without enforcement is wishful thinking.
+</Callout>
+
+## Where to go next
+
+- **[DevOps & IAM Patterns](/docs/training/claude-code/session-4/devops-and-iam-patterns)** — four real workflows built on this two-surface foundation
+- **[Worked Example: CA Drift Watch](/docs/training/claude-code/session-4/worked-example-ca-drift-watch)** — all five layers in one IAM workflow

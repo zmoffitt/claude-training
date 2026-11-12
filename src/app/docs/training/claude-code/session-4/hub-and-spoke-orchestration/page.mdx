@@ -1,0 +1,61 @@
+import { ReadTime } from "@/components/ReadTime";
+import { Subagents } from "@/components/Subagents";
+
+export const metadata = {
+  title: "Hub-and-Spoke Orchestration",
+};
+
+# Hub-and-Spoke Orchestration
+
+<ReadTime minutes={3} />
+
+One orchestrator dispatches focused subagents in parallel — only summaries return to the hub.
+
+Session 2 introduced subagents in [Subagents: Focused Delegation](/docs/training/claude-code/session-2/subagents-focused-delegation). This page is about authoring the file pair — orchestrator skill plus subagent definition — that turns the pattern into a real workflow.
+
+<Subagents />
+
+## The subagent file
+
+A subagent is a markdown file in `.claude/agents/`. Frontmatter tells Claude what it is and which model to use; the body tells it what to check and how to behave. Here is the real template behind this session's marketplace audit demo:
+
+```markdown
+---
+name: plugin-health-checker
+description: Audits one plugin. Read-only. Dispatched in parallel.
+model: haiku
+---
+
+Audit ONE plugin, return a structured markdown table.
+
+## What you check (8 total)
+1. Manifest valid
+2. Name matches directory
+3. Skills have frontmatter
+4. Marketplace entries present
+5. Skills directory non-empty
+6. Agents directory non-empty
+7. marketplace.json version matches plugin.json
+8. README present
+
+## How you work
+Read, Grep, Glob, Bash only.
+Never write, edit, or git.
+```
+
+Three things make this work:
+
+- **Single, narrow job.** The subagent does one plugin. The orchestrator dispatches N of them.
+- **Cheap model on focused work.** `model: haiku` keeps the per-spoke cost low; the orchestrator can run on Sonnet without inflating the bill.
+- **Hard tool limits, written down.** "Read, Grep, Glob, Bash only. Never write." The agent reads its own constraints every time it spawns.
+
+## The orchestrator side
+
+The orchestrator is a skill (or just a prompt) that **discovers** the work — list the plugins, pick the repos, enumerate the policies — **dispatches** one subagent per item in parallel, **consolidates** the structured returns, and **writes** a single report. Wall-clock time stays close to the slowest subagent, not the sum of them. Token cost stays bounded because each spoke's intermediate context never returns to the hub.
+
+**Mesh-shaped agent teams** with peer messaging exist for problems that need negotiation between agents. They are out of scope here; [Agent Teams: Coordinated Work](/docs/training/claude-code/session-2/agent-teams-coordinated-work) covers them.
+
+## Where to go next
+
+- **[The Autonomy Trajectory](/docs/training/claude-code/session-4/autonomy-trajectory)** — pick the right rung for a task
+- **[Live Demo: Marketplace Auditor](/docs/training/claude-code/session-4/live-demo-marketplace-auditor)** — see this exact pair run end-to-end

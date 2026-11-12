@@ -1,0 +1,55 @@
+import { Callout } from "@/components/Callout";
+import { ReadTime } from "@/components/ReadTime";
+import {
+  PillarCards,
+  TargetIcon,
+  CheckCircleIcon,
+  GlobeIcon,
+} from "@/components/PillarCards";
+
+export const metadata = {
+  title: "The Autonomy Trajectory",
+};
+
+# The Autonomy Trajectory
+
+<ReadTime minutes={3} />
+
+Three rungs — task execution, human in the loop, human on the loop. Pick the rung per task, not per engineer.
+
+<PillarCards
+  cards={[
+    {
+      icon: <TargetIcon />,
+      title: "Level 1 — Task Execution",
+      description:
+        "Claude does what you say, you verify everything. Single prompt, single result. You read every line before it ships. Where you started in Session 1.",
+      color: "#0FAC27",
+    },
+    {
+      icon: <CheckCircleIcon />,
+      title: "Level 2 — Human in the Loop",
+      description:
+        "Claude proposes, you approve each step. Plan mode, permission prompts, approve-each-write. Claude can use tools, but every action waits for you. Session 3 default.",
+      color: "#6B5CF5",
+    },
+    {
+      icon: <GlobeIcon />,
+      title: "Level 3 — Human on the Loop",
+      description:
+        "Claude runs autonomously, you monitor. Claude composes multi-step work inside guardrails you set up front. You watch the audit trail, intervene on exceptions. Cowork, scheduled tasks, agent teams.",
+      color: "#D03AD0",
+    },
+  ]}
+/>
+
+**Autonomy is per-task, not per-engineer.** A senior IAM engineer running CA policy changes belongs at Level 1 for *that* task. The same engineer running access reviews can comfortably sit at Level 3. Pick the rung that matches the *blast radius*, not the seniority.
+
+<Callout variant="warning" title="You can delegate the work, but not the accountability" align="left">
+  An agent at Level 3 isn't Claude running on its own — it's Claude running inside guardrails *you* designed, with checkpoints *you* set, against a definition of done *you* wrote. The fluent engineer doesn't ask "can Claude do this?" They ask: "at what autonomy level should this run, and what would it take to get there safely?"
+</Callout>
+
+## Where to go next
+
+- **[Picking the Right Rung](/docs/training/claude-code/session-4/picking-the-right-rung)** — a sample decision matrix for DevOps and IAM tasks
+- **[Designing Guardrails](/docs/training/claude-code/session-4/designing-guardrails)** — five layers that move a workflow safely up the trajectory

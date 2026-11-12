@@ -1,0 +1,40 @@
+export const metadata = {
+  title: "Live Demo: Marketplace Auditor",
+};
+
+# Live Demo: Marketplace Auditor
+
+Nineteen plugins, nineteen subagents, one report.
+
+```text
+# /audit-marketplace
+
+⟳ Audit-marketplace orchestrator
+   Found 19 plugins; dispatching
+   19 subagents in parallel…
+
+✓ 17 PASS · ⚠ 2 WARN · ✗ 0 FAIL
+
+What to fix:
+• aws, gcp     — empty skills/agents
+• dotnet       — marketplace.json 2.3.0
+                 lags plugin.json 2.4.0
+
+📄 tmp/marketplace-audit-2026-04-30.md
+```
+
+That's a single command — `/audit-marketplace` — producing a full audit of nineteen plugins in about forty-five seconds, with zero mutations. Here's what's behind it.
+
+## Two files, that's the whole agent
+
+- `.claude/agents/`**`plugin-health-checker.md`** — the subagent. Eight read-only checks, runs on `haiku`, returns a structured markdown row per plugin.
+- `.claude/skills/`**`audit-marketplace`**`/SKILL.md` — the orchestrator. Discovers the plugins, dispatches one subagent per plugin in parallel, consolidates the rows, writes the report.
+- Invoke with `/audit-marketplace`. Wall time ~45s for nineteen plugins. Mutations performed: **0**.
+- All five guardrail layers visible: instruction in the skill, permissions in `settings.json`, the orchestrator emits a plan, the subagent enforces "read only", the report file is the definition of done.
+
+**Your starter template.** Swap `plugin-health-checker` for `repo-health-checker`, `terraform-drift-checker`, or `ca-policy-drift-watcher` — same orchestration shape. Clone, run, fork.
+
+## Where to go next
+
+- **[Practice Assignment](/docs/training/claude-code/session-4/practice-assignment)** — fork this shape for one of your own systems
+- **[Worked Example: CA Drift Watch](/docs/training/claude-code/session-4/worked-example-ca-drift-watch)** — the IAM-flavored version of the same orchestration
