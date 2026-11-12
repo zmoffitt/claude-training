@@ -1,6 +1,6 @@
 /**
  * The sessions of each training track, named once. The sidebar, the roadmap,
- * the track landing pages, and the 404 page all read from here, so a session
+ * and the 404 page all read from here, so a session
  * has the same name wherever it appears. A session landing page may extend
  * its name in the headline ("Foundations & Getting Oriented") but should not
  * replace it. The Start Here page is MDX and repeats these names by hand.
@@ -79,17 +79,6 @@ export function sessionLabel(session: Session): string {
 /** A session's topics as a line that stands alone: "Permissions, CLAUDE.md, hooks, subagents". */
 export function sessionTopics(session: Session): string {
   return session.covers.charAt(0).toUpperCase() + session.covers.slice(1)
-}
-
-/** The sessions that have pages, as items for `SessionOutline`. */
-export function sessionOutline(track: Track) {
-  return sessionsByTrack[track]
-    .filter((s): s is Session & { href: string } => Boolean(s.href))
-    .map((s) => ({
-      href: s.href,
-      title: sessionLabel(s),
-      description: sessionTopics(s),
-    }))
 }
 
 /** Which track and session a pathname belongs to, if any. */

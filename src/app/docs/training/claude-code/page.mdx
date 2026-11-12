@@ -1,8 +1,6 @@
 import { PageHero } from "@/components/PageHero";
-import { SessionOutline } from "@/components/SessionOutline";
 import { TrainingRoadmap } from "@/components/TrainingRoadmap";
 import { Term } from "@/components/Term";
-import { sessionOutline } from "@/lib/sessions";
 
 export const metadata = {
   title: "Claude Code",
@@ -13,8 +11,6 @@ export const metadata = {
   title="Claude Code"
   subtitle="Five weekly sessions for cloud, container, and IAM engineers: from a first prompt to repository workflows, skills, and agents. Sessions 1 to 3 are published."
 />
-
-<SessionOutline items={sessionOutline("claude")} />
 
 <TrainingRoadmap activeStep={0} />
 
