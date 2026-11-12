@@ -1,0 +1,33 @@
+import { Callout } from "@/components/Callout";
+import { TaskAutonomyMatrix } from "@/components/TaskAutonomyMatrix";
+
+export const metadata = {
+  title: "Picking the Right Rung",
+};
+
+# Picking the Right Rung: Where Should This Task Live?
+
+A sample decision matrix. Build your own version with your team — these defaults are a starting point, not a standard.
+
+<TaskAutonomyMatrix
+  rows={[
+    { task: "Production deploy / Terraform apply", level: 1 },
+    { task: "Conditional Access policy change", level: 1 },
+    { task: "PIM activation / role assignment", level: 1 },
+    { task: "Incident response remediation step", level: 2 },
+    { task: "PR review & suggested fixes", level: 2 },
+    { task: "KQL drafting (Sentinel hunt query)", level: 2 },
+    { task: "Sign-in log triage / pattern surfacing", level: 3 },
+    { task: "Stale account / access review reporting", level: 3 },
+    { task: "Infrastructure drift detection (read-only)", level: 3 },
+  ]}
+/>
+
+<Callout variant="info" title="The general pattern" align="left">
+  Destructive writes and security mutations stay at Level 1. Read-only analysis can sit at Level 3. Everything else lives at Level 2 until the team has built the trust — and the guardrails — to move it up.
+</Callout>
+
+## Where to go next
+
+- **[Designing Guardrails](/docs/training/claude-code/session-4/designing-guardrails)** — the five layers that build that trust
+- **[DevOps & IAM Patterns](/docs/training/claude-code/session-4/devops-and-iam-patterns)** — concrete shapes for the most common Level 2 and Level 3 tasks

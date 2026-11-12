@@ -577,6 +577,55 @@ export const navigation: Array<NavGroup> = [
               },
             ],
           },
+          {
+            title: sessionLabel(claudeSessions[3]),
+            href: '/docs/training/claude-code/session-4',
+            children: [
+              {
+                title: 'What Makes It Agentic',
+                href: '/docs/training/claude-code/session-4/what-makes-it-agentic',
+                section: 'Define the loop',
+              },
+              {
+                title: 'Hub-and-Spoke Orchestration',
+                href: '/docs/training/claude-code/session-4/hub-and-spoke-orchestration',
+              },
+              {
+                title: 'The Autonomy Trajectory',
+                href: '/docs/training/claude-code/session-4/autonomy-trajectory',
+                section: 'Choose the autonomy level',
+                children: [
+                  { title: 'Picking the Right Rung', href: '/docs/training/claude-code/session-4/picking-the-right-rung' },
+                ],
+              },
+              {
+                title: 'Designing Guardrails',
+                href: '/docs/training/claude-code/session-4/designing-guardrails',
+                section: 'Build the guardrails',
+                children: [
+                  { title: 'Guardrails in Practice', href: '/docs/training/claude-code/session-4/guardrails-in-practice' },
+                ],
+              },
+              {
+                title: 'DevOps & IAM Patterns',
+                href: '/docs/training/claude-code/session-4/devops-and-iam-patterns',
+                section: 'Apply the patterns',
+              },
+              {
+                title: 'Worked Example: CA Drift Watch',
+                href: '/docs/training/claude-code/session-4/worked-example-ca-drift-watch',
+              },
+              {
+                title: 'Live Demo: Marketplace Auditor',
+                href: '/docs/training/claude-code/session-4/live-demo-marketplace-auditor',
+                section: 'Live demo and practice',
+              },
+              {
+                title: 'Practice Assignment',
+                href: '/docs/training/claude-code/session-4/practice-assignment',
+              },
+            ],
+          },
         ],
       },
 

@@ -41,7 +41,13 @@ export const claudeSessions: Array<Session> = [
     covers: 'skills, plugins, MCP, connectors, scheduled tasks',
     href: '/docs/training/claude-code/session-3',
   },
-  { number: 4, title: 'Agents', mode: 'Human on Loop', covers: 'agents' },
+  {
+    number: 4,
+    title: 'Agents',
+    mode: 'Human on Loop',
+    covers: 'the agent loop, orchestration, autonomy levels, guardrails',
+    href: '/docs/training/claude-code/session-4',
+  },
   { number: 5, title: 'Capstone', mode: 'Scaling', covers: 'capstone' },
 ]
 

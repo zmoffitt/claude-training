@@ -47,7 +47,7 @@ All documentation pages are `.mdx` files at `src/app/docs/**/page.mdx`, using Ne
 
 Keep Claude first in the homepage, Start Here, and training navigation. Use the filled primary CTA and homepage roadmap for Claude; keep Codex/ChatGPT discoverable as a secondary option.
 
-- **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first three sessions developed (sessions 4 and 5 show as upcoming on the roadmap and have no pages).
+- **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first four sessions developed (session 5 shows as upcoming on the roadmap and has no pages).
 - **Codex & ChatGPT**: `src/app/docs/training/codex-chatgpt/`; three complete sessions covering foundations, repository workflows, and extensions. 26 pages including demos and practice assignments.
 - **Standalone pages**: `training/github-copilot` and `training/prompt-engineering` sit beside the two tracks in the Training Materials group, not inside either.
 - Use `<TrainingRoadmap track="codex" activeStep={N} />` for Codex sessions. The default track is `claude`; use `activeStep={0}` for an overview without a current-step marker. The marked step's chip reads "You are here"; pass `activeLabel` where that would not be true (the home page uses "Start here" and "Continue").
