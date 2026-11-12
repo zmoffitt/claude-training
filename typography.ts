@@ -10,8 +10,9 @@ export default {
           '--tw-prose-headings': 'var(--theme-heading)',
           '--tw-prose-links': 'var(--color-violet-500)',
           '--tw-prose-links-hover': 'var(--color-violet-700)',
+          // The underline a link carries at rest; hover takes it to full color.
           '--tw-prose-links-underline':
-            'color-mix(in oklab, var(--color-violet-500) 35%, transparent)',
+            'color-mix(in oklab, var(--color-violet-500) 50%, transparent)',
           '--tw-prose-bold': 'var(--theme-heading)',
           '--tw-prose-counters': 'var(--theme-text-muted)',
           '--tw-prose-bullets': 'var(--color-zinc-300)',
@@ -31,7 +32,7 @@ export default {
           '--tw-prose-invert-links': 'var(--color-violet-400)',
           '--tw-prose-invert-links-hover': 'var(--color-violet-300)',
           '--tw-prose-invert-links-underline':
-            'color-mix(in oklab, var(--color-violet-400) 40%, transparent)',
+            'color-mix(in oklab, var(--color-violet-400) 50%, transparent)',
           '--tw-prose-invert-bold': 'var(--theme-heading)',
           '--tw-prose-invert-counters': 'var(--theme-text-muted)',
           '--tw-prose-invert-bullets': 'var(--color-zinc-600)',
@@ -225,17 +226,24 @@ export default {
             paddingLeft: theme('spacing.3'),
           },
 
-          // Inline elements
+          // Inline elements. A link is underlined at rest, not only on hover:
+          // the link color is 1.64:1 from body text in light and 2.29:1 in
+          // dark, under the 3:1 WCAG asks for when color alone marks a link.
+          // The line sits at half strength and comes to full color on hover.
+          // Glossary terms keep their own dotted line (`.term` in tailwind.css).
           a: {
             color: 'var(--tw-prose-links)',
-            textDecoration: 'underline transparent',
             fontWeight: '500',
+            textDecorationLine: 'underline',
+            textDecorationColor: 'var(--tw-prose-links-underline)',
+            textDecorationThickness: '1px',
+            textUnderlineOffset: '0.2em',
             transitionProperty: 'color, text-decoration-color',
             transitionDuration: theme('transitionDuration.DEFAULT'),
             transitionTimingFunction: theme('transitionTimingFunction.DEFAULT'),
             '&:hover': {
               color: 'var(--tw-prose-links-hover)',
-              textDecorationColor: 'var(--tw-prose-links-underline)',
+              textDecorationColor: 'currentColor',
             },
           },
           ':is(h1, h2, h3) a': { fontWeight: 'inherit' },

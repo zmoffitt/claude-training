@@ -24,13 +24,13 @@ export const themeVars = {
 } as const
 
 export const brandVars = {
-  blue:   { accentBar: 'var(--brand-blue-accent-bar)',   text: 'var(--brand-blue-text)',   badgeBg: 'var(--brand-blue-badge-bg)' },
-  green:  { accentBar: 'var(--brand-green-accent-bar)',  text: 'var(--brand-green-text)',  badgeBg: 'var(--brand-green-badge-bg)' },
-  pink:   { accentBar: 'var(--brand-pink-accent-bar)',   text: 'var(--brand-pink-text)',   badgeBg: 'var(--brand-pink-badge-bg)' },
-  red:    { accentBar: 'var(--brand-red-accent-bar)',    text: 'var(--brand-red-text)',    badgeBg: 'var(--brand-red-badge-bg)' },
-  purple: { accentBar: 'var(--brand-purple-accent-bar)', text: 'var(--brand-purple-text)', badgeBg: 'var(--brand-purple-badge-bg)' },
-  neutral: { accentBar: 'var(--brand-neutral-accent-bar)', text: 'var(--brand-neutral-text)', badgeBg: 'var(--brand-neutral-badge-bg)' },
-  amber:  { accentBar: 'var(--brand-amber-accent-bar)',  text: 'var(--brand-amber-text)',  badgeBg: 'var(--brand-amber-badge-bg)' },
+  blue:    { accentBar: 'var(--brand-blue-accent-bar)',    text: 'var(--brand-blue-text)',    badgeBg: 'var(--brand-blue-badge-bg)',    tint: 'var(--tint-blue)' },
+  green:   { accentBar: 'var(--brand-green-accent-bar)',   text: 'var(--brand-green-text)',   badgeBg: 'var(--brand-green-badge-bg)',   tint: 'var(--tint-green)' },
+  pink:    { accentBar: 'var(--brand-pink-accent-bar)',    text: 'var(--brand-pink-text)',    badgeBg: 'var(--brand-pink-badge-bg)',    tint: 'var(--tint-pink)' },
+  red:     { accentBar: 'var(--brand-red-accent-bar)',     text: 'var(--brand-red-text)',     badgeBg: 'var(--brand-red-badge-bg)',     tint: 'var(--tint-red)' },
+  purple:  { accentBar: 'var(--brand-purple-accent-bar)',  text: 'var(--brand-purple-text)',  badgeBg: 'var(--brand-purple-badge-bg)',  tint: 'var(--tint-purple)' },
+  neutral: { accentBar: 'var(--brand-neutral-accent-bar)', text: 'var(--brand-neutral-text)', badgeBg: 'var(--brand-neutral-badge-bg)', tint: 'var(--tint-neutral)' },
+  amber:   { accentBar: 'var(--brand-amber-accent-bar)',   text: 'var(--brand-amber-text)',   badgeBg: 'var(--brand-amber-badge-bg)',   tint: 'var(--tint-amber)' },
 } as const
 
 export type BrandKey = keyof typeof brandVars
@@ -85,6 +85,40 @@ function accentToBrand(hex: string): BrandKey | undefined {
   return ACCENT_MAP[hex.toLowerCase()]
 }
 
+/** The role a page-prop hex names, or neutral when it names none. */
+export function brandKey(hex: string): BrandKey {
+  return accentToBrand(hex) ?? 'neutral'
+}
+
+/**
+ * The colors of a tag: a short label for a property of what it sits beside,
+ * such as a permission tier's approval rule or a hook event. A tag is the
+ * note surface at chip size (the hue's tint, its hairline, its text color)
+ * and never takes a solid fill, so it reads as a label, not a button. A
+ * neutral tag uses the card hairline and the body text color.
+ */
+export function tagColors(key: BrandKey) {
+  const neutral = key === 'neutral'
+  return {
+    background: brandVars[key].tint,
+    border: neutral
+      ? 'var(--surface-border)'
+      : `color-mix(in oklch, ${brandVars[key].accentBar} 30%, transparent)`,
+    text: neutral ? themeVars.text : brandVars[key].text,
+  }
+}
+
+/** `tagColors` as an inline style for an HTML element. */
+export function tagStyle(key: BrandKey): CSSProperties {
+  const c = tagColors(key)
+  return {
+    backgroundColor: c.background,
+    border: `1px solid ${c.border}`,
+    borderRadius: 'var(--radius-chip)',
+    color: c.text,
+  }
+}
+
 const DARK_UNSAFE: Record<string, { accent: string; surface: string }> = {
   '#351f65': { accent: 'var(--accent-deep-purple)', surface: 'var(--surface-deep-purple)' },
   '#422981': { accent: 'var(--accent-deep-purple)', surface: 'var(--surface-deep-purple)' },
@@ -132,13 +166,4 @@ export function accentFill(hex: string): string {
 export function wcagText(hex: string): string {
   const key = accentToBrand(hex)
   return key ? brandVars[key].text : hex
-}
-
-/**
- * Returns a WCAG AA-safe badge background that pairs with white (#fff) text.
- * Falls back to the original color for unmapped values.
- */
-export function wcagBadgeBg(hex: string): string {
-  const key = accentToBrand(hex)
-  return key ? brandVars[key].badgeBg : hex
 }

@@ -1,7 +1,10 @@
 'use client'
 
+import clsx from 'clsx'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+
+import { RowArrow } from '@/components/RowArrow'
 import { focusRing } from '@/lib/focusRing'
 
 interface OutlineItem {
@@ -19,7 +22,11 @@ const listVariants = {
   },
 }
 
-
+/**
+ * What a session covers, as numbered link rows. The number chip takes the
+ * session hue; each row ends in the shared `RowArrow`, and hover or keyboard
+ * focus lays the card surface under it.
+ */
 export function SessionOutline({ items }: { items: OutlineItem[] }) {
   return (
     <nav className="not-prose" aria-label="Session outline">
@@ -27,89 +34,33 @@ export function SessionOutline({ items }: { items: OutlineItem[] }) {
         initial="hidden"
         animate="visible"
         variants={listVariants}
-        style={{
-          listStyle: 'none',
-          padding: 0,
-          margin: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.125rem',
-        }}
+        className="m-0 flex list-none flex-col gap-0.5 p-0"
       >
         {items.map((item, i) => (
           <li key={item.href}>
             <Link
               href={item.href}
-              className={focusRing}
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: '0.75rem',
-                padding: '0.625rem 0.75rem',
-                margin: '0 -0.75rem',
-                borderRadius: '0.5rem',
-                textDecoration: 'none',
-                color: 'inherit',
-                transition: 'background-color 0.15s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--theme-card-bg)'
-                const arrow = e.currentTarget.querySelector('[data-arrow]') as HTMLElement
-                if (arrow) {
-                  arrow.style.opacity = '1'
-                  arrow.style.transform = 'translateX(0)'
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent'
-                const arrow = e.currentTarget.querySelector('[data-arrow]') as HTMLElement
-                if (arrow) {
-                  arrow.style.opacity = '0'
-                  arrow.style.transform = 'translateX(-4px)'
-                }
-              }}
+              className={clsx(
+                'group -mx-3 flex items-baseline gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-(--theme-card-bg) focus-visible:bg-(--theme-card-bg)',
+                focusRing,
+              )}
             >
               <span
                 aria-hidden="true"
+                className="relative top-px inline-flex size-6 shrink-0 items-center justify-center rounded-full text-[0.6875rem] font-bold tabular-nums"
                 style={{
-                  flexShrink: 0,
-                  width: '1.5rem',
-                  height: '1.5rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: '50%',
-                  fontSize: '0.6875rem',
-                  fontWeight: 700,
-                  fontVariantNumeric: 'tabular-nums',
-                  backgroundColor: 'color-mix(in oklch, var(--session-hue, var(--surface-deep-purple)) 14%, transparent)',
+                  backgroundColor:
+                    'color-mix(in oklch, var(--session-hue, var(--surface-deep-purple)) 14%, transparent)',
                   color: 'var(--session-hue, var(--brand-purple-text))',
-                  position: 'relative',
-                  top: '0.0625rem',
                 }}
               >
                 {i + 1}
               </span>
-              <span style={{ flex: 1, minWidth: 0 }}>
-                <span style={{ fontWeight: 600, color: 'var(--theme-heading)' }}>
-                  {item.title}:
-                </span>{' '}
-                <span style={{ color: 'var(--theme-text-muted)' }}>{item.description}</span>
+              <span className="min-w-0 flex-1">
+                <span className="font-semibold text-(--theme-heading)">{item.title}:</span>{' '}
+                <span className="text-(--theme-text-muted)">{item.description}</span>
               </span>
-              <span
-                data-arrow
-                aria-hidden="true"
-                style={{
-                  flexShrink: 0,
-                  opacity: 0,
-                  transform: 'translateX(-4px)',
-                  transition: 'opacity 0.15s ease, transform 0.15s ease',
-                  color: 'var(--theme-text-muted)',
-                  fontSize: '0.875rem',
-                }}
-              >
-                &rarr;
-              </span>
+              <RowArrow className="text-sm" />
             </Link>
           </li>
         ))}

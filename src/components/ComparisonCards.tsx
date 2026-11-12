@@ -6,7 +6,7 @@ function gridForCount(count: number): string {
   return 'grid grid-cols-1 gap-4 sm:grid-cols-3 items-stretch'
 }
 
-import { themeVars, accentText, wcagBadgeBg } from '@/lib/theme-colors'
+import { themeVars, accentText, brandKey, tagStyle } from '@/lib/theme-colors'
 import { titleLevel } from '@/lib/headingLevel'
 
 interface ComparisonCard {
@@ -32,7 +32,6 @@ export function ComparisonCards({
       <div className={gridForCount(cards.length)}>
         {cards.map((card) => {
           const safeTextColor = accentText(card.color)
-          const safeBadgeBg = wcagBadgeBg(card.badgeColor)
           return (
             <div
               key={card.title}
@@ -67,15 +66,16 @@ export function ComparisonCards({
                 {card.subtitle}
               </p>
               <div>
+                {/* A tag, not a solid fill: the value labels the card and
+                    is not a button. */}
                 <span
                   style={{
+                    ...tagStyle(brandKey(card.badgeColor)),
                     display: 'inline-block',
-                    backgroundColor: safeBadgeBg,
-                    color: 'var(--on-accent)',
                     fontSize: '0.875rem',
                     fontWeight: 600,
-                    padding: '0.375rem 1.25rem',
-                    borderRadius: 'var(--radius-chip)',
+                    lineHeight: 1.25,
+                    padding: '0.25rem 0.75rem',
                   }}
                 >
                   {card.badge}

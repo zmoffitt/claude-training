@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { Button } from '@/components/Button'
 import { NotFoundSuggestions } from '@/components/NotFoundSuggestions'
+import { RowArrow } from '@/components/RowArrow'
 import { claudeSessions } from '@/lib/sessions'
 
 export const metadata = {
@@ -55,12 +56,7 @@ export default function NotFound() {
               <span className="text-sm text-zinc-600 dark:text-zinc-400">
                 {s.description}
               </span>
-              <span
-                aria-hidden="true"
-                className="ml-auto translate-x-0 text-zinc-400 transition group-hover:translate-x-0.5 group-hover:opacity-100 [@media(hover:hover)]:opacity-0 dark:text-zinc-500"
-              >
-                &rarr;
-              </span>
+              <RowArrow className="ml-auto" />
             </Link>
           </li>
         ))}

@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
+import { NewTabMark } from '@/components/NewTabMark'
 import { themeVars, safeAccent, safeSurface } from '@/lib/theme-colors'
 import { titleLevel } from '@/lib/headingLevel'
 
@@ -92,6 +93,7 @@ export function PillarCards({
                   }}
                 >
                   {card.title}
+                  {card.href && !internal && <NewTabMark />}
                 </h3>
               </div>
               <p
