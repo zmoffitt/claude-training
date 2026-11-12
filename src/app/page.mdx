@@ -1,6 +1,5 @@
 import { PageHero } from "@/components/PageHero";
-import { Button } from "@/components/Button";
-import { TrainingRoadmap } from "@/components/TrainingRoadmap";
+import { HomeActions, HomeRoadmap } from "@/components/HomeProgress";
 import { HomeSections } from "@/components/HomeSections";
 import { siteName } from "@/lib/site";
 
@@ -14,19 +13,12 @@ export const metadata = {
   subtitle="Learn Claude through practical engineering work: from your first prompt to repository workflows, skills, and agents. Sessions and reference material written by engineers for engineers."
 />
 
-<div className="not-prose mb-10 flex flex-wrap items-center gap-3">
-  <Button href="/docs/training/claude-code/session-1" variant="filled" arrow="right">
-    Start Claude training
-  </Button>
-  <Button href="/docs/training/codex-chatgpt" variant="text" arrow="right">
-    Explore Codex & ChatGPT
-  </Button>
-</div>
+<HomeActions />
 
 ## Your Claude learning path
 
 <div className="not-prose mb-14">
-  <TrainingRoadmap activeStep={1} />
+  <HomeRoadmap />
 </div>
 
 <div className="not-prose mb-14">

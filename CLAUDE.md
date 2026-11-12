@@ -50,8 +50,9 @@ Keep Claude first in the homepage, Start Here, and training navigation. Use the 
 - **Claude**: `src/app/docs/training/claude-code/`; five-session roadmap with the first three sessions developed (sessions 4 and 5 show as upcoming on the roadmap and have no pages).
 - **Codex & ChatGPT**: `src/app/docs/training/codex-chatgpt/`; three complete sessions covering foundations, repository workflows, and extensions. 26 pages including demos and practice assignments.
 - **Standalone pages**: `training/github-copilot` and `training/prompt-engineering` sit beside the two tracks in the Training Materials group, not inside either.
-- Use `<TrainingRoadmap track="codex" activeStep={N} />` for Codex sessions. The default track is `claude`; use `activeStep={0}` for an overview without a current-step marker.
-- Keep the homepage, Start Here, sidebar, and session outlines aligned when changing the curriculum. Preserve existing routes when retitling lessons.
+- Use `<TrainingRoadmap track="codex" activeStep={N} />` for Codex sessions. The default track is `claude`; use `activeStep={0}` for an overview without a current-step marker. The marked step's chip reads "You are here"; pass `activeLabel` where that would not be true (the home page uses "Start here" and "Continue").
+- Session names live in `src/lib/sessions.ts`. The sidebar, the roadmap, the Claude track landing page, and the 404 page read them from there; Start Here is MDX and repeats them by hand, so change it with that file. Keep the homepage, Start Here, sidebar, and session outlines aligned when changing the curriculum. Preserve existing routes when retitling lessons.
+- A page's H1 may extend its sidebar label ("Decision Guide: Skill, Scheduled Task, MCP, or Plugin?") but not replace it. Search results show the H1 and the sidebar shows the label, and a reader has to recognize one from the other. Cross-links use the sidebar label.
 - Product-specific guidance must link to official sources. Date model/pricing snapshots, distinguish API token pricing from ChatGPT subscription usage, and distinguish API context capacity from client defaults.
 - The Codex model lesson is at `session-1/models-and-planning/page.mdx` and reuses `ModelTierCards` from the Claude track.
 
@@ -63,7 +64,7 @@ Every page exports a `metadata` object for the document title:
 export const metadata = { title: "Page Title" };
 ```
 
-**Page rhythm** — content pages follow `H1 → <ReadTime /> (3+ min pages only) → one-line tagline → body → "## Where to go next"`. Components get their vertical rhythm from the `.prose` rules in `tailwind.css`; never add `<br />` spacers. Session landing pages follow `<PageHero eyebrow title subtitle /> → SessionOutline → <TrainingRoadmap />` (no ReadTime, no hero gradient); the home page is `PageHero → CTA buttons → TrainingRoadmap → HomeSections`.
+**Page rhythm** — content pages follow `H1 → <ReadTime /> (3+ min pages only) → one-line tagline → body → "## Where to go next"`. Components get their vertical rhythm from the `.prose` rules in `tailwind.css`; never add `<br />` spacers. Session landing pages follow `<PageHero numeral eyebrow title subtitle /> → SessionOutline → <TrainingRoadmap />` (no ReadTime, no hero gradient); the two track landing pages follow the same pattern without `numeral`, with setup notes below the roadmap. The home page is `PageHero → HomeActions → HomeRoadmap → HomeSections`.
 
 **One Callout per page max** — reserve `<Callout>` for one moment of real punctuation per page. Use bold lead-in inline emphasis (`**Key idea.** Sentence...`) for secondary points instead of stacking Callout boxes.
 
@@ -76,7 +77,8 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 - **`Callout`** — Alert box with `variant` (`error` | `warning` | `info` | `success`), `title`, and `align` props
 - **`ReadTime`** — `<ReadTime minutes={N} />` chip placed directly under the H1 on content pages of three minutes or more (shorter pages, landing pages, practice assignments, and live demos omit it)
-- **`PageHero`** / **`TrainingRoadmap`** / **`SessionOutline`** — Landing-page primitives, used together on session landing pages (eyebrow + display headline; no gradient hero); the home page uses `PageHero` and `TrainingRoadmap` without `SessionOutline`
+- **`PageHero`** / **`TrainingRoadmap`** / **`SessionOutline`** — Landing-page primitives, used together on session and track landing pages (eyebrow + fluid display headline; no gradient hero). `numeral={N}` on a session landing page opens it with the session number in the session hue, a hairline, and the eyebrow at the far end; the home page uses `PageHero` and the roadmap without `SessionOutline`
+- **`HomeActions`** / **`HomeRoadmap`** (`HomeProgress.tsx`) — the home page's CTA row and roadmap. `Layout` records the last session page opened in each track (`lib/progress.ts`, `localStorage` key `training-progress`); a returning learner gets "Continue Session N" pointing at that page, and a first visit gets "Start Claude training". The stored place is read after hydration, so the export always prerenders the first-visit state
 - **`PillarCards`** / **`ProConCards`** — Card-grid visualizations; both stack on mobile and switch to two or three columns at `sm:` (four cards make a 2×2 at every width from `sm:` up)
 - Other visualization components (`ModelTierCards`, `ComparisonCards`, `PermissionModel`, `HooksLifecycle`, etc.) are typically one-per-page
 - **`Term`** — glossary chip: `<Term id="opusplan">…</Term>` on the first use of a program term before its defining page; links to `/docs/glossary#id` (data in `src/lib/glossary.ts`, page body from `Glossary`)
@@ -87,15 +89,19 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 **Search** — `SearchDialog.tsx` opens via `⌘K` / `Ctrl+K` / `/`. Backed by [Pagefind](https://pagefind.app) (built into the static export at `out/pagefind/`, indexing only `index.html` and `docs/**` so the 404 page stays out of results); falls back to navigation-title scoring if the runtime can't load the Pagefind index. The index only exists after `pnpm build`, so `pnpm dev` always runs on the fallback; use `pnpm start` to exercise real Pagefind results. Empty state shows suggested queries; no-results says "Try a broader term, or one of these." above the same suggested queries.
 
-**404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (up to three "did you mean" links scored against `allPages`, rendered after hydration because the export serves one `404.html` for every missing path; nothing when no page comes close), lists the three developed Claude sessions with descriptions, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the error boundary for page content ("Try again" / "Go home"); it does not cover the shell in the root layout, and there is no `global-error.tsx`.
+**404** — `src/app/not-found.tsx` shows `NotFoundSuggestions` (up to three "did you mean" links scored against `allPages`, rendered after hydration because the export serves one `404.html` for every missing path; nothing when no page comes close), lists the developed Claude sessions from `lib/sessions.ts`, surfaces the `⌘K` shortcut inline, and provides "Go home" / "Browse docs" CTAs. Use this pattern (recovery + starting points + search hint) when adding other error pages. `src/app/error.tsx` is the error boundary for page content ("Try again" / "Go home"); it does not cover the shell in the root layout, and there is no `global-error.tsx`.
 
 ### Layout & Navigation
 
-`Layout.tsx` renders the page shell: fixed sidebar (desktop, `lg:` breakpoint) with `Navigation` + a fixed `Header` + `Footer`. The desktop sidebar can be resized (240–480px, `SidebarResizeHandle`) and collapsed from the header; `useSidebarStore` keeps both in `localStorage`. All pages share this layout via `layout.tsx`.
+`Layout.tsx` renders the page shell: fixed sidebar (desktop, `lg:` breakpoint) with `Navigation` + a fixed `Header` + `Footer`. The desktop sidebar can be resized (240–480px, `SidebarResizeHandle`) and collapsed from the header; `useSidebarStore` keeps both in `localStorage`. Before hydration the sidebar takes its width from the `lg:w-80` / `lg:ml-80` classes; they must equal `DEFAULT_WIDTH` in `useSidebarStore`, or the sidebar changes width on every load. All pages share this layout via `layout.tsx`.
 
 **Wordmark** — `Logo.tsx` sets the program name from `siteName` (`src/lib/site.ts`) in the display face and links home. It sits at the top of the desktop sidebar, pinned while the navigation scrolls, and moves into the `Header` below `lg:` and when the sidebar is collapsed. `siteName` also feeds the document title template and the console greeting; change the name there, not in each place.
 
 **Navigation is data-driven** — the `navigation` array exported from `Navigation.tsx` defines all sidebar links. It supports arbitrarily nested collapsible groups (see `NavLinkItem.children`). To add a new page, create the `.mdx` file **and** add its entry to this array.
+
+**Active marker** — each open group positions its marker and highlight from the active link's layout offsets (`offsetTop` summed up to the group's wrapper), not from bounding rects. A rect includes the transform a row carries while a layout animation runs, so it reports a position the row is leaving.
+
+**Pager** — `Footer.tsx` shows `Session N: Name · Page X of Y` on every page of a session. The landing page is page 1 and nested pages count in the order the Next button walks them. Pages outside a session show Previous / Next without a count.
 
 **Mobile navigation** uses a Zustand store (`useMobileNavigationStore` in `MobileNavigation.tsx`) for open/close state, rendered as a Headless UI `Dialog`. Both desktop sidebar and mobile drawer render the same `<Navigation>` component.
 
@@ -121,6 +127,7 @@ Add `'use client'` only when a component needs state, effects, event handlers, t
 - **Sidebar**: `Layout.tsx` collapses below `lg:` (1024px); the same `<Navigation>` renders inside a Headless UI `Dialog` for mobile.
 - **TableOfContents**: right rail visible from 1366px (narrow, `w-44 right-3`), expanding at `min-[1440px]:` to `w-56 right-6`. Below 1366 the rail is hidden to avoid overlapping the left-aligned Prose, and `InlineTableOfContents` shows a collapsed "On this page" disclosure above the H1 instead. Both render only on pages with at least two H2 sections besides "Where to go next".
 - **Tables**: every markdown table is auto-wrapped by `mdx-components.tsx` in a focusable `.table-scroll` region; dense tables scroll horizontally on narrow viewports rather than compressing every cell.
+- **Reading measure**: paragraphs, lists, and blockquotes directly inside `.prose` stop at `--measure` (38rem, about 75 characters of body text); tables, code blocks, cards, and diagrams keep the full column. The rule is under "Reading measure" in `tailwind.css`.
 - **Cards**: `PillarCards` / `ProConCards` stack at mobile and switch to their column grid at `sm:` (two or three columns; four cards make a 2×2). `HomeSections` is a divided list whose rows become a three-column grid at `sm:`.
 
 ## Adding Documentation

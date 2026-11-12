@@ -4,27 +4,14 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { focusRing } from '@/lib/focusRing'
+import { sessionsByTrack, type Track } from '@/lib/sessions'
 
 /**
- * The five-session program as a row of steps (stacked below `md:`). Each step
- * takes its session hue from `--session-N`, on text and markers only, so the
- * roadmap matches the wayfinding hue a session's pages carry. Steps with a
- * landing page link to it; the rest read as upcoming.
+ * A track's sessions as a row of steps (stacked below `md:`). Each step takes
+ * its session hue from `--session-N`, on text and markers only, so the roadmap
+ * matches the wayfinding hue a session's pages carry. Steps with a landing
+ * page link to it; the rest read as upcoming. Names come from `lib/sessions`.
  */
-const steps = [
-  { number: 1, title: 'Foundations', subtitle: 'Manual', href: '/docs/training/claude-code/session-1' },
-  { number: 2, title: 'CLI & Context', subtitle: 'Task Execution', href: '/docs/training/claude-code/session-2' },
-  { number: 3, title: 'MCP & Plugins', subtitle: 'Human in Loop', href: '/docs/training/claude-code/session-3' },
-  { number: 4, title: 'Agents', subtitle: 'Human on Loop' },
-  { number: 5, title: 'Capstone', subtitle: 'Scaling' },
-] as const
-
-const codexSteps = [
-  { number: 1, title: 'Foundations', subtitle: 'ChatGPT & verification', href: '/docs/training/codex-chatgpt/session-1' },
-  { number: 2, title: 'Codex & Context', subtitle: 'Verified repository work', href: '/docs/training/codex-chatgpt/session-2' },
-  { number: 3, title: 'Extend & Automate', subtitle: 'Reusable workflows', href: '/docs/training/codex-chatgpt/session-3' },
-] as const
-
 const easeOutQuart = [0.25, 1, 0.5, 1] as const
 
 const listVariants = {
@@ -58,8 +45,18 @@ function Chip({ children, tone }: { children: React.ReactNode; tone: 'session' |
   )
 }
 
-export function TrainingRoadmap({ activeStep = 1, track = 'claude' }: { activeStep?: number; track?: 'claude' | 'codex' }) {
-  const trackSteps = track === 'codex' ? codexSteps : steps
+export function TrainingRoadmap({
+  activeStep = 1,
+  track = 'claude',
+  activeLabel = 'You are here',
+}: {
+  /** The step to mark; `0` marks none. */
+  activeStep?: number
+  track?: Track
+  /** The marked step's chip. "You are here" is only true on that session's own pages. */
+  activeLabel?: string
+}) {
+  const trackSteps = sessionsByTrack[track]
   // The wrapper takes the prose column's margins and keeps list styling off
   // the steps when the roadmap sits directly in a page's MDX.
   return (
@@ -76,30 +73,30 @@ export function TrainingRoadmap({ activeStep = 1, track = 'claude' }: { activeSt
       {trackSteps.map((step, i) => {
         const isActive = step.number === activeStep
         const isLast = i === trackSteps.length - 1
-        const href = 'href' in step ? step.href : undefined
+        const href = step.href
         const stepStyle = { '--step-hue': `var(--session-${step.number})` } as React.CSSProperties
 
         const body = (
           <>
             <span
               aria-hidden="true"
-              className="font-display shrink-0 text-[1.75rem] leading-none font-semibold md:text-[2rem] lg:text-[2.25rem]"
+              className="font-display w-9 shrink-0 text-[2.25rem] leading-none font-bold tracking-[-0.03em] md:w-auto md:text-[2.75rem] lg:text-[3.25rem]"
               style={{ color: href ? 'var(--step-hue)' : 'var(--theme-text-subtle)' }}
             >
               {step.number}
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5 md:gap-1">
               <span
-                className="text-[0.9375rem] font-semibold"
+                className="text-[0.9375rem] leading-snug font-semibold text-balance"
                 style={{ color: href ? 'var(--theme-heading)' : 'var(--theme-text-muted)' }}
               >
                 {step.title}
               </span>
               <span className="text-[0.8125rem]" style={{ color: 'var(--theme-text-muted)' }}>
-                {step.subtitle}
+                {step.mode}
               </span>
             </span>
-            {isActive && <Chip tone="session">You are here</Chip>}
+            {isActive && <Chip tone="session">{activeLabel}</Chip>}
             {!href && <Chip tone="neutral">Upcoming</Chip>}
           </>
         )

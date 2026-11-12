@@ -1,40 +1,65 @@
 import clsx from 'clsx'
 
 /**
- * Dramatic landing-page hero: extreme size jump from body (text-sm ≈ 14px)
- * to display h1 (text-5xl/6xl ≈ 48–60px), paired with a light-weight subtitle.
- * Opts out of `.prose` defaults via `not-prose` so the title can break past
- * the 24px prose h1.
+ * Landing-page hero. The headline is the page's one loud element: a fluid
+ * display size that runs from 40px on a phone to 80px on a wide screen, set
+ * tight, over a light-weight subtitle. Opts out of the prose defaults so the
+ * title can break past the prose h1.
  *
- * Use on landing pages only — docs pages should keep the restrained prose h1
- * so content scanning stays fast.
+ * A session landing page passes `numeral`. It opens the page the way a
+ * chapter number opens a chapter: the session number in the session hue, a
+ * hairline, and the eyebrow at the far end of it.
  *
- * Eyebrow, headline, and subtitle rise in with a 60ms stagger on load
+ * Use on landing pages only. Lesson and reference pages keep the restrained
+ * prose h1 so content scanning stays fast.
+ *
+ * The opener, headline, and subtitle rise in with a 60ms stagger on load
  * (`.hero-rise` in tailwind.css); reduced motion shows them in place.
  */
 export function PageHero({
   eyebrow,
   title,
   subtitle,
+  numeral,
   className,
 }: {
   eyebrow?: React.ReactNode
   title: string
   subtitle?: string
+  /** The session number, on session landing pages. */
+  numeral?: number
   className?: string
 }) {
+  const hue = 'var(--session-hue, var(--brand-purple-text))'
+  const eyebrowText = eyebrow && (
+    <p className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: hue }}>
+      {eyebrow}
+    </p>
+  )
+
   return (
     <div className={clsx('not-prose mt-2 mb-12 flex flex-col gap-4', className)}>
-      {eyebrow && (
-        <p
-          className="hero-rise text-xs font-semibold uppercase tracking-[0.2em]"
-          style={{ color: 'var(--session-hue, var(--brand-purple-text))' }}
-        >
-          {eyebrow}
-        </p>
+      {numeral !== undefined ? (
+        <div className="hero-rise flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <span
+            aria-hidden="true"
+            className="font-display text-[5rem] leading-[0.8] font-bold tracking-[-0.04em] sm:text-[7rem] lg:text-[8.5rem]"
+            style={{ color: hue }}
+          >
+            {numeral}
+          </span>
+          <span
+            aria-hidden="true"
+            className="h-px min-w-8 flex-1"
+            style={{ backgroundColor: 'var(--surface-border)' }}
+          />
+          {eyebrowText}
+        </div>
+      ) : (
+        eyebrow && <div className="hero-rise">{eyebrowText}</div>
       )}
       <h1
-        className="hero-rise font-display text-balance break-words text-4xl font-bold leading-[1.05] tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl dark:text-white"
+        className="hero-rise font-display text-balance break-words text-[clamp(2.5rem,1.5rem+4vw,5rem)] font-bold leading-[1] tracking-[-0.035em] text-zinc-900 dark:text-white"
         style={{ animationDelay: '60ms' }}
       >
         {title}

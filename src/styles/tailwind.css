@@ -674,6 +674,30 @@
   }
 }
 
+/* ── Reading measure ──
+ * Running text stops at about 75 characters a line (38rem of 16px Inter; the
+ * 18px lead under a page title comes to about 67). Tables, code, cards, and
+ * diagrams keep the full column, so a page reads as narrow text with wider
+ * figures. The measure is in rem, not ch, so the lead and the body share one
+ * right edge. The rule stays outside the cascade layers and carries `html`
+ * to outrank both the column widths `Prose` sets and the rule above.
+ */
+:root {
+  --measure: 38rem;
+}
+html .prose > :is(p, ul, ol, blockquote) {
+  max-width: var(--measure);
+  /* Below lg the column is centered: keep the text on the column's left edge
+     instead of centering it inside the column. */
+  margin-left: calc(50% - min(50%, var(--container-2xl) / 2));
+  margin-right: auto;
+}
+@media (min-width: 1024px) {
+  html .prose > :is(p, ul, ol, blockquote) {
+    margin-left: calc(50% - min(50%, var(--container-lg)));
+  }
+}
+
 /* ── Scrollable tables ──
  * Dense markdown tables scroll sideways on narrow viewports. The scrolling
  * shadows (Lea Verou's technique) show that there is more to the right or
