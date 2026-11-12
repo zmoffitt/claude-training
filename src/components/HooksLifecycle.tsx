@@ -1,19 +1,29 @@
 'use client'
 
 import { useIsSm } from '@/lib/useIsSm'
-import { themeVars, brandVars, type BrandKey } from '@/lib/theme-colors'
+import { themeVars, brandVars, tagColors, type BrandKey } from '@/lib/theme-colors'
 
+/**
+ * Each stage is drawn as a tag (tint, hairline, hue text), not a solid fill:
+ * the stages are labels in a sequence, and a filled box reads as a button.
+ * The one solid fill in the figure is the outcome, the DENIED bar.
+ *
+ * The stages are neutral except PreToolUse, the gate the walkthrough follows.
+ * It is amber, the risk scale's "asks first", and the walkthrough's step for
+ * it carries the same amber. Red is kept for the blocked call alone; `Stop`
+ * only ends a turn, so it takes no color.
+ */
 interface LifecycleStage {
   label: string
-  brand: BrandKey | 'neutral'
+  brand: BrandKey
 }
 
 const STAGES: Array<LifecycleStage> = [
-  { label: 'SessionStart', brand: 'blue' },
+  { label: 'SessionStart', brand: 'neutral' },
   { label: 'UserPromptSubmit', brand: 'neutral' },
-  { label: 'PreToolUse', brand: 'purple' },
-  { label: 'PostToolUse', brand: 'green' },
-  { label: 'Stop', brand: 'red' },
+  { label: 'PreToolUse', brand: 'amber' },
+  { label: 'PostToolUse', brand: 'neutral' },
+  { label: 'Stop', brand: 'neutral' },
 ]
 
 interface WalkStep {
@@ -110,10 +120,7 @@ const codeStyle: React.CSSProperties = {
 export function HooksLifecycle() {
   const isSm = useIsSm()
 
-  const stages = STAGES.map((s) => ({
-    ...s,
-    color: s.brand === 'neutral' ? 'var(--brand-neutral-badge-bg)' : brandVars[s.brand].badgeBg,
-  }))
+  const stages = STAGES.map((s) => ({ ...s, ...tagColors(s.brand) }))
 
   const walkSteps: Array<WalkStep> = [
     {
@@ -177,15 +184,22 @@ export function HooksLifecycle() {
             const w = stage.label === 'Stop' ? 90 : 130
             return (
               <g key={stage.label}>
-                <rect x={x} y={35} width={w} height={50} rx={8} style={{ fill: stage.color }} />
+                <rect
+                  x={x}
+                  y={35}
+                  width={w}
+                  height={50}
+                  rx={6}
+                  style={{ fill: stage.background, stroke: stage.border, strokeWidth: 1, vectorEffect: 'non-scaling-stroke' }}
+                />
                 <text
                   x={x + w / 2}
                   y={65}
                   textAnchor="middle"
-                  fill="var(--on-accent)"
                   fontFamily="var(--font-sans), system-ui, sans-serif"
                   fontSize="13"
-                  fontWeight={700}
+                  fontWeight={600}
+                  style={{ fill: stage.text }}
                 >
                   {stage.label}
                 </text>
@@ -225,40 +239,47 @@ export function HooksLifecycle() {
         </svg>
         </div>
         ) : (
+        // On a phone the stages stack as a column of tags joined by a thin
+        // line, left-aligned like the text around them. The line runs dashed
+        // where the tool loop runs between PreToolUse and PostToolUse.
         <ol
           role="list"
           aria-label="Hook lifecycle stages"
-          style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}
+          style={{ listStyle: 'none', padding: 0, margin: 0 }}
         >
           {stages.map((stage, i) => (
             <li key={stage.label}>
-              <div
+              <span
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0.625rem 0.875rem',
-                  borderRadius: '8px',
-                  backgroundColor: stage.color,
-                  color: 'var(--on-accent)',
+                  display: 'inline-block',
+                  backgroundColor: stage.background,
+                  border: `1px solid ${stage.border}`,
+                  borderRadius: 'var(--radius-chip)',
+                  color: stage.text,
                   fontSize: '0.875rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
+                  lineHeight: 1.25,
+                  padding: '0.375rem 0.75rem',
                 }}
               >
                 {stage.label}
-              </div>
+              </span>
               {i < stages.length - 1 && (
                 <div
                   aria-hidden="true"
                   style={{
-                    textAlign: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '1.25rem',
+                    marginLeft: '1rem',
+                    paddingLeft: '0.625rem',
+                    borderLeft: `1px ${stage.label === 'PreToolUse' ? 'dashed' : 'solid'} var(--hl-arrow)`,
                     color: 'var(--hl-arrow)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1,
-                    marginTop: '0.25rem',
+                    fontSize: '0.75rem',
+                    fontStyle: 'italic',
                   }}
                 >
-                  {stage.label === 'PreToolUse' ? '↕ tool loop' : '↓'}
+                  {stage.label === 'PreToolUse' ? '↕ tool loop' : null}
                 </div>
               )}
             </li>
@@ -288,7 +309,7 @@ export function HooksLifecycle() {
                       gap: '0.6rem',
                       padding: '0.65rem 0.85rem',
                       backgroundColor: step.emphasized ? 'var(--hl-step-bg-active)' : 'var(--hl-step-bg)',
-                      border: '1px solid var(--hl-step-border)',
+                      border: `1px solid ${step.emphasized ? 'var(--hl-step-border-active)' : 'var(--hl-step-border)'}`,
                       borderRadius: '6px',
                     }}
                   >
@@ -296,7 +317,7 @@ export function HooksLifecycle() {
                       style={{
                         flexShrink: 0,
                         fontWeight: 700,
-                        color: brandVars.purple.text,
+                        color: step.emphasized ? brandVars.amber.text : themeVars.textMuted,
                         fontSize: '0.85rem',
                       }}
                     >
@@ -329,7 +350,7 @@ export function HooksLifecycle() {
                   padding: '0.85rem 1rem',
                   backgroundColor: brandVars.red.badgeBg,
                   color: 'var(--on-accent)',
-                  fontWeight: 800,
+                  fontWeight: 700,
                   borderRadius: '8px',
                   fontSize: '0.95rem',
                   marginTop: '0.1rem',

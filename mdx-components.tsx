@@ -3,6 +3,7 @@ import type { MDXComponents } from 'mdx/types'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/CodeBlock'
+import { NewTabMark } from '@/components/NewTabMark'
 import { InlineTableOfContents } from '@/components/TableOfContents'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -15,6 +16,16 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       // Next Link applies the configured deployment base path to docs links.
       if (href?.startsWith('/') && !href.startsWith('//')) {
         return <Link href={href} {...props}>{children}</Link>
+      }
+      // A link to another site opens in a new tab, so the lesson stays open
+      // where the reader left it.
+      if (href && /^(https?:)?\/\//.test(href)) {
+        return (
+          <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+            {children}
+            <NewTabMark />
+          </a>
+        )
       }
       return <a href={href} {...props}>{children}</a>
     },

@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
+import { RowArrow } from '@/components/RowArrow'
 import { focusRing } from '@/lib/focusRing'
 
 interface Section {
@@ -15,11 +16,13 @@ interface Section {
 
 const sections: Section[] = [
   {
+    // The hero and the roadmap above already offer the sessions. This row
+    // goes to the setup that Session 1's hands-on exercise needs.
     eyebrow: 'Training',
     title: 'Claude Code',
     description:
-      'Four weekly sessions, from a first prompt to skills and agents.',
-    href: '/docs/training/claude-code',
+      'Install the CLI and make a first run before the Session 1 hands-on exercise.',
+    href: '/docs/training/claude-code#install-claude-code',
     primary: true,
   },
   {
@@ -73,9 +76,11 @@ export function HomeSections() {
             <span
               className={clsx(
                 'col-start-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
+                // Violet marks the Claude track; the other groups' labels take
+                // the muted text color, which holds 4.5:1 in both themes.
                 s.primary
                   ? 'text-violet-500 dark:text-violet-400'
-                  : 'text-violet-500/60 group-hover:text-violet-500 dark:text-violet-400/60 dark:group-hover:text-violet-400',
+                  : 'text-zinc-600 group-hover:text-violet-500 dark:text-zinc-400 dark:group-hover:text-violet-400',
               )}
             >
               {s.eyebrow}
@@ -94,14 +99,7 @@ export function HomeSections() {
                 {s.description}
               </span>
             </span>
-            <span
-              aria-hidden="true"
-              // Shown at rest on a touch screen, where there is no hover to
-              // reveal it; on a pointer device it appears on hover.
-              className="col-start-2 row-span-2 row-start-1 self-center text-zinc-400 transition group-hover:translate-x-0.5 group-hover:opacity-100 sm:col-start-3 sm:row-span-1 [@media(hover:hover)]:opacity-0 dark:text-zinc-500"
-            >
-              &rarr;
-            </span>
+            <RowArrow className="col-start-2 row-span-2 row-start-1 self-center sm:col-start-3 sm:row-span-1" />
           </Link>
         </li>
         )

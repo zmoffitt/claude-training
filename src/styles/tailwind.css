@@ -465,10 +465,12 @@
     --sa-satellite-stroke: var(--brand-purple-accent-bar);
     --sa-subagent-label: var(--brand-purple-text);
 
-    /* HooksLifecycle */
+    /* HooksLifecycle: walkthrough steps on the card hairline; the PreToolUse
+       step takes the amber of the PreToolUse stage. */
     --hl-step-bg: var(--tint-raised);
-    --hl-step-bg-active: var(--tint-purple);
-    --hl-step-border: var(--brand-purple-accent-bar);
+    --hl-step-bg-active: var(--tint-amber);
+    --hl-step-border: var(--surface-border);
+    --hl-step-border-active: color-mix(in oklch, var(--brand-amber-accent-bar) 30%, transparent);
     --hl-arrow: var(--theme-text-muted);
 
     /* ContextSession */
@@ -663,8 +665,15 @@
   }
 }
 
+/* A page with an outline gets the "On this page" rail, fixed at the right
+ * edge, so its column stops at the figure width and nothing runs under the
+ * rail. The rail renders after hydration, so the rule keys on the inline
+ * outline (`.page-outline`), which is in the static HTML whenever the rail
+ * will be. Keyed on the rail, the column narrowed after the first paint: a
+ * roadmap re-stacked, the page grew above any #anchor, and a link to one
+ * landed short of its heading. */
 @media (min-width: 1440px) {
-  div:has(> aside[aria-label="On this page"]) :where(.prose > *:not(.absolute)) {
+  .prose:has(> .page-outline) > :where(:not(.absolute)) {
     max-width: var(--container-3xl);
   }
 }

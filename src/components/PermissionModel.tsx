@@ -2,8 +2,10 @@ import { StackedFeatures } from '@/components/StackedFeatures'
 import { themeVars, brandVars } from '@/lib/theme-colors'
 
 // The three tiers are rows of `StackedFeatures`. Each `color` names a step on
-// the risk scale (green runs freely, amber asks first, red is highest risk),
-// and the row's badge is drawn in it.
+// the risk scale, the same steps the precedence card below uses: green runs
+// freely (allow), amber asks first (ask), red is blocked (deny). Both approval
+// tiers ask first, so both are amber; their tags say how long an approval
+// lasts. No tier is red, since none is blocked.
 const TIERS = [
   {
     title: 'Read-only (file reads, grep, glob)',
@@ -20,7 +22,7 @@ const TIERS = [
       </>
     ),
     badge: 'Permanent / Project',
-    color: '#E23523',
+    color: '#ECB801',
   },
   {
     title: 'File modifications (create, edit, delete)',

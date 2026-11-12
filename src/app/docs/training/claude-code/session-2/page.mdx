@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/PageHero";
+import { SessionActions } from "@/components/SessionActions";
 import { TrainingRoadmap } from "@/components/TrainingRoadmap";
 import { Callout } from "@/components/Callout";
 import { SessionOutline } from "@/components/SessionOutline";
@@ -11,8 +12,10 @@ export const metadata = {
   numeral={2}
   eyebrow="Session 2 of 4"
   title="CLI Workflows & Project Context"
-  subtitle="From manual task execution toward autonomous workflows with guardrails: permissions, CLAUDE.md, hooks, and the agents that run inside them."
+  subtitle="Run Claude Code in a real repository: scope what it may do, give it the project's conventions in CLAUDE.md, and enforce the rules that must hold with hooks."
 />
+
+<SessionActions session={2} />
 
 ## What this session covers
 

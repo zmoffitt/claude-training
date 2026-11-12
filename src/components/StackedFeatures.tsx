@@ -1,4 +1,4 @@
-import { themeVars, wcagBadgeBg, safeSurface } from '@/lib/theme-colors'
+import { brandKey, tagStyle, themeVars } from '@/lib/theme-colors'
 import { titleLevel } from '@/lib/headingLevel'
 
 interface StackedFeature {
@@ -25,8 +25,9 @@ export function StackedFeatures({
       }}
     >
       {features.map((feature) => (
-        // The badge carries the row's color. When the row is too narrow for
-        // both, the badge drops below the text.
+        // The tag carries the row's color as a tint, hairline, and text, not
+        // a solid fill, so it reads as a label. When the row is too narrow for
+        // both, the tag drops below the text.
         <div
           key={feature.title}
           className="flex flex-wrap items-center gap-x-6 gap-y-3"
@@ -62,15 +63,12 @@ export function StackedFeatures({
           </div>
           <span
             style={{
+              ...tagStyle(brandKey(feature.color)),
               flexShrink: 0,
-              // A deep surface holds white text in both themes; a badge fill
-              // takes the theme's on-accent color.
-              backgroundColor: safeSurface(feature.color) !== feature.color ? safeSurface(feature.color) : wcagBadgeBg(feature.color),
-              color: safeSurface(feature.color) !== feature.color ? '#ffffff' : 'var(--on-accent)',
-              fontSize: '0.8125rem',
-              fontWeight: 700,
-              padding: '0.5rem 1.5rem',
-              borderRadius: 'var(--radius-chip)',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              lineHeight: 1.25,
+              padding: '0.25rem 0.625rem',
               whiteSpace: 'nowrap',
             }}
           >
