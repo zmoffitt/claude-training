@@ -97,6 +97,8 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 **Wordmark** — `Logo.tsx` sets the program name from `siteName` (`src/lib/site.ts`) in the display face and links home. It sits at the top of the desktop sidebar, pinned while the navigation scrolls, and moves into the `Header` below `lg:` and when the sidebar is collapsed. `siteName` also feeds the document title template and the console greeting; change the name there, not in each place.
 
+**Favicon** — `public/icon.svg` is the favicon served at claude.dev, copied unchanged. `public/favicon.ico` is the same image drawn at 16, 32, and 48 pixels, for clients that do not take an SVG icon. It is a separate file, so replace both together. Both are declared in `metadata.icons` in `src/app/layout.tsx`, with the base path, so every page links both. Do not move them to Next's icon file names (`app/favicon.ico`, `app/icon.svg`): with both in the app root, Next 16.4 leaves the `.ico` link off the home page. There is no Apple touch icon.
+
 **Navigation is data-driven** — the `navigation` array exported from `Navigation.tsx` defines all sidebar links. It supports arbitrarily nested collapsible groups (see `NavLinkItem.children`). To add a new page, create the `.mdx` file **and** add its entry to this array.
 
 **Active marker** — each open group positions its marker and highlight from the active link's layout offsets (`offsetTop` summed up to the group's wrapper), not from bounding rects. A rect includes the transform a row carries while a layout animation runs, so it reports a position the row is leaving.
