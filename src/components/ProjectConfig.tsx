@@ -213,8 +213,8 @@ export function ProjectConfig() {
                     <span>
                       <strong style={{ color: themeVars.heading }}>
                         <code style={codeStyle}>{row.name}</code>
-                      </strong>{' '}
-                      — {row.body}
+                      </strong>
+                      : {row.body}
                     </span>
                   </li>
                 ))}

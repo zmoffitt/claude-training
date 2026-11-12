@@ -20,10 +20,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
     // Inline code only: `pre` below reads a fence's <code> element without
     // rendering it. A short piece of inline code stays on one line, so a
-    // command such as `/model fable` is not split in two on a phone; longer
-    // code may still wrap.
+    // command such as `/model fable` is not split in two on a phone. The
+    // limit is low on purpose: two longer pieces set side by side with no
+    // space between them would form a run too wide for a phone and push the
+    // page sideways. Longer code wraps, inside a word if it has to (see
+    // `code` in typography.ts).
     code({ children, className, ...props }) {
-      const short = typeof children === 'string' && children.length <= 28
+      const short = typeof children === 'string' && children.length <= 16
       return (
         <code className={clsx(className, short && 'whitespace-nowrap')} {...props}>
           {children}

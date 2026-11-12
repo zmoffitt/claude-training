@@ -14,7 +14,7 @@ const startingPoints = claudeSessions
   .map((s) => ({
     href: s.href as string,
     title: `Session ${s.number}`,
-    description: `${s.title} — ${s.covers}`,
+    description: `${s.title}: ${s.covers}`,
   }))
 
 export default function NotFound() {

@@ -5,15 +5,19 @@ import nextMDX from '@next/mdx'
 // Plugins are passed as string tuples so the loader options are serializable
 // for Turbopack (default builder in Next 16). Direct function imports are not
 // serializable across the Turbopack worker boundary.
-// The local plugin goes in by absolute path for the same reason: the loader
+// The local plugins go in by absolute path for the same reason: the loader
 // resolves a plugin name from the directory of the page it is compiling.
 const pageOutlinePlugin = fileURLToPath(
   new URL('./scripts/remark-page-outline.mjs', import.meta.url),
 )
 
+const cardHeadingLevelPlugin = fileURLToPath(
+  new URL('./scripts/remark-card-heading-level.mjs', import.meta.url),
+)
+
 const withMDX = nextMDX({
   options: {
-    remarkPlugins: [['remark-gfm'], [pageOutlinePlugin]],
+    remarkPlugins: [['remark-gfm'], [pageOutlinePlugin], [cardHeadingLevelPlugin]],
     rehypePlugins: [['rehype-slug']],
   },
 })

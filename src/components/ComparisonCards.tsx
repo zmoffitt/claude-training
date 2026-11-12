@@ -7,6 +7,7 @@ function gridForCount(count: number): string {
 }
 
 import { themeVars, accentText, wcagBadgeBg } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface ComparisonCard {
   title: string
@@ -20,8 +21,11 @@ interface ComparisonCard {
 
 export function ComparisonCards({
   cards,
+  headingLevel,
 }: {
   cards: Array<ComparisonCard>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   return (
     <div>
@@ -43,6 +47,7 @@ export function ComparisonCards({
               }}
             >
               <h3
+                aria-level={titleLevel(headingLevel)}
                 style={{
                   fontSize: '1.25rem',
                   fontWeight: 700,

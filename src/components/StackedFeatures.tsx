@@ -1,4 +1,5 @@
 import { themeVars, wcagBadgeBg, safeSurface } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface StackedFeature {
   title: string
@@ -9,8 +10,11 @@ interface StackedFeature {
 
 export function StackedFeatures({
   features,
+  headingLevel,
 }: {
   features: Array<StackedFeature>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   return (
     <div
@@ -35,6 +39,7 @@ export function StackedFeatures({
         >
           <div style={{ flex: '1 1 14rem', minWidth: 0 }}>
             <h3
+              aria-level={titleLevel(headingLevel)}
               style={{
                 fontSize: '1.125rem',
                 fontWeight: 700,

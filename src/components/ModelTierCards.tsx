@@ -1,4 +1,5 @@
 import { themeVars, accentFill, accentText } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface ModelTier {
   title: string
@@ -9,8 +10,11 @@ interface ModelTier {
 
 export function ModelTierCards({
   tiers,
+  headingLevel,
 }: {
   tiers: Array<ModelTier>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   const columns = tiers.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
   return (
@@ -32,6 +36,7 @@ export function ModelTierCards({
             }}
           >
             <h3
+              aria-level={titleLevel(headingLevel)}
               style={{
                 fontSize: '1.25rem',
                 fontWeight: 700,

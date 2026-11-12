@@ -256,6 +256,9 @@ export default {
             // Relative to the text it sits in, so code keeps its proportion
             // in the lead, a table cell, and a note alike.
             fontSize: '0.85em',
+            // An environment variable or a path has no place to break. Let
+            // it break inside the word before it pushes the page sideways.
+            overflowWrap: 'break-word',
           },
           'pre code': {
             color: 'inherit',

@@ -195,8 +195,8 @@ export function ContextSession() {
                     {row.glyph}
                   </span>
                   <span style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.5 }}>
-                    <strong style={{ color: themeVars.heading }}>{row.label}</strong>{' '}
-                    <span style={{ color: themeVars.textMuted }}>— {row.description}</span>
+                    <strong style={{ color: themeVars.heading }}>{row.label}:</strong>{' '}
+                    <span style={{ color: themeVars.textMuted }}>{row.description}</span>
                   </span>
                 </div>
               )

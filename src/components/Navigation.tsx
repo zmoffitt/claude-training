@@ -72,7 +72,7 @@ function NavLink({
       className={clsx(
         // The drawer (below `lg`) is used by touch, so its rows are 44px tall;
         // the desktop sidebar keeps the dense rows.
-        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition max-lg:min-h-11 max-lg:items-center',
+        'relative flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition max-lg:min-h-11 max-lg:items-center',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
           ? 'text-zinc-900 dark:text-white'
@@ -94,7 +94,9 @@ function NavLink({
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-3 w-3 shrink-0 self-center text-zinc-500 dark:text-zinc-400"
+            // In the row's left padding, not beside the label: the check
+            // arrives after hydration, and a label must not rewrap when it does.
+            className="absolute top-1/2 left-0 h-3 w-3 -translate-y-1/2 text-zinc-500 dark:text-zinc-400"
           >
             <path d="M3 8.5l3.25 3.25L13 5" />
           </svg>

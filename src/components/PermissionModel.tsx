@@ -56,10 +56,10 @@ const cardTitleStyle: React.CSSProperties = {
   marginBottom: '0.6rem',
 }
 
-export function PermissionModel() {
+export function PermissionModel({ headingLevel }: { headingLevel?: number | string }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-      <StackedFeatures features={TIERS} />
+      <StackedFeatures features={TIERS} headingLevel={headingLevel} />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div style={cardStyle}>
@@ -70,8 +70,7 @@ export function PermissionModel() {
                 key={ex.rule}
                 style={{ fontSize: '0.8125rem', color: themeVars.text, lineHeight: 1.5 }}
               >
-                <code>{ex.rule}</code>
-                <span style={{ marginLeft: '0.5rem' }}>— {ex.note}</span>
+                <code>{ex.rule}</code>: {ex.note}
               </div>
             ))}
           </div>

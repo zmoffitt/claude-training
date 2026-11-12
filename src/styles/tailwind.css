@@ -715,8 +715,16 @@ html .prose > :is(p, ul, ol, blockquote, .page-outline) {
  * Dense markdown tables scroll sideways on narrow viewports. The scrolling
  * shadows (Lea Verou's technique) show that there is more to the right or
  * left, and `th` stays on one line so headers don't stack three deep.
+ *
+ * `.figure-scroll` is the same region around a drawing. An SVG scales with
+ * its box, labels included, so a drawing with a `min-width` keeps its labels
+ * at a readable size on a phone and scrolls instead of shrinking them.
  */
-.table-scroll {
+.table-scroll,
+.figure-scroll {
+  /* Positioned, so screen-reader-only text inside a cell (absolutely placed)
+     scrolls with the region instead of widening the page. */
+  position: relative;
   overflow-x: auto;
   border-radius: 0.5rem;
   /* A dark shadow barely shows on a near-black page, so the dark hint is a light edge. */
@@ -731,7 +739,8 @@ html .prose > :is(p, ul, ol, blockquote, .page-outline) {
   background-size: 48px 100%, 48px 100%, 16px 100%, 16px 100%;
   background-attachment: local, local, scroll, scroll;
 }
-.table-scroll:focus-visible {
+.table-scroll:focus-visible,
+.figure-scroll:focus-visible {
   outline: 2px solid var(--color-violet-500);
   outline-offset: 2px;
 }

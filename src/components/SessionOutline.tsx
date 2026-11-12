@@ -92,12 +92,9 @@ export function SessionOutline({ items }: { items: OutlineItem[] }) {
               </span>
               <span style={{ flex: 1, minWidth: 0 }}>
                 <span style={{ fontWeight: 600, color: 'var(--theme-heading)' }}>
-                  {item.title}
-                </span>
-                <span style={{ color: 'var(--theme-text-muted)' }}>
-                  {' — '}
-                  {item.description}
-                </span>
+                  {item.title}:
+                </span>{' '}
+                <span style={{ color: 'var(--theme-text-muted)' }}>{item.description}</span>
               </span>
               <span
                 data-arrow

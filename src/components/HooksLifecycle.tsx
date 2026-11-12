@@ -153,9 +153,10 @@ export function HooksLifecycle() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', margin: '1.5rem 0' }}>
         {/* TOP: Lifecycle flow — horizontal SVG on ≥sm, vertical fallback below */}
         {isSm ? (
+        <div className="figure-scroll" tabIndex={0} role="region" aria-label="Hook lifecycle diagram">
         <svg
           viewBox="0 0 900 110"
-          style={{ width: '100%', maxWidth: '900px', height: 'auto' }}
+          style={{ width: '100%', minWidth: '47.5rem', maxWidth: '900px', height: 'auto', display: 'block' }}
           aria-label="Hook lifecycle: SessionStart, UserPromptSubmit, PreToolUse, PostToolUse with tool loop, Stop"
         >
           <defs>
@@ -215,13 +216,14 @@ export function HooksLifecycle() {
             y={18}
             textAnchor="middle"
             fontFamily="var(--font-sans), system-ui, sans-serif"
-            fontSize="11"
+            fontSize="13"
             fontStyle="italic"
             style={{ fill: 'var(--hl-arrow)' }}
           >
             tool loop
           </text>
         </svg>
+        </div>
         ) : (
         <ol
           role="list"
