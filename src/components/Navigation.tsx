@@ -10,6 +10,7 @@ import { usePagePath } from '@/lib/usePagePath'
 import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
+import { useVisitedPages } from '@/lib/progress'
 import { remToPx } from '@/lib/remToPx'
 import { claudeSessions, codexSessions, sessionLabel } from '@/lib/sessions'
 
@@ -55,11 +56,14 @@ function NavLink({
   children,
   active = false,
   isAnchorLink = false,
+  visited = false,
 }: {
   href: string
   children: React.ReactNode
   active?: boolean
   isAnchorLink?: boolean
+  /** The learner has opened this page, and every page under it. */
+  visited?: boolean
 }) {
   return (
     <Link
@@ -80,6 +84,23 @@ function NavLink({
       )}
     >
       <span className="leading-snug">{children}</span>
+      {visited && (
+        <>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-3 w-3 shrink-0 self-center text-zinc-500 dark:text-zinc-400"
+          >
+            <path d="M3 8.5l3.25 3.25L13 5" />
+          </svg>
+          <span className="sr-only">, visited</span>
+        </>
+      )}
     </Link>
   )
 }
@@ -139,11 +160,17 @@ function NestedNavItem({
   let [isExpanded, setIsExpanded] = useState(isActive)
   let isOpen = isActive || isExpanded
   let childListId = useId()
+  // A row is checked once its page and every page under it has been opened,
+  // so a collapsed session reads as done only when all of it is. The page
+  // being read carries the marker and no check.
+  let visitedPages = useVisitedPages()
+  let visited =
+    link.href !== pathname && flattenLinks([link]).every((page) => visitedPages.has(page.href))
 
   if (!link.children) {
     return (
       <motion.li layout="position" className="relative">
-        <NavLink href={link.href} active={link.href === pathname}>
+        <NavLink href={link.href} active={link.href === pathname} visited={visited}>
           {link.title}
         </NavLink>
       </motion.li>
@@ -153,7 +180,7 @@ function NestedNavItem({
   return (
     <motion.li layout="position" className="relative">
       <div className="flex items-center">
-        <NavLink href={link.href} active={link.href === pathname}>
+        <NavLink href={link.href} active={link.href === pathname} visited={visited}>
           {link.title}
         </NavLink>
         <button
@@ -232,8 +259,10 @@ function NavigationGroup({
   let [activeHeight, setActiveHeight] = useState(0)
   let groupContentId = useId()
 
-  let isOpen = isActiveGroup || isExpanded
   let groupHref = group.href ?? flat[0]?.href ?? '/'
+  // A group is open on its own page as well as on the pages inside it. That
+  // opens Training Materials on the home page, which is that group's page.
+  let isOpen = isActiveGroup || isExpanded || pathname === group.href
 
   // The title is a link, but a collapsed group opens on the first click
   // instead of navigating; the caret always toggles.

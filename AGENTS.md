@@ -101,6 +101,8 @@ Fenced code blocks are routed to `CodeBlock` — no import needed. Tag every fen
 
 **Navigation is data-driven** — the `navigation` array exported from `Navigation.tsx` defines all sidebar links. It supports arbitrarily nested collapsible groups (see `NavLinkItem.children`). To add a new page, create the `.mdx` file **and** add its entry to this array.
 
+**Visited pages** — `Layout` also records every session page a learner opens (`visited` in the same `training-progress` entry), and the sidebar shows a small check on a row once its page and every page under it has been opened, so a collapsed session is checked only when all of it has been. The current page carries the marker and no check. `useVisitedPages()` in `lib/progress.ts` is empty on the server and during hydration, so the export prerenders the first-visit sidebar. A group is open on its own page as well as on the pages inside it, which opens Training Materials on the home page.
+
 **Active marker** — each open group positions its marker and highlight from the active link's layout offsets (`offsetTop` summed up to the group's wrapper), not from bounding rects. A rect includes the transform a row carries while a layout animation runs, so it reports a position the row is leaving.
 
 **Pager** — `Footer.tsx` shows `Session N: Name · Page X of Y` on every page of a session. The landing page is page 1 and nested pages count in the order the Next button walks them. Pages outside a session show Previous / Next without a count.
