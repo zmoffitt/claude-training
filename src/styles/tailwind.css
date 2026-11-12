@@ -804,6 +804,23 @@ html .prose > :is(p, ul, ol, blockquote, .page-outline) {
   }
 }
 
+/* ── A figure under a heading ──
+ * A heading's own bottom margin suits the paragraph that usually follows it.
+ * A card set, a table, or a code block has an edge of its own and needs a
+ * little more air, most of all under the page title on a page with no
+ * tagline. In the utilities layer to outrank the typography rule that
+ * removes the top margin of whatever follows a heading; `ReadTime` sets its
+ * margin inline and is not affected.
+ */
+@layer utilities {
+  .prose > h1 + :is(div, pre, svg, section, figure):not(.not-prose) {
+    margin-top: 1.5rem;
+  }
+  .prose > :is(h2, h3) + :is(div, pre, svg, section, figure):not(.not-prose) {
+    margin-top: 0.75rem;
+  }
+}
+
 /* ── Glossary chips ──
  * First use of a program term before the page that defines it. Dotted
  * underline marks "this is defined elsewhere"; the link goes there and the

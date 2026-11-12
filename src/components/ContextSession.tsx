@@ -142,12 +142,12 @@ export function ContextSession() {
 
           <div
             style={{
-              ...noteSurface('var(--cs-context-rot)', brandVars.pink.accentBar),
+              ...noteSurface('var(--cs-context-rot)', brandVars.amber.accentBar),
               padding: '0.7rem 0.95rem',
             }}
           >
             <span style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.5 }}>
-              <strong style={{ color: brandVars.pink.text }}>Context rot:</strong>{' '}
+              <strong style={{ color: brandVars.amber.text }}>Context rot:</strong>{' '}
               as context fills, attention spreads — older, irrelevant content
               dilutes focus. More tokens ≠ better performance.
             </span>
