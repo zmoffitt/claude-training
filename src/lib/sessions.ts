@@ -48,7 +48,6 @@ export const claudeSessions: Array<Session> = [
     covers: 'the agent loop, orchestration, autonomy levels, guardrails',
     href: '/docs/training/claude-code/session-4',
   },
-  { number: 5, title: 'Capstone', mode: 'Scaling', covers: 'capstone' },
 ]
 
 export const codexSessions: Array<Session> = [

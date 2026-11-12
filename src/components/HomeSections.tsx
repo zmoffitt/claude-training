@@ -18,7 +18,7 @@ const sections: Section[] = [
     eyebrow: 'Training',
     title: 'Claude Code',
     description:
-      'Five-session program — sessions, walkthroughs, and notes from team trainings.',
+      'Four-session program — sessions, walkthroughs, and notes from team trainings.',
     href: '/docs/training/claude-code',
     primary: true,
   },

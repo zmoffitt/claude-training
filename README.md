@@ -17,7 +17,7 @@ This repo serves as the single source of truth for:
 
 | Track | Location | Status |
 | --- | --- | --- |
-| Claude | `src/app/docs/training/claude-code/` | Five-session roadmap; sessions 1–4 published, 5 (capstone) in progress |
+| Claude | `src/app/docs/training/claude-code/` | Four sessions, complete |
 | Codex & ChatGPT | `src/app/docs/training/codex-chatgpt/` | Three sessions, complete |
 
 GitHub Copilot and Prompt Engineering are standalone pages beside the two tracks.

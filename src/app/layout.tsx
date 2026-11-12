@@ -23,6 +23,13 @@ const bricolage = Bricolage_Grotesque({
   axes: ['opsz'],
 })
 
+// The icons are declared here instead of through Next's icon file names. With
+// favicon.ico and icon.svg both in the app root, Next 16.4 leaves the .ico
+// link off the home page. Both files are in public/, so each URL carries the
+// base path itself. The .ico comes first and names its sizes, so a browser
+// that can draw the SVG picks the SVG.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
 export const metadata: Metadata = {
   title: {
     template: `%s - ${siteName}`,
@@ -30,6 +37,12 @@ export const metadata: Metadata = {
   },
   description:
     'Training materials, best practices, and documentation for AI coding tools — Zachary Moffitt',
+  icons: {
+    icon: [
+      { url: `${basePath}/favicon.ico`, sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+      { url: `${basePath}/icon.svg`, sizes: 'any', type: 'image/svg+xml' },
+    ],
+  },
 }
 
 // Blocking script — runs before first paint so the theme class is on <html>
