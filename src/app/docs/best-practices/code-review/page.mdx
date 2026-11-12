@@ -10,24 +10,24 @@ export const metadata = {
 
 # AI-Assisted Code Review
 
-Use AI tools to enhance your code review process without replacing human judgment.
+Let the model take the first pass on a pull request. A human still decides what merges.
 
 ## When to use AI for review
 
-- **First-pass review** — Let AI catch common issues before a human reviewer looks at the PR
-- **Large diffs** — AI can help summarize changes and flag areas of concern
-- **Unfamiliar code** — Get AI explanations for code in areas you don't work in regularly
+- **First-pass review:** Let AI catch common issues before a human reviewer looks at the PR
+- **Large diffs:** AI can help summarize changes and flag areas of concern
+- **Unfamiliar code:** Get AI explanations for code in areas you don't work in regularly
 
 ## Review checklist
 
 When reviewing AI-generated code, always check:
 
-- Logic correctness — does it actually solve the problem?
-- Edge cases — are error states and boundary conditions handled?
-- Security — no injection vulnerabilities, secrets exposure, or auth bypass
-- Tests — are new or changed behaviors covered by tests?
-- Performance — no unnecessary loops, allocations, or N+1 queries
-- Style — does it match existing patterns in the codebase?
+- Logic correctness: does it actually solve the problem?
+- Edge cases: are error states and boundary conditions handled?
+- Security: no injection vulnerabilities, secrets exposure, or auth bypass
+- Tests: are new or changed behaviors covered by tests?
+- Performance: no unnecessary loops, allocations, or N+1 queries
+- Style: does it match existing patterns in the codebase?
 
 ## Who catches what
 
@@ -68,5 +68,5 @@ When reviewing AI-generated code, always check:
 
 ## Where to go next
 
-- **[Common Pitfalls](/docs/tips/common-pitfalls)** — trusting without verifying, and the other five
-- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern)** — make Claude review its own diff before you do
+- **[Common Pitfalls](/docs/tips/common-pitfalls):** trusting without verifying, and the other five
+- **[The Verification Pattern](/docs/training/claude-code/session-1/verification-pattern):** make Claude review its own diff before you do

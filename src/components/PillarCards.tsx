@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import Link from 'next/link'
 
 import { themeVars, safeAccent, safeSurface } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface PillarCard {
   icon: React.ReactNode
@@ -26,10 +27,13 @@ export function PillarCards({
   cards,
   quote,
   quoteColor = '#351F65',
+  headingLevel,
 }: {
   cards: Array<PillarCard>
   quote?: string
   quoteColor?: string
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   const gridClass =
     gridForCount[cards.length] ?? 'grid grid-cols-1 gap-4 sm:grid-cols-3'
@@ -78,6 +82,7 @@ export function PillarCards({
                   {card.icon}
                 </div>
                 <h3
+                  aria-level={titleLevel(headingLevel)}
                   style={{
                     fontSize: '1rem',
                     fontWeight: 700,

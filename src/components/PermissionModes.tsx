@@ -1,4 +1,4 @@
-import { themeVars, brandVars, type BrandKey } from '@/lib/theme-colors'
+import { themeVars, brandVars, type BrandKey, noteSurface } from '@/lib/theme-colors'
 
 interface Mode {
   title: string
@@ -169,23 +169,10 @@ export function PermissionModes() {
 
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--pm-modes-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--pm-modes-callout)', brandVars.purple.accentBar),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: brandVars.purple.accentBar,
-            }}
-          />
           <div
             style={{
               fontSize: '0.875rem',

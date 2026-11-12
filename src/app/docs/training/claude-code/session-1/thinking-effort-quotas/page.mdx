@@ -46,8 +46,6 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
 
 ## Which level when
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Level | Use it for |
 | --- | --- |
 | `low` | Quick replies while you stay in the loop: brainstorming, sketches, renames, applying a known pattern across files |
@@ -56,23 +54,17 @@ Effort controls how deeply Claude reasons before responding. In claude.ai it is 
 | `xhigh` | Your hardest long-running work, and only where you have seen a gain over `high` |
 | `max` | Fully autonomous runs on hard problems when time and tokens do not matter. Applies to the current session only |
 
-</div>
-
 **A loop for staged work.** When a task splits into stages, spend effort by stage instead of holding one level: have Claude interview you about the spec, implement at `low`, review that it got the gist, then verify and test at `high`. In Anthropic's SWE-bench Pro runs on Opus 5.5, doing everything at `low` and re-running only the failures at `high` passed about 97% of a task subset for $0.17 each, against 95.3% at $0.29 for running everything at `high`.
 
 ## What each level costs
 
 Opus 5.5 on SWE-bench Pro, relative to `high`, from Anthropic's runs as reported in its [model selection guide](https://claude.dev/blog/which-claude-model-should-you-build-with/) (November 2026):
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Level | Score | Cost per task |
 | --- | --- | --- |
 | `low` | About 8 points lower | About a third |
 | `medium` | About 2.5 points lower | About 70% |
 | `xhigh` | About 1.4 points higher | 2.5× |
-
-</div>
 
 Past `high` the curve flattens while the bill does not, so one more level can cost as much as a bigger model. Before going to `xhigh`, try the next model up at a lower effort.
 
@@ -88,5 +80,5 @@ Past `high` the curve flattens while the bill does not, so one more level can co
 
 ## Where to go next
 
-- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus, Sonnet, Haiku, Fable — which fits which job
-- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus)** — Opus plans, Sonnet executes — a quota lever worth measuring
+- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model):** Opus, Sonnet, Haiku, Fable — which fits which job
+- **[Plan Mode & Opus](/docs/training/claude-code/session-1/plan-mode-opus):** Opus plans, Sonnet executes — a quota lever worth measuring

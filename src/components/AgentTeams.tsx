@@ -1,12 +1,12 @@
 'use client'
 
 import { useIsSm } from '@/lib/useIsSm'
-import { themeVars, brandVars } from '@/lib/theme-colors'
+import { themeVars, brandVars, noteSurface } from '@/lib/theme-colors'
 
 export function AgentTeams() {
   const isSm = useIsSm()
 
-  const LEAD = { cx: 180, cy: 40, r: 32 }
+  const LEAD = { cx: 180, cy: 40, r: 36 }
   const TASK_LIST = { x: 110, y: 110, w: 140, h: 70 }
   const TEAMMATES = [
     { label: 'Security', cx: 60, cy: 250, r: 30 },
@@ -25,9 +25,9 @@ export function AgentTeams() {
 
   return (
     <div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
+      <div className="@container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
+          className="grid grid-cols-1 @3xl:grid-cols-2"
           style={{
             gap: '1.5rem',
             alignItems: 'start',
@@ -70,7 +70,7 @@ export function AgentTeams() {
                 y={TASK_LIST.y + 22}
                 textAnchor="middle"
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={11}
+                fontSize={12}
                 fontWeight={700}
                 style={{ fill: brandVars.blue.text }}
               >
@@ -81,7 +81,7 @@ export function AgentTeams() {
                 y={TASK_LIST.y + 42}
                 textAnchor="middle"
                 fontFamily="'SF Mono', monospace"
-                fontSize={9}
+                fontSize={11}
                 style={{ fill: themeVars.textMuted }}
               >
                 ☐ task-1   ☐ task-2
@@ -91,7 +91,7 @@ export function AgentTeams() {
                 y={TASK_LIST.y + 56}
                 textAnchor="middle"
                 fontFamily="'SF Mono', monospace"
-                fontSize={9}
+                fontSize={11}
                 style={{ fill: themeVars.textMuted }}
               >
                 ☑ task-3   ☐ task-4
@@ -119,18 +119,18 @@ export function AgentTeams() {
                 textAnchor="middle"
                 fill="var(--on-accent)"
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={11}
+                fontSize={13}
                 fontWeight={700}
               >
                 Lead
               </text>
               <text
                 x={LEAD.cx}
-                y={LEAD.cy + 11}
+                y={LEAD.cy + 12}
                 textAnchor="middle"
                 fill="var(--on-accent)" fillOpacity={0.85}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={9}
+                fontSize={11}
               >
                 coordinates
               </text>
@@ -206,7 +206,7 @@ export function AgentTeams() {
                     y={tm.cy - 3}
                     textAnchor="middle"
                     fontFamily="var(--font-sans), system-ui, sans-serif"
-                    fontSize={10}
+                    fontSize={12}
                     fontWeight={600}
                     style={{ fill: brandVars.blue.text }}
                   >
@@ -214,10 +214,10 @@ export function AgentTeams() {
                   </text>
                   <text
                     x={tm.cx}
-                    y={tm.cy + 9}
+                    y={tm.cy + 11}
                     textAnchor="middle"
                     fontFamily="var(--font-sans), system-ui, sans-serif"
-                    fontSize={9}
+                    fontSize={11}
                     style={{ fill: 'var(--at-teammate-label)' }}
                   >
                     teammate
@@ -238,7 +238,7 @@ export function AgentTeams() {
                 x={100}
                 y={303}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={9}
+                fontSize={11}
                 style={{ fill: themeVars.textMuted }}
               >
                 claim tasks
@@ -256,7 +256,7 @@ export function AgentTeams() {
                 x={200}
                 y={303}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={9}
+                fontSize={11}
                 style={{ fill: themeVars.textMuted }}
               >
                 peer messaging
@@ -296,13 +296,19 @@ export function AgentTeams() {
           </div>
           )}
 
-          {/* RIGHT: Comparison table */}
+          {/* RIGHT: Comparison table. On a screen narrower than the table the
+              card scrolls sideways; without `minWidth: 0` the table would
+              push the whole page wider instead. */}
           <div
+            tabIndex={0}
+            role="region"
+            aria-label="Subagents and agent teams compared"
             style={{
               backgroundColor: 'var(--at-card-bg)',
               borderRadius: 'var(--radius-card)',
               border: '1px solid var(--surface-border)',
-              overflow: 'hidden',
+              minWidth: 0,
+              overflowX: 'auto',
             }}
           >
             <table
@@ -408,23 +414,10 @@ export function AgentTeams() {
         {/* Bottom callout */}
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--at-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--at-callout)', brandVars.blue.accentBar),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: brandVars.blue.accentBar,
-            }}
-          />
           <div style={{ fontSize: '0.9375rem', color: themeVars.text, lineHeight: 1.55 }}>
             <strong style={{ color: brandVars.blue.text }}>
               Subagents when only the result matters.

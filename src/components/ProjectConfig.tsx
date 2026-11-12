@@ -1,4 +1,4 @@
-import { themeVars, brandVars } from '@/lib/theme-colors'
+import { themeVars, brandVars, noteSurface } from '@/lib/theme-colors'
 
 interface TreeRow {
   indent: number
@@ -213,8 +213,8 @@ export function ProjectConfig() {
                     <span>
                       <strong style={{ color: themeVars.heading }}>
                         <code style={codeStyle}>{row.name}</code>
-                      </strong>{' '}
-                      — {row.body}
+                      </strong>
+                      : {row.body}
                     </span>
                   </li>
                 ))}
@@ -225,23 +225,10 @@ export function ProjectConfig() {
 
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--pc-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--pc-callout)'),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: themeVars.heading,
-            }}
-          />
           <div style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.55 }}>
             <strong>
               <code style={codeStyle}>claude init</code>

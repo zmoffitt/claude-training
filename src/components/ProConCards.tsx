@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
 import { themeVars, wcagText } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface ProConCard {
   icon: React.ReactNode
@@ -23,8 +24,11 @@ const gridForCount: Record<number, string> = {
 
 export function ProConCards({
   cards,
+  headingLevel,
 }: {
   cards: Array<ProConCard>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   const gridClass =
     gridForCount[cards.length] ?? 'grid grid-cols-1 gap-4 sm:grid-cols-2'
@@ -53,6 +57,7 @@ export function ProConCards({
               {card.icon}
             </div>
             <h3
+              aria-level={titleLevel(headingLevel)}
               style={{
                 fontSize: '1.25rem',
                 fontWeight: 700,

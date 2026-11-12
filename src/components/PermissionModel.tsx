@@ -1,18 +1,15 @@
-import { themeVars, brandVars, type BrandKey } from '@/lib/theme-colors'
+import { StackedFeatures } from '@/components/StackedFeatures'
+import { themeVars, brandVars } from '@/lib/theme-colors'
 
-interface Tier {
-  title: string
-  description: React.ReactNode
-  badge: string
-  brand: BrandKey
-}
-
-const TIERS: Array<Tier> = [
+// The three tiers are rows of `StackedFeatures`. Each `color` names a step on
+// the risk scale (green runs freely, amber asks first, red is highest risk),
+// and the row's badge is drawn in it.
+const TIERS = [
   {
     title: 'Read-only (file reads, grep, glob)',
     description: 'No approval needed. Claude can read any file in your working directory freely.',
     badge: 'No Approval',
-    brand: 'green',
+    color: '#078708',
   },
   {
     title: 'Bash commands (shell execution)',
@@ -23,7 +20,7 @@ const TIERS: Array<Tier> = [
       </>
     ),
     badge: 'Permanent / Project',
-    brand: 'red',
+    color: '#E23523',
   },
   {
     title: 'File modifications (create, edit, delete)',
@@ -34,7 +31,7 @@ const TIERS: Array<Tier> = [
       </>
     ),
     badge: 'Session Only',
-    brand: 'amber',
+    color: '#ECB801',
   },
 ]
 
@@ -44,173 +41,59 @@ const RULE_EXAMPLES: Array<{ rule: string; note: string }> = [
   { rule: 'Edit(/src/**/*.ts)', note: 'scope to TS files' },
 ]
 
-const codeStyle: React.CSSProperties = {
-  fontFamily: '"SF Mono", Menlo, Consolas, monospace',
-  fontSize: '0.8125rem',
-  backgroundColor: 'var(--tint-code)',
-  color: themeVars.heading,
-  padding: '0.15em 0.45em',
-  borderRadius: '4px',
+/** The site's one card surface. */
+const cardStyle: React.CSSProperties = {
+  border: '1px solid var(--surface-border)',
+  borderRadius: 'var(--radius-card)',
+  backgroundColor: themeVars.cardBg,
+  padding: '1.25rem 1.5rem',
 }
 
-export function PermissionModel() {
+const cardTitleStyle: React.CSSProperties = {
+  fontSize: '0.875rem',
+  fontWeight: 700,
+  color: themeVars.heading,
+  marginBottom: '0.6rem',
+}
+
+export function PermissionModel({ headingLevel }: { headingLevel?: number | string }) {
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-          {TIERS.map((tier) => {
-            const b = brandVars[tier.brand]
-            return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+      <StackedFeatures features={TIERS} headingLevel={headingLevel} />
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div style={cardStyle}>
+          <div style={cardTitleStyle}>Permission Rule Syntax</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            {RULE_EXAMPLES.map((ex) => (
               <div
-                key={tier.title}
-                style={{
-                  position: 'relative',
-                  backgroundColor: 'var(--pm-model-row)',
-                  borderRadius: '6px',
-                  padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  overflow: 'hidden',
-                }}
+                key={ex.rule}
+                style={{ fontSize: '0.8125rem', color: themeVars.text, lineHeight: 1.5 }}
               >
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: '5px',
-                    backgroundColor: b.accentBar,
-                  }}
-                />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div
-                    style={{
-                      fontSize: '1rem',
-                      fontWeight: 700,
-                      color: themeVars.heading,
-                      marginBottom: '0.15rem',
-                    }}
-                  >
-                    {tier.title}
-                  </div>
-                  <div style={{ fontSize: '0.875rem', color: themeVars.textMuted, lineHeight: 1.5 }}>
-                    {tier.description}
-                  </div>
-                </div>
-                <span
-                  style={{
-                    flexShrink: 0,
-                    backgroundColor: b.badgeBg,
-                    color: 'var(--on-accent)',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    padding: '0.35rem 0.85rem',
-                    borderRadius: '5px',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {tier.badge}
-                </span>
+                <code>{ex.rule}</code>: {ex.note}
               </div>
-            )
-          })}
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div style={cardStyle}>
+          <div style={cardTitleStyle}>Precedence Order</div>
           <div
             style={{
-              position: 'relative',
-              backgroundColor: 'var(--pm-model-purple-card)',
-              borderRadius: '6px',
-              padding: '1rem 1.25rem 1rem 1.5rem',
-              overflow: 'hidden',
+              fontSize: '0.9375rem',
+              color: themeVars.text,
+              lineHeight: 1.6,
+              marginBottom: '0.35rem',
             }}
           >
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '5px',
-                backgroundColor: brandVars.purple.accentBar,
-              }}
-            />
-            <div
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 700,
-                color: themeVars.heading,
-                marginBottom: '0.6rem',
-              }}
-            >
-              Permission Rule Syntax
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-              {RULE_EXAMPLES.map((ex) => (
-                <div
-                  key={ex.rule}
-                  style={{
-                    fontSize: '0.8125rem',
-                    color: themeVars.text,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  <code style={codeStyle}>{ex.rule}</code>
-                  <span style={{ marginLeft: '0.5rem' }}>— {ex.note}</span>
-                </div>
-              ))}
-            </div>
+            <strong style={{ color: brandVars.red.text }}>deny</strong>{' '}
+            <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}
+            <strong style={{ color: brandVars.amber.text }}>ask</strong>{' '}
+            <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}
+            <strong style={{ color: brandVars.green.text }}>allow</strong>
           </div>
-
-          <div
-            style={{
-              position: 'relative',
-              backgroundColor: 'var(--pm-model-pink-card)',
-              borderRadius: '6px',
-              padding: '1rem 1.25rem 1rem 1.5rem',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '5px',
-                backgroundColor: brandVars.red.accentBar,
-              }}
-            />
-            <div
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 700,
-                color: themeVars.heading,
-                marginBottom: '0.6rem',
-              }}
-            >
-              Precedence Order
-            </div>
-            <div
-              style={{
-                fontSize: '0.9375rem',
-                color: themeVars.text,
-                lineHeight: 1.6,
-                marginBottom: '0.35rem',
-              }}
-            >
-              <strong style={{ color: brandVars.red.text }}>deny</strong>{' '}
-              <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}
-              <strong style={{ color: themeVars.text }}>ask</strong>{' '}
-              <span style={{ color: themeVars.textMuted }}>&gt;</span>{' '}
-              <strong style={{ color: brandVars.green.text }}>allow</strong>
-            </div>
-            <div style={{ fontSize: '0.8125rem', color: themeVars.text, lineHeight: 1.5 }}>
-              A deny rule always wins, regardless of where it appears.
-            </div>
+          <div style={{ fontSize: '0.8125rem', color: themeVars.text, lineHeight: 1.5 }}>
+            A deny rule always wins, regardless of where it appears.
           </div>
         </div>
       </div>

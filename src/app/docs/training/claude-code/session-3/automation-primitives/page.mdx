@@ -11,16 +11,12 @@ export const metadata = {
 
 Four automation primitives — the **Monitor tool**, **`/loop`**, a **Desktop local task**, and a **cloud scheduled task** — know which surface you're actually on. Claude Code's `/schedule` always creates a cloud task; the Desktop app's **New task** button asks you to pick **Local** or **Cloud**.
 
-<div className="max-w-2xl lg:max-w-3xl">
-
 | Primitive                            | Create via                                                                                       | Runs on                                                  | Survives closed laptop?     |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------- | --------------------------- |
 | **Monitor tool**                     | Called inline by Claude in a live session — not user-created. Watches a command's output for up to 30 minutes | Background process on your machine, current session only | No                          |
 | **`/loop`**                          | `/loop 5m /skill` in any CLI session; minimum 1 minute                                           | Your machine, current session only                       | No                          |
 | **Desktop local task**               | Desktop → Code tab → **Scheduled** → **New task** → **Local**; or ask Claude in any Desktop session ("every weekday at 9, …") | Your machine — Desktop must be open and awake; one catch-up run on wake | No (one missed run replays) |
 | **Cloud scheduled task** _(formerly routine)_ | Desktop → **New task** → **Cloud**; Claude Code `/schedule`; `claude.ai/code/routines`     | Anthropic-managed cloud infrastructure; minimum interval 1 hour | **Yes**                     |
-
-</div>
 
 <Callout
   variant="info"
@@ -35,5 +31,5 @@ Four automation primitives — the **Monitor tool**, **`/loop`**, a **Desktop lo
 
 ## Where to go next
 
-- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage)** — see a cloud task end-to-end
-- **[Plugins & Marketplaces](/docs/training/claude-code/session-3/plugins-marketplaces)** — bundle skills, agents, and MCP servers for the team
+- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage):** see a cloud task end-to-end
+- **[Plugins & Marketplaces](/docs/training/claude-code/session-3/plugins-marketplaces):** bundle skills, agents, and MCP servers for the team

@@ -5,7 +5,7 @@ export const metadata = {
 
 # Decision Guide: Skill, Scheduled Task, MCP, or Plugin?
 
-<div className="max-w-2xl lg:max-w-3xl">
+Start from what you need done and read across to the mechanism that fits.
 
 | When you need to… | Skill | Scheduled task | MCP / Connector | Plugin |
 | --- | :---: | :---: | :---: | :---: |
@@ -15,11 +15,9 @@ export const metadata = {
 | Distribute several capabilities to the whole team | — | — | — | **Best fit** |
 | Standardize how a runbook gets executed | **Best fit** | often pairs | often pairs | often pairs |
 
-</div>
-
 A **scheduled task** runs a **skill** that uses a **connector**, and the whole thing can ship inside a **plugin**. The interesting decision is usually _which connector / MCP_, and _does it need to run while I'm away_ (scheduled task) or with me at the keyboard (skill).
 
 ## Where to go next
 
-- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege, data flows, IAM red lines
-- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage)** — skill + connector + scheduled task, end-to-end
+- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping):** least privilege, data flows, IAM red lines
+- **[Live Demo: Bug Triage Task](/docs/training/claude-code/session-3/live-demo-bug-triage):** skill + connector + scheduled task, end-to-end

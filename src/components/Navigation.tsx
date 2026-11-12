@@ -10,6 +10,7 @@ import { usePagePath } from '@/lib/usePagePath'
 import { Fragment, useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { focusRing } from '@/lib/focusRing'
+import { useVisitedPages } from '@/lib/progress'
 import { remToPx } from '@/lib/remToPx'
 import { claudeSessions, codexSessions, sessionLabel } from '@/lib/sessions'
 
@@ -55,18 +56,23 @@ function NavLink({
   children,
   active = false,
   isAnchorLink = false,
+  visited = false,
 }: {
   href: string
   children: React.ReactNode
   active?: boolean
   isAnchorLink?: boolean
+  /** The learner has opened this page, and every page under it. */
+  visited?: boolean
 }) {
   return (
     <Link
       href={href}
       aria-current={active ? 'page' : undefined}
       className={clsx(
-        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition',
+        // The drawer (below `lg`) is used by touch, so its rows are 44px tall;
+        // the desktop sidebar keeps the dense rows.
+        'relative flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition max-lg:min-h-11 max-lg:items-center',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
           ? 'text-zinc-900 dark:text-white'
@@ -78,6 +84,25 @@ function NavLink({
       )}
     >
       <span className="leading-snug">{children}</span>
+      {visited && (
+        <>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            // In the row's left padding, not beside the label: the check
+            // arrives after hydration, and a label must not rewrap when it does.
+            className="absolute top-1/2 left-0 h-3 w-3 -translate-y-1/2 text-zinc-500 dark:text-zinc-400"
+          >
+            <path d="M3 8.5l3.25 3.25L13 5" />
+          </svg>
+          <span className="sr-only">, visited</span>
+        </>
+      )}
     </Link>
   )
 }
@@ -137,11 +162,17 @@ function NestedNavItem({
   let [isExpanded, setIsExpanded] = useState(isActive)
   let isOpen = isActive || isExpanded
   let childListId = useId()
+  // A row is checked once its page and every page under it has been opened,
+  // so a collapsed session reads as done only when all of it is. The page
+  // being read carries the marker and no check.
+  let visitedPages = useVisitedPages()
+  let visited =
+    link.href !== pathname && flattenLinks([link]).every((page) => visitedPages.has(page.href))
 
   if (!link.children) {
     return (
       <motion.li layout="position" className="relative">
-        <NavLink href={link.href} active={link.href === pathname}>
+        <NavLink href={link.href} active={link.href === pathname} visited={visited}>
           {link.title}
         </NavLink>
       </motion.li>
@@ -151,7 +182,7 @@ function NestedNavItem({
   return (
     <motion.li layout="position" className="relative">
       <div className="flex items-center">
-        <NavLink href={link.href} active={link.href === pathname}>
+        <NavLink href={link.href} active={link.href === pathname} visited={visited}>
           {link.title}
         </NavLink>
         <button
@@ -161,7 +192,7 @@ function NestedNavItem({
           aria-controls={childListId}
           aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${link.title}`}
           className={clsx(
-            'flex shrink-0 items-center self-stretch rounded pr-3 pl-2',
+            'flex shrink-0 items-center self-stretch rounded pr-3 pl-2 max-lg:w-11 max-lg:justify-center max-lg:px-0',
             focusRing,
           )}
         >
@@ -230,8 +261,10 @@ function NavigationGroup({
   let [activeHeight, setActiveHeight] = useState(0)
   let groupContentId = useId()
 
-  let isOpen = isActiveGroup || isExpanded
   let groupHref = group.href ?? flat[0]?.href ?? '/'
+  // A group is open on its own page as well as on the pages inside it. That
+  // opens Training Materials on the home page, which is that group's page.
+  let isOpen = isActiveGroup || isExpanded || pathname === group.href
 
   // The title is a link, but a collapsed group opens on the first click
   // instead of navigating; the caret always toggles.
@@ -281,7 +314,7 @@ function NavigationGroup({
   }, [pathname, isActiveGroup, measure])
 
   return (
-    <li className={clsx('relative mt-6', className)}>
+    <li className={clsx('relative mt-6 max-lg:mt-2', className)}>
       <motion.h2
         layout="position"
         className="font-semibold text-zinc-900 dark:text-white"
@@ -293,7 +326,7 @@ function NavigationGroup({
             onClick={handleTitleClick}
             data-transition="none"
             className={clsx(
-              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 dark:hover:text-violet-400',
+              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 max-lg:min-h-11 dark:hover:text-violet-400',
               focusRing,
             )}
           >
@@ -306,7 +339,7 @@ function NavigationGroup({
             aria-expanded={isOpen}
             aria-controls={groupContentId}
             aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title}`}
-            className={clsx('flex shrink-0 cursor-pointer items-center rounded py-1 pr-3 pl-2', focusRing)}
+            className={clsx('flex shrink-0 cursor-pointer items-center rounded py-1 pr-3 pl-2 max-lg:h-11 max-lg:w-11 max-lg:justify-center max-lg:p-0', focusRing)}
           >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
@@ -331,7 +364,7 @@ function NavigationGroup({
           <motion.div
             id={groupContentId}
             ref={containerRef}
-            className="relative mt-3 pl-2"
+            className="relative mt-3 pl-2 max-lg:mt-1"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

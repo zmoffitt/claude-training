@@ -50,14 +50,30 @@ export function Breadcrumbs() {
     { title: trail[trail.length - 1].title },
   ]
 
+  // On a phone the full trail wraps to three lines above the title. Below
+  // `sm` it is one line: the parent page as a back link. The wordmark already
+  // links home, and the title right below names the page.
+  const parentIndex = crumbs.length - 2
+
   return (
     <nav aria-label="Breadcrumb" data-pagefind-ignore className="not-prose mb-2 [view-transition-name:breadcrumbs]">
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
         {crumbs.map((crumb, i) => (
-          <li key={`${crumb.title}-${i}`} className="flex items-center gap-2">
+          <li
+            key={`${crumb.title}-${i}`}
+            className={clsx(
+              'max-w-full min-w-0 items-center gap-2',
+              i === parentIndex ? 'flex' : 'hidden sm:flex',
+            )}
+          >
             {i > 0 && (
-              <span className="text-zinc-400 dark:text-zinc-600" aria-hidden="true">
+              <span className="text-zinc-400 max-sm:hidden dark:text-zinc-600" aria-hidden="true">
                 ›
+              </span>
+            )}
+            {i === parentIndex && (
+              <span className="text-zinc-400 sm:hidden dark:text-zinc-600" aria-hidden="true">
+                ‹
               </span>
             )}
             {crumb.href ? (
@@ -67,7 +83,7 @@ export function Breadcrumbs() {
                   // Hover takes the interaction color, as the sidebar links
                   // do. The session crumb keeps its session hue, so there
                   // the hover shows as a line under the text.
-                  'rounded text-zinc-500 transition hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400',
+                  'rounded text-zinc-500 transition hover:text-violet-500 max-sm:min-w-0 max-sm:truncate max-sm:py-1.5 dark:text-zinc-400 dark:hover:text-violet-400',
                   isSessionCrumb(crumb.href) && 'underline-offset-2 hover:underline',
                   focusRing,
                 )}

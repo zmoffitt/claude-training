@@ -129,28 +129,47 @@ export function TableOfContents() {
 
 /**
  * Compact "On this page" disclosure for viewports below 1366px, where the
- * right-rail has no room. Rendered inside the article, above the H1, so
- * reference-mode readers on laptops and phones still get the outline.
- * Only shown when a page has at least two sections worth jumping to.
+ * right-rail has no room. `scripts/remark-page-outline.mjs` places it in the
+ * page itself, below the title and tagline (below the hero on a landing
+ * page), so the title comes first on a phone. Only shown when a page has at
+ * least two sections worth jumping to.
+ *
+ * `total` and `jumpable` are the H2 counts the plugin read from the Markdown.
+ * They draw the summary row in the static HTML; the headings in the rendered
+ * page take over once it has mounted, which also covers an H2 that a
+ * component renders.
  */
-export function InlineTableOfContents() {
+export function InlineTableOfContents({
+  total,
+  jumpable,
+}: {
+  total?: string
+  jumpable?: string
+}) {
   const headings = useArticleHeadings()
   const sections = headings.filter((h) => h.level === 2)
+  const measured = headings.length > 0
 
-  if (jumpableSections(headings).length < 2) return null
+  const jumpableCount = measured ? jumpableSections(headings).length : Number(jumpable) || 0
+  const sectionCount = measured ? sections.length : Number(total) || 0
+
+  if (jumpableCount < 2) return null
 
   return (
-    <details className="not-prose group mb-6 rounded-lg border border-zinc-900/10 text-sm min-[1366px]:hidden dark:border-white/10">
+    <details
+      data-pagefind-ignore
+      className="page-outline not-prose group my-6 rounded-lg border border-zinc-900/10 text-sm min-[1366px]:hidden dark:border-white/10"
+    >
       <summary
         className={clsx(
-          'flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-2.5 font-medium text-zinc-700 select-none dark:text-zinc-300',
+          'flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-2.5 font-medium text-zinc-700 select-none dark:text-zinc-300',
           focusRing,
         )}
       >
         <span>
           On this page
           <span className="ml-2 font-normal text-zinc-500 dark:text-zinc-400">
-            {sections.length} sections
+            {sectionCount} sections
           </span>
         </span>
         <svg
@@ -168,7 +187,7 @@ export function InlineTableOfContents() {
             <a
               href={`#${h.id}`}
               className={clsx(
-                'block rounded py-1.5 text-zinc-600 hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400',
+                'block rounded py-1.5 text-zinc-600 hover:text-violet-500 max-lg:py-3 dark:text-zinc-400 dark:hover:text-violet-400',
                 focusRing,
               )}
             >

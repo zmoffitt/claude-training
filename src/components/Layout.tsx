@@ -16,7 +16,7 @@ import { Prose } from '@/components/Prose'
 import { ScrollProgress } from '@/components/ScrollProgress'
 import { SearchDialog } from '@/components/SearchDialog'
 import { SidebarResizeHandle } from '@/components/SidebarResizeHandle'
-import { InlineTableOfContents, TableOfContents } from '@/components/TableOfContents'
+import { TableOfContents } from '@/components/TableOfContents'
 import { usePagePath } from '@/lib/usePagePath'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { useIsLg } from '@/lib/useIsLg'
@@ -109,10 +109,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </motion.header>
       <div className="relative flex h-full flex-col px-4 pt-14 sm:px-6 lg:px-8">
         <main id="main-content" tabIndex={-1} className="flex-auto focus:outline-none">
-          <article data-pagefind-body className="flex h-full flex-col pt-16 pb-10 [view-transition-name:article]">
+          <article data-pagefind-body className="flex h-full flex-col pt-8 pb-10 sm:pt-16 [view-transition-name:article]">
             <Prose className="flex-auto">
               <Breadcrumbs />
-              <InlineTableOfContents />
               {children}
             </Prose>
           </article>

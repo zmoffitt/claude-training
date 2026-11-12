@@ -1,16 +1,20 @@
-import { themeVars, wcagBadgeBg, safeAccent, safeSurface } from '@/lib/theme-colors'
+import { themeVars, wcagBadgeBg, safeSurface } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface StackedFeature {
   title: string
-  description: string
+  description: React.ReactNode
   badge: string
   color: string
 }
 
 export function StackedFeatures({
   features,
+  headingLevel,
 }: {
   features: Array<StackedFeature>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   return (
     <div
@@ -21,21 +25,21 @@ export function StackedFeatures({
       }}
     >
       {features.map((feature) => (
+        // The badge carries the row's color. When the row is too narrow for
+        // both, the badge drops below the text.
         <div
           key={feature.title}
+          className="flex flex-wrap items-center gap-x-6 gap-y-3"
           style={{
             border: '1px solid var(--surface-border)',
-            borderLeft: `3px solid ${safeAccent(feature.color)}`,
             borderRadius: 'var(--radius-card)',
             backgroundColor: themeVars.cardBg,
             padding: '1.25rem 1.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
           }}
         >
-          <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ flex: '1 1 14rem', minWidth: 0 }}>
             <h3
+              aria-level={titleLevel(headingLevel)}
               style={{
                 fontSize: '1.125rem',
                 fontWeight: 700,

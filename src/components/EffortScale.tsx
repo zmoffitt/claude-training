@@ -7,6 +7,7 @@ function gridForCount(count: number): string {
 }
 
 import { themeVars, accentText } from '@/lib/theme-colors'
+import { titleLevel } from '@/lib/headingLevel'
 
 interface EffortColumn {
   arrow: 'up' | 'down'
@@ -17,8 +18,11 @@ interface EffortColumn {
 
 export function EffortScale({
   columns,
+  headingLevel,
 }: {
   columns: Array<EffortColumn>
+  /** The titles' level in the page outline; set by the build, see `lib/headingLevel`. */
+  headingLevel?: number | string
 }) {
   return (
     <div>
@@ -37,6 +41,7 @@ export function EffortScale({
             }}
           >
             <h3
+              aria-level={titleLevel(headingLevel)}
               style={{
                 fontSize: '1.25rem',
                 fontWeight: 700,

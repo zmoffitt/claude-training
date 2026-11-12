@@ -491,9 +491,6 @@
     /* ProjectConfig, PermissionModes, PermissionModel */
     --pc-callout: var(--tint-neutral);
     --pm-modes-callout: var(--tint-neutral);
-    --pm-model-row: var(--tint-neutral);
-    --pm-model-purple-card: var(--tint-purple);
-    --pm-model-pink-card: var(--tint-red);
   }
 
   /* ── Dark theme: Vercel ──
@@ -672,18 +669,36 @@
   }
 }
 
+/* ── Figure width ──
+ * Everything on a page that is not running text (a table, a code block, a
+ * card set, a diagram, a callout) stops at one width, so a page has two right
+ * edges: the text measure below and this one. Landing-page pieces (the hero,
+ * the roadmap, the session outline, the home list) are marked `.not-prose`
+ * and keep the full column; so does a figure wrapped in `<div className="wide">`.
+ * The rule sits in the utilities layer with a specificity just above the
+ * column width `Prose` sets and below a single class, so a component can
+ * still pick a narrower width with a utility of its own.
+ */
+@layer utilities {
+  @media (min-width: 1024px) {
+    html body :where(.prose > :is(div, pre, table, figure, section, svg):not(.not-prose, .wide)) {
+      max-width: var(--container-3xl);
+    }
+  }
+}
+
 /* ── Reading measure ──
  * Running text stops at about 75 characters a line (38rem of 16px Inter; the
  * 18px lead under a page title comes to about 67). Tables, code, cards, and
- * diagrams keep the full column, so a page reads as narrow text with wider
- * figures. The measure is in rem, not ch, so the lead and the body share one
+ * diagrams run to the figure width above, so a page reads as narrow text with
+ * wider figures. The measure is in rem, not ch, so the lead and the body share one
  * right edge. The rule stays outside the cascade layers and carries `html`
  * to outrank both the column widths `Prose` sets and the rule above.
  */
 :root {
   --measure: 38rem;
 }
-html .prose > :is(p, ul, ol, blockquote) {
+html .prose > :is(p, ul, ol, blockquote, .page-outline) {
   max-width: var(--measure);
   /* Below lg the column is centered: keep the text on the column's left edge
      instead of centering it inside the column. */
@@ -691,7 +706,7 @@ html .prose > :is(p, ul, ol, blockquote) {
   margin-right: auto;
 }
 @media (min-width: 1024px) {
-  html .prose > :is(p, ul, ol, blockquote) {
+  html .prose > :is(p, ul, ol, blockquote, .page-outline) {
     margin-left: calc(50% - min(50%, var(--container-lg)));
   }
 }
@@ -700,8 +715,16 @@ html .prose > :is(p, ul, ol, blockquote) {
  * Dense markdown tables scroll sideways on narrow viewports. The scrolling
  * shadows (Lea Verou's technique) show that there is more to the right or
  * left, and `th` stays on one line so headers don't stack three deep.
+ *
+ * `.figure-scroll` is the same region around a drawing. An SVG scales with
+ * its box, labels included, so a drawing with a `min-width` keeps its labels
+ * at a readable size on a phone and scrolls instead of shrinking them.
  */
-.table-scroll {
+.table-scroll,
+.figure-scroll {
+  /* Positioned, so screen-reader-only text inside a cell (absolutely placed)
+     scrolls with the region instead of widening the page. */
+  position: relative;
   overflow-x: auto;
   border-radius: 0.5rem;
   /* A dark shadow barely shows on a near-black page, so the dark hint is a light edge. */
@@ -716,7 +739,8 @@ html .prose > :is(p, ul, ol, blockquote) {
   background-size: 48px 100%, 48px 100%, 16px 100%, 16px 100%;
   background-attachment: local, local, scroll, scroll;
 }
-.table-scroll:focus-visible {
+.table-scroll:focus-visible,
+.figure-scroll:focus-visible {
   outline: 2px solid var(--color-violet-500);
   outline-offset: 2px;
 }
@@ -786,6 +810,23 @@ html .prose > :is(p, ul, ol, blockquote) {
      table of contents uses to pick the current section. */
   .prose :where(h1, h2, h3, h4, h5, h6)[id] {
     scroll-margin-top: 5rem;
+  }
+}
+
+/* ── A figure under a heading ──
+ * A heading's own bottom margin suits the paragraph that usually follows it.
+ * A card set, a table, or a code block has an edge of its own and needs a
+ * little more air, most of all under the page title on a page with no
+ * tagline. In the utilities layer to outrank the typography rule that
+ * removes the top margin of whatever follows a heading; `ReadTime` sets its
+ * margin inline and is not affected.
+ */
+@layer utilities {
+  .prose > h1 + :is(div, pre, svg, section, figure):not(.not-prose) {
+    margin-top: 1.5rem;
+  }
+  .prose > :is(h2, h3) + :is(div, pre, svg, section, figure):not(.not-prose) {
+    margin-top: 0.75rem;
   }
 }
 

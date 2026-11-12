@@ -15,10 +15,10 @@ Understanding the economics of every conversation.
 
 ## Input vs. Output Tokens
 
-- **Input tokens** — what you send: prompts, files, conversation history, system instructions
-- **Output tokens** — what Claude generates: responses, code, analysis (costs ~5x more per token)
-- **Cached input** — Claude Code caches the stable prefix of a session, so a long but unchanged history costs a fraction of a fresh read: 5% of the input price on Opus 5.5. The cache lasts an hour on a subscription within plan usage and five minutes on usage credits, an API key, or a cloud provider, and each hit resets the clock. Pause longer and the next turn pays to write the whole conversation back.
-- **What breaks the cache** — switching models, compacting, connecting an MCP server mid-session, and turning on fast mode for the first time can each force a fresh write. Set these up at the start of a session and leave them alone while it works.
+- **Input tokens:** what you send: prompts, files, conversation history, system instructions
+- **Output tokens:** what Claude generates: responses, code, analysis (costs ~5x more per token)
+- **Cached input:** Claude Code caches the stable prefix of a session, so a long but unchanged history costs a fraction of a fresh read: 5% of the input price on Opus 5.5. The cache lasts an hour on a subscription within plan usage and five minutes on usage credits, an API key, or a cloud provider, and each hit resets the clock. Pause longer and the next turn pays to write the whole conversation back.
+- **What breaks the cache:** switching models, compacting, connecting an MCP server mid-session, and turning on fast mode for the first time can each force a fresh write. Set these up at the start of a session and leave them alone while it works.
 
 Dollar figures on this page are Opus 5.5 API list prices from the [pricing table](https://platform.claude.com/docs/en/about-claude/pricing), November 2026. Cache lifetimes and what invalidates them are in the [prompt caching reference](https://code.claude.com/docs/en/prompt-caching).
 
@@ -34,5 +34,5 @@ Dollar figures on this page are Opus 5.5 API list prices from the [pricing table
 
 ## Where to go next
 
-- **[Thinking Effort & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas)** — match model and depth to the task
-- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model)** — Opus by default, Sonnet and Haiku for volume
+- **[Thinking Effort & Quotas](/docs/training/claude-code/session-1/thinking-effort-quotas):** match model and depth to the task
+- **[Choosing the Right Model](/docs/training/claude-code/session-1/choosing-the-right-model):** Opus by default, Sonnet and Haiku for volume

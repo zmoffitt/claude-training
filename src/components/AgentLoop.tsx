@@ -52,13 +52,27 @@ const CHECKPOINTS: Array<{ hue: BrandKey; lead: string; body: React.ReactNode }>
 
 export function AgentLoop() {
   return (
-    <div className="not-prose grid grid-cols-1 items-center gap-6 md:grid-cols-2">
-      <div className="flex justify-center">
+    // The root is a plain block so it takes the figure width like any other
+    // diagram; its two halves opt out of article styles themselves. The two
+    // columns appear only at that full width, measured on the figure's own
+    // box: beside the sidebar a column would be too narrow for the drawing.
+    <div className="@container">
+    <div className="grid grid-cols-1 items-center gap-6 @3xl:grid-cols-2">
+      {/* Below about 420px the drawing would shrink its labels under 11px,
+          so it keeps a minimum width and this region scrolls sideways. */}
+      <div className="figure-scroll not-prose" tabIndex={0} role="region" aria-label="Agent loop diagram">
         <svg
           viewBox="0 0 400 340"
           role="img"
           aria-label="Agent loop: Claude, the agent, sits at the center of four beats that run clockwise. 1, Observe: read state, logs, context. 2, Plan: choose the next step. 3, Act: call a tool, write code. 4, Evaluate: did it work, what now. Evaluate leads back to Observe."
-          style={{ width: '100%', maxWidth: '400px', height: 'auto', display: 'block' }}
+          style={{
+            width: '100%',
+            minWidth: '380px',
+            maxWidth: '400px',
+            height: 'auto',
+            display: 'block',
+            margin: '0 auto',
+          }}
         >
           <defs>
             <marker
@@ -97,7 +111,7 @@ export function AgentLoop() {
             y={167}
             textAnchor="middle"
             fontFamily={FONT}
-            fontSize={13}
+            fontSize={14}
             fontWeight={700}
             style={{ fill: themeVars.heading }}
           >
@@ -108,7 +122,7 @@ export function AgentLoop() {
             y={183}
             textAnchor="middle"
             fontFamily={FONT}
-            fontSize={11}
+            fontSize={12}
             style={{ fill: themeVars.textMuted }}
           >
             Claude
@@ -132,7 +146,7 @@ export function AgentLoop() {
                   y={beat.y + 24}
                   textAnchor="middle"
                   fontFamily={FONT}
-                  fontSize={13}
+                  fontSize={14}
                   fontWeight={700}
                   style={{ fill: brandVars[beat.hue].text }}
                 >
@@ -143,7 +157,7 @@ export function AgentLoop() {
                   y={beat.y + 42}
                   textAnchor="middle"
                   fontFamily={FONT}
-                  fontSize={11}
+                  fontSize={12}
                   style={{ fill: themeVars.textMuted }}
                 >
                   {beat.sub}
@@ -155,6 +169,7 @@ export function AgentLoop() {
       </div>
 
       <div
+        className="not-prose"
         style={{
           backgroundColor: 'var(--tint-raised)',
           border: '1px solid var(--surface-border)',
@@ -190,6 +205,7 @@ export function AgentLoop() {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   )
 }

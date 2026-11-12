@@ -27,8 +27,8 @@ That's a single command — `/audit-marketplace` — producing a full audit of n
 
 ## Two files, that's the whole agent
 
-- `.claude/agents/`**`plugin-health-checker.md`** — the subagent. Eight read-only checks, runs on `haiku`, returns a structured markdown row per plugin.
-- `.claude/skills/`**`audit-marketplace`**`/SKILL.md` — the orchestrator. Discovers the plugins, dispatches one subagent per plugin in parallel, consolidates the rows, writes the report.
+- `.claude/agents/`**`plugin-health-checker.md`**: the subagent. Eight read-only checks, runs on `haiku`, returns a structured markdown row per plugin.
+- `.claude/skills/`**`audit-marketplace`**`/SKILL.md`: the orchestrator. Discovers the plugins, dispatches one subagent per plugin in parallel, consolidates the rows, writes the report.
 - Invoke with `/audit-marketplace`. Wall time ~45s for nineteen plugins. Mutations performed: **0**.
 - All five guardrail layers visible: instruction in the skill, permissions in `settings.json`, the orchestrator emits a plan, the subagent enforces "read only", the report file is the definition of done.
 
@@ -36,5 +36,5 @@ That's a single command — `/audit-marketplace` — producing a full audit of n
 
 ## Where to go next
 
-- **[Practice Assignment](/docs/training/claude-code/session-4/practice-assignment)** — fork this shape for one of your own systems
-- **[Worked Example: CA Drift Watch](/docs/training/claude-code/session-4/worked-example-ca-drift-watch)** — the IAM-flavored version of the same orchestration
+- **[Practice Assignment](/docs/training/claude-code/session-4/practice-assignment):** fork this shape for one of your own systems
+- **[Worked Example: CA Drift Watch](/docs/training/claude-code/session-4/worked-example-ca-drift-watch):** the IAM-flavored version of the same orchestration

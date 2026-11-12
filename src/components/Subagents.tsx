@@ -1,4 +1,4 @@
-import { themeVars, brandVars } from '@/lib/theme-colors'
+import { themeVars, brandVars, noteSurface } from '@/lib/theme-colors'
 
 const SATELLITES = [
   { label: 'Explore', cx: 60, cy: 40 },
@@ -19,18 +19,30 @@ const BULLETS: Array<React.ReactNode> = [
 export function Subagents() {
   return (
     <div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
+      <div className="@container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1.5rem 0' }}>
+        {/* Two columns only when this figure is at its full width. Keyed to the
+          figure's own box, not the viewport: beside the sidebar a column
+          would otherwise be too narrow for the drawing's labels. */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
+          className="grid grid-cols-1 @3xl:grid-cols-2"
           style={{
             gap: '1.25rem',
             alignItems: 'center',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {/* On a screen narrower than the drawing's minimum width the
+              region scrolls sideways; the labels never drop under 11px. */}
+          <div className="figure-scroll" tabIndex={0} role="region" aria-label="Subagent diagram">
             <svg
               viewBox="0 0 340 290"
-              style={{ width: '100%', maxWidth: '340px', height: 'auto', display: 'block' }}
+              style={{
+                width: '100%',
+                minWidth: '310px',
+                maxWidth: '340px',
+                height: 'auto',
+                display: 'block',
+                margin: '0 auto',
+              }}
               aria-label="Subagent hub-and-spoke: Main Agent at center, four subagents (Explore, Plan, General, Custom) around it. Dashed pink arrows indicate spawn; solid purple arrows indicate result."
             >
               <defs>
@@ -71,18 +83,18 @@ export function Subagents() {
                 textAnchor="middle"
                 fill="var(--on-accent)"
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={12}
+                fontSize={14}
                 fontWeight={700}
               >
                 Main
               </text>
               <text
                 x={170}
-                y={150}
+                y={152}
                 textAnchor="middle"
                 fill="var(--on-accent)" fillOpacity={0.85}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={10}
+                fontSize={12}
               >
                 Agent
               </text>
@@ -128,16 +140,16 @@ export function Subagents() {
                   <circle
                     cx={sat.cx}
                     cy={sat.cy}
-                    r={32}
+                    r={36}
                     strokeWidth={1.5}
                     style={{ fill: 'var(--sa-satellite-fill)', stroke: 'var(--sa-satellite-stroke)' }}
                   />
                   <text
                     x={sat.cx}
-                    y={sat.cy - 3}
+                    y={sat.cy - 2}
                     textAnchor="middle"
                     fontFamily="var(--font-sans), system-ui, sans-serif"
-                    fontSize={10}
+                    fontSize={12}
                     fontWeight={600}
                     style={{ fill: brandVars.purple.text }}
                   >
@@ -145,10 +157,10 @@ export function Subagents() {
                   </text>
                   <text
                     x={sat.cx}
-                    y={sat.cy + 10}
+                    y={sat.cy + 13}
                     textAnchor="middle"
                     fontFamily="var(--font-sans), system-ui, sans-serif"
-                    fontSize={9}
+                    fontSize={12}
                     style={{ fill: 'var(--sa-subagent-label)' }}
                   >
                     subagent
@@ -170,7 +182,7 @@ export function Subagents() {
                 x={138}
                 y={282}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={9}
+                fontSize={12}
                 style={{ fill: themeVars.textMuted }}
               >
                 spawn
@@ -188,7 +200,7 @@ export function Subagents() {
                 x={223}
                 y={282}
                 fontFamily="var(--font-sans), system-ui, sans-serif"
-                fontSize={9}
+                fontSize={12}
                 style={{ fill: themeVars.textMuted }}
               >
                 result
@@ -258,23 +270,10 @@ export function Subagents() {
 
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--sa-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--sa-callout)', brandVars.purple.accentBar),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: brandVars.purple.accentBar,
-            }}
-          />
           <div style={{ fontSize: '0.9375rem', color: themeVars.text, lineHeight: 1.55 }}>
             <strong style={{ color: brandVars.purple.text }}>
               Think of subagents as junior colleagues you send to research

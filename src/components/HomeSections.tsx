@@ -18,12 +18,12 @@ const sections: Section[] = [
     eyebrow: 'Training',
     title: 'Claude Code',
     description:
-      'Four-session program — sessions, walkthroughs, and notes from team trainings.',
+      'Four weekly sessions, from a first prompt to skills and agents.',
     href: '/docs/training/claude-code',
     primary: true,
   },
   {
-    eyebrow: 'Also available',
+    eyebrow: 'Second track',
     title: 'Codex & ChatGPT',
     description:
       'Three complete sessions: grounded answers, verified code, and reusable engineering workflows.',
@@ -33,21 +33,21 @@ const sections: Section[] = [
     eyebrow: 'Reference',
     title: 'Best Practices',
     description:
-      'Proven patterns and workflows for using AI coding tools in real engineering work.',
+      'Code review, security, and fitting AI tools into the workflow you already have.',
     href: '/docs/best-practices/code-review',
   },
   {
     eyebrow: 'Reference',
     title: 'Configuration',
     description:
-      'Shared configs, prompts, CLAUDE.md examples, and editor setup for the team.',
+      'The CLAUDE.md template, editor setup, and the conventions the team shares.',
     href: '/docs/configuration/claude-md',
   },
   {
     eyebrow: 'Reference',
     title: 'Tips & Tricks',
     description:
-      'Team-contributed knowledge for getting the most out of AI assistants day to day.',
+      'Prompts that work, shortcuts worth memorizing, and the pitfalls that cost people a day.',
     href: '/docs/tips/effective-prompts',
   },
 ]
@@ -55,18 +55,24 @@ const sections: Section[] = [
 export function HomeSections() {
   return (
     <ul className="flex flex-col divide-y divide-zinc-900/10 border-y border-zinc-900/10 dark:divide-white/10 dark:border-white/10">
-      {sections.map((s) => (
+      {sections.map((s, i) => {
+        // Consecutive rows of one kind share a single eyebrow, on the first.
+        const showEyebrow = i === 0 || sections[i - 1].eyebrow !== s.eyebrow
+        return (
         <li key={s.title}>
           <Link
             href={s.href}
             className={clsx(
-              'group flex flex-col gap-1 py-5 transition-colors sm:grid sm:grid-cols-[7rem_1fr_auto] sm:items-baseline sm:gap-x-6 sm:gap-y-0',
+              // Below `sm` the row is two stacked lines with the arrow beside
+              // them; from `sm` it is one line of eyebrow, text, arrow.
+              'group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 py-5 transition-colors sm:grid-cols-[7rem_1fr_auto] sm:items-baseline sm:gap-x-6 sm:gap-y-0',
               focusRing,
             )}
           >
+            {showEyebrow && (
             <span
               className={clsx(
-                'text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
+                'col-start-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
                 s.primary
                   ? 'text-violet-500 dark:text-violet-400'
                   : 'text-violet-500/60 group-hover:text-violet-500 dark:text-violet-400/60 dark:group-hover:text-violet-400',
@@ -74,7 +80,8 @@ export function HomeSections() {
             >
               {s.eyebrow}
             </span>
-            <span className="flex flex-col gap-1">
+            )}
+            <span className="col-start-1 flex flex-col gap-1 sm:col-start-2">
               <span
                 className={clsx(
                   'font-display font-semibold tracking-tight text-zinc-900 transition-colors group-hover:text-violet-500 dark:text-white dark:group-hover:text-violet-400',
@@ -89,13 +96,16 @@ export function HomeSections() {
             </span>
             <span
               aria-hidden="true"
-              className="hidden self-center text-zinc-400 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100 sm:block dark:text-zinc-500"
+              // Shown at rest on a touch screen, where there is no hover to
+              // reveal it; on a pointer device it appears on hover.
+              className="col-start-2 row-span-2 row-start-1 self-center text-zinc-400 transition group-hover:translate-x-0.5 group-hover:opacity-100 sm:col-start-3 sm:row-span-1 [@media(hover:hover)]:opacity-0 dark:text-zinc-500"
             >
               &rarr;
             </span>
           </Link>
         </li>
-      ))}
+        )
+      })}
     </ul>
   )
 }

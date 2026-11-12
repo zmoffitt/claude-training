@@ -11,7 +11,7 @@ export const metadata = {
 
 # Security Considerations
 
-Guidelines for using AI coding tools safely and responsibly.
+What never goes into a prompt, what to check before you commit, and what to do when something leaks.
 
 ## Data handling
 
@@ -58,11 +58,11 @@ Guidelines for using AI coding tools safely and responsibly.
 
 ### Review AI-generated code for common vulnerabilities
 
-- **SQL injection** — Ensure parameterized queries, not string concatenation
-- **XSS** — Verify proper output encoding in templates
-- **Authentication bypass** — Check that auth middleware is properly applied
-- **Path traversal** — Validate file paths against directory escapes
-- **Dependency risks** — Verify that suggested packages are well-maintained and legitimate
+- **SQL injection:** Ensure parameterized queries, not string concatenation
+- **XSS:** Verify proper output encoding in templates
+- **Authentication bypass:** Check that auth middleware is properly applied
+- **Path traversal:** Validate file paths against directory escapes
+- **Dependency risks:** Verify that suggested packages are well-maintained and legitimate
 
 ### AI-specific risks
 
@@ -85,5 +85,5 @@ If you accidentally share sensitive data with an AI tool:
 
 ## Where to go next
 
-- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping)** — least privilege for connectors, MCP servers, and IAM red lines
-- **[Common Pitfalls](/docs/tips/common-pitfalls)** — copy-pasting sensitive data, and what to do instead
+- **[Security & Scoping](/docs/training/claude-code/session-3/security-scoping):** least privilege for connectors, MCP servers, and IAM red lines
+- **[Common Pitfalls](/docs/tips/common-pitfalls):** copy-pasting sensitive data, and what to do instead
