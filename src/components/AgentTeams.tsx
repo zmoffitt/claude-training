@@ -1,7 +1,7 @@
 'use client'
 
 import { useIsSm } from '@/lib/useIsSm'
-import { themeVars, brandVars } from '@/lib/theme-colors'
+import { themeVars, brandVars, noteSurface } from '@/lib/theme-colors'
 
 export function AgentTeams() {
   const isSm = useIsSm()
@@ -408,23 +408,10 @@ export function AgentTeams() {
         {/* Bottom callout */}
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--at-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--at-callout)', brandVars.blue.accentBar),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: brandVars.blue.accentBar,
-            }}
-          />
           <div style={{ fontSize: '0.9375rem', color: themeVars.text, lineHeight: 1.55 }}>
             <strong style={{ color: brandVars.blue.text }}>
               Subagents when only the result matters.

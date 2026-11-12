@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 import { usePagePath } from '@/lib/usePagePath'
 
 import { Button } from '@/components/Button'
@@ -66,6 +68,7 @@ function PageLink({
           aria-keyshortcuts={previous ? 'ArrowLeft' : 'ArrowRight'}
           variant={previous ? 'secondary' : 'filled'}
           arrow={previous ? 'left' : 'right'}
+          className="max-lg:min-h-11 max-lg:items-center max-lg:px-4"
         >
           {shownLabel}
         </Button>
@@ -85,12 +88,16 @@ function PageLink({
           {page.group}
         </span>
       )}
-      <span
+      {/* The title reads as the link, so it is one. The button above carries
+          the accessible name and the tab stop; this copy is for pointers. */}
+      <Link
+        href={page.href}
         aria-hidden="true"
-        className="text-base font-semibold text-zinc-900 dark:text-white"
+        tabIndex={-1}
+        className="text-base font-semibold text-zinc-900 hover:text-violet-500 max-lg:py-1 dark:text-white dark:hover:text-violet-400"
       >
         {page.title}
-      </span>
+      </Link>
     </>
   )
 }

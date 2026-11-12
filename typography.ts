@@ -132,7 +132,10 @@ export default {
           'blockquote p:first-of-type::before': { content: 'open-quote' },
           'blockquote p:last-of-type::after': { content: 'close-quote' },
 
-          // Headings
+          // Headings. The steps down from the title are each about a
+          // quarter larger than the one below: body 1rem, H3 1.25rem, H2
+          // 1.625rem, H1 2.5rem. H2 and H3 are fluid like H1, so on a phone
+          // they come to 1.375rem and 1.125rem under a 1.875rem title.
           h1: {
             fontFamily: 'var(--font-display)',
             letterSpacing: '-0.02em',
@@ -144,17 +147,21 @@ export default {
           },
           h2: {
             fontFamily: 'var(--font-display)',
-            letterSpacing: '-0.01em',
+            letterSpacing: '-0.015em',
             color: 'var(--tw-prose-headings)',
             fontWeight: '600',
-            fontSize: '1.375rem',
-            lineHeight: '1.3',
+            fontSize: 'clamp(1.375rem, 1.2rem + 0.75vw, 1.625rem)',
+            lineHeight: '1.25',
             marginTop: theme('spacing.16'),
             marginBottom: theme('spacing.2'),
           },
+          // H3 stays in the body face, at the size the card titles use, so a
+          // sub-section reads as a heading and not as a bold lead-in. Card
+          // titles are <h3> too and set their own size; they keep the line
+          // height from here.
           h3: {
             color: 'var(--tw-prose-headings)',
-            fontSize: theme('fontSize.base')[0],
+            fontSize: 'clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem)',
             ...theme('fontSize.base')[1],
             fontWeight: '600',
             marginTop: theme('spacing.10'),
@@ -246,7 +253,9 @@ export default {
             paddingLeft: theme('padding[1.5]'),
             boxShadow: 'inset 0 0 0 1px var(--tw-prose-code-ring)',
             backgroundColor: 'var(--tw-prose-code-bg)',
-            fontSize: theme('fontSize.2xs')[0],
+            // Relative to the text it sits in, so code keeps its proportion
+            // in the lead, a table cell, and a note alike.
+            fontSize: '0.85em',
           },
           'pre code': {
             color: 'inherit',
@@ -260,11 +269,11 @@ export default {
             color: 'inherit',
           },
           'h2 code': {
-            fontSize: theme('fontSize.base')[0],
+            fontSize: '0.8em',
             fontWeight: 'inherit',
           },
           'h3 code': {
-            fontSize: theme('fontSize.sm')[0],
+            fontSize: '0.85em',
             fontWeight: 'inherit',
           },
 

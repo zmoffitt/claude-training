@@ -23,7 +23,7 @@ export default function Error({
         </p>
       )}
       <div className="flex gap-3">
-        <Button onClick={reset}>Try again</Button>
+        <Button onClick={reset} variant="filled">Try again</Button>
         <Button href="/" variant="secondary">
           Go home
         </Button>

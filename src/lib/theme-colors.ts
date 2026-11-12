@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 /**
  * CSS-var-backed theme tokens. Values resolve via custom properties declared
  * in `src/styles/tailwind.css` under `:root` and `.dark`. Because `.dark` is
@@ -32,6 +34,20 @@ export const brandVars = {
 } as const
 
 export type BrandKey = keyof typeof brandVars
+
+/**
+ * The surface of a tinted note: `Callout`, and the takeaway boxes inside the
+ * diagram components. It is the card shape on a tint, with the card hairline
+ * drawn in the note's hue on all four sides. A note never carries an accent
+ * on one edge. Without a hue the hairline is the plain card hairline.
+ */
+export function noteSurface(tint: string, hue?: string): CSSProperties {
+  return {
+    backgroundColor: tint,
+    border: `1px solid ${hue ? `color-mix(in oklch, ${hue} 24%, transparent)` : 'var(--surface-border)'}`,
+    borderRadius: 'var(--radius-card)',
+  }
+}
 
 /**
  * Maps any accent/brand hex color used in MDX page props to the closest

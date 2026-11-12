@@ -1,11 +1,16 @@
 import { isValidElement, type ReactNode } from 'react'
 import type { MDXComponents } from 'mdx/types'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/CodeBlock'
+import { InlineTableOfContents } from '@/components/TableOfContents'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
+    // `scripts/remark-page-outline.mjs` adds this element to every page,
+    // below the title and tagline.
+    InlineTableOfContents,
     a({ href, children, ...props }) {
       // Next Link applies the configured deployment base path to docs links.
       if (href?.startsWith('/') && !href.startsWith('//')) {
@@ -13,11 +18,22 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       }
       return <a href={href} {...props}>{children}</a>
     },
+    // Inline code only: `pre` below reads a fence's <code> element without
+    // rendering it. A short piece of inline code stays on one line, so a
+    // command such as `/model fable` is not split in two on a phone; longer
+    // code may still wrap.
+    code({ children, className, ...props }) {
+      const short = typeof children === 'string' && children.length <= 28
+      return (
+        <code className={clsx(className, short && 'whitespace-nowrap')} {...props}>
+          {children}
+        </code>
+      )
+    },
     // Every fence compiles to <pre><code>, and only a fence that names a
     // language puts a `language-*` class on the code element. Routing from
     // the <pre> sends all of them to CodeBlock, which labels an untagged
-    // fence as plain text. Inline code, a <code> with no <pre> around it, has
-    // no override and renders as the plain element.
+    // fence as plain text.
     pre({ children }) {
       if (!isValidElement<{ className?: string; children?: ReactNode }>(children)) {
         return <pre>{children}</pre>

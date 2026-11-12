@@ -1,4 +1,4 @@
-import { themeVars, brandVars, type BrandKey } from '@/lib/theme-colors'
+import { themeVars, brandVars, type BrandKey, noteSurface } from '@/lib/theme-colors'
 
 interface BarSegment {
   brand: BrandKey | 'remaining'
@@ -142,23 +142,10 @@ export function ContextSession() {
 
           <div
             style={{
-              position: 'relative',
-              backgroundColor: 'var(--cs-context-rot)',
-              borderRadius: '6px',
-              padding: '0.7rem 0.95rem 0.7rem 1.15rem',
-              overflow: 'hidden',
+              ...noteSurface('var(--cs-context-rot)', brandVars.pink.accentBar),
+              padding: '0.7rem 0.95rem',
             }}
           >
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '4px',
-                backgroundColor: brandVars.pink.accentBar,
-              }}
-            />
             <span style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.5 }}>
               <strong style={{ color: brandVars.pink.text }}>Context rot:</strong>{' '}
               as context fills, attention spreads — older, irrelevant content
@@ -218,24 +205,11 @@ export function ContextSession() {
 
           <div
             style={{
-              position: 'relative',
-              backgroundColor: 'var(--cs-top-habit)',
-              borderRadius: '6px',
-              padding: '0.7rem 0.95rem 0.7rem 1.15rem',
-              overflow: 'hidden',
+              ...noteSurface('var(--cs-top-habit)', brandVars.blue.accentBar),
+              padding: '0.7rem 0.95rem',
               marginTop: '0.25rem',
             }}
           >
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                bottom: 0,
-                width: '4px',
-                backgroundColor: brandVars.blue.accentBar,
-              }}
-            />
             <span style={{ fontSize: '0.875rem', color: themeVars.text, lineHeight: 1.5 }}>
               <strong style={{ color: brandVars.blue.text }}>Top habit:</strong>{' '}
               rewind instead of correcting. &ldquo;That didn&rsquo;t work, try

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { themeVars } from '@/lib/theme-colors'
+import { themeVars, noteSurface } from '@/lib/theme-colors'
 
 type CalloutVariant = 'error' | 'warning' | 'info' | 'success'
 type CalloutAlign = 'left' | 'center' | 'right'
@@ -75,13 +75,11 @@ export function Callout({
       role="note"
       aria-label={ariaLabel}
       className={clsx(
-        'flex w-full max-w-2xl gap-3 rounded-lg px-5 py-4 lg:max-w-3xl',
+        'flex w-full max-w-2xl gap-3 px-5 py-4 lg:max-w-3xl',
         alignClasses[align],
       )}
-      style={{
-        borderLeft: `4px solid ${v.fg}`,
-        backgroundColor: v.bg,
-      }}
+      // The tint, the icon, and the title carry the variant.
+      style={noteSurface(v.bg, v.fg)}
     >
       <div
         aria-hidden="true"

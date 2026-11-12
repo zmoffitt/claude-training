@@ -1,4 +1,4 @@
-import { themeVars, brandVars } from '@/lib/theme-colors'
+import { themeVars, brandVars, noteSurface } from '@/lib/theme-colors'
 
 const SATELLITES = [
   { label: 'Explore', cx: 60, cy: 40 },
@@ -258,23 +258,10 @@ export function Subagents() {
 
         <div
           style={{
-            position: 'relative',
-            backgroundColor: 'var(--sa-callout)',
-            borderRadius: '6px',
-            padding: '0.875rem 1.25rem 0.875rem 1.5rem',
-            overflow: 'hidden',
+            ...noteSurface('var(--sa-callout)', brandVars.purple.accentBar),
+            padding: '0.875rem 1.25rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: '5px',
-              backgroundColor: brandVars.purple.accentBar,
-            }}
-          />
           <div style={{ fontSize: '0.9375rem', color: themeVars.text, lineHeight: 1.55 }}>
             <strong style={{ color: brandVars.purple.text }}>
               Think of subagents as junior colleagues you send to research

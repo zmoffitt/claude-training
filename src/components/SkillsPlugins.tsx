@@ -1,4 +1,4 @@
-import { themeVars, brandVars, type BrandKey } from '@/lib/theme-colors'
+import { themeVars, brandVars, type BrandKey, noteSurface } from '@/lib/theme-colors'
 
 const codeStyle: React.CSSProperties = {
   fontFamily: '"SF Mono", Menlo, Consolas, monospace',
@@ -190,23 +190,10 @@ export function SkillsPlugins() {
               <div
                 key={c.title}
                 style={{
-                  position: 'relative',
-                  backgroundColor: `var(--sp-callout-${c.brand})`,
-                  borderRadius: '6px',
-                  padding: '0.85rem 1rem 0.85rem 1.2rem',
-                  overflow: 'hidden',
+                  ...noteSurface(`var(--sp-callout-${c.brand})`, b.accentBar),
+                  padding: '0.85rem 1rem',
                 }}
               >
-                <div
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: '4px',
-                    backgroundColor: b.accentBar,
-                  }}
-                />
                 <div
                   style={{
                     fontSize: '0.875rem',

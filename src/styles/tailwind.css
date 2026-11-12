@@ -492,9 +492,6 @@
     /* ProjectConfig, PermissionModes, PermissionModel */
     --pc-callout: var(--tint-neutral);
     --pm-modes-callout: var(--tint-neutral);
-    --pm-model-row: var(--tint-neutral);
-    --pm-model-purple-card: var(--tint-purple);
-    --pm-model-pink-card: var(--tint-red);
   }
 
   /* ── Dark theme: Vercel ──
@@ -685,7 +682,7 @@
 :root {
   --measure: 38rem;
 }
-html .prose > :is(p, ul, ol, blockquote) {
+html .prose > :is(p, ul, ol, blockquote, .page-outline) {
   max-width: var(--measure);
   /* Below lg the column is centered: keep the text on the column's left edge
      instead of centering it inside the column. */
@@ -693,7 +690,7 @@ html .prose > :is(p, ul, ol, blockquote) {
   margin-right: auto;
 }
 @media (min-width: 1024px) {
-  html .prose > :is(p, ul, ol, blockquote) {
+  html .prose > :is(p, ul, ol, blockquote, .page-outline) {
     margin-left: calc(50% - min(50%, var(--container-lg)));
   }
 }

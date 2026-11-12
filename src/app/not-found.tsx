@@ -67,7 +67,7 @@ export default function NotFound() {
         Sessions 4 (agents) and 5 (capstone) are in progress and not linked yet.
       </p>
       <div className="flex gap-3">
-        <Button href="/">Go home</Button>
+        <Button href="/" variant="filled">Go home</Button>
         <Button href="/docs" variant="secondary">
           Browse docs
         </Button>

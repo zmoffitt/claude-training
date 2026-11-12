@@ -66,7 +66,9 @@ function NavLink({
       href={href}
       aria-current={active ? 'page' : undefined}
       className={clsx(
-        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition',
+        // The drawer (below `lg`) is used by touch, so its rows are 44px tall;
+        // the desktop sidebar keeps the dense rows.
+        'flex min-w-0 flex-1 justify-between gap-2 rounded py-1.5 pr-3 text-sm transition max-lg:min-h-11 max-lg:items-center',
         isAnchorLink ? 'pl-7' : 'pl-4',
         active
           ? 'text-zinc-900 dark:text-white'
@@ -161,7 +163,7 @@ function NestedNavItem({
           aria-controls={childListId}
           aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${link.title}`}
           className={clsx(
-            'flex shrink-0 items-center self-stretch rounded pr-3 pl-2',
+            'flex shrink-0 items-center self-stretch rounded pr-3 pl-2 max-lg:w-11 max-lg:justify-center max-lg:px-0',
             focusRing,
           )}
         >
@@ -281,7 +283,7 @@ function NavigationGroup({
   }, [pathname, isActiveGroup, measure])
 
   return (
-    <li className={clsx('relative mt-6', className)}>
+    <li className={clsx('relative mt-6 max-lg:mt-2', className)}>
       <motion.h2
         layout="position"
         className="font-semibold text-zinc-900 dark:text-white"
@@ -293,7 +295,7 @@ function NavigationGroup({
             onClick={handleTitleClick}
             data-transition="none"
             className={clsx(
-              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 dark:hover:text-violet-400',
+              'flex min-w-0 flex-1 items-center gap-2 rounded text-left select-none hover:text-violet-500 max-lg:min-h-11 dark:hover:text-violet-400',
               focusRing,
             )}
           >
@@ -306,7 +308,7 @@ function NavigationGroup({
             aria-expanded={isOpen}
             aria-controls={groupContentId}
             aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.title}`}
-            className={clsx('flex shrink-0 cursor-pointer items-center rounded py-1 pr-3 pl-2', focusRing)}
+            className={clsx('flex shrink-0 cursor-pointer items-center rounded py-1 pr-3 pl-2 max-lg:h-11 max-lg:w-11 max-lg:justify-center max-lg:p-0', focusRing)}
           >
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
@@ -331,7 +333,7 @@ function NavigationGroup({
           <motion.div
             id={groupContentId}
             ref={containerRef}
-            className="relative mt-3 pl-2"
+            className="relative mt-3 pl-2 max-lg:mt-1"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
