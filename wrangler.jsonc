@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "claude-training",
   "compatibility_date": "2026-11-01",
+  "previews": {},
   "assets": {
     "directory": "./out",
     "html_handling": "force-trailing-slash",
