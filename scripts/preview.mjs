@@ -1,8 +1,7 @@
-// Serves the static export in out/ under the configured base path, the way
-// GitHub Pages does. A plain static server at the root can't do this: every
-// asset URL in the export is prefixed with the base path, so they would 404.
+// Serves the static export in out/ under the configured base path (none
+// today), with out/404.html for misses, the way Cloudflare serves it.
 //
-//   pnpm start            → http://localhost:3000/claude-training/
+//   pnpm start            → http://localhost:3000/
 //   PORT=4000 pnpm start  → another port
 
 import { createReadStream, existsSync, statSync } from 'node:fs'
@@ -114,7 +113,7 @@ const server = createServer((req, res) => {
     return notFound(req, res)
   }
 
-  // Redirects keep the query string, as GitHub Pages does, and are built from
+  // Redirects keep the query string, as Cloudflare does, and are built from
   // the path as requested so an encoded slash can't turn into `//host`.
   if (pathname === '/' && basePath) return redirect(res, 302, `${basePath}/${url.search}`)
   if (pathname === basePath) return redirect(res, 301, `${basePath}/${url.search}`)
