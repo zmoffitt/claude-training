@@ -31,7 +31,9 @@ Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScri
 
 **Static export only** — `next.config.mjs` sets `output: 'export'`, `trailingSlash: true` (so GitHub Pages resolves both `/path` and `/path/`), and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
 
-**Deployed via GitHub Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and uploads `out/` as a Pages artifact on push to `main`. The current `next.config.mjs` sets `basePath` and `assetPrefix` to `/claude-training` (the configured Pages URL is `https://zmoffitt.github.io/claude-training/`), and `NEXT_PUBLIC_BASE_PATH` is exposed for runtime asset paths (e.g. the Pagefind loader in `SearchDialog.tsx`). A `.nojekyll` file in `public/` prevents Jekyll from stripping `_next/` directories.
+**Deployed via GitHub Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and uploads `out/` as a Pages artifact on push to `main`. The current `next.config.mjs` sets `basePath` and `assetPrefix` to `/claude-training` unless `BASE_PATH` is set (the configured Pages URL is `https://zmoffitt.github.io/claude-training/`), and `NEXT_PUBLIC_BASE_PATH` is exposed for runtime asset paths (e.g. the Pagefind loader in `SearchDialog.tsx`). A `.nojekyll` file in `public/` prevents Jekyll from stripping `_next/` directories.
+
+**Deployed to Cloudflare** — `deploy-cloudflare.yml` runs on the same pushes: it builds with `BASE_PATH=''`, so `next.config.mjs` drops the base path and the site is served at the root, then runs `wrangler deploy`, which uploads `out/` as Workers static assets (`wrangler.jsonc`: trailing slashes forced, misses served `404.html`). It reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
 
 **Path alias** — `@/*` maps to `./src/*` (configured in `tsconfig.json`). TypeScript strict mode is **off**.
 

@@ -22,7 +22,9 @@ const withMDX = nextMDX({
   },
 })
 
-const basePath = '/claude-training'
+// GitHub Pages serves the site under the repo name; the Cloudflare workflow
+// sets BASE_PATH to an empty string to serve it at the root.
+const basePath = process.env.BASE_PATH ?? '/claude-training'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

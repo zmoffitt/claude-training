@@ -8,3 +8,4 @@ out/
 .pnpm-store/
 next-env.d.ts
 .claude/
+.wrangler/
