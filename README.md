@@ -2,7 +2,6 @@
 
 A documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools. Claude is the primary training program; Codex and ChatGPT are a secondary track.
 
-Live site: <https://zmoffitt.github.io/claude-training/>
 
 ## Purpose
 
@@ -52,7 +51,7 @@ pnpm install
 pnpm dev
 ```
 
-The site is configured with the base path `/claude-training`, so the dev server answers at <http://localhost:3000/claude-training/>. The bare `http://localhost:3000/` is a 404.
+The dev server answers at <http://localhost:3000/>.
 
 ## Build & Deploy
 
@@ -62,16 +61,16 @@ The site is a fully static export — no server-side rendering.
 # Build the static site into out/, then index it with Pagefind
 pnpm build
 
-# Serve the build at http://localhost:3000/claude-training/
+# Serve the build at http://localhost:3000/
 pnpm start
 
 # Remove .next, out, and build caches
 pnpm clean
 ```
 
-Pushing to `main` runs `.github/workflows/deploy-pages.yml`, which builds the site and publishes `out/` to GitHub Pages.
+Pushing to `main` runs `.github/workflows/deploy-cloudflare.yml`, which builds the site and runs `wrangler deploy` to publish `out/` to Cloudflare as Workers static assets. It needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
 
-`pnpm start` runs `scripts/preview.mjs`, a small static server that mounts `out/` under the same base path GitHub Pages uses. Set `PORT` to use a port other than 3000.
+`pnpm start` runs `scripts/preview.mjs`, a small static server that serves `out/` with its `404.html`, as Cloudflare does. Set `PORT` to use a port other than 3000.
 
 Search runs on the Pagefind index, which only exists after a build. In `pnpm dev` the search dialog falls back to matching page titles; `pnpm start` serves the real index.
 
@@ -79,7 +78,7 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 
 ```
 .
-├── .github/workflows/     # GitHub Pages deploy (deploy-pages.yml)
+├── .github/workflows/     # Cloudflare deploy (deploy-cloudflare.yml)
 ├── src/
 │   ├── app/
 │   │   ├── docs/          # MDX documentation pages (file-based routing)
@@ -93,11 +92,12 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 │   └── styles/            # Tailwind CSS and design tokens
 ├── mdx-components.tsx     # Maps MDX elements to components (code blocks, tables, links)
 ├── typography.ts          # Prose styles, loaded by Tailwind via @config
-├── next.config.mjs        # Static export, base path, MDX plugins
+├── next.config.mjs        # Static export, MDX plugins
 ├── scripts/
 │   ├── preview.mjs        # Static server behind `pnpm start`
 │   └── color-audit.py     # Contrast report for the main text tokens
-└── public/                # Static files (.nojekyll)
+├── wrangler.jsonc         # Cloudflare static assets config
+└── public/                # Static files (favicons)
 ```
 
 ## Adding Documentation
@@ -106,7 +106,7 @@ Search runs on the Pagefind index, which only exists after a build. In `pnpm dev
 2. Give it a title with `export const metadata = { title: "Page Title" };` (the browser tab title)
 3. Add a corresponding entry to the `navigation` array in `src/components/Navigation.tsx`
 
-MDX pages support GitHub Flavored Markdown (tables, strikethrough, task lists) and auto-generate heading anchor IDs. Write internal links as `/docs/...` without the `/claude-training` prefix; `next/link` adds the base path.
+MDX pages support GitHub Flavored Markdown (tables, strikethrough, task lists) and auto-generate heading anchor IDs. Write internal links as `/docs/...`.
 
 ### Page conventions
 

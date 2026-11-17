@@ -13,15 +13,15 @@ Node.js >= 20.9 (the Next.js 16 minimum; CI builds on Node 22), pnpm >= 10 (inst
 ## Commands
 
 ```bash
-pnpm dev        # Dev server at http://localhost:3000/claude-training/ (`/` is a 404 because of basePath)
+pnpm dev        # Dev server at http://localhost:3000/
 pnpm build      # Static export to out/, then Pagefind indexes it into out/pagefind/
-pnpm start      # Serve out/ at http://localhost:3000/claude-training/ (`scripts/preview.mjs`, not `next start`)
+pnpm start      # Serve out/ at http://localhost:3000/ (`scripts/preview.mjs`, not `next start`)
 pnpm clean      # Remove .next, out, .wrangler, and tsconfig.tsbuildinfo
 ```
 
 There are no lint or test commands configured. `pnpm build` is the only check. `python3 -I scripts/color-audit.py` reports contrast for a fixed list of text tokens (session hues, brand text, body and muted text, info and warning callout text) on the page, card, and five tint surfaces in both themes. It flags a pair under 4.5:1 with `~` and under 3:1 with `!` and always exits 0; a token or tint added later is not covered until it is added to the script.
 
-**`pnpm start`** — `scripts/preview.mjs` is a small static server with no dependencies of its own that mounts `out/` under the `basePath` it imports from `next.config.mjs`, the way GitHub Pages serves it. It needs a prior `pnpm build`, serves `out/404.html` for misses, and takes `PORT` to change the port. A generic static server at the root (`serve out`) does not work: every asset URL in the export carries the base path.
+**`pnpm start`** — `scripts/preview.mjs` is a small static server with no dependencies of its own that serves `out/` the way Cloudflare does: `out/404.html` for misses, under the `basePath` it imports from `next.config.mjs` if one is ever set again. It needs a prior `pnpm build` and takes `PORT` to change the port.
 
 ## Tech Stack
 
@@ -29,11 +29,9 @@ Next.js 16 (static export via `output: 'export'`, Turbopack), React 19, TypeScri
 
 ## Architecture
 
-**Static export only** — `next.config.mjs` sets `output: 'export'`, `trailingSlash: true` (so GitHub Pages resolves both `/path` and `/path/`), and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
+**Static export only** — `next.config.mjs` sets `output: 'export'`, `trailingSlash: true` (each page is `path/index.html`; `wrangler.jsonc` forces the slash to match), and `images: { unoptimized: true }`. No server-side features (no API routes, no SSR, no ISR). The build outputs to `out/`.
 
-**Deployed via GitHub Pages** — A GitHub Actions workflow (`deploy-pages.yml`) builds the site and uploads `out/` as a Pages artifact on push to `main`. The current `next.config.mjs` sets `basePath` and `assetPrefix` to `/claude-training` unless `BASE_PATH` is set (the configured Pages URL is `https://zmoffitt.github.io/claude-training/`), and `NEXT_PUBLIC_BASE_PATH` is exposed for runtime asset paths (e.g. the Pagefind loader in `SearchDialog.tsx`). A `.nojekyll` file in `public/` prevents Jekyll from stripping `_next/` directories.
-
-**Deployed to Cloudflare** — `deploy-cloudflare.yml` runs on the same pushes: it builds with `BASE_PATH=''`, so `next.config.mjs` drops the base path and the site is served at the root, then runs `wrangler deploy`, which uploads `out/` as Workers static assets (`wrangler.jsonc`: trailing slashes forced, misses served `404.html`). It reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets.
+**Deployed to Cloudflare** — `deploy-cloudflare.yml` runs on push to `main`: it builds the site and runs `wrangler deploy`, which uploads `out/` as Workers static assets (`wrangler.jsonc`: trailing slashes forced, misses served `404.html`). It reads the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets. The site is served at the root with no `basePath`; `NEXT_PUBLIC_BASE_PATH` is read at runtime (the Pagefind loader in `SearchDialog.tsx`, the favicon links, page transitions) and is empty unless `next.config.mjs` sets one.
 
 **Path alias** — `@/*` maps to `./src/*` (configured in `tsconfig.json`). TypeScript strict mode is **off**.
 
