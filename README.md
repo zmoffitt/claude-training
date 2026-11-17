@@ -2,6 +2,7 @@
 
 A documentation site for Zachary Moffitt's Cloud AI Training program — training materials, best practices, and configuration guides for AI coding tools. Claude is the primary training program; Codex and ChatGPT are a secondary track.
 
+Live site: <https://claude.moffitt.dev/>
 
 ## Purpose
 
