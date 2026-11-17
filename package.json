@@ -38,7 +38,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint-config-next": "16.4.6",
     "pagefind": "^1.6.0",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "wrangler": "^4.164.0"
   },
   "pnpm": {
